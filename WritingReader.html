@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 英语智能朗读助手 - 增强高亮版</title>
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --primary-hover: #357abd;
+            --bg-color: #f5f7fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --highlight-bg: #ffeb3b;
+            --highlight-color: #000000;
+            --border-radius: 8px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 25px; }
+
+        .notice {
+            background-color: #eef2ff;
+            color: #4f46e5;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid #c7d2fe;
+        }
+
+        #error-banner {
+            display: none;
+            background-color: #fee2e2;
+            color: #b91c1c;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid #f87171;
+        }
+
+        .controls-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .control-group { display: flex; flex-wrap: wrap; gap: 15px; align-items: center; }
+        .control-item { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 200px; }
+        select, input[type="range"] { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+
+        .buttons { display: flex; gap: 10px; justify-content: center; width: 100%; }
+        button {
+            padding: 10px 20px; border: none; border-radius: 4px;
+            background-color: var(--primary-color); color: white;
+            cursor: pointer; font-size: 14px; font-weight: 600;
+            transition: background-color 0.2s; display: flex; align-items: center; gap: 5px;
+        }
+        button:hover { background-color: var(--primary-hover); }
+        button:disabled { background-color: #ccc; cursor: not-allowed; }
+
+        /* 进度条 */
+        .progress-container {
+            width: 100%; height: 8px; background-color: #e5e7eb;
+            border-radius: 4px; cursor: pointer; position: relative; overflow: hidden;
+        }
+        #progress-bar {
+            height: 100%; width: 0%; background-color: var(--primary-color);
+            transition: width 0.2s ease; pointer-events: none;
+        }
+
+        /* 文本区域与高亮 */
+        .text-card {
+            background: var(--card-bg); padding: 30px; border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); font-size: 18px; line-height: 1.8;
+            white-space: pre-wrap; position: relative;
+        }
+
+        .word {
+            transition: background-color 0.15s ease, box-shadow 0.15s ease;
+            border-radius: 3px; cursor: pointer;
+            border-bottom: 1px solid transparent;
+        }
+        .word:hover { border-bottom: 1px dashed var(--primary-color); }
+        
+        /* 强化高亮效果 */
+        .word.highlight {
+            background-color: var(--highlight-bg);
+            color: var(--highlight-color);
+            box-shadow: 0 0 0 3px var(--highlight-bg);
+            font-weight: 500;
+        }
+
+        #selection-tooltip {
+            display: none; position: absolute; background: #333; color: #fff;
+            padding: 5px 10px; border-radius: 4px; font-size: 12px;
+            cursor: pointer; z-index: 100; transform: translate(-50%, -100%);
+            margin-top: -10px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        #selection-tooltip::after {
+            content: ''; position: absolute; top: 100%; left: 50%;
+            margin-left: -5px; border-width: 5px; border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        @media (max-width: 600px) {
+            .buttons { flex-direction: column; }
+            .text-card { font-size: 16px; padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>AI 英语智能朗读助手</h1>
+    </header>
+
+    <div class="notice">
+        💡 提示：为了保证“单词实时高亮”功能完美运行，系统已为您优先选择带有 <b>(本地)</b> 标识的语音。
+    </div>
+
+    <div id="error-banner">⚠️ 您的浏览器不支持或禁用了 Web Speech API。</div>
+
+    <div class="controls-card">
+        <div class="control-group">
+            <div class="control-item">
+                <label for="voiceSelect">语音:</label>
+                <select id="voiceSelect"></select>
+            </div>
+            <div class="control-item">
+                <label for="rateSelect">语速 (<span id="rateValue">1.0</span>x):</label>
+                <input type="range" id="rateSelect" min="0.5" max="2.0" step="0.1" value="1.0">
+            </div>
+        </div>
+
+        <div class="progress-container" id="progressContainer" title="点击跳转进度">
+            <div id="progress-bar"></div>
+        </div>
+
+        <div class="buttons">
+            <button id="btnPlay">▶ 播放 / 恢复</button>
+            <button id="btnPause" disabled>⏸ 暂停</button>
+            <button id="btnStop" disabled>⏹ 停止</button>
+        </div>
+    </div>
+
+    <div class="text-card">
+        <div id="selection-tooltip">朗读选中文字</div>
+        <div id="textContent"></div>
+    </div>
+</div>
+
+<script>
+    const rawText = `As artificial intelligence rapidly advances, concerns about job displacement have grown significantly. Some fear widespread unemployment, while others believe AI will create new opportunities and drive industrial upgrading. In my opinion, AI should be viewed as a transformative force that reshapes work rather than simply eliminates it.\n\nOn the one hand, AI does automate certain routine tasks, potentially displacing some workers in traditional industries. For example, manufacturing robots and automated customer service systems have already replaced many repetitive positions. On the other hand, it generates demand for new skills and creates emerging job categories in fields like AI development, data analysis, and human-machine collaboration. Moreover, industries such as healthcare and education are increasingly relying on AI to enhance, rather than replace, human expertise.\n\nTherefore, the key lies in continuous learning and adaptation. Governments and businesses also share the responsibility of providing retraining programs to support affected workers. By embracing skill development and maintaining flexibility, workers can turn this challenge into an opportunity for career growth in the AI era.`;
+
+    const synth = window.speechSynthesis;
+    let utterance = null;
+    let voices = [];
+    let isPlaying = false;
+    let currentGlobalStartIndex = 0; 
+    let isReadingSelection = false;  
+    
+    // 专门用于存放单词 DOM 和其起始索引的数组，解决引擎匹配偏移问题
+    let wordElements = []; 
+
+    const textContainer = document.getElementById('textContent');
+    const voiceSelect = document.getElementById('voiceSelect');
+    const rateSelect = document.getElementById('rateSelect');
+    const rateValue = document.getElementById('rateValue');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progress-bar');
+    const btnPlay = document.getElementById('btnPlay');
+    const btnPause = document.getElementById('btnPause');
+    const btnStop = document.getElementById('btnStop');
+    const selectionTooltip = document.getElementById('selection-tooltip');
+
+    function init() {
+        if (!synth) {
+            document.getElementById('error-banner').style.display = 'block';
+            return;
+        }
+        renderText();
+        populateVoices();
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = populateVoices;
+        }
+        setupEventListeners();
+    }
+
+    // --- 1. 渲染文本 & 缓存节点字典 (核心修正) ---
+    function renderText() {
+        let html = '';
+        const regex = /([a-zA-Z0-9'-]+)|([^a-zA-Z0-9'-]+)/g;
+        let match;
+        let charIndex = 0;
+        let wordCount = 0;
+
+        while ((match = regex.exec(rawText)) !== null) {
+            if (match[1]) {
+                html += `<span class="word" id="word-${wordCount}" data-start="${charIndex}" onclick="jumpToWord(${charIndex})">${match[1]}</span>`;
+                wordCount++;
+            } else {
+                html += match[2];
+            }
+            charIndex += match[0].length;
+        }
+        textContainer.innerHTML = html;
+
+        // 构建快速查询字典
+        wordElements = [];
+        for (let i = 0; i < wordCount; i++) {
+            const el = document.getElementById(`word-${i}`);
+            wordElements.push({
+                start: parseInt(el.dataset.start), // 绝对位置
+                el: el
+            });
+        }
+    }
+
+    // --- 2. 加载语音 & 规避云端语音Bug ---
+    function populateVoices() {
+        voices = synth.getVoices().filter(v => v.lang.startsWith('en'));
+        if (voices.length === 0) return;
+
+        voiceSelect.innerHTML = '';
+        let bestDefaultIndex = 0;
+
+        voices.forEach((voice, index) => {
+            const option = document.createElement('option');
+            // 标注本地/云端，云端语音通常不支持高亮
+            const typeLabel = voice.localService ? '(本地 - 支持高亮)' : '(云端)';
+            option.textContent = `${voice.name} ${typeLabel}`;
+            option.value = index;
+
+            // 优先选择本地的美式或英式语音
+            if (voice.localService && (voice.lang === 'en-US' || voice.lang === 'en-GB') && bestDefaultIndex === 0) {
+                bestDefaultIndex = index;
+            }
+            voiceSelect.appendChild(option);
+        });
+        voiceSelect.value = bestDefaultIndex;
+    }
+
+    // --- 3. 播放与智能同步算法 ---
+    function playText(startIndex = 0, textToRead = null) {
+        synth.cancel(); 
+        
+        currentGlobalStartIndex = startIndex;
+        const text = textToRead || rawText.substring(startIndex);
+        if (!text.trim()) return;
+
+        utterance = new SpeechSynthesisUtterance(text);
+        
+        const selectedVoice = voices[voiceSelect.value];
+        if (selectedVoice) utterance.voice = selectedVoice;
+        utterance.rate = parseFloat(rateSelect.value);
+
+        // 核心高亮触发器
+        utterance.onboundary = (event) => {
+            if (event.name !== 'word') return;
+            // 计算当前读到的字符在原文中的预估绝对位置
+            const targetGlobalIndex = currentGlobalStartIndex + event.charIndex;
+            
+            if (!isReadingSelection) {
+                highlightWord(targetGlobalIndex);
+                updateProgressUI(targetGlobalIndex);
+            }
+        };
+
+        utterance.onend = () => {
+            isPlaying = false;
+            updateButtons();
+            clearHighlight();
+            if(!isReadingSelection) updateProgressUI(rawText.length);
+        };
+
+        synth.speak(utterance);
+        isPlaying = true;
+        updateButtons();
+    }
+
+    // --- 4. 最新"最近邻"高亮算法，彻底解决错位 ---
+    function highlightWord(targetIndex) {
+        clearHighlight();
+        
+        let closestWord = null;
+        let minDiff = Infinity;
+
+        // 使用“最小绝对差值”匹配，防止语音引擎跳过标点符号导致 charIndex 对不上
+        for (let i = 0; i < wordElements.length; i++) {
+            const diff = Math.abs(wordElements[i].start - targetIndex);
+            if (diff < minDiff) {
+                minDiff = diff;
+                closestWord = wordElements[i].el;
+            }
+        }
+
+        if (closestWord) {
+            closestWord.classList.add('highlight');
+            // 确保高亮词在视区内
+            const rect = closestWord.getBoundingClientRect();
+            if (rect.top < 80 || rect.bottom > window.innerHeight - 80) {
+                closestWord.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    }
+
+    function clearHighlight() {
+        const active = document.querySelector('.word.highlight');
+        if (active) active.classList.remove('highlight');
+    }
+
+    // --- 5. UI交互事件 ---
+    function updateProgressUI(currentIndex) {
+        const percentage = Math.min((currentIndex / rawText.length) * 100, 100);
+        progressBar.style.width = `${percentage}%`;
+    }
+
+    function updateButtons() {
+        btnPlay.disabled = isPlaying && !synth.paused;
+        btnPause.disabled = !isPlaying || synth.paused;
+        btnStop.disabled = !isPlaying;
+    }
+
+    function setupEventListeners() {
+        btnPlay.addEventListener('click', () => {
+            if (synth.paused) {
+                synth.resume();
+                isPlaying = true;
+                updateButtons();
+            } else {
+                isReadingSelection = false;
+                playText(currentGlobalStartIndex);
+            }
+        });
+
+        btnPause.addEventListener('click', () => {
+            if (synth.speaking && !synth.paused) {
+                synth.pause();
+                isPlaying = false;
+                updateButtons();
+            }
+        });
+
+        btnStop.addEventListener('click', () => {
+            synth.cancel();
+            isPlaying = false;
+            currentGlobalStartIndex = 0;
+            isReadingSelection = false;
+            clearHighlight();
+            updateProgressUI(0);
+            updateButtons();
+        });
+
+        rateSelect.addEventListener('input', (e) => {
+            rateValue.textContent = parseFloat(e.target.value).toFixed(1);
+            if (isPlaying && !isReadingSelection) {
+                const activeWord = document.querySelector('.word.highlight');
+                let restartIndex = currentGlobalStartIndex;
+                if (activeWord) restartIndex = parseInt(activeWord.dataset.start);
+                playText(restartIndex);
+            }
+        });
+
+        voiceSelect.addEventListener('change', () => {
+             if (isPlaying && !isReadingSelection) {
+                playText(currentGlobalStartIndex);
+            }
+        });
+
+        // 进度条拖拽/点击计算
+        progressContainer.addEventListener('click', (e) => {
+            const rect = progressContainer.getBoundingClientRect();
+            const percentage = (e.clientX - rect.left) / rect.width;
+            const targetCharIndex = Math.floor(rawText.length * percentage);
+            
+            // 找到离点击位置最近的单词
+            let closestWordIndex = 0;
+            let minDiff = Infinity;
+            for (let i = 0; i < wordElements.length; i++) {
+                const diff = Math.abs(wordElements[i].start - targetCharIndex);
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    closestWordIndex = wordElements[i].start;
+                }
+            }
+
+            isReadingSelection = false;
+            playText(closestWordIndex);
+        });
+
+        // 划词朗读
+        document.addEventListener('selectionchange', () => {
+            const selection = window.getSelection();
+            const text = selection.toString().trim();
+            if (text && selection.rangeCount > 0 && textContainer.contains(selection.anchorNode)) {
+                const rect = selection.getRangeAt(0).getBoundingClientRect();
+                selectionTooltip.style.display = 'block';
+                selectionTooltip.style.left = `${rect.left + rect.width / 2 + window.scrollX}px`;
+                selectionTooltip.style.top = `${rect.top + window.scrollY}px`;
+            } else {
+                selectionTooltip.style.display = 'none';
+            }
+        });
+
+        selectionTooltip.addEventListener('click', () => {
+            const text = window.getSelection().toString().trim();
+            if (text) {
+                selectionTooltip.style.display = 'none';
+                isReadingSelection = true;
+                clearHighlight();
+                progressBar.style.width = '100%';
+                playText(0, text);
+            }
+        });
+    }
+
+    // 暴露给 DOM onclick 的函数
+    window.jumpToWord = function(charIndex) {
+        isReadingSelection = false;
+        playText(charIndex);
+    };
+
+    window.onload = init;
+</script>
+</body>
+</html>
