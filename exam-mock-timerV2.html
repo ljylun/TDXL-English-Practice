@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能考试倒计时系统</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen p-4 md:p-8 font-sans text-gray-800">
+    <div id="app" class="max-w-5xl mx-auto">
+        <!-- 顶部标题与主控按钮 -->
+        <div class="flex justify-between items-center mb-8 bg-white p-6 rounded-2xl shadow-sm">
+            <h1 class="text-2xl font-bold text-blue-800">全真模拟考场系统</h1>
+            <button @click="toggleExam" 
+                    :class="buttonClass"
+                    class="px-8 py-3 rounded-lg text-white font-semibold transition-all shadow-md hover:shadow-lg">
+                {{ buttonText }}
+            </button>
+        </div>
+
+        <!-- 顶部进度条 -->
+        <div class="w-full bg-gray-200 rounded-full h-3 mb-8 overflow-hidden">
+            <div class="bg-blue-600 h-3 rounded-full transition-all duration-1000 ease-linear" 
+                 :style="{ width: progressPercentage + '%' }"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- 左侧/主体：核心计时与当前任务 -->
+            <div class="md:col-span-2 space-y-8">
+                <!-- 核心计时器 -->
+                <div class="bg-white p-12 rounded-2xl shadow-sm flex flex-col items-center justify-center border-4 transition-colors"
+                     :class="timeRunningOut ? 'border-red-400' : 'border-transparent'">
+                    <p class="text-gray-500 mb-2 text-lg">当前阶段剩余时间</p>
+                    <div class="text-8xl font-mono font-bold tracking-wider" 
+                         :class="timeRunningOut ? 'text-red-600' : 'text-gray-800'">
+                        {{ formattedTime }}
+                    </div>
+                </div>
+
+                <!-- 当前任务卡 -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-2xl shadow-sm border border-blue-100">
+                    <h2 class="text-xl font-bold text-blue-800 mb-4">当前进行中</h2>
+                    <div v-if="currentStage" class="space-y-4">
+                        <div class="flex justify-between text-lg border-b border-blue-200 pb-2">
+                            <span class="text-gray-600">题型</span>
+                            <span class="font-bold text-gray-800">{{ currentStage.name }}</span>
+                        </div>
+                        <div class="flex justify-between text-lg border-b border-blue-200 pb-2">
+                            <span class="text-gray-600">设定总时长</span>
+                            <span class="font-bold text-gray-800">{{ currentStage.duration }} 分钟</span>
+                        </div>
+                    </div>
+                    <div v-else class="text-gray-500 text-center py-4">
+                        考试尚未开始或已结束
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧：总览面板 -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm">
+                <h3 class="text-lg font-bold mb-4 border-b pb-2">考试流程总览 (点击可直接跳转)</h3>
+                <ul class="space-y-3">
+                    <!-- 新增：@click="jumpToStage(index)" 和 hover 样式 -->
+                    <li v-for="(stage, index) in stages" :key="index"
+                        @click="jumpToStage(index)"
+                        class="p-3 rounded-lg flex justify-between items-center transition-all cursor-pointer hover:shadow-md hover:scale-[1.02]"
+                        :class="getStageClass(index)"
+                        title="点击跳转至此阶段">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-6 h-6 rounded-full flex items-center justify-center text-sm"
+                                  :class="index === currentIndex ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'">
+                                {{ index + 1 }}
+                            </span>
+                            <span class="font-medium">{{ stage.name }}</span>
+                        </div>
+                        <span class="text-sm">{{ stage.duration }} min</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref, computed, onUnmounted } = Vue;
+
+        createApp({
+            setup() {
+                // 阶段配置
+                const stages = [
+                    { name: '口语交际', duration: 15 },
+                    { name: '词汇单选', duration: 10 },
+                    { name: '阅读理解', duration: 45 },
+                    { name: '完型填空', duration: 10 },
+                    { name: '短文完成', duration: 20 },
+                    { name: '英译汉', duration: 20 },
+                    { name: '写作', duration: 30 }
+                ];
+
+                // 状态变量
+                const status = ref('idle'); // idle, running, paused, finished
+                const currentIndex = ref(0);
+                const remainingSeconds = ref(stages[0].duration * 60);
+                let timer = null;
+
+                // 计算属性
+                const currentStage = computed(() => status.value !== 'finished' ? stages[currentIndex.value] : null);
+                
+                const formattedTime = computed(() => {
+                    const m = Math.floor(remainingSeconds.value / 60).toString().padStart(2, '0');
+                    const s = (remainingSeconds.value % 60).toString().padStart(2, '0');
+                    return `${m}:${s}`;
+                });
+
+                const buttonText = computed(() => {
+                    if (status.value === 'idle') return '开始考试';
+                    if (status.value === 'running') return '暂停考试';
+                    if (status.value === 'paused') return '恢复考试';
+                    return '重新开始';
+                });
+
+                const buttonClass = computed(() => {
+                    if (status.value === 'idle') return 'bg-blue-600 hover:bg-blue-700';
+                    if (status.value === 'running') return 'bg-yellow-500 hover:bg-yellow-600';
+                    if (status.value === 'paused') return 'bg-green-500 hover:bg-green-600';
+                    return 'bg-gray-600 hover:bg-gray-700';
+                });
+
+                const timeRunningOut = computed(() => remainingSeconds.value <= 10 && remainingSeconds.value > 0);
+                const progressPercentage = computed(() => (currentIndex.value / stages.length) * 100);
+
+                // UI 样式计算：未选中项增加 hover 时的背景反馈
+                const getStageClass = (index) => {
+                    if (status.value === 'finished') return 'bg-gray-50 text-gray-400 hover:bg-gray-100';
+                    if (index < currentIndex.value) return 'bg-gray-50 text-gray-400 line-through hover:bg-gray-100 hover:text-gray-600 hover:line-through-none';
+                    if (index === currentIndex.value) return 'bg-blue-100 text-blue-900 shadow-sm border border-blue-200';
+                    return 'bg-white text-gray-600 hover:bg-blue-50';
+                };
+
+                // TTS 语音合成
+                const speak = (text) => {
+                    if ('speechSynthesis' in window) {
+                        window.speechSynthesis.cancel();
+                        const utterance = new SpeechSynthesisUtterance(text);
+                        utterance.lang = 'zh-CN';
+                        utterance.rate = 1.1; 
+                        window.speechSynthesis.speak(utterance);
+                    }
+                };
+
+                // 新增：直接跳转到指定阶段的方法
+                const jumpToStage = (index) => {
+                    // 1. 清除当前可能正在运行的定时器
+                    if (timer) clearInterval(timer);
+                    
+                    // 2. 更新阶段索引和对应的时间
+                    currentIndex.value = index;
+                    remainingSeconds.value = stages[index].duration * 60;
+                    
+                    // 3. 将状态重置为 idle，等待用户手动点击"开始考试"
+                    status.value = 'idle';
+                    
+                    // 4. 语音提示跳转成功并请求权限
+                    speak(`已跳转至${stages[index].name}模块，请点击开始`);
+                };
+
+                // 核心控制逻辑
+                const toggleExam = () => {
+                    if (status.value === 'idle') {
+                        speak(`${currentStage.value.name}开始`);
+                        startTimer();
+                    } else if (status.value === 'running') {
+                        pauseTimer();
+                    } else if (status.value === 'paused') {
+                        startTimer();
+                    } else if (status.value === 'finished') {
+                        resetExam();
+                    }
+                };
+
+                const startTimer = () => {
+                    status.value = 'running';
+                    timer = setInterval(() => {
+                        remainingSeconds.value--;
+
+                        // 倒计时 10 秒提醒
+                        if (remainingSeconds.value === 10) {
+                            const nextStage = stages[currentIndex.value + 1];
+                            if (nextStage) {
+                                speak(`${currentStage.value.name}阶段剩余10秒，即将进入${nextStage.name}`);
+                            } else {
+                                speak("写作阶段剩余10秒，考试即将结束");
+                            }
+                        }
+
+                        // 当前阶段结束
+                        if (remainingSeconds.value <= 0) {
+                            nextStage();
+                        }
+                    }, 1000);
+                };
+
+                const pauseTimer = () => {
+                    status.value = 'paused';
+                    clearInterval(timer);
+                };
+
+                const nextStage = () => {
+                    clearInterval(timer);
+                    if (currentIndex.value < stages.length - 1) {
+                        currentIndex.value++;
+                        remainingSeconds.value = stages[currentIndex.value].duration * 60;
+                        startTimer();
+                    } else {
+                        status.value = 'finished';
+                        speak("考试结束，请停止答题");
+                    }
+                };
+
+                const resetExam = () => {
+                    status.value = 'idle';
+                    currentIndex.value = 0;
+                    remainingSeconds.value = stages[0].duration * 60;
+                };
+
+                onUnmounted(() => {
+                    if (timer) clearInterval(timer);
+                });
+
+                return {
+                    stages, status, currentIndex, remainingSeconds, currentStage,
+                    formattedTime, buttonText, buttonClass, timeRunningOut, progressPercentage,
+                    getStageClass, toggleExam, jumpToStage // 暴露给模板使用
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
