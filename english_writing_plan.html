@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>同等学力申硕英语写作系统训练方案</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --ink: #1a1a2e;
+    --ink-light: #2d2d4a;
+    --paper: #faf8f3;
+    --paper-warm: #f5f0e8;
+    --accent: #c0392b;
+    --accent-gold: #d4a017;
+    --accent-teal: #1a7a6e;
+    --accent-blue: #2c5f8a;
+    --border: #d4cfc4;
+    --text-muted: #6b6560;
+    --highlight: #fff3cd;
+    --success: #1a7a6e;
+    --tag-bg: #e8e4dc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.8;
+    font-size: 15px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: #fff;
+    padding: 48px 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 280px; height: 280px;
+    border: 2px solid rgba(212,160,23,0.25);
+    border-radius: 50%;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 200px;
+    width: 180px; height: 180px;
+    border: 1px solid rgba(192,57,43,0.3);
+    border-radius: 50%;
+  }
+  .header-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 12px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  header h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 16px;
+    max-width: 700px;
+  }
+  header h1 span { color: var(--accent-gold); }
+  .header-meta {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    font-size: 13px; color: rgba(255,255,255,0.65);
+  }
+  .header-meta span { display: flex; align-items: center; gap: 6px; }
+  .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 2px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+
+  /* ── NAV TABS ── */
+  .nav-tabs {
+    background: var(--ink-light);
+    display: flex;
+    overflow-x: auto;
+    border-bottom: 3px solid var(--accent-gold);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-tab {
+    padding: 14px 22px;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    transition: all .2s;
+    font-family: 'Noto Sans SC', sans-serif;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-weight: 400;
+  }
+  .nav-tab:hover { color: rgba(255,255,255,0.9); }
+  .nav-tab.active {
+    color: var(--accent-gold);
+    border-bottom-color: var(--accent-gold);
+    font-weight: 700;
+  }
+
+  /* ── SECTIONS ── */
+  .section { display: none; padding: 40px; max-width: 1100px; margin: 0 auto; }
+  .section.active { display: block; }
+
+  /* ── SECTION TITLE ── */
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title .num {
+    background: var(--accent);
+    color: #fff;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    flex-shrink: 0;
+  }
+  .section-sub { color: var(--text-muted); font-size: 13px; margin-bottom: 28px; }
+
+  /* ── CARDS ── */
+  .card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .card-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title .icon { font-size: 18px; }
+
+  /* ── DAY GRID ── */
+  .day-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 28px; }
+  .day-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--accent-blue);
+    border-radius: 4px;
+    padding: 18px 16px;
+    position: relative;
+  }
+  .day-card:nth-child(2) { border-top-color: var(--accent-teal); }
+  .day-card:nth-child(3) { border-top-color: var(--accent-gold); }
+  .day-card:nth-child(4) { border-top-color: var(--accent); }
+  .day-card:nth-child(5) { border-top-color: #7b4f9e; }
+  .day-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .day-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .day-tasks { list-style: none; }
+  .day-tasks li {
+    font-size: 13px;
+    color: var(--ink-light);
+    padding: 4px 0;
+    border-bottom: 1px dashed var(--border);
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+  }
+  .day-tasks li:last-child { border-bottom: none; }
+  .day-tasks li::before { content: '▸'; color: var(--accent-gold); flex-shrink: 0; margin-top: 1px; }
+  .day-goal {
+    margin-top: 10px;
+    background: var(--paper-warm);
+    padding: 8px 10px;
+    border-radius: 2px;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── METRICS TABLE ── */
+  .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+  .metric-card {
+    background: var(--ink);
+    color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  .metric-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent-gold);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .metric-label { font-size: 12px; color: rgba(255,255,255,0.7); }
+  .metric-sub { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 4px; }
+
+  /* ── SCORING RUBRIC ── */
+  .rubric-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13px; }
+  .rubric-table th {
+    background: var(--ink);
+    color: #fff;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+  .rubric-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .rubric-table tr:nth-child(even) td { background: var(--paper-warm); }
+  .score-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .score-a { background: #d4edda; color: #155724; }
+  .score-b { background: #cce5ff; color: #004085; }
+  .score-c { background: #fff3cd; color: #856404; }
+  .score-d { background: #f8d7da; color: #721c24; }
+
+  /* ── TOPIC CATEGORIES ── */
+  .topic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .topic-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 18px;
+  }
+  .topic-category {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .topic-name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+  .topic-items { display: flex; flex-wrap: wrap; gap: 6px; }
+  .topic-tag {
+    background: var(--tag-bg);
+    color: var(--ink-light);
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+  }
+  .topic-template {
+    margin-top: 12px;
+    background: var(--paper-warm);
+    border-left: 3px solid var(--accent-teal);
+    padding: 10px 12px;
+    font-size: 13px;
+    color: var(--ink-light);
+    font-style: italic;
+  }
+
+  /* ── TEMPLATES ── */
+  .template-box {
+    background: var(--ink);
+    color: #e8e4dc;
+    padding: 20px 24px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 2;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .template-box .line-num {
+    color: rgba(255,255,255,0.25);
+    user-select: none;
+    margin-right: 16px;
+  }
+  .template-highlight { color: var(--accent-gold); font-weight: 600; }
+  .template-var { color: #7ec8e3; }
+
+  /* ── CHECKLIST ── */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .check-box {
+    width: 20px; height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 2px;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .2s;
+    margin-top: 2px;
+  }
+  .check-box.checked { background: var(--accent-teal); border-color: var(--accent-teal); }
+  .check-box.checked::after { content: '✓'; color: #fff; font-size: 12px; font-weight: 700; }
+  .check-label { flex: 1; }
+  .check-label .check-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .check-target {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    background: #fdecea;
+    padding: 2px 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── TIMER WIDGET ── */
+  .timer-widget {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 4px;
+    padding: 28px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .timer-display {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--accent-gold);
+    letter-spacing: 4px;
+    margin: 16px 0;
+  }
+  .timer-label { font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 2px; text-transform: uppercase; }
+  .timer-controls { display: flex; gap: 12px; justify-content: center; margin-top: 16px; }
+  .btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: all .2s;
+    font-family: 'Noto Sans SC', sans-serif;
+  }
+  .btn-primary { background: var(--accent-gold); color: var(--ink); }
+  .btn-primary:hover { background: #e6b320; }
+  .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; }
+  .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+  .btn-danger { background: var(--accent); color: #fff; }
+  .timer-phases {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .phase-btn {
+    padding: 6px 16px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7);
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all .2s;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .phase-btn:hover, .phase-btn.active-phase {
+    background: var(--accent-teal);
+    border-color: var(--accent-teal);
+    color: #fff;
+  }
+
+  /* ── ERROR DIAGNOSIS ── */
+  .error-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .error-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+    padding: 16px;
+  }
+  .error-card.grammar { border-left-color: #e74c3c; }
+  .error-card.logic { border-left-color: #e67e22; }
+  .error-card.vocab { border-left-color: #9b59b6; }
+  .error-card.structure { border-left-color: var(--accent-teal); }
+  .error-type { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 6px; font-family: 'JetBrains Mono', monospace; }
+  .error-title { font-weight: 700; font-size: 14px; margin-bottom: 10px; }
+  .error-example {
+    background: #fdecea;
+    border-radius: 2px;
+    padding: 8px 10px;
+    font-size: 12px;
+    margin-bottom: 8px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .error-fix {
+    background: #d4edda;
+    border-radius: 2px;
+    padding: 8px 10px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .error-example::before { content: '✗ '; color: #e74c3c; }
+  .error-fix::before { content: '✓ '; color: #155724; }
+
+  /* ── SELF-TEST TABLE ── */
+  .test-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .test-table th {
+    background: var(--paper-warm);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+  .test-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .score-input {
+    width: 60px;
+    padding: 4px 8px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    text-align: center;
+    background: var(--paper-warm);
+  }
+  .total-row td { background: var(--ink); color: #fff; font-weight: 700; }
+
+  /* ── PHRASES BANK ── */
+  .phrase-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .phrase-group {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px;
+  }
+  .phrase-group-title {
+    font-size: 12px;
+    color: var(--accent-teal);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .phrase-item {
+    font-size: 13px;
+    padding: 4px 0;
+    border-bottom: 1px dashed var(--border);
+    display: flex;
+    gap: 8px;
+  }
+  .phrase-item:last-child { border-bottom: none; }
+  .phrase-en { font-style: italic; flex: 1; }
+  .phrase-cn { color: var(--text-muted); font-size: 12px; flex-shrink: 0; }
+
+  /* ── INFO BOX ── */
+  .info-box {
+    background: var(--highlight);
+    border-left: 4px solid var(--accent-gold);
+    padding: 14px 18px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    font-size: 13px;
+  }
+  .info-box strong { color: var(--ink); }
+  .warn-box {
+    background: #fdecea;
+    border-left: 4px solid var(--accent);
+    padding: 14px 18px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    font-size: 13px;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar-wrap { margin-bottom: 16px; }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+  .progress-bar {
+    background: var(--border);
+    border-radius: 2px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+
+  /* ── TWO-COL ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .section { padding: 20px 16px; }
+    .day-grid { grid-template-columns: 1fr; }
+    .metrics-grid { grid-template-columns: 1fr; }
+    .topic-grid { grid-template-columns: 1fr; }
+    .error-grid { grid-template-columns: 1fr; }
+    .phrase-grid { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    header { padding: 28px 20px; }
+    header h1 { font-size: 20px; }
+  }
+
+  /* Score chart */
+  .radar-container { display: flex; justify-content: center; margin: 20px 0; }
+  canvas { max-width: 100%; }
+
+  .highlight-text { color: var(--accent); font-weight: 700; }
+  .teal-text { color: var(--accent-teal); font-weight: 700; }
+  .gold-text { color: var(--accent-gold); font-weight: 700; }
+
+  .step-list { counter-reset: steps; list-style: none; }
+  .step-list li {
+    counter-increment: steps;
+    padding: 12px 0 12px 48px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .step-list li:last-child { border-bottom: none; }
+  .step-list li::before {
+    content: counter(steps);
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 28px; height: 28px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">同等学力申硕英语 · 命题作文专项训练</div>
+  <h1>5天全维度写作<span>提分方案</span><br>系统化训练 · 可量化目标 · 闭环改进</h1>
+  <div class="header-meta">
+    <span><span class="badge">5天冲刺</span></span>
+    <span>📝 命题作文 15分</span>
+    <span>⏱ 目标：30分钟内完成</span>
+    <span>📊 目标词数：150词以上</span>
+  </div>
+</header>
+
+<nav class="nav-tabs">
+  <button class="nav-tab active" onclick="showSection('overview')">📋 总体规划</button>
+  <button class="nav-tab" onclick="showSection('daily')">📅 每日训练</button>
+  <button class="nav-tab" onclick="showSection('scoring')">📊 评分标准</button>
+  <button class="nav-tab" onclick="showSection('topics')">📚 话题分类</button>
+  <button class="nav-tab" onclick="showSection('templates')">✍️ 模板策略</button>
+  <button class="nav-tab" onclick="showSection('timer')">⏱ 限时模拟</button>
+  <button class="nav-tab" onclick="showSection('errors')">🔍 错误诊断</button>
+  <button class="nav-tab" onclick="showSection('phrases')">📖 素材积累</button>
+  <button class="nav-tab" onclick="showSection('selftest')">✅ 自测评分</button>
+</nav>
+
+<!-- ─── OVERVIEW ─── -->
+<div id="overview" class="section active">
+  <div class="section-title"><div class="num">1</div>核心目标与阶段规划</div>
+  <div class="section-sub">5天冲刺，量化每一步进步</div>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <span class="metric-value">30<span style="font-size:18px">分钟</span></span>
+      <div class="metric-label">限时完成目标</div>
+      <div class="metric-sub">审题5分+提纲5分+写作18分+检查2分</div>
+    </div>
+    <div class="metric-card">
+      <span class="metric-value">&lt;5%</span>
+      <div class="metric-label">语法错误率目标</div>
+      <div class="metric-sub">每150词不超过7处语法错误</div>
+    </div>
+    <div class="metric-card">
+      <span class="metric-value">8/10</span>
+      <div class="metric-label">逻辑衔接评分目标</div>
+      <div class="metric-sub">连接词准确、段落过渡自然</div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>📌 考试背景：</strong> 同等学力申硕英语作文为命题作文，满分15分，要求在规定时间内就给定话题写一篇不少于150词的议论文或说明文。评分维度涵盖<strong>内容相关性、组织结构、语言准确性、词汇丰富度</strong>四大维度。
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🎯</span>五天阶段目标分解</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-label"><span>Day 1｜审题立意 + 结构搭建</span><span class="highlight-text">基础层</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:20%; background:var(--accent-blue)"></div></div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-label"><span>Day 2｜语法强化 + 词汇升级</span><span class="highlight-text">语言层</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:40%; background:var(--accent-teal)"></div></div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-label"><span>Day 3｜话题演练 + 模板应用</span><span class="highlight-text">策略层</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:60%; background:var(--accent-gold)"></div></div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-label"><span>Day 4｜限时模拟 + 错误诊断</span><span class="highlight-text">实战层</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:80%; background:var(--accent)"></div></div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-label"><span>Day 5｜综合模拟 + 卷面规范</span><span class="highlight-text">冲刺层</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:100%; background:#7b4f9e)"></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📐</span>评分维度雷达目标</div>
+    <div class="radar-container">
+      <canvas id="radarChart" width="400" height="300"></canvas>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title"><span class="icon">⏰</span>每日时间分配（约2小时）</div>
+      <ul class="checklist">
+        <li>
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-label">理论学习 / 模板背诵<div class="check-meta">新知识输入阶段</div></div>
+          <span class="check-target">30分钟</span>
+        </li>
+        <li>
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-label">专项练习（当日主题）<div class="check-meta">针对性强化训练</div></div>
+          <span class="check-target">40分钟</span>
+        </li>
+        <li>
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-label">限时写作一篇<div class="check-meta">严格计时，完整作文</div></div>
+          <span class="check-target">30分钟</span>
+        </li>
+        <li>
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-label">自我诊断与修改<div class="check-meta">对照评分表改进</div></div>
+          <span class="check-target">20分钟</span>
+        </li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">📖</span>每周素材积累节奏</div>
+      <ul class="step-list">
+        <li>每天背诵5个高级连接词表达，造句2-3个</li>
+        <li>每天积累2个万能话题句型（含正反两面）</li>
+        <li>每天抄写一篇范文开头+结尾各一段</li>
+        <li>每隔一天复习前期积累，确保记忆巩固</li>
+        <li>每天记录1个本次写作中的新错误类型</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ─── DAILY PLAN ─── -->
+<div id="daily" class="section">
+  <div class="section-title"><div class="num">2</div>5天每日精确训练计划</div>
+  <div class="section-sub">每天有明确主题、具体任务、量化目标，避免无效重复训练</div>
+
+  <div class="day-grid">
+    <div class="day-card">
+      <div class="day-label">DAY 01</div>
+      <div class="day-title">审题·立意·结构</div>
+      <ul class="day-tasks">
+        <li>学习三种题型识别法（观点型/描述型/建议型）</li>
+        <li>练习5题快速审题（限时每题1分钟）</li>
+        <li>掌握三段式结构框架</li>
+        <li>写提纲3篇，不写正文</li>
+        <li>限时完整写作1篇（话题：科技与生活）</li>
+      </ul>
+      <div class="day-goal">目标：25分钟内完成130词</div>
+    </div>
+    <div class="day-card">
+      <div class="day-label">DAY 02</div>
+      <div class="day-title">语法·句式·词汇</div>
+      <ul class="day-tasks">
+        <li>复习5类高频语法错误点</li>
+        <li>将10个简单句改写为复合句</li>
+        <li>背诵20个高频替换词汇（动词/形容词）</li>
+        <li>限时写作1篇（话题：教育意义）</li>
+        <li>对照错误清单自查语法</li>
+      </ul>
+      <div class="day-goal">目标：语法错误≤10处/150词</div>
+    </div>
+    <div class="day-card">
+      <div class="day-label">DAY 03</div>
+      <div class="day-title">话题·模板·衔接</div>
+      <ul class="day-tasks">
+        <li>按分类练习：环境/经济/健康各1篇提纲</li>
+        <li>掌握开头3种+结尾2种模板</li>
+        <li>练习20个逻辑连接词运用</li>
+        <li>限时写作1篇（话题：城乡发展）</li>
+        <li>检查连接词是否多样且准确</li>
+      </ul>
+      <div class="day-goal">目标：连接词≥8个，无重复</div>
+    </div>
+    <div class="day-card">
+      <div class="day-label">DAY 04</div>
+      <div class="day-title">实战·诊断·改进</div>
+      <ul class="day-tasks">
+        <li>严格限时模拟：30分钟完整写作</li>
+        <li>按评分表逐维度自评</li>
+        <li>找出最严重的3类错误类型</li>
+        <li>重写弱点段落（针对性改进）</li>
+        <li>对比第一天作文，量化进步</li>
+      </ul>
+      <div class="day-goal">目标：30分钟完成150词以上</div>
+    </div>
+    <div class="day-card">
+      <div class="day-label">DAY 05</div>
+      <div class="day-title">冲刺·卷面·定型</div>
+      <ul class="day-tasks">
+        <li>完成2篇全真模拟（严格限时）</li>
+        <li>练习书写规范与卷面整洁</li>
+        <li>背诵最终版个人专属模板</li>
+        <li>完成完整自测评分表</li>
+        <li>制作备考当日"速查卡"</li>
+      </ul>
+      <div class="day-goal">目标：语法错误率&lt;5%，满分冲刺</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🕐</span>标准30分钟时间分配方案</div>
+    <table class="rubric-table">
+      <thead>
+        <tr>
+          <th>阶段</th>
+          <th>任务内容</th>
+          <th>时间</th>
+          <th>注意事项</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="score-badge score-a">审题</span></td>
+          <td>读题2遍，圈关键词，确认写作方向（支持/反对/分析）</td>
+          <td><strong>3分钟</strong></td>
+          <td>❌ 不要审题不清就动笔</td>
+        </tr>
+        <tr>
+          <td><span class="score-badge score-b">提纲</span></td>
+          <td>写中文或英文关键词提纲，确定3段论点</td>
+          <td><strong>4分钟</strong></td>
+          <td>✓ 每段1句中心句即可</td>
+        </tr>
+        <tr>
+          <td><span class="score-badge score-c">写作</span></td>
+          <td>正式写作，第1段开门见山，第2段论证，第3段总结</td>
+          <td><strong>20分钟</strong></td>
+          <td>按提纲走，不随意跑题</td>
+        </tr>
+        <tr>
+          <td><span class="score-badge score-d">检查</span></td>
+          <td>检查拼写、时态、主谓一致、词数</td>
+          <td><strong>3分钟</strong></td>
+          <td>优先查语法，其次改措辞</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ─── SCORING ─── -->
+<div id="scoring" class="section">
+  <div class="section-title"><div class="num">3</div>评分标准对标与拆解</div>
+  <div class="section-sub">了解阅卷逻辑，才能精准得分</div>
+
+  <div class="info-box">
+    <strong>📌 同等学力英语作文评分满分15分</strong>，按4个维度评判，每个维度有明确档次描述。理解每档差异是提分关键。
+  </div>
+
+  <table class="rubric-table">
+    <thead>
+      <tr>
+        <th>维度</th>
+        <th>权重</th>
+        <th>高分（12-15）</th>
+        <th>中分（8-11）</th>
+        <th>低分（4-7）</th>
+        <th>提分策略</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>内容相关性</strong></td>
+        <td>25%</td>
+        <td>紧扣题目，观点鲜明，论证充分有力</td>
+        <td>基本扣题，但论证不深入或有偏离</td>
+        <td>部分跑题，内容空洞，重复表述</td>
+        <td>✓ 每段首句必须含题目关键词</td>
+      </tr>
+      <tr>
+        <td><strong>组织结构</strong></td>
+        <td>25%</td>
+        <td>结构清晰，段落分明，过渡自然流畅</td>
+        <td>有基本结构，但衔接生硬或不完整</td>
+        <td>结构混乱，缺乏段落意识</td>
+        <td>✓ 严格三段式，每段有topic sentence</td>
+      </tr>
+      <tr>
+        <td><strong>语言准确性</strong></td>
+        <td>30%</td>
+        <td>语法正确率高，句式多样，表达地道</td>
+        <td>有少量语法错误，不影响理解</td>
+        <td>错误频繁，严重影响表达</td>
+        <td>✓ 优先用自己确定的句型，宁简勿错</td>
+      </tr>
+      <tr>
+        <td><strong>词汇丰富度</strong></td>
+        <td>20%</td>
+        <td>词汇丰富，准确使用高级词汇和短语</td>
+        <td>词汇量尚可，有同义替换意识</td>
+        <td>词汇单一，大量重复基础词</td>
+        <td>✓ 每篇准备10个替换词，刻意运用</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title"><span class="icon">📈</span>各档得分特征（语言准确性）</div>
+      <ul class="checklist">
+        <li>
+          <div class="check-box checked"></div>
+          <div class="check-label"><strong>4-5分（满分档）：</strong>句式变化丰富，偶见小错，不影响表达</div>
+        </li>
+        <li>
+          <div class="check-box"></div>
+          <div class="check-label"><strong>3分（良好档）：</strong>有少量语法错，主干句式正确，逻辑清晰</div>
+        </li>
+        <li>
+          <div class="check-box"></div>
+          <div class="check-label"><strong>2分（中等档）：</strong>错误较多但可理解，缺乏多样性</div>
+        </li>
+        <li>
+          <div class="check-box"></div>
+          <div class="check-label"><strong>1分（及格档）：</strong>严重错误影响阅读，词汇使用不当</div>
+        </li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">🔑</span>快速得分口诀</div>
+      <div style="background:var(--ink);color:#fff;padding:20px;border-radius:4px;font-size:14px;line-height:2.2;">
+        <div>📌 <span style="color:var(--accent-gold)">内容</span>：题目词出现在每段首句</div>
+        <div>📌 <span style="color:var(--accent-gold)">结构</span>：三段式 + 首尾呼应</div>
+        <div>📌 <span style="color:var(--accent-gold)">语法</span>：宁用简单正确句，不用错误复杂句</div>
+        <div>📌 <span style="color:var(--accent-gold)">词汇</span>：每段至少1个高级同义词替换</div>
+        <div>📌 <span style="color:var(--accent-gold)">字数</span>：150词硬底线，170词最优</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── TOPICS ─── -->
+<div id="topics" class="section">
+  <div class="section-title"><div class="num">4</div>常见话题分类与演练素材</div>
+  <div class="section-sub">按话题预储万能论点，考场直接调用</div>
+
+  <div class="topic-grid">
+    <div class="topic-card">
+      <div class="topic-category">Category 01</div>
+      <div class="topic-name">🌍 科技与社会</div>
+      <div class="topic-items">
+        <span class="topic-tag">人工智能</span><span class="topic-tag">互联网影响</span>
+        <span class="topic-tag">社交媒体</span><span class="topic-tag">技术依赖</span>
+        <span class="topic-tag">数字鸿沟</span>
+      </div>
+      <div class="topic-template">
+        <strong>万能论点：</strong>"Technology is a double-edged sword: it enhances efficiency while also creating new social challenges."
+      </div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-category">Category 02</div>
+      <div class="topic-name">🎓 教育与成长</div>
+      <div class="topic-items">
+        <span class="topic-tag">应试教育</span><span class="topic-tag">素质教育</span>
+        <span class="topic-tag">在线学习</span><span class="topic-tag">留学热潮</span>
+        <span class="topic-tag">职业规划</span>
+      </div>
+      <div class="topic-template">
+        <strong>万能论点：</strong>"Education should cultivate critical thinking rather than mere memorization of facts."
+      </div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-category">Category 03</div>
+      <div class="topic-name">🌿 环境与可持续发展</div>
+      <div class="topic-items">
+        <span class="topic-tag">气候变化</span><span class="topic-tag">碳排放</span>
+        <span class="topic-tag">绿色出行</span><span class="topic-tag">垃圾分类</span>
+        <span class="topic-tag">生态保护</span>
+      </div>
+      <div class="topic-template">
+        <strong>万能论点：</strong>"Environmental protection requires collective responsibility and immediate government action."
+      </div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-category">Category 04</div>
+      <div class="topic-name">💼 经济与就业</div>
+      <div class="topic-items">
+        <span class="topic-tag">就业压力</span><span class="topic-tag">创业精神</span>
+        <span class="topic-tag">城乡差距</span><span class="topic-tag">老龄化社会</span>
+        <span class="topic-tag">全球化</span>
+      </div>
+      <div class="topic-template">
+        <strong>万能论点：</strong>"Economic development must be balanced with social equity to create sustainable prosperity."
+      </div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-category">Category 05</div>
+      <div class="topic-name">❤️ 健康与生活方式</div>
+      <div class="topic-items">
+        <span class="topic-tag">亚健康</span><span class="topic-tag">运动习惯</span>
+        <span class="topic-tag">心理健康</span><span class="topic-tag">饮食文化</span>
+        <span class="topic-tag">工作压力</span>
+      </div>
+      <div class="topic-template">
+        <strong>万能论点：</strong>"Maintaining a healthy lifestyle requires conscious effort and long-term commitment."
+      </div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-category">Category 06</div>
+      <div class="topic-name">🏛 文化与传统</div>
+      <div class="topic-items">
+        <span class="topic-tag">传统节日</span><span class="topic-tag">文化保护</span>
+        <span class="topic-tag">西方影响</span><span class="topic-tag">文化交流</span>
+        <span class="topic-tag">民俗传承</span>
+      </div>
+      <div class="topic-template">
+        <strong>万能论点：</strong>"Cultural heritage deserves preservation, yet must evolve to remain relevant in modern society."
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <div class="card-title"><span class="icon">🎯</span>话题审题三步法</div>
+    <ul class="step-list">
+      <li><strong>识别题型：</strong> 观点型（Do you agree that...？）→ 明确表态；描述型（Describe the phenomenon...）→ 分析现象；建议型（What measures should be taken...？）→ 提出方案</li>
+      <li><strong>提取关键词：</strong> 圈出名词核心词+动词方向词，如"discuss the impact of technology on education"→ technology, impact, education</li>
+      <li><strong>确定立场：</strong> 不要中立骑墙！选择一个明确立场（正面或批判性支持），论证更有力，得分更高</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ─── TEMPLATES ─── -->
+<div id="templates" class="section">
+  <div class="section-title"><div class="num">5</div>模板化与反模板化策略</div>
+  <div class="section-sub">用框架提升速度，用变通避免僵化</div>
+
+  <div class="warn-box">
+    <strong>⚠️ 注意：</strong>纯模板套用会导致内容空洞、脱离题目，最终被扣内容分。正确做法是：<strong>框架稳定 + 内容灵活</strong>，保留结构骨架，根据题目填入实质性内容。
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📄</span>标准三段式框架（适用90%题型）</div>
+    <div class="template-box">
+      <span class="line-num">P1</span> <span class="template-highlight">【开头段 — 引入+表态】</span><br>
+      <span class="line-num">   </span> <span class="template-var">[话题引入句]</span> + <span class="template-var">[明确立场句]</span><br>
+      <br>
+      <span class="line-num">P2</span> <span class="template-highlight">【主体段 — 论证+举例】</span><br>
+      <span class="line-num">   </span> <span class="template-var">[中心论点句]</span> + <span class="template-var">[原因/数据/举例]</span> + <span class="template-var">[进一步分析]</span><br>
+      <br>
+      <span class="line-num">P3</span> <span class="template-highlight">【结尾段 — 总结+展望】</span><br>
+      <span class="line-num">   </span> <span class="template-var">[重申立场]</span> + <span class="template-var">[建议/呼吁]</span> + <span class="template-var">[展望未来]</span>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title"><span class="icon">🚀</span>三种开头模板（选一使用）</div>
+      <div style="font-size:13px">
+        <p style="margin-bottom:8px"><strong style="color:var(--accent-teal)">① 现象引入法</strong></p>
+        <div class="template-box" style="font-size:12px;padding:12px 16px">
+          In recent years, <span class="template-var">[topic]</span> has become a topic of considerable debate. While some argue that..., I firmly believe that <span class="template-var">[your position]</span>.
+        </div>
+        <p style="margin-bottom:8px"><strong style="color:var(--accent-teal)">② 数据引入法</strong></p>
+        <div class="template-box" style="font-size:12px;padding:12px 16px">
+          According to recent studies, <span class="template-var">[relevant fact/trend]</span>. This phenomenon has prompted people to reconsider <span class="template-var">[topic]</span>.
+        </div>
+        <p style="margin-bottom:8px"><strong style="color:var(--accent-teal)">③ 问题引入法</strong></p>
+        <div class="template-box" style="font-size:12px;padding:12px 16px">
+          What role does <span class="template-var">[topic]</span> play in our modern life? This question has aroused wide concern as <span class="template-var">[brief context]</span>.
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">🏁</span>两种结尾模板（选一使用）</div>
+      <div style="font-size:13px">
+        <p style="margin-bottom:8px"><strong style="color:var(--accent-blue)">① 总结呼吁型</strong></p>
+        <div class="template-box" style="font-size:12px;padding:12px 16px">
+          In conclusion, <span class="template-var">[restate main point]</span>. It is high time that we <span class="template-var">[call to action]</span> in order to <span class="template-var">[desired outcome]</span>.
+        </div>
+        <p style="margin-bottom:8px"><strong style="color:var(--accent-blue)">② 展望未来型</strong></p>
+        <div class="template-box" style="font-size:12px;padding:12px 16px">
+          To sum up, <span class="template-var">[brief summary]</span>. Only through <span class="template-var">[key measure]</span> can we hope to build a better future where <span class="template-var">[vision]</span>.
+        </div>
+        <div class="warn-box" style="margin-top:12px;font-size:12px">
+          ❌ 避免："As we all know..." "Last but not least..." 这类过度使用的套话
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔄</span>反模板化技巧：让作文"活"起来</div>
+    <table class="rubric-table">
+      <thead><tr><th>普通写法（模板化）</th><th>升级写法（个性化）</th><th>提分效果</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Technology has advantages and disadvantages.</td>
+          <td>Technology reshapes our daily routines, yet this transformation comes with hidden costs to human connection.</td>
+          <td><span class="score-badge score-a">+内容分</span></td>
+        </tr>
+        <tr>
+          <td>We should protect the environment.</td>
+          <td>Meaningful environmental change begins not with grand policies but with individual choices made daily.</td>
+          <td><span class="score-badge score-a">+词汇分</span></td>
+        </tr>
+        <tr>
+          <td>In conclusion, I think...</td>
+          <td>Ultimately, the evidence overwhelmingly suggests that...</td>
+          <td><span class="score-badge score-b">+表达分</span></td>
+        </tr>
+        <tr>
+          <td>For example, many people...</td>
+          <td>A compelling illustration of this point is the fact that...</td>
+          <td><span class="score-badge score-b">+结构分</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ─── TIMER ─── -->
+<div id="timer" class="section">
+  <div class="section-title"><div class="num">6</div>限时模拟训练系统</div>
+  <div class="section-sub">严格计时，模拟真实考场压力，建立时间感知</div>
+
+  <div class="timer-widget">
+    <div class="timer-label">WRITING TIMER</div>
+    <div class="timer-display" id="timerDisplay">30:00</div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:4px" id="phaseLabel">当前阶段：准备开始</div>
+    <div class="timer-controls">
+      <button class="btn btn-primary" onclick="startTimer()">▶ 开始</button>
+      <button class="btn btn-secondary" onclick="pauseTimer()">⏸ 暂停</button>
+      <button class="btn btn-danger" onclick="resetTimer()">↩ 重置</button>
+    </div>
+    <div class="timer-phases">
+      <button class="phase-btn active-phase" onclick="setTimer(300,'审题阶段 (5分钟)')">审题 5′</button>
+      <button class="phase-btn" onclick="setTimer(1200,'写作阶段 (20分钟)')">写作 20′</button>
+      <button class="phase-btn" onclick="setTimer(300,'检查阶段 (5分钟)')">检查 5′</button>
+      <button class="phase-btn" onclick="setTimer(1800,'完整模拟 (30分钟)')">全程 30′</button>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title"><span class="icon">📝</span>今日模拟题目（点击选择）</div>
+      <div id="topicDisplay" style="background:var(--paper-warm);padding:16px;border-radius:4px;min-height:60px;margin-bottom:12px;font-size:14px;color:var(--ink);line-height:1.8;">
+        点击下方按钮随机抽取作文题目
+      </div>
+      <button class="btn btn-primary" onclick="randomTopic()" style="width:100%">🎲 随机抽题</button>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">✅</span>考场应试检查清单</div>
+      <ul class="checklist">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">词数达到150词以上<div class="check-meta">写完后数词，确保不低于底线</div></div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">三个自然段分段清晰</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">主谓一致无误</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">时态统一（一般现在时为主）</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">开头与结尾前后呼应</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">至少使用5个不同连接词</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-label">书写工整，无大面积涂改</div></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ─── ERRORS ─── -->
+<div id="errors" class="section">
+  <div class="section-title"><div class="num">7</div>错误诊断与改进闭环</div>
+  <div class="section-sub">识别错误类型 → 找到根因 → 针对练习 → 验证改进</div>
+
+  <div class="error-grid">
+    <div class="error-card grammar">
+      <div class="error-type">Error Type 01</div>
+      <div class="error-title">主谓不一致 Subject-Verb Agreement</div>
+      <div class="error-example">The number of students are increasing.</div>
+      <div class="error-fix">The number of students is increasing.</div>
+      <p style="font-size:12px;margin-top:8px;color:var(--text-muted)">📌 规则："the number of" 后接单数谓语；"a number of" 后接复数</p>
+    </div>
+    <div class="error-card logic">
+      <div class="error-type">Error Type 02</div>
+      <div class="error-title">时态混乱 Tense Inconsistency</div>
+      <div class="error-example">Technology changes our life and made communication easier.</div>
+      <div class="error-fix">Technology changes our life and makes communication easier.</div>
+      <p style="font-size:12px;margin-top:8px;color:var(--text-muted)">📌 规则：议论文全程用一般现在时，除非引用历史事实</p>
+    </div>
+    <div class="error-card vocab">
+      <div class="error-type">Error Type 03</div>
+      <div class="error-title">冠词错误 Article Misuse</div>
+      <div class="error-example">Education plays important role in development of society.</div>
+      <div class="error-fix">Education plays an important role in the development of society.</div>
+      <p style="font-size:12px;margin-top:8px;color:var(--text-muted)">📌 规则：play a/an role 是固定搭配；特指名词前加 the</p>
+    </div>
+    <div class="error-card structure">
+      <div class="error-type">Error Type 04</div>
+      <div class="error-title">连接词误用 Connector Misuse</div>
+      <div class="error-example">I like studying. Despite, I sometimes feel tired.</div>
+      <div class="error-fix">I like studying. However, I sometimes feel tired.</div>
+      <p style="font-size:12px;margin-top:8px;color:var(--text-muted)">📌 规则："Despite" 后接名词/动名词，转折用 However/Nevertheless</p>
+    </div>
+    <div class="error-card grammar">
+      <div class="error-type">Error Type 05</div>
+      <div class="error-title">非谓语动词错误 Non-finite Verb</div>
+      <div class="error-example">Faced with challenges, students should to try their best.</div>
+      <div class="error-fix">Faced with challenges, students should try their best.</div>
+      <p style="font-size:12px;margin-top:8px;color:var(--text-muted)">📌 规则：情态动词后接动词原形，不加 to</p>
+    </div>
+    <div class="error-card logic">
+      <div class="error-type">Error Type 06</div>
+      <div class="error-title">段落缺乏论证 Underdeveloped Argument</div>
+      <div class="error-example">Technology is helpful. It is very useful for people.</div>
+      <div class="error-fix">Technology enhances productivity significantly; for instance, remote work tools enable collaboration across continents, saving both time and resources.</div>
+      <p style="font-size:12px;margin-top:8px;color:var(--text-muted)">📌 原则：每个论点必须配具体例子或数据支撑</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <div class="card-title"><span class="icon">🔄</span>改进闭环四步法</div>
+    <ul class="step-list">
+      <li><strong>写完后标记：</strong> 用不同颜色笔标注语法错、逻辑弱、词汇重复三类问题</li>
+      <li><strong>错误归类：</strong> 将所有错误归入上述6大类型，统计各类频率</li>
+      <li><strong>针对练习：</strong> 针对最高频错误类型，专项练习5-10句改错题</li>
+      <li><strong>重写验证：</strong> 次日重写同一话题，验证该类错误是否明显减少</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ─── PHRASES ─── -->
+<div id="phrases" class="section">
+  <div class="section-title"><div class="num">8</div>素材积累：高分短语与连接词库</div>
+  <div class="section-sub">每天背5个，考前形成自己的专属语库</div>
+
+  <div class="phrase-grid">
+    <div class="phrase-group">
+      <div class="phrase-group-title">📎 引入论点</div>
+      <div class="phrase-item"><span class="phrase-en">It is widely acknowledged that</span><span class="phrase-cn">广泛认可</span></div>
+      <div class="phrase-item"><span class="phrase-en">There is no denying that</span><span class="phrase-cn">不可否认</span></div>
+      <div class="phrase-item"><span class="phrase-en">Evidence suggests that</span><span class="phrase-cn">证据表明</span></div>
+      <div class="phrase-item"><span class="phrase-en">It is increasingly apparent that</span><span class="phrase-cn">愈加明显</span></div>
+      <div class="phrase-item"><span class="phrase-en">A compelling case can be made for</span><span class="phrase-cn">有力论据支持</span></div>
+    </div>
+    <div class="phrase-group">
+      <div class="phrase-group-title">🔗 逻辑转折</div>
+      <div class="phrase-item"><span class="phrase-en">Nevertheless / Nonetheless</span><span class="phrase-cn">尽管如此（书面）</span></div>
+      <div class="phrase-item"><span class="phrase-en">On the contrary</span><span class="phrase-cn">相反</span></div>
+      <div class="phrase-item"><span class="phrase-en">Conversely</span><span class="phrase-cn">反过来说</span></div>
+      <div class="phrase-item"><span class="phrase-en">That said</span><span class="phrase-cn">话虽如此</span></div>
+      <div class="phrase-item"><span class="phrase-en">While this may be true</span><span class="phrase-cn">虽然这可能成立</span></div>
+    </div>
+    <div class="phrase-group">
+      <div class="phrase-group-title">📊 举例说明</div>
+      <div class="phrase-item"><span class="phrase-en">A case in point is</span><span class="phrase-cn">一个典型例子是</span></div>
+      <div class="phrase-item"><span class="phrase-en">To illustrate this point</span><span class="phrase-cn">为了说明这一点</span></div>
+      <div class="phrase-item"><span class="phrase-en">This is exemplified by the fact that</span><span class="phrase-cn">这体现在……事实上</span></div>
+      <div class="phrase-item"><span class="phrase-en">Drawing on real-world examples</span><span class="phrase-cn">援引现实例子</span></div>
+      <div class="phrase-item"><span class="phrase-en">Research has consistently shown that</span><span class="phrase-cn">研究一再表明</span></div>
+    </div>
+    <div class="phrase-group">
+      <div class="phrase-group-title">✨ 高级动词替换</div>
+      <div class="phrase-item"><span class="phrase-en">facilitate / enable / foster</span><span class="phrase-cn">促进（替换 help）</span></div>
+      <div class="phrase-item"><span class="phrase-en">exacerbate / aggravate</span><span class="phrase-cn">加剧（替换 worsen）</span></div>
+      <div class="phrase-item"><span class="phrase-en">alleviate / mitigate</span><span class="phrase-cn">缓解（替换 reduce）</span></div>
+      <div class="phrase-item"><span class="phrase-en">advocate / champion</span><span class="phrase-cn">倡导（替换 support）</span></div>
+      <div class="phrase-item"><span class="phrase-en">contend / maintain / assert</span><span class="phrase-cn">主张（替换 think）</span></div>
+    </div>
+    <div class="phrase-group">
+      <div class="phrase-group-title">📈 递进强调</div>
+      <div class="phrase-item"><span class="phrase-en">Furthermore / Moreover / In addition</span><span class="phrase-cn">此外（三选一）</span></div>
+      <div class="phrase-item"><span class="phrase-en">What is more significant is that</span><span class="phrase-cn">更重要的是</span></div>
+      <div class="phrase-item"><span class="phrase-en">Above all</span><span class="phrase-cn">最重要的是</span></div>
+      <div class="phrase-item"><span class="phrase-en">Equally important is</span><span class="phrase-cn">同样重要的是</span></div>
+      <div class="phrase-item"><span class="phrase-en">Of paramount importance is</span><span class="phrase-cn">至关重要的是</span></div>
+    </div>
+    <div class="phrase-group">
+      <div class="phrase-group-title">🎯 总结收尾</div>
+      <div class="phrase-item"><span class="phrase-en">In light of the above</span><span class="phrase-cn">鉴于以上</span></div>
+      <div class="phrase-item"><span class="phrase-en">Taking everything into consideration</span><span class="phrase-cn">综合考量</span></div>
+      <div class="phrase-item"><span class="phrase-en">It is high time that</span><span class="phrase-cn">是时候……了</span></div>
+      <div class="phrase-item"><span class="phrase-en">Only through... can we</span><span class="phrase-cn">只有通过……才能</span></div>
+      <div class="phrase-item"><span class="phrase-en">Collective efforts are indispensable</span><span class="phrase-cn">集体努力不可或缺</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SELF-TEST ─── -->
+<div id="selftest" class="section">
+  <div class="section-title"><div class="num">9</div>可量化自测评分表</div>
+  <div class="section-sub">每次写完后填写，追踪进步轨迹</div>
+
+  <div class="info-box">
+    <strong>使用方法：</strong>写完一篇作文后，逐项对照评分，在"得分"栏输入0-满分之间的分数，系统自动计算总分和建议。
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📋</span>写作自测评分表</div>
+    <table class="test-table">
+      <thead>
+        <tr>
+          <th>维度</th>
+          <th>评分指标</th>
+          <th>满分</th>
+          <th>得分</th>
+          <th>自评说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="3"><strong>内容相关性</strong></td>
+          <td>题目关键词出现在每段中</td>
+          <td>1</td>
+          <td><input class="score-input" type="number" min="0" max="1" onchange="calcTotal()" placeholder="0-1"></td>
+          <td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="记录问题"></td>
+        </tr>
+        <tr>
+          <td>观点明确，有明确立场</td>
+          <td>2</td>
+          <td><input class="score-input" type="number" min="0" max="2" onchange="calcTotal()" placeholder="0-2"></td>
+          <td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="记录问题"></td>
+        </tr>
+        <tr>
+          <td>每段论点有具体支撑（例子/数据）</td>
+          <td>2</td>
+          <td><input class="score-input" type="number" min="0" max="2" onchange="calcTotal()" placeholder="0-2"></td>
+          <td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="记录问题"></td>
+        </tr>
+        <tr>
+          <td rowspan="3"><strong>组织结构</strong></td>
+          <td>三段式结构完整</td>
+          <td>1</td>
+          <td><input class="score-input" type="number" min="0" max="1" onchange="calcTotal()" placeholder="0-1"></td>
+          <td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="记录问题"></td>
+        </tr>
+        <tr>
+          <td>每段有明确topic sentence</td>
+          <td>2</td>
+          <td><input class="score-input" type="number" min="0" max="2" onchange="calcTotal()" placeholder="0-2"></td>
+          <td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="记录问题"></td>
+        </tr>
+        <tr>
+          <td>逻辑连接词使用≥5个且多样</td>
+          <td>2</td>
+          <td><input class="score-input" type="number" min="0" max="2" onchange="calcTotal()" placeholder="0-2"></td>
+          <td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="记录问题"></td>
+        </tr>
+        <tr>
+          <td rowspan="3"><strong>语言准确性</strong></td>
+          <td>语法错误率 &lt;5%（150词中&lt;8处）</td>
+          <td>3</td>
+          <td><input class="score-input" type="number" min="0" max="3" onchange="calcTotal()" placeholder="0-3"></td>
+          <td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="主要错误类型"></td>
+        </tr>
+        <tr>
+          <td>句式多样（简单句+复合句+复杂句）</td>
+          <td>2</td>
+          <td><input class="score-input" type="number" min="0" max="2" onchange="calcTotal()" placeholder="0-2"></td>
+          <td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="记录问题"></td>
+        </tr>
+        <tr>
+          <td>无严重表意不清的句子</td>
+          <td>1</td>
+          <td><input class="score-input" type="number" min="0" max="1" onchange="calcTotal()" placeholder="0-1"></td>
+          <td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="记录问题"></td>
+        </tr>
+        <tr>
+          <td rowspan="3"><strong>词汇丰富度</strong></td>
+          <td>有高级词汇替换（≥5个）</td>
+          <td>2</td>
+          <td><input class="score-input" type="number" min="0" max="2" onchange="calcTotal()" placeholder="0-2"></td>
+          <td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="记录问题"></td>
+        </tr>
+        <tr>
+          <td>同一词未重复超过3次</td>
+          <td>1</td>
+          <td><input class="score-input" type="number" min="0" max="1" onchange="calcTotal()" placeholder="0-1"></td>
+          <td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="记录问题"></td>
+        </tr>
+        <tr>
+          <td>词汇使用准确无误（无中式英语）</td>
+          <td>1</td>
+          <td><input class="score-input" type="number" min="0" max="1" onchange="calcTotal()" placeholder="0-1"></td>
+          <td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="记录问题"></td>
+        </tr>
+        <tr>
+          <td><strong>基础规范</strong></td>
+          <td>词数≥150词，分段清晰，书写工整</td>
+          <td>1</td>
+          <td><input class="score-input" type="number" min="0" max="1" onchange="calcTotal()" placeholder="0-1"></td>
+          <td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="记录问题"></td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="2"><strong>总分</strong></td>
+          <td><strong>21</strong></td>
+          <td id="totalScore" style="color:var(--accent-gold);font-size:18px;font-family:'JetBrains Mono',monospace"><strong>0</strong></td>
+          <td id="scoreLevel" style="color:rgba(255,255,255,0.7);font-size:13px">—</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="calcTotal()">🔄 计算总分</button>
+      <button class="btn btn-secondary" onclick="clearScores()" style="background:var(--border);color:var(--ink)">🗑 清空重填</button>
+    </div>
+  </div>
+
+  <div class="card" id="feedbackCard" style="display:none">
+    <div class="card-title"><span class="icon">💡</span>改进建议</div>
+    <div id="feedbackContent"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📅</span>5天进步追踪表</div>
+    <table class="test-table">
+      <thead>
+        <tr><th>训练日</th><th>话题</th><th>用时</th><th>词数</th><th>自测分/21</th><th>最大进步点</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Day 1</td><td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="话题名称"></td><td><input style="border:1px solid var(--border);padding:4px;width:60px;font-size:12px" type="text" placeholder="分钟"></td><td><input style="border:1px solid var(--border);padding:4px;width:60px;font-size:12px" type="text" placeholder="词数"></td><td><input style="border:1px solid var(--border);padding:4px;width:60px;font-size:12px" type="text" placeholder="分"></td><td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="记录一个具体进步"></td></tr>
+        <tr><td>Day 2</td><td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="话题名称"></td><td><input style="border:1px solid var(--border);padding:4px;width:60px;font-size:12px" type="text" placeholder="分钟"></td><td><input style="border:1px solid var(--border);padding:4px;width:60px;font-size:12px" type="text" placeholder="词数"></td><td><input style="border:1px solid var(--border);padding:4px;width:60px;font-size:12px" type="text" placeholder="分"></td><td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="记录一个具体进步"></td></tr>
+        <tr><td>Day 3</td><td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="话题名称"></td><td><input style="border:1px solid var(--border);padding:4px;width:60px;font-size:12px" type="text" placeholder="分钟"></td><td><input style="border:1px solid var(--border);padding:4px;width:60px;font-size:12px" type="text" placeholder="词数"></td><td><input style="border:1px solid var(--border);padding:4px;width:60px;font-size:12px" type="text" placeholder="分"></td><td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="记录一个具体进步"></td></tr>
+        <tr><td>Day 4</td><td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="话题名称"></td><td><input style="border:1px solid var(--border);padding:4px;width:60px;font-size:12px" type="text" placeholder="分钟"></td><td><input style="border:1px solid var(--border);padding:4px;width:60px;font-size:12px" type="text" placeholder="词数"></td><td><input style="border:1px solid var(--border);padding:4px;width:60px;font-size:12px" type="text" placeholder="分"></td><td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="记录一个具体进步"></td></tr>
+        <tr><td>Day 5</td><td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="话题名称"></td><td><input style="border:1px solid var(--border);padding:4px;width:60px;font-size:12px" type="text" placeholder="分钟"></td><td><input style="border:1px solid var(--border);padding:4px;width:60px;font-size:12px" type="text" placeholder="词数"></td><td><input style="border:1px solid var(--border);padding:4px;width:60px;font-size:12px" type="text" placeholder="分"></td><td><input style="border:1px solid var(--border);padding:4px;width:100%;font-size:12px" type="text" placeholder="记录一个具体进步"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<footer>同等学力申硕英语写作系统训练方案 · 按需使用各功能模块 · 坚持5天，见证进步</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<script>
+// ── NAV ──
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+// ── CHECKBOX ──
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+}
+
+// ── RADAR CHART ──
+window.addEventListener('load', () => {
+  const ctx = document.getElementById('radarChart');
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ['内容相关性', '组织结构', '语言准确性', '词汇丰富度', '逻辑衔接', '时间控制'],
+      datasets: [
+        {
+          label: '当前水平（估计）',
+          data: [55, 50, 45, 50, 48, 40],
+          borderColor: '#c0392b',
+          backgroundColor: 'rgba(192,57,43,0.15)',
+          pointBackgroundColor: '#c0392b',
+        },
+        {
+          label: '5天后目标',
+          data: [80, 82, 78, 76, 80, 85],
+          borderColor: '#d4a017',
+          backgroundColor: 'rgba(212,160,23,0.15)',
+          pointBackgroundColor: '#d4a017',
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        r: {
+          min: 0, max: 100,
+          ticks: { stepSize: 20, font: { size: 10 } },
+          pointLabels: { font: { size: 11, family: 'Noto Sans SC' } }
+        }
+      },
+      plugins: {
+        legend: { labels: { font: { family: 'Noto Sans SC', size: 12 } } }
+      }
+    }
+  });
+});
+
+// ── TIMER ──
+let timerInterval = null;
+let timeLeft = 1800;
+let currentPhaseLabel = '完整模拟 (30分钟)';
+let isRunning = false;
+
+function formatTime(s) {
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+}
+
+function updateDisplay() {
+  document.getElementById('timerDisplay').textContent = formatTime(timeLeft);
+  document.getElementById('phaseLabel').textContent = '当前阶段：' + currentPhaseLabel;
+  if (timeLeft <= 60) {
+    document.getElementById('timerDisplay').style.color = '#e74c3c';
+  } else {
+    document.getElementById('timerDisplay').style.color = 'var(--accent-gold)';
+  }
+}
+
+function startTimer() {
+  if (isRunning) return;
+  isRunning = true;
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateDisplay();
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      isRunning = false;
+      document.getElementById('timerDisplay').textContent = '时间到！';
+      document.getElementById('phaseLabel').textContent = '✅ 请停笔检查';
+    }
+  }, 1000);
+}
+
+function pauseTimer() {
+  clearInterval(timerInterval);
+  isRunning = false;
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  isRunning = false;
+  timeLeft = 1800;
+  currentPhaseLabel = '完整模拟 (30分钟)';
+  updateDisplay();
+}
+
+function setTimer(seconds, label) {
+  clearInterval(timerInterval);
+  isRunning = false;
+  timeLeft = seconds;
+  currentPhaseLabel = label;
+  updateDisplay();
+  document.querySelectorAll('.phase-btn').forEach(b => b.classList.remove('active-phase'));
+  event.currentTarget.classList.add('active-phase');
+}
+
+// ── RANDOM TOPIC ──
+const topics = [
+  "The Impact of Social Media on Interpersonal Communication\n\n题目要求：讨论社交媒体对人际沟通的影响，表明你的观点并举例论证。（约150-200词）",
+  "Should University Education Be Free for All Students?\n\n题目要求：讨论大学教育是否应该免费，给出你的立场和理由。（约150-200词）",
+  "The Advantages and Disadvantages of Working from Home\n\n题目要求：分析居家办公的利与弊，并提出你的建议。（约150-200词）",
+  "How Can We Protect the Environment in Daily Life?\n\n题目要求：从个人行为角度，提出保护环境的具体措施。（约150-200词）",
+  "Is Technology Making Us Smarter or Lazier?\n\n题目要求：技术究竟让我们更聪明还是更懒惰？表明立场，充分论证。（约150-200词）",
+  "The Importance of Learning a Foreign Language\n\n题目要求：论述学习外语的重要性，结合现实意义进行分析。（约150-200词）",
+  "Urban vs. Rural Life: Which Is Better?\n\n题目要求：比较城市与农村生活，表明你更倾向的生活方式并解释原因。（约150-200词）",
+  "The Role of Physical Exercise in Mental Health\n\n题目要求：讨论体育锻炼对心理健康的影响，并提出建议。（约150-200词）",
+];
+
+function randomTopic() {
+  const idx = Math.floor(Math.random() * topics.length);
+  document.getElementById('topicDisplay').innerHTML = '<strong>📄 作文题目：</strong><br><br>' + topics[idx].replace(/\n/g, '<br>');
+}
+
+// ── SCORE CALC ──
+function calcTotal() {
+  const inputs = document.querySelectorAll('.score-input');
+  let total = 0;
+  inputs.forEach(i => { total += parseFloat(i.value) || 0; });
+  document.getElementById('totalScore').textContent = total;
+
+  const pct = (total / 21 * 100).toFixed(0);
+  let level = '';
+  let feedback = '';
+
+  if (total >= 18) {
+    level = '🏆 优秀 ≈ 考试13-15分';
+    feedback = '<p style="color:var(--accent-teal);font-weight:700">✅ 表现优异！</p><p>你的写作已达到高分水准。建议：<br>• 继续保持句式多样性<br>• 进一步丰富话题相关词汇<br>• 确保考场发挥稳定</p>';
+  } else if (total >= 14) {
+    level = '✅ 良好 ≈ 考试10-12分';
+    feedback = '<p style="color:var(--accent-blue);font-weight:700">👍 状态不错，还有提升空间</p><p>重点改进方向：<br>• 检查得分最低的2个维度，专项训练<br>• 增加高级词汇使用频率<br>• 练习逻辑连接词多样化</p>';
+  } else if (total >= 9) {
+    level = '⚠️ 中等 ≈ 考试7-9分';
+    feedback = '<p style="color:var(--accent-gold);font-weight:700">📌 需要重点突破</p><p>关键问题：<br>• 优先解决语法错误（错误率过高会严重失分）<br>• 强化结构意识，确保每段有明确中心句<br>• 每天练习改错题10-15道</p>';
+  } else {
+    level = '❌ 需要加强 ≈ 考试4-6分';
+    feedback = '<p style="color:var(--accent);font-weight:700">⚡ 需要系统性强化</p><p>优先行动：<br>• 从Day 1重新开始，打好基础<br>• 先专注三段式结构，不求完美<br>• 每天背诵并运用5个高频模板句</p>';
+  }
+
+  document.getElementById('scoreLevel').textContent = level;
+  document.getElementById('feedbackCard').style.display = 'block';
+  document.getElementById('feedbackContent').innerHTML = feedback;
+}
+
+function clearScores() {
+  document.querySelectorAll('.score-input').forEach(i => i.value = '');
+  document.getElementById('totalScore').textContent = '0';
+  document.getElementById('scoreLevel').textContent = '—';
+  document.getElementById('feedbackCard').style.display = 'none';
+}
+</script>
+</body>
+</html>
