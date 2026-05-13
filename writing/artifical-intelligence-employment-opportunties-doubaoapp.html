@@ -1,0 +1,2906 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语学术写作范文深度解析报告</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --info-color: #9b59b6;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --subject-color: #3498db;
+            --predicate-color: #2ecc71;
+            --object-color: #e67e22;
+            --attribute-color: #9b59b6;
+            --adverbial-color: #e74c3c;
+            --complement-color: #7f8c8d;
+            --border-color: #ddd;
+            --shadow-color: rgba(0,0,0,0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+            color: var(--primary-color);
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 0 20px var(--shadow-color);
+            border-radius: 8px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+        
+        h2 {
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        h3 {
+            font-size: 1.5em;
+            margin-top: 30px;
+            color: var(--secondary-color);
+        }
+        
+        h4 {
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: var(--info-color);
+        }
+        
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .sentence {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        
+        .sentence-number {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-right: 10px;
+        }
+        
+        .sentence-content {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        
+        .sentence-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .tag {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .tag-tense {
+            background-color: var(--info-color);
+        }
+        
+        .tag-voice {
+            background-color: var(--warning-color);
+        }
+        
+        .tag-clause {
+            background-color: var(--success-color);
+        }
+        
+        .tag-special {
+            background-color: var(--accent-color);
+        }
+        
+        .analysis-section {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px var(--shadow-color);
+        }
+        
+        .vocabulary-list {
+            list-style-type: none;
+            margin-left: 20px;
+        }
+        
+        .vocabulary-item {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .vocabulary-item:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        .collocation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        .collocation-table th, .collocation-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .collocation-table th {
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .collocation-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .sentence-structure {
+            font-family: monospace;
+            font-size: 1.1em;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .subject {
+            color: var(--subject-color);
+            font-weight: bold;
+        }
+        
+        .predicate {
+            color: var(--predicate-color);
+            font-weight: bold;
+        }
+        
+        .object {
+            color: var(--object-color);
+            font-weight: bold;
+        }
+        
+        .attribute {
+            color: var(--attribute-color);
+            font-weight: bold;
+        }
+        
+        .adverbial {
+            color: var(--adverbial-color);
+            font-weight: bold;
+        }
+        
+        .complement {
+            color: var(--complement-color);
+            font-weight: bold;
+        }
+        
+        .template {
+            background-color: #e8f4fd;
+            padding: 15px;
+            border-left: 4px solid var(--secondary-color);
+            margin: 15px 0;
+        }
+        
+        .memory-tip {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid var(--warning-color);
+            margin: 15px 0;
+        }
+        
+        .error-comparison {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+        }
+        
+        .error-example, .correct-example {
+            flex: 1;
+            padding: 15px;
+            border-radius: 6px;
+        }
+        
+        .error-example {
+            background-color: #f8d7da;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .correct-example {
+            background-color: #d4edda;
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .application-scenarios {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .scenario {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px;
+            background-color: #e7f3e7;
+            border-radius: 6px;
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .formality-scale {
+            margin: 15px 0;
+        }
+        
+        .scale {
+            display: flex;
+            height: 30px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .scale-level {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .scale-level-0 { background-color: #6c757d; }
+        .scale-level-1 { background-color: #adb5bd; }
+        .scale-level-2 { background-color: #ced4da; }
+        .scale-level-3 { background-color: #dee2e6; }
+        .scale-level-4 { background-color: #e9ecef; }
+        .scale-level-5 { background-color: #2c3e50; }
+        
+        .scale-marker {
+            width: 20px;
+            height: 40px;
+            background-color: var(--accent-color);
+            margin-top: -5px;
+            border-radius: 4px;
+            position: relative;
+        }
+        
+        .scale-marker::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid var(--accent-color);
+        }
+        
+        .example-sentences {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        .example-sentence {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .example-sentence:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        .index {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .index-item {
+            margin-bottom: 10px;
+        }
+        
+        .index-term {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        
+        .index-references {
+            color: var(--dark-color);
+            margin-left: 10px;
+        }
+        
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .level-badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        
+        .level-cefr {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .level-awl {
+            background-color: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+            }
+            
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+            
+            h1, h2, h3, h4, h5, h6 {
+                page-break-after: avoid;
+                page-break-inside: avoid;
+            }
+            
+            .sentence {
+                page-break-inside: avoid;
+                border: 1px solid #ccc;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+            
+            h3 {
+                font-size: 1.3em;
+            }
+            
+            .error-comparison {
+                flex-direction: column;
+            }
+            
+            .application-scenarios {
+                flex-direction: column;
+            }
+            
+            .scenario {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>英语学术写作范文深度解析报告</h1>
+        
+        <div class="sentence">
+            <div class="sentence-content">
+                <span class="sentence-number">S1</span>
+                As artificial intelligence rapidly advances, concerns about job displacement have grown significantly.
+            </div>
+            <div class="sentence-tags">
+                <span class="tag tag-tense">时态: 现在进行时 + 现在完成时</span>
+                <span class="tag tag-voice">语态: 主动语态</span>
+                <span class="tag tag-clause">从句类型: 时间状语从句</span>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>1. 语法层面</h3>
+                <p>本句使用了现在进行时（is advancing）描述正在进行的动作，以及现在完成时（have grown）表示过去开始并持续到现在的动作。时间状语从句"As artificial intelligence rapidly advances"引导主句动作发生的背景。</p>
+                <p>在SCI/SSCI论文中，这种时态组合常用于描述研究背景和当前趋势，表明研究问题的时效性和紧迫性，是引言部分的常见结构。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>2. 词汇原型</h3>
+                <ul class="vocabulary-list">
+                    <li class="vocabulary-item">
+                        <strong>artificial</strong> | ˌɑːtɪˈfɪʃl | 形容词 | 人工的，人造的 | 正式 | CEFR: C1 | AWL: 子列表 4
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>intelligence</strong> | ɪnˈtelɪdʒəns | 名词 | 智力，智能 | 中性 | CEFR: B2 | AWL: 子列表 3
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>rapidly</strong> | ˈræpɪdli | 副词 | 迅速地，快速地 | 中性 | CEFR: B2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>advances</strong> | ədˈvɑːnsɪz | 动词 | 前进，发展 | 正式 | CEFR: B2 | AWL: 子列表 2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>concerns</strong> | kənˈsɜːnz | 名词 | 担忧，忧虑 | 中性 | CEFR: B2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>job</strong> | dʒɒb | 名词 | 工作，职位 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>displacement</strong> | dɪsˈpleɪsmənt | 名词 | 取代，置换 | 正式 | CEFR: C1 | AWL: 子列表 7
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>have</strong> | hæv | 助动词 | 已经 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>grown</strong> | ɡrəʊn | 动词 | 增长，增加 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>significantly</strong> | sɪɡˈnɪfɪkəntli | 副词 | 显著地，明显地 | 正式 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>3. 词汇搭配</h3>
+                <table class="collocation-table">
+                    <tr>
+                        <th>动词+名词（V+N）</th>
+                        <th>形容词+名词（Adj+N）</th>
+                        <th>固定短语/预制语块</th>
+                        <th>学术高频连接词</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>artificial intelligence advances</strong><br>
+                            人工智能发展<br>
+                            语域: 正式<br>
+                            位置: 1-27
+                        </td>
+                        <td>
+                            <strong>artificial intelligence</strong><br>
+                            人工智能<br>
+                            语域: 正式<br>
+                            位置: 4-22
+                        </td>
+                        <td>
+                            <strong>As [subject] [verb]</strong><br>
+                            随着[主语][谓语]<br>
+                            语域: 正式<br>
+                            位置: 1-27
+                        </td>
+                        <td>
+                            无
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>concerns have grown</strong><br>
+                            担忧增加<br>
+                            语域: 中性<br>
+                            位置: 29-48
+                        </td>
+                        <td>
+                            <strong>job displacement</strong><br>
+                            工作取代<br>
+                            语域: 正式<br>
+                            位置: 37-51
+                        </td>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            无
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            <strong>rapidly advances</strong><br>
+                            快速发展<br>
+                            语域: 中性<br>
+                            位置: 23-27
+                        </td>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            无
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>4. 句子成分</h3>
+                <div class="sentence-structure">
+                    <span class="adverbial">As <span class="subject">artificial intelligence</span> <span class="predicate">rapidly advances</span></span>, <span class="subject">concerns <span class="attribute">about job displacement</span></span> <span class="predicate">have grown <span class="adverbial">significantly</span></span>.
+                </div>
+                <p>句子结构分析：本句为复合句，包含一个时间状语从句和一个主句。最深嵌套层数为1层，符合学术写作的清晰性要求，避免了过于复杂的句子结构。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>5. 记忆方法</h3>
+                <div class="template">
+                    <strong>公式化模板：</strong> As [subject] [verb] [adverb], [subject] [verb] [adverb].<br>
+                    <strong>可替换槽位：</strong>
+                    <ul>
+                        <li>[subject]: 名词短语（如：technology, society, economy）</li>
+                        <li>[verb]: 不及物动词（如：develops, evolves, changes）</li>
+                        <li>[adverb]: 方式副词（如：quickly, dramatically, steadily）</li>
+                    </ul>
+                </div>
+                
+                <div class="memory-tip">
+                    <strong>记忆口诀：</strong> 随着某事发生，另一事变化。
+                </div>
+                
+                <div class="error-comparison">
+                    <div class="error-example">
+                        <strong>错误例句：</strong><br>
+                        As technology is developing quickly, people's lives are changing.
+                        <p><em>错误原因：</em> 重复使用进行时态，显得冗余；缺少具体程度副词。</p>
+                    </div>
+                    
+                    <div class="correct-example">
+                        <strong>正确例句：</strong><br>
+                        As technology develops rapidly, people's lives are changing significantly.
+                        <p><em>正确原因：</em> 使用一般现在时描述趋势，现在进行时描述正在发生的变化，并用程度副词增强表达效果。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>6. 应用场景</h3>
+                <div class="application-scenarios">
+                    <div class="scenario">
+                        <strong>雅思写作：</strong> 适用于"原因与解决方案"题型，用于引出问题的背景和原因。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>托福写作：</strong> 适用于综合写作，用于总结阅读材料中的趋势或背景信息。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>学术场景：</strong> 主要用于论文引言部分，介绍研究背景和当前趋势。
+                    </div>
+                </div>
+                
+                <div class="formality-scale">
+                    <strong>正式等级：4/5</strong>
+                    <div class="scale">
+                        <div class="scale-level scale-level-0">0</div>
+                        <div class="scale-level scale-level-1">1</div>
+                        <div class="scale-level scale-level-2">2</div>
+                        <div class="scale-level scale-level-3">3</div>
+                        <div class="scale-level scale-level-4">4</div>
+                        <div class="scale-level scale-level-5">5</div>
+                    </div>
+                    <p>适用于学术期刊、研究报告、商务邮件和会议报告。</p>
+                </div>
+            </div>
+            
+            <div class="example-sentences">
+                <h4>仿写例句：</h4>
+                <div class="example-sentence">
+                    As digital technology evolves steadily, educational methodologies are transforming considerably. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">AWL: 子列表 2, 4</span>
+                </div>
+                <div class="example-sentence">
+                    As global temperatures rise dramatically, environmental concerns are intensifying worldwide. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 1, 5</span>
+                </div>
+                <div class="example-sentence">
+                    As urbanization proceeds rapidly, infrastructure demands are increasing substantially. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 3, 7</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sentence">
+            <div class="sentence-content">
+                <span class="sentence-number">S2</span>
+                Some fear widespread unemployment, while others believe AI will create new opportunities and drive industrial upgrading.
+            </div>
+            <div class="sentence-tags">
+                <span class="tag tag-tense">时态: 一般现在时 + 一般将来时</span>
+                <span class="tag tag-voice">语态: 主动语态</span>
+                <span class="tag tag-clause">从句类型: 并列句（while引导）</span>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>1. 语法层面</h3>
+                <p>本句使用了一般现在时（fear, believe）描述当前的观点，以及一般将来时（will create, drive）表示未来的动作。通过while引导的并列句结构，对比了两种不同的观点。</p>
+                <p>在学术写作中，这种结构常用于呈现对立观点或对比分析，是讨论部分的常见表达方式，有助于展示作者的批判性思维。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>2. 词汇原型</h3>
+                <ul class="vocabulary-list">
+                    <li class="vocabulary-item">
+                        <strong>Some</strong> | sʌm | 代词 | 一些人 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>fear</strong> | fɪə | 动词 | 害怕，担忧 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>widespread</strong> | ˈwaɪdspred | 形容词 | 广泛的，普遍的 | 正式 | CEFR: B2 | AWL: 子列表 3
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>unemployment</strong> | ˌʌnɪmˈplɔɪmənt | 名词 | 失业，失业状态 | 正式 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>while</strong> | waɪl | 连词 | 而，然而 | 中性 | CEFR: A2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>others</strong> | ˈʌðəz | 代词 | 其他人 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>believe</strong> | bɪˈliːv | 动词 | 相信，认为 | 中性 | CEFR: A2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>AI</strong> | eɪ aɪ | 名词 | 人工智能 | 正式 | CEFR: B2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>will</strong> | wɪl | 助动词 | 将，会 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>create</strong> | kriːˈeɪt | 动词 | 创造，创建 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>new</strong> | njuː | 形容词 | 新的 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>opportunities</strong> | ˌɒpəˈtjuːnɪtiz | 名词 | 机会，机遇 | 中性 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>and</strong> | ænd | 连词 | 和，与 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>drive</strong> | draɪv | 动词 | 推动，驱动 | 正式 | CEFR: B2 | AWL: 子列表 2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>industrial</strong> | ɪnˈdʌstriəl | 形容词 | 工业的，产业的 | 正式 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>upgrading</strong> | ˈʌpɡreɪdɪŋ | 名词 | 升级，提升 | 正式 | CEFR: C1 | AWL: 子列表 5
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>3. 词汇搭配</h3>
+                <table class="collocation-table">
+                    <tr>
+                        <th>动词+名词（V+N）</th>
+                        <th>形容词+名词（Adj+N）</th>
+                        <th>固定短语/预制语块</th>
+                        <th>学术高频连接词</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>fear unemployment</strong><br>
+                            担忧失业<br>
+                            语域: 中性<br>
+                            位置: 6-24
+                        </td>
+                        <td>
+                            <strong>widespread unemployment</strong><br>
+                            广泛失业<br>
+                            语域: 正式<br>
+                            位置: 11-24
+                        </td>
+                        <td>
+                            <strong>Some..., while others...</strong><br>
+                            一些人..., 而其他人...<br>
+                            语域: 正式<br>
+                            位置: 1-71
+                        </td>
+                        <td>
+                            <strong>while</strong><br>
+                            而，然而<br>
+                            语域: 正式<br>
+                            位置: 26-29
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>believe AI will create</strong><br>
+                            相信AI将创造<br>
+                            语域: 正式<br>
+                            位置: 35-53
+                        </td>
+                        <td>
+                            <strong>new opportunities</strong><br>
+                            新机会<br>
+                            语域: 中性<br>
+                            位置: 54-68
+                        </td>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            <strong>and</strong><br>
+                            和，与<br>
+                            语域: 中性<br>
+                            位置: 69-70
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>drive upgrading</strong><br>
+                            推动升级<br>
+                            语域: 正式<br>
+                            位置: 72-88
+                        </td>
+                        <td>
+                            <strong>industrial upgrading</strong><br>
+                            产业升级<br>
+                            语域: 正式<br>
+                            位置: 73-88
+                        </td>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            无
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>4. 句子成分</h3>
+                <div class="sentence-structure">
+                    <span class="subject">Some</span> <span class="predicate">fear <span class="object">widespread unemployment</span></span>, <span class="adverbial">while <span class="subject">others</span> <span class="predicate">believe <span class="object">AI will create new opportunities and drive industrial upgrading</span></span></span>.
+                </div>
+                <p>句子结构分析：本句为并列复合句，通过while连接两个并列分句，第二个分句中包含一个省略了that的宾语从句。最深嵌套层数为2层，符合学术写作的复杂性要求，展示了作者的语言能力。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>5. 记忆方法</h3>
+                <div class="template">
+                    <strong>公式化模板：</strong> Some [verb] [noun], while others [verb] [subject] will [verb] [noun] and [verb] [noun].<br>
+                    <strong>可替换槽位：</strong>
+                    <ul>
+                        <li>[verb]: 心理动词（如：argue, suggest, claim）</li>
+                        <li>[noun]: 抽象名词（如：change, development, innovation）</li>
+                        <li>[subject]: 名词短语（如：technology, government, society）</li>
+                    </ul>
+                </div>
+                
+                <div class="memory-tip">
+                    <strong>记忆口诀：</strong> 一些人看法A，而其他人看法B。
+                </div>
+                
+                <div class="error-comparison">
+                    <div class="error-example">
+                        <strong>错误例句：</strong><br>
+                        Some people are fearing unemployment, while others are believing AI creates opportunities.
+                        <p><em>错误原因：</em> 不必要地使用进行时态；时态不一致（现在进行时与一般现在时混用）。</p>
+                    </div>
+                    
+                    <div class="correct-example">
+                        <strong>正确例句：</strong><br>
+                        Some people fear unemployment, while others believe AI will create opportunities.
+                        <p><em>正确原因：</em> 使用一般现在时描述普遍观点；在宾语从句中使用一般将来时表示未来趋势。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>6. 应用场景</h3>
+                <div class="application-scenarios">
+                    <div class="scenario">
+                        <strong>雅思写作：</strong> 适用于"双边讨论"题型，用于呈现两种对立的观点。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>托福写作：</strong> 适用于学术讨论，用于总结不同学者的观点或理论。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>学术场景：</strong> 主要用于论文讨论部分，对比不同研究结果或理论观点。
+                    </div>
+                </div>
+                
+                <div class="formality-scale">
+                    <strong>正式等级：4/5</strong>
+                    <div class="scale">
+                        <div class="scale-level scale-level-0">0</div>
+                        <div class="scale-level scale-level-1">1</div>
+                        <div class="scale-level scale-level-2">2</div>
+                        <div class="scale-level scale-level-3">3</div>
+                        <div class="scale-level scale-level-4">4</div>
+                        <div class="scale-level scale-level-5">5</div>
+                    </div>
+                    <p>适用于学术期刊、研究报告、商务邮件和会议报告。</p>
+                </div>
+            </div>
+            
+            <div class="example-sentences">
+                <h4>仿写例句：</h4>
+                <div class="example-sentence">
+                    Some argue that technology isolates individuals, while others believe it connects people globally and fosters cultural exchange. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 1, 3</span>
+                </div>
+                <div class="example-sentence">
+                    Some suggest stricter regulations are necessary, while others claim market forces will naturally drive sustainable practices. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 2, 4</span>
+                </div>
+                <div class="example-sentence">
+                    Some researchers emphasize individual factors, while others highlight societal influences and environmental determinants. <span class="level-badge level-cefr">CEFR: C2</span> <span class="level-badge level-awl">子列表 1, 5</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sentence">
+            <div class="sentence-content">
+                <span class="sentence-number">S3</span>
+                In my opinion, AI should be viewed as a transformative force that reshapes work rather than simply eliminates it.
+            </div>
+            <div class="sentence-tags">
+                <span class="tag tag-tense">时态: 一般现在时</span>
+                <span class="tag tag-voice">语态: 被动语态</span>
+                <span class="tag tag-clause">从句类型: 定语从句</span>
+                <span class="tag tag-special">特殊结构: rather than 对比结构</span>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>1. 语法层面</h3>
+                <p>本句使用了一般现在时（should be viewed, reshapes, eliminates）描述作者的观点和AI的作用。通过被动语态（should be viewed）表达建议，以及定语从句（that reshapes work）修饰先行词force。rather than结构用于对比两种不同的结果。</p>
+                <p>在学术写作中，被动语态常用于表达客观建议或观点，而定语从句则用于提供额外信息，增强句子的信息量和逻辑性。rather than结构有助于清晰地表达对比关系。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>2. 词汇原型</h3>
+                <ul class="vocabulary-list">
+                    <li class="vocabulary-item">
+                        <strong>In</strong> | ɪn | 介词 | 在...中 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>my</strong> | maɪ | 代词 | 我的 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>opinion</strong> | əˈpɪnjən | 名词 | 观点，看法 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>AI</strong> | eɪ aɪ | 名词 | 人工智能 | 正式 | CEFR: B2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>should</strong> | ʃʊd | 情态动词 | 应该 | 中性 | CEFR: A2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>be</strong> | biː | 动词 | 是 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>viewed</strong> | vjuːd | 动词 | 看待，视为 | 正式 | CEFR: B2 | AWL: 子列表 2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>as</strong> | æz | 介词 | 作为 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>a</strong> | ə | 冠词 | 一个 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>transformative</strong> | trænsˈfɔːmətɪv | 形容词 | 变革性的，转换的 | 正式 | CEFR: C1 | AWL: 子列表 6
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>force</strong> | fɔːs | 名词 | 力量，影响力 | 中性 | CEFR: B2 | AWL: 子列表 2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>that</strong> | ðæt | 关系代词 | 引导定语从句 | 中性 | CEFR: A2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>reshapes</strong> | ˌriːˈʃeɪps | 动词 | 重塑，重新塑造 | 正式 | CEFR: C1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>work</strong> | wɜːk | 名词 | 工作，劳动 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>rather</strong> | ˈrɑːðə | 副词 | 相当，宁愿 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>than</strong> | ðæn | 连词 | 比，而不是 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>simply</strong> | ˈsɪmpli | 副词 | 简单地，仅仅 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>eliminates</strong> | ɪˈlɪmɪneɪts | 动词 | 消除，排除 | 正式 | CEFR: B2 | AWL: 子列表 3
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>it</strong> | ɪt | 代词 | 它 | 中性 | CEFR: A1
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>3. 词汇搭配</h3>
+                <table class="collocation-table">
+                    <tr>
+                        <th>动词+名词（V+N）</th>
+                        <th>形容词+名词（Adj+N）</th>
+                        <th>固定短语/预制语块</th>
+                        <th>学术高频连接词</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>be viewed as</strong><br>
+                            被视为<br>
+                            语域: 正式<br>
+                            位置: 20-32
+                        </td>
+                        <td>
+                            <strong>transformative force</strong><br>
+                            变革性力量<br>
+                            语域: 正式<br>
+                            位置: 33-48
+                        </td>
+                        <td>
+                            <strong>In my opinion</strong><br>
+                            在我看来<br>
+                            语域: 中性<br>
+                            位置: 1-12
+                        </td>
+                        <td>
+                            <strong>rather than</strong><br>
+                            而不是<br>
+                            语域: 正式<br>
+                            位置: 62-72
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>reshapes work</strong><br>
+                            重塑工作<br>
+                            语域: 正式<br>
+                            位置: 53-61
+                        </td>
+                        <td>
+                            <strong>simply eliminates</strong><br>
+                            简单消除<br>
+                            语域: 中性<br>
+                            位置: 73-84
+                        </td>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            无
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>4. 句子成分</h3>
+                <div class="sentence-structure">
+                    <span class="adverbial">In my opinion</span>, <span class="subject">AI</span> <span class="predicate">should be viewed <span class="adverbial">as a <span class="attribute">transformative</span> force <span class="attribute">that reshapes work <span class="adverbial">rather than simply eliminates it</span></span></span></span>.
+                </div>
+                <p>句子结构分析：本句为主从复合句，包含一个主句和一个定语从句。主句使用被动语态表达建议，定语从句修饰先行词force，其中包含rather than对比结构。最深嵌套层数为3层，展示了较高的语言复杂度。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>5. 记忆方法</h3>
+                <div class="template">
+                    <strong>公式化模板：</strong> In my opinion, [subject] should be viewed as a [adjective] [noun] that [verb] [noun] rather than [adverb] [verb] [pronoun].<br>
+                    <strong>可替换槽位：</strong>
+                    <ul>
+                        <li>[subject]: 名词短语（如：technology, education, policy）</li>
+                        <li>[adjective]: 描述性形容词（如：powerful, significant, positive）</li>
+                        <li>[noun]: 抽象名词（如：tool, factor, influence）</li>
+                        <li>[verb]: 及物动词（如：improves, enhances, changes）</li>
+                    </ul>
+                </div>
+                
+                <div class="memory-tip">
+                    <strong>记忆口诀：</strong> 我认为某事物应被视为有某种作用，而非另一种。
+                </div>
+                
+                <div class="error-comparison">
+                    <div class="error-example">
+                        <strong>错误例句：</strong><br>
+                        In my opinion, AI should view as a transformative force which reshapes work rather than simply eliminates it.
+                        <p><em>错误原因：</em> 主动语态使用错误；关系代词which在限制性定语从句中不如that正式。</p>
+                    </div>
+                    
+                    <div class="correct-example">
+                        <strong>正确例句：</strong><br>
+                        In my opinion, AI should be viewed as a transformative force that reshapes work rather than simply eliminates it.
+                        <p><em>正确原因：</em> 使用被动语态表达"被视为"；在限制性定语从句中使用that；rather than结构正确对比两个动作。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>6. 应用场景</h3>
+                <div class="application-scenarios">
+                    <div class="scenario">
+                        <strong>雅思写作：</strong> 适用于"同意与否"题型，用于明确表达个人观点。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>托福写作：</strong> 适用于独立写作，用于提出中心论点或立场。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>学术场景：</strong> 主要用于论文结论部分，表达作者的观点或建议。
+                    </div>
+                </div>
+                
+                <div class="formality-scale">
+                    <strong>正式等级：4/5</strong>
+                    <div class="scale">
+                        <div class="scale-level scale-level-0">0</div>
+                        <div class="scale-level scale-level-1">1</div>
+                        <div class="scale-level scale-level-2">2</div>
+                        <div class="scale-level scale-level-3">3</div>
+                        <div class="scale-level scale-level-4">4</div>
+                        <div class="scale-level scale-level-5">5</div>
+                    </div>
+                    <p>适用于学术期刊、研究报告、商务邮件和会议报告。</p>
+                </div>
+            </div>
+            
+            <div class="example-sentences">
+                <h4>仿写例句：</h4>
+                <div class="example-sentence">
+                    In my view, technology should be regarded as an enabling tool that enhances productivity rather than completely replaces human labor. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 2, 4</span>
+                </div>
+                <div class="example-sentence">
+                    From my perspective, education should be seen as a transformative journey that develops critical thinking rather than simply imparts knowledge. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 1, 6</span>
+                </div>
+                <div class="example-sentence">
+                    In my assessment, globalization should be viewed as a complex process that creates opportunities rather than merely causes problems. <span class="level-badge level-cefr">CEFR: C2</span> <span class="level-badge level-awl">子列表 3, 5</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sentence">
+            <div class="sentence-content">
+                <span class="sentence-number">S4</span>
+                On the one hand, AI does automate certain routine tasks, potentially displacing some workers in traditional industries.
+            </div>
+            <div class="sentence-tags">
+                <span class="tag tag-tense">时态: 一般现在时</span>
+                <span class="tag tag-voice">语态: 主动语态</span>
+                <span class="tag tag-special">特殊结构: 强调助动词（does）</span>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>1. 语法层面</h3>
+                <p>本句使用了一般现在时（does automate, displacing）描述AI的当前作用。通过强调助动词does加强语气，以及现在分词短语（potentially displacing）作结果状语。</p>
+                <p>在学术写作中，强调助动词常用于突出重要观点或反驳相反意见，现在分词短语则用于简洁地表达结果或伴随情况，增强句子的连贯性。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>2. 词汇原型</h3>
+                <ul class="vocabulary-list">
+                    <li class="vocabulary-item">
+                        <strong>On</strong> | ɒn | 介词 | 在...上 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>the</strong> | ðə | 冠词 | 这，那 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>one</strong> | wʌn | 数词 | 一 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>hand</strong> | hænd | 名词 | 手 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>AI</strong> | eɪ aɪ | 名词 | 人工智能 | 正式 | CEFR: B2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>does</strong> | dʌz | 助动词 | 强调 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>automate</strong> | ˈɔːtəmeɪt | 动词 | 使自动化 | 正式 | CEFR: B2 | AWL: 子列表 5
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>certain</strong> | ˈsɜːtn | 形容词 | 某些，特定的 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>routine</strong> | ruːˈtiːn | 形容词 | 常规的，例行的 | 正式 | CEFR: B2 | AWL: 子列表 4
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>tasks</strong> | tɑːsks | 名词 | 任务，工作 | 中性 | CEFR: B1 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>potentially</strong> | pəˈtenʃəli | 副词 | 潜在地，可能地 | 正式 | CEFR: B2 | AWL: 子列表 2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>displacing</strong> | dɪsˈpleɪsɪŋ | 动词 | 取代，置换 | 正式 | CEFR: C1 | AWL: 子列表 7
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>some</strong> | sʌm | 限定词 | 一些 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>workers</strong> | ˈwɜːkəz | 名词 | 工人，工作者 | 中性 | CEFR: A2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>in</strong> | ɪn | 介词 | 在...里 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>traditional</strong> | trəˈdɪʃənl | 形容词 | 传统的 | 中性 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>industries</strong> | ˈɪndəstriz | 名词 | 行业，产业 | 正式 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>3. 词汇搭配</h3>
+                <table class="collocation-table">
+                    <tr>
+                        <th>动词+名词（V+N）</th>
+                        <th>形容词+名词（Adj+N）</th>
+                        <th>固定短语/预制语块</th>
+                        <th>学术高频连接词</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>does automate tasks</strong><br>
+                            确实使任务自动化<br>
+                            语域: 正式<br>
+                            位置: 18-35
+                        </td>
+                        <td>
+                            <strong>certain routine tasks</strong><br>
+                            某些常规任务<br>
+                            语域: 正式<br>
+                            位置: 25-35
+                        </td>
+                        <td>
+                            <strong>On the one hand</strong><br>
+                            一方面<br>
+                            语域: 正式<br>
+                            位置: 1-13
+                        </td>
+                        <td>
+                            无
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>displacing workers</strong><br>
+                            取代工人<br>
+                            语域: 正式<br>
+                            位置: 38-53
+                        </td>
+                        <td>
+                            <strong>traditional industries</strong><br>
+                            传统行业<br>
+                            语域: 正式<br>
+                            位置: 61-78
+                        </td>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            无
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>4. 句子成分</h3>
+                <div class="sentence-structure">
+                    <span class="adverbial">On the one hand</span>, <span class="subject">AI</span> <span class="predicate">does automate <span class="object">certain routine tasks</span></span>, <span class="adverbial">potentially displacing some workers <span class="adverbial">in traditional industries</span></span>.
+                </div>
+                <p>句子结构分析：本句为简单句，包含一个主句和一个现在分词短语作结果状语。强调助动词does用于加强语气。句子结构清晰，适合学术写作中的观点陈述。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>5. 记忆方法</h3>
+                <div class="template">
+                    <strong>公式化模板：</strong> On the one hand, [subject] [emphatic do/does] [verb] [adjective] [noun], [present participle] [noun phrase].<br>
+                    <strong>可替换槽位：</strong>
+                    <ul>
+                        <li>[subject]: 名词短语（如：technology, globalization, urbanization）</li>
+                        <li>[verb]: 及物动词（如：improve, enhance, change）</li>
+                        <li>[adjective]: 描述性形容词（如：specific, particular, certain）</li>
+                        <li>[present participle]: 现在分词（如：increasing, reducing, affecting）</li>
+                    </ul>
+                </div>
+                
+                <div class="memory-tip">
+                    <strong>记忆口诀：</strong> 一方面，某事物确实做某事，导致某种结果。
+                </div>
+                
+                <div class="error-comparison">
+                    <div class="error-example">
+                        <strong>错误例句：</strong><br>
+                        On the one hand, AI is automating certain routine tasks, which potentially displaces some workers.
+                        <p><em>错误原因：</em> 进行时态使用不当；which引导的定语从句不如现在分词短语简洁。</p>
+                    </div>
+                    
+                    <div class="correct-example">
+                        <strong>正确例句：</strong><br>
+                        On the one hand, AI does automate certain routine tasks, potentially displacing some workers.
+                        <p><em>正确原因：</em> 使用一般现在时描述普遍现象；强调助动词does加强语气；现在分词短语简洁表达结果。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>6. 应用场景</h3>
+                <div class="application-scenarios">
+                    <div class="scenario">
+                        <strong>雅思写作：</strong> 适用于"双边讨论"或"利弊分析"题型，用于引出论点的一个方面。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>托福写作：</strong> 适用于综合写作，用于总结阅读材料中的一个观点。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>学术场景：</strong> 主要用于论文讨论部分，呈现某一现象的一个方面。
+                    </div>
+                </div>
+                
+                <div class="formality-scale">
+                    <strong>正式等级：4/5</strong>
+                    <div class="scale">
+                        <div class="scale-level scale-level-0">0</div>
+                        <div class="scale-level scale-level-1">1</div>
+                        <div class="scale-level scale-level-2">2</div>
+                        <div class="scale-level scale-level-3">3</div>
+                        <div class="scale-level scale-level-4">4</div>
+                        <div class="scale-level scale-level-5">5</div>
+                    </div>
+                    <p>适用于学术期刊、研究报告、商务邮件和会议报告。</p>
+                </div>
+            </div>
+            
+            <div class="example-sentences">
+                <h4>仿写例句：</h4>
+                <div class="example-sentence">
+                    On the one hand, globalization does increase economic opportunities, potentially lifting many out of poverty. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 1, 3</span>
+                </div>
+                <div class="example-sentence">
+                    On the one hand, technology does enhance communication, potentially bridging cultural divides. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 2, 4</span>
+                </div>
+                <div class="example-sentence">
+                    On the one hand, urbanization does improve infrastructure, potentially raising living standards. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 1, 5</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sentence">
+            <div class="sentence-content">
+                <span class="sentence-number">S5</span>
+                For example, manufacturing robots and automated customer service systems have already replaced many repetitive positions.
+            </div>
+            <div class="sentence-tags">
+                <span class="tag tag-tense">时态: 现在完成时</span>
+                <span class="tag tag-voice">语态: 主动语态</span>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>1. 语法层面</h3>
+                <p>本句使用了现在完成时（have already replaced）描述过去发生并持续到现在的动作。通过举例（For example）具体说明AI自动化的影响。</p>
+                <p>在学术写作中，现在完成时常用于描述已经发生并对当前有影响的事件，举例则用于支持论点，增强说服力。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>2. 词汇原型</h3>
+                <ul class="vocabulary-list">
+                    <li class="vocabulary-item">
+                        <strong>For</strong> | fɔː | 介词 | 为了，对于 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>example</strong> | ɪɡˈzɑːmpl | 名词 | 例子，实例 | 中性 | CEFR: A2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>manufacturing</strong> | ˌmænjuˈfæktʃərɪŋ | 名词 | 制造业 | 正式 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>robots</strong> | ˈrəʊbɒts | 名词 | 机器人 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>and</strong> | ænd | 连词 | 和，与 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>automated</strong> | ˈɔːtəmeɪtɪd | 形容词 | 自动化的 | 正式 | CEFR: B2 | AWL: 子列表 5
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>customer</strong> | ˈkʌstəmə | 名词 | 顾客，客户 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>service</strong> | ˈsɜːvɪs | 名词 | 服务 | 中性 | CEFR: A2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>systems</strong> | ˈsɪstəmz | 名词 | 系统 | 中性 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>have</strong> | hæv | 助动词 | 已经 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>already</strong> | ɔːlˈredi | 副词 | 已经 | 中性 | CEFR: A2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>replaced</strong> | rɪˈpleɪst | 动词 | 取代，替换 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>many</strong> | ˈmeni | 限定词 | 许多 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>repetitive</strong> | rɪˈpetətɪv | 形容词 | 重复的，反复的 | 正式 | CEFR: B2 | AWL: 子列表 6
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>positions</strong> | pəˈzɪʃənz | 名词 | 职位，位置 | 中性 | CEFR: B2 | AWL: 子列表 2
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>3. 词汇搭配</h3>
+                <table class="collocation-table">
+                    <tr>
+                        <th>动词+名词（V+N）</th>
+                        <th>形容词+名词（Adj+N）</th>
+                        <th>固定短语/预制语块</th>
+                        <th>学术高频连接词</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>have replaced positions</strong><br>
+                            已经取代职位<br>
+                            语域: 正式<br>
+                            位置: 50-76
+                        </td>
+                        <td>
+                            <strong>manufacturing robots</strong><br>
+                            制造业机器人<br>
+                            语域: 正式<br>
+                            位置: 13-29
+                        </td>
+                        <td>
+                            <strong>For example</strong><br>
+                            例如<br>
+                            语域: 中性<br>
+                            位置: 1-10
+                        </td>
+                        <td>
+                            无
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            <strong>automated customer service systems</strong><br>
+                            自动化客户服务系统<br>
+                            语域: 正式<br>
+                            位置: 34-58
+                        </td>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            无
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            <strong>repetitive positions</strong><br>
+                            重复性职位<br>
+                            语域: 正式<br>
+                            位置: 67-76
+                        </td>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            无
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>4. 句子成分</h3>
+                <div class="sentence-structure">
+                    <span class="adverbial">For example</span>, <span class="subject">manufacturing robots and automated customer service systems</span> <span class="predicate">have already replaced <span class="object">many repetitive positions</span></span>.
+                </div>
+                <p>句子结构分析：本句为简单句，包含一个并列主语和一个谓语动词。句子结构清晰简单，适合举例说明。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>5. 记忆方法</h3>
+                <div class="template">
+                    <strong>公式化模板：</strong> For example, [subject 1] and [subject 2] have already [verb] [adjective] [noun].<br>
+                    <strong>可替换槽位：</strong>
+                    <ul>
+                        <li>[subject 1/2]: 名词短语（如：smartphones, computers, online platforms）</li>
+                        <li>[verb]: 及物动词（如：changed, improved, transformed）</li>
+                        <li>[adjective]: 描述性形容词（如：traditional, conventional, manual）</li>
+                        <li>[noun]: 可数名词复数（如：methods, processes, practices）</li>
+                    </ul>
+                </div>
+                
+                <div class="memory-tip">
+                    <strong>记忆口诀：</strong> 例如，某事物和某事物已经做了某事。
+                </div>
+                
+                <div class="error-comparison">
+                    <div class="error-example">
+                        <strong>错误例句：</strong><br>
+                        For example, manufacturing robots and automated systems are replacing many positions.
+                        <p><em>错误原因：</em> 进行时态使用不当；缺少修饰词使表达不够具体。</p>
+                    </div>
+                    
+                    <div class="correct-example">
+                        <strong>正确例句：</strong><br>
+                        For example, manufacturing robots and automated customer service systems have already replaced many repetitive positions.
+                        <p><em>正确原因：</em> 使用现在完成时表示已经完成的动作；具体说明系统类型和职位特点。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>6. 应用场景</h3>
+                <div class="application-scenarios">
+                    <div class="scenario">
+                        <strong>雅思写作：</strong> 适用于所有题型，用于支持论点的具体例子。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>托福写作：</strong> 适用于综合写作，用于提供具体证据支持观点。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>学术场景：</strong> 主要用于论文方法或结果部分，提供具体实例或数据。
+                    </div>
+                </div>
+                
+                <div class="formality-scale">
+                    <strong>正式等级：3/5</strong>
+                    <div class="scale">
+                        <div class="scale-level scale-level-0">0</div>
+                        <div class="scale-level scale-level-1">1</div>
+                        <div class="scale-level scale-level-2">2</div>
+                        <div class="scale-level scale-level-3">3</div>
+                        <div class="scale-level scale-level-4">4</div>
+                        <div class="scale-level scale-level-5">5</div>
+                    </div>
+                    <p>适用于学术期刊、研究报告、商务邮件和会议报告。</p>
+                </div>
+            </div>
+            
+            <div class="example-sentences">
+                <h4>仿写例句：</h4>
+                <div class="example-sentence">
+                    For example, smartphones and social media platforms have already transformed how people communicate and interact. <span class="level-badge level-cefr">CEFR: B2</span> <span class="level-badge level-awl">子列表 1, 3</span>
+                </div>
+                <div class="example-sentence">
+                    For example, renewable energy technologies and electric vehicles have already reduced carbon emissions in many countries. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 2, 4</span>
+                </div>
+                <div class="example-sentence">
+                    For example, online learning platforms and digital resources have already enhanced educational accessibility for remote communities. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 1, 5</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sentence">
+            <div class="sentence-content">
+                <span class="sentence-number">S6</span>
+                On the other hand, it generates demand for new skills and creates emerging job categories in fields like AI development, data analysis, and human-machine collaboration.
+            </div>
+            <div class="sentence-tags">
+                <span class="tag tag-tense">时态: 一般现在时</span>
+                <span class="tag tag-voice">语态: 主动语态</span>
+                <span class="tag tag-special">特殊结构: 并列谓语</span>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>1. 语法层面</h3>
+                <p>本句使用了一般现在时（generates, creates）描述AI的当前作用。通过并列谓语（generates... and creates...）结构表达AI的双重积极影响，以及like引导的同位语列举具体领域。</p>
+                <p>在学术写作中，并列谓语结构常用于表达多个相关的动作或结果，增强句子的信息密度和逻辑性。同位语列举则用于具体说明抽象概念。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>2. 词汇原型</h3>
+                <ul class="vocabulary-list">
+                    <li class="vocabulary-item">
+                        <strong>On</strong> | ɒn | 介词 | 在...上 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>the</strong> | ðə | 冠词 | 这，那 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>other</strong> | ˈʌðə | 形容词 | 其他的 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>hand</strong> | hænd | 名词 | 手 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>it</strong> | ɪt | 代词 | 它 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>generates</strong> | ˈdʒenəreɪts | 动词 | 产生，生成 | 正式 | CEFR: B2 | AWL: 子列表 2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>demand</strong> | dɪˈmɑːnd | 名词 | 需求，要求 | 中性 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>for</strong> | fɔː | 介词 | 为了，对于 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>new</strong> | njuː | 形容词 | 新的 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>skills</strong> | skɪlz | 名词 | 技能，能力 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>and</strong> | ænd | 连词 | 和，与 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>creates</strong> | kriːˈeɪts | 动词 | 创造，创建 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>emerging</strong> | ɪˈmɜːdʒɪŋ | 形容词 | 新兴的，出现的 | 正式 | CEFR: C1 | AWL: 子列表 3
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>job</strong> | dʒɒb | 名词 | 工作，职位 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>categories</strong> | ˈkætəɡəriz | 名词 | 类别，种类 | 正式 | CEFR: B2 | AWL: 子列表 4
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>in</strong> | ɪn | 介词 | 在...里 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>fields</strong> | fiːldz | 名词 | 领域，字段 | 中性 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>like</strong> | laɪk | 介词 | 像，例如 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>AI</strong> | eɪ aɪ | 名词 | 人工智能 | 正式 | CEFR: B2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>development</strong> | dɪˈveləpmənt | 名词 | 发展，开发 | 中性 | CEFR: B1 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>data</strong> | ˈdeɪtə | 名词 | 数据 | 正式 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>analysis</strong> | əˈnæləsɪs | 名词 | 分析，解析 | 正式 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>human-machine</strong> | ˈhjuːmən məˈʃiːn | 形容词 | 人机的 | 正式 | CEFR: C1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>collaboration</strong> | kəˌlæbəˈreɪʃn | 名词 | 合作，协作 | 正式 | CEFR: B2 | AWL: 子列表 2
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>3. 词汇搭配</h3>
+                <table class="collocation-table">
+                    <tr>
+                        <th>动词+名词（V+N）</th>
+                        <th>形容词+名词（Adj+N）</th>
+                        <th>固定短语/预制语块</th>
+                        <th>学术高频连接词</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>generates demand</strong><br>
+                            产生需求<br>
+                            语域: 正式<br>
+                            位置: 18-31
+                        </td>
+                        <td>
+                            <strong>new skills</strong><br>
+                            新技能<br>
+                            语域: 中性<br>
+                            位置: 36-44
+                        </td>
+                        <td>
+                            <strong>On the other hand</strong><br>
+                            另一方面<br>
+                            语域: 正式<br>
+                            位置: 1-16
+                        </td>
+                        <td>
+                            <strong>and</strong><br>
+                            和，与<br>
+                            语域: 中性<br>
+                            位置: 45-46
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>creates job categories</strong><br>
+                            创造工作类别<br>
+                            语域: 正式<br>
+                            位置: 48-67
+                        </td>
+                        <td>
+                            <strong>emerging job categories</strong><br>
+                            新兴工作类别<br>
+                            语域: 正式<br>
+                            位置: 55-67
+                        </td>
+                        <td>
+                            <strong>fields like</strong><br>
+                            如...领域<br>
+                            语域: 中性<br>
+                            位置: 72-81
+                        </td>
+                        <td>
+                            无
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            <strong>AI development</strong><br>
+                            人工智能开发<br>
+                            语域: 正式<br>
+                            位置: 82-96
+                        </td>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            无
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            <strong>data analysis</strong><br>
+                            数据分析<br>
+                            语域: 正式<br>
+                            位置: 98-109
+                        </td>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            无
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            <strong>human-machine collaboration</strong><br>
+                            人机协作<br>
+                            语域: 正式<br>
+                            位置: 111-136
+                        </td>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            无
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>4. 句子成分</h3>
+                <div class="sentence-structure">
+                    <span class="adverbial">On the other hand</span>, <span class="subject">it</span> <span class="predicate">generates <span class="object">demand <span class="attribute">for new skills</span></span> and creates <span class="object">emerging job categories <span class="adverbial">in fields <span class="attribute">like AI development, data analysis, and human-machine collaboration</span></span></span></span>.
+                </div>
+                <p>句子结构分析：本句为简单句，包含一个主语和两个并列谓语。第二个谓语动词后接复杂的宾语结构，包含后置定语和同位语。句子结构较为复杂，展示了较高的语言表达能力。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>5. 记忆方法</h3>
+                <div class="template">
+                    <strong>公式化模板：</strong> On the other hand, [subject] [verb 1] [noun 1] for [adjective] [noun 2] and [verb 2] [adjective] [noun 3] in [noun 4] like [example 1], [example 2], and [example 3].<br>
+                    <strong>可替换槽位：</strong>
+                    <ul>
+                        <li>[subject]: 代词或名词（如：technology, globalization, education）</li>
+                        <li>[verb 1/2]: 及物动词（如：increases, improves, enhances）</li>
+                        <li>[noun 1/2/3/4]: 抽象或具体名词（如：opportunities, knowledge, resources）</li>
+                        <li>[example 1/2/3]: 名词短语（如：healthcare, education, transportation）</li>
+                    </ul>
+                </div>
+                
+                <div class="memory-tip">
+                    <strong>记忆口诀：</strong> 另一方面，某事物做两件事，在多个领域。
+                </div>
+                
+                <div class="error-comparison">
+                    <div class="error-example">
+                        <strong>错误例句：</strong><br>
+                        On the other hand, it is generating demand for new skills and creating job categories in fields like AI.
+                        <p><em>错误原因：</em> 进行时态使用不当；列举不充分，缺乏具体性。</p>
+                    </div>
+                    
+                    <div class="correct-example">
+                        <strong>正确例句：</strong><br>
+                        On the other hand, it generates demand for new skills and creates emerging job categories in fields like AI development, data analysis, and human-machine collaboration.
+                        <p><em>正确原因：</em> 使用一般现在时描述普遍现象；使用形容词修饰名词增强表达；列举多个具体领域增强说服力。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>6. 应用场景</h3>
+                <div class="application-scenarios">
+                    <div class="scenario">
+                        <strong>雅思写作：</strong> 适用于"双边讨论"或"利弊分析"题型，用于引出论点的另一个方面。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>托福写作：</strong> 适用于学术讨论，用于提出与前文相反或补充的观点。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>学术场景：</strong> 主要用于论文讨论部分，呈现某一现象的另一个方面或影响。
+                    </div>
+                </div>
+                
+                <div class="formality-scale">
+                    <strong>正式等级：4/5</strong>
+                    <div class="scale">
+                        <div class="scale-level scale-level-0">0</div>
+                        <div class="scale-level scale-level-1">1</div>
+                        <div class="scale-level scale-level-2">2</div>
+                        <div class="scale-level scale-level-3">3</div>
+                        <div class="scale-level scale-level-4">4</div>
+                        <div class="scale-level scale-level-5">5</div>
+                    </div>
+                    <p>适用于学术期刊、研究报告、商务邮件和会议报告。</p>
+                </div>
+            </div>
+            
+            <div class="example-sentences">
+                <h4>仿写例句：</h4>
+                <div class="example-sentence">
+                    On the other hand, globalization increases access to information and creates new business opportunities in sectors like e-commerce, digital marketing, and cross-border trade. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 1, 3</span>
+                </div>
+                <div class="example-sentence">
+                    On the other hand, technology enhances educational accessibility and creates innovative learning experiences in areas like virtual classrooms, interactive simulations, and personalized tutoring. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 2, 4</span>
+                </div>
+                <div class="example-sentence">
+                    On the other hand, urbanization improves infrastructure and creates diverse cultural experiences in domains like architecture, cuisine, and entertainment. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 1, 5</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sentence">
+            <div class="sentence-content">
+                <span class="sentence-number">S7</span>
+                Moreover, industries such as healthcare and education are increasingly relying on AI to enhance, rather than replace, human expertise.
+            </div>
+            <div class="sentence-tags">
+                <span class="tag tag-tense">时态: 现在进行时</span>
+                <span class="tag tag-voice">语态: 主动语态</span>
+                <span class="tag tag-special">特殊结构: rather than 对比结构，插入语</span>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>1. 语法层面</h3>
+                <p>本句使用了现在进行时（are increasingly relying）描述正在进行的趋势。通过such as引导的同位语列举具体行业，以及rather than结构对比enhance和replace两个动作。句中还包含插入语（rather than replace）。</p>
+                <p>在学术写作中，现在进行时常用于描述正在发展的趋势，同位语列举用于具体说明抽象概念，rather than结构用于清晰表达对比关系，插入语则用于提供额外的解释或对比信息。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>2. 词汇原型</h3>
+                <ul class="vocabulary-list">
+                    <li class="vocabulary-item">
+                        <strong>Moreover</strong> | mɔːˈrəʊvə | 副词 | 此外，而且 | 正式 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>industries</strong> | ˈɪndəstriz | 名词 | 行业，产业 | 正式 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>such</strong> | sʌtʃ | 限定词 | 这样的，如此的 | 中性 | CEFR: A2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>as</strong> | æz | 介词 | 作为，例如 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>healthcare</strong> | ˈhelθkeə | 名词 | 医疗保健 | 正式 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>and</strong> | ænd | 连词 | 和，与 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>education</strong> | ˌedʒuˈkeɪʃn | 名词 | 教育，培养 | 中性 | CEFR: B1 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>are</strong> | ɑː | 动词 | 是 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>increasingly</strong> | ɪnˈkriːsɪŋli | 副词 | 越来越多地，逐渐地 | 正式 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>relying</strong> | rɪˈlaɪɪŋ | 动词 | 依赖，依靠 | 中性 | CEFR: B2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>on</strong> | ɒn | 介词 | 在...上，依靠 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>AI</strong> | eɪ aɪ | 名词 | 人工智能 | 正式 | CEFR: B2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>to</strong> | tuː | 介词 | 到，向 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>enhance</strong> | ɪnˈhɑːns | 动词 | 增强，提高 | 正式 | CEFR: B2 | AWL: 子列表 2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>rather</strong> | ˈrɑːðə | 副词 | 相当，宁愿 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>than</strong> | ðæn | 连词 | 比，而不是 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>replace</strong> | rɪˈpleɪs | 动词 | 取代，替换 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>human</strong> | ˈhjuːmən | 形容词 | 人类的 | 中性 | CEFR: A2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>expertise</strong> | ˌekspɜːˈtiːz | 名词 | 专业知识，专长 | 正式 | CEFR: C1 | AWL: 子列表 2
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>3. 词汇搭配</h3>
+                <table class="collocation-table">
+                    <tr>
+                        <th>动词+名词（V+N）</th>
+                        <th>形容词+名词（Adj+N）</th>
+                        <th>固定短语/预制语块</th>
+                        <th>学术高频连接词</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>relying on AI</strong><br>
+                            依赖人工智能<br>
+                            语域: 正式<br>
+                            位置: 45-55
+                        </td>
+                        <td>
+                            <strong>human expertise</strong><br>
+                            人类专业知识<br>
+                            语域: 正式<br>
+                            位置: 82-93
+                        </td>
+                        <td>
+                            <strong>such as</strong><br>
+                            例如，像...这样的<br>
+                            语域: 中性<br>
+                            位置: 18-25
+                        </td>
+                        <td>
+                            <strong>Moreover</strong><br>
+                            此外，而且<br>
+                            语域: 正式<br>
+                            位置: 1-9
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>enhance expertise</strong><br>
+                            增强专业知识<br>
+                            语域: 正式<br>
+                            位置: 59-93
+                        </td>
+                        <td>
+                            <strong>increasingly relying</strong><br>
+                            越来越依赖<br>
+                            语域: 正式<br>
+                            位置: 36-45
+                        </td>
+                        <td>
+                            <strong>rather than</strong><br>
+                            而不是<br>
+                            语域: 正式<br>
+                            位置: 65-75
+                        </td>
+                        <td>
+                            <strong>and</strong><br>
+                            和，与<br>
+                            语域: 中性<br>
+                            位置: 30-31
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>4. 句子成分</h3>
+                <div class="sentence-structure">
+                    <span class="adverbial">Moreover</span>, <span class="subject">industries <span class="attribute">such as healthcare and education</span></span> <span class="predicate">are increasingly relying <span class="adverbial">on AI <span class="adverbial">to enhance, <span class="adverbial">rather than replace</span>, human expertise</span></span></span>.
+                </div>
+                <p>句子结构分析：本句为简单句，包含一个主语和一个谓语动词。主语后接同位语，谓语动词后接复杂的状语结构，包含目的状语和插入语。句子结构较为复杂，展示了较高的语言表达能力。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>5. 记忆方法</h3>
+                <div class="template">
+                    <strong>公式化模板：</strong> Moreover, [noun 1] such as [example 1] and [example 2] are increasingly [verb] on [noun 2] to [verb 1], rather than [verb 2], [noun 3].<br>
+                    <strong>可替换槽位：</strong>
+                    <ul>
+                        <li>[noun 1]: 复数名词（如：organizations, companies, sectors）</li>
+                        <li>[example 1/2]: 名词（如：technology, finance, manufacturing）</li>
+                        <li>[verb]: 不及物动词（如：focusing, working, collaborating）</li>
+                        <li>[verb 1/2]: 及物动词（如：improve, develop, create）</li>
+                    </ul>
+                </div>
+                
+                <div class="memory-tip">
+                    <strong>记忆口诀：</strong> 此外，某领域如X和Y越来越依赖某事物做A而非B。
+                </div>
+                
+                <div class="error-comparison">
+                    <div class="error-example">
+                        <strong>错误例句：</strong><br>
+                        Moreover, industries like healthcare and education are rely more on AI to enhance instead of replace human expertise.
+                        <p><em>错误原因：</em> 语法错误（are rely）；instead of不如rather than正式；缺少increasingly表达渐进趋势。</p>
+                    </div>
+                    
+                    <div class="correct-example">
+                        <strong>正确例句：</strong><br>
+                        Moreover, industries such as healthcare and education are increasingly relying on AI to enhance, rather than replace, human expertise.
+                        <p><em>正确原因：</em> 正确使用现在进行时；使用increasingly表达渐进趋势；rather than比instead of更正式；插入语使用正确。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>6. 应用场景</h3>
+                <div class="application-scenarios">
+                    <div class="scenario">
+                        <strong>雅思写作：</strong> 适用于"利弊分析"或"同意与否"题型，用于补充支持论点的额外理由。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>托福写作：</strong> 适用于学术讨论，用于添加支持观点的额外证据。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>学术场景：</strong> 主要用于论文讨论部分，补充额外的支持证据或观点。
+                    </div>
+                </div>
+                
+                <div class="formality-scale">
+                    <strong>正式等级：4/5</strong>
+                    <div class="scale">
+                        <div class="scale-level scale-level-0">0</div>
+                        <div class="scale-level scale-level-1">1</div>
+                        <div class="scale-level scale-level-2">2</div>
+                        <div class="scale-level scale-level-3">3</div>
+                        <div class="scale-level scale-level-4">4</div>
+                        <div class="scale-level scale-level-5">5</div>
+                    </div>
+                    <p>适用于学术期刊、研究报告、商务邮件和会议报告。</p>
+                </div>
+            </div>
+            
+            <div class="example-sentences">
+                <h4>仿写例句：</h4>
+                <div class="example-sentence">
+                    Moreover, companies such as Google and Microsoft are increasingly investing in renewable energy to reduce, rather than maintain, their carbon footprint. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 2, 4</span>
+                </div>
+                <div class="example-sentence">
+                    Moreover, governments such as those in Europe and Asia are increasingly focusing on sustainable development to protect, rather than exploit, natural resources. <span class="level-badge level-cefr">C1</span> <span class="level-badge level-awl">子列表 1, 3</span>
+                </div>
+                <div class="example-sentence">
+                    Moreover, universities such as Harvard and Oxford are increasingly adopting online learning to complement, rather than replace, traditional classroom instruction. <span class="level-badge level-cefr">C1</span> <span class="level-badge level-awl">子列表 2, 5</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sentence">
+            <div class="sentence-content">
+                <span class="sentence-number">S8</span>
+                Therefore, the key lies in continuous learning and adaptation.
+            </div>
+            <div class="sentence-tags">
+                <span class="tag tag-tense">时态: 一般现在时</span>
+                <span class="tag tag-voice">语态: 主动语态</span>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>1. 语法层面</h3>
+                <p>本句使用了一般现在时（lies）陈述一个普遍真理或结论。通过主语（the key）和谓语（lies in）结构表达核心观点，in引导的介词短语作表语。</p>
+                <p>在学术写作中，这种简洁的句子结构常用于总结结论或提出核心观点，具有较强的说服力和清晰度。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>2. 词汇原型</h3>
+                <ul class="vocabulary-list">
+                    <li class="vocabulary-item">
+                        <strong>Therefore</strong> | ˈðeəfɔː | 副词 | 因此，所以 | 正式 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>the</strong> | ðə | 冠词 | 这，那 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>key</strong> | kiː | 名词 | 关键，钥匙 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>lies</strong> | laɪz | 动词 | 在于，位于 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>in</strong> | ɪn | 介词 | 在...里 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>continuous</strong> | kənˈtɪnjuəs | 形容词 | 连续的，持续的 | 正式 | CEFR: B2 | AWL: 子列表 3
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>learning</strong> | ˈlɜːnɪŋ | 名词 | 学习，学问 | 中性 | CEFR: B1 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>and</strong> | ænd | 连词 | 和，与 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>adaptation</strong> | ˌædæpˈteɪʃn | 名词 | 适应，调整 | 正式 | CEFR: B2 | AWL: 子列表 4
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>3. 词汇搭配</h3>
+                <table class="collocation-table">
+                    <tr>
+                        <th>动词+名词（V+N）</th>
+                        <th>形容词+名词（Adj+N）</th>
+                        <th>固定短语/预制语块</th>
+                        <th>学术高频连接词</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>lies in</strong><br>
+                            在于<br>
+                            语域: 正式<br>
+                            位置: 13-19
+                        </td>
+                        <td>
+                            <strong>continuous learning</strong><br>
+                            持续学习<br>
+                            语域: 正式<br>
+                            位置: 21-36
+                        </td>
+                        <td>
+                            <strong>The key lies in</strong><br>
+                            关键在于<br>
+                            语域: 正式<br>
+                            位置: 11-19
+                        </td>
+                        <td>
+                            <strong>Therefore</strong><br>
+                            因此，所以<br>
+                            语域: 正式<br>
+                            位置: 1-10
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            <strong>continuous learning and adaptation</strong><br>
+                            持续学习和适应<br>
+                            语域: 正式<br>
+                            位置: 21-48
+                        </td>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            <strong>and</strong><br>
+                            和，与<br>
+                            语域: 中性<br>
+                            位置: 37-38
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>4. 句子成分</h3>
+                <div class="sentence-structure">
+                    <span class="adverbial">Therefore</span>, <span class="subject">the key</span> <span class="predicate">lies <span class="complement">in continuous learning and adaptation</span></span>.
+                </div>
+                <p>句子结构分析：本句为简单句，包含一个主语、一个谓语动词和一个介词短语作表语。句子结构简洁明了，适合总结结论。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>5. 记忆方法</h3>
+                <div class="template">
+                    <strong>公式化模板：</strong> Therefore, the key lies in [adjective] [noun 1] and [noun 2].<br>
+                    <strong>可替换槽位：</strong>
+                    <ul>
+                        <li>[adjective]: 描述性形容词（如：effective, efficient, proper）</li>
+                        <li>[noun 1/2]: 抽象名词（如：planning, preparation, execution）</li>
+                    </ul>
+                </div>
+                
+                <div class="memory-tip">
+                    <strong>记忆口诀：</strong> 因此，关键在于两件事。
+                </div>
+                
+                <div class="error-comparison">
+                    <div class="error-example">
+                        <strong>错误例句：</strong><br>
+                        Therefore, the key is in continuous learning and adapting.
+                        <p><em>错误原因：</em> is in不如lies in正式；adapting应改为名词形式adaptation保持平行结构。</p>
+                    </div>
+                    
+                    <div class="correct-example">
+                        <strong>正确例句：</strong><br>
+                        Therefore, the key lies in continuous learning and adaptation.
+                        <p><em>正确原因：</em> lies in比is in更正式；learning和adaptation均为名词，保持平行结构。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>6. 应用场景</h3>
+                <div class="application-scenarios">
+                    <div class="scenario">
+                        <strong>雅思写作：</strong> 适用于所有题型，用于总结结论或提出解决方案。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>托福写作：</strong> 适用于独立写作，用于总结论点或提出建议。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>学术场景：</strong> 主要用于论文结论部分，总结核心观点或提出建议。
+                    </div>
+                </div>
+                
+                <div class="formality-scale">
+                    <strong>正式等级：5/5</strong>
+                    <div class="scale">
+                        <div class="scale-level scale-level-0">0</div>
+                        <div class="scale-level scale-level-1">1</div>
+                        <div class="scale-level scale-level-2">2</div>
+                        <div class="scale-level scale-level-3">3</div>
+                        <div class="scale-level scale-level-4">4</div>
+                        <div class="scale-level scale-level-5">5</div>
+                    </div>
+                    <p>适用于学术期刊、研究报告、商务邮件和会议报告。</p>
+                </div>
+            </div>
+            
+            <div class="example-sentences">
+                <h4>仿写例句：</h4>
+                <div class="example-sentence">
+                    Therefore, the key lies in effective communication and collaboration. <span class="level-badge level-cefr">CEFR: B2</span> <span class="level-badge level-awl">子列表 2, 4</span>
+                </div>
+                <div class="example-sentence">
+                    Therefore, the key lies in sustainable development and environmental protection. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 1, 3</span>
+                </div>
+                <div class="example-sentence">
+                    Therefore, the key lies in critical thinking and problem-solving skills. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 2, 5</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sentence">
+            <div class="sentence-content">
+                <span class="sentence-number">S9</span>
+                Governments and businesses also share the responsibility of providing retraining programs to support affected workers.
+            </div>
+            <div class="sentence-tags">
+                <span class="tag tag-tense">时态: 一般现在时</span>
+                <span class="tag tag-voice">语态: 主动语态</span>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>1. 语法层面</h3>
+                <p>本句使用了一般现在时（share）描述普遍的责任。通过并列主语（Governments and businesses）表达多方责任，以及of引导的介词短语作后置定语修饰responsibility。</p>
+                <p>在学术写作中，一般现在时常用于表达普遍真理或责任，并列主语用于强调多方参与，介词短语则用于提供具体的责任内容。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>2. 词汇原型</h3>
+                <ul class="vocabulary-list">
+                    <li class="vocabulary-item">
+                        <strong>Governments</strong> | ˈɡʌvənmənts | 名词 | 政府 | 正式 | CEFR: B1 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>and</strong> | ænd | 连词 | 和，与 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>businesses</strong> | ˈbɪznəsɪz | 名词 | 企业，商业 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>also</strong> | ˈɔːlsəʊ | 副词 | 也，同样 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>share</strong> | ʃeə | 动词 | 分享，分担 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>the</strong> | ðə | 冠词 | 这，那 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>responsibility</strong> | rɪˌspɒnsəˈbɪləti | 名词 | 责任，职责 | 正式 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>of</strong> | ɒv | 介词 | ...的 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>providing</strong> | prəˈvaɪdɪŋ | 动词 | 提供，供应 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>retraining</strong> | ˌriːˈtreɪnɪŋ | 名词 | 再培训，重新训练 | 正式 | CEFR: C1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>programs</strong> | ˈprəʊɡræmz | 名词 | 项目，计划 | 中性 | CEFR: B1 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>to</strong> | tuː | 介词 | 到，向 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>support</strong> | səˈpɔːt | 动词 | 支持，支撑 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>affected</strong> | əˈfektɪd | 形容词 | 受影响的 | 中性 | CEFR: B2 | AWL: 子列表 2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>workers</strong> | ˈwɜːkəz | 名词 | 工人，工作者 | 中性 | CEFR: A2
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>3. 词汇搭配</h3>
+                <table class="collocation-table">
+                    <tr>
+                        <th>动词+名词（V+N）</th>
+                        <th>形容词+名词（Adj+N）</th>
+                        <th>固定短语/预制语块</th>
+                        <th>学术高频连接词</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>share the responsibility</strong><br>
+                            分担责任<br>
+                            语域: 正式<br>
+                            位置: 24-45
+                        </td>
+                        <td>
+                            <strong>retraining programs</strong><br>
+                            再培训项目<br>
+                            语域: 正式<br>
+                            位置: 54-70
+                        </td>
+                        <td>
+                            <strong>share the responsibility of</strong><br>
+                            分担...的责任<br>
+                            语域: 正式<br>
+                            位置: 24-50
+                        </td>
+                        <td>
+                            <strong>also</strong><br>
+                            也，同样<br>
+                            语域: 中性<br>
+                            位置: 20-23
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>providing programs</strong><br>
+                            提供项目<br>
+                            语域: 正式<br>
+                            位置: 49-70
+                        </td>
+                        <td>
+                            <strong>affected workers</strong><br>
+                            受影响的工人<br>
+                            语域: 正式<br>
+                            位置: 78-90
+                        </td>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            <strong>and</strong><br>
+                            和，与<br>
+                            语域: 中性<br>
+                            位置: 13-14
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>support workers</strong><br>
+                            支持工人<br>
+                            语域: 正式<br>
+                            位置: 73-90
+                        </td>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            无
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>4. 句子成分</h3>
+                <div class="sentence-structure">
+                    <span class="subject">Governments and businesses</span> <span class="adverbial">also</span> <span class="predicate">share <span class="object">the responsibility <span class="attribute">of providing retraining programs <span class="adverbial">to support affected workers</span></span></span></span>.
+                </div>
+                <p>句子结构分析：本句为简单句，包含一个并列主语和一个谓语动词。宾语后接复杂的后置定语，包含动名词短语和不定式短语。句子结构较为复杂，展示了较高的语言表达能力。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>5. 记忆方法</h3>
+                <div class="template">
+                    <strong>公式化模板：</strong> [Subject 1] and [Subject 2] also share the responsibility of [gerund] [noun phrase] to [verb] [adjective] [noun].<br>
+                    <strong>可替换槽位：</strong>
+                    <ul>
+                        <li>[Subject 1/2]: 名词（如：individuals, communities, organizations）</li>
+                        <li>[gerund]: 动名词（如：developing, implementing, creating）</li>
+                        <li>[verb]: 及物动词（如：help, assist, protect）</li>
+                        <li>[adjective]: 描述性形容词（如：vulnerable, disadvantaged, marginalized）</li>
+                    </ul>
+                </div>
+                
+                <div class="memory-tip">
+                    <strong>记忆口诀：</strong> 某两方也分担做某事以帮助某人的责任。
+                </div>
+                
+                <div class="error-comparison">
+                    <div class="error-example">
+                        <strong>错误例句：</strong><br>
+                        Governments and businesses are also sharing the responsibility to provide retraining programs for supporting affected workers.
+                        <p><em>错误原因：</em> 进行时态使用不当；to provide不如of providing正式；for supporting不如to support简洁。</p>
+                    </div>
+                    
+                    <div class="correct-example">
+                        <strong>正确例句：</strong><br>
+                        Governments and businesses also share the responsibility of providing retraining programs to support affected workers.
+                        <p><em>正确原因：</em> 使用一般现在时描述普遍责任；of providing比to provide更正式；to support比for supporting更简洁。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>6. 应用场景</h3>
+                <div class="application-scenarios">
+                    <div class="scenario">
+                        <strong>雅思写作：</strong> 适用于"原因与解决方案"题型，用于提出解决方案或责任分配。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>托福写作：</strong> 适用于独立写作，用于提出建议或分配责任。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>学术场景：</strong> 主要用于论文结论部分，提出建议或分配责任。
+                    </div>
+                </div>
+                
+                <div class="formality-scale">
+                    <strong>正式等级：4/5</strong>
+                    <div class="scale">
+                        <div class="scale-level scale-level-0">0</div>
+                        <div class="scale-level scale-level-1">1</div>
+                        <div class="scale-level scale-level-2">2</div>
+                        <div class="scale-level scale-level-3">3</div>
+                        <div class="scale-level scale-level-4">4</div>
+                        <div class="scale-level scale-level-5">5</div>
+                    </div>
+                    <p>适用于学术期刊、研究报告、商务邮件和会议报告。</p>
+                </div>
+            </div>
+            
+            <div class="example-sentences">
+                <h4>仿写例句：</h4>
+                <div class="example-sentence">
+                    Schools and parents also share the responsibility of developing children's social skills to prepare them for future challenges. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 2, 4</span>
+                </div>
+                <div class="example-sentence">
+                    Scientists and policymakers also share the responsibility of communicating research findings to inform evidence-based decisions. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 1, 3</span>
+                </div>
+                <div class="example-sentence">
+                    Healthcare providers and technology companies also share the responsibility of ensuring data privacy to protect patients' sensitive information. <span class="level-badge level-cefr">CEFR: C2</span> <span class="level-badge level-awl">子列表 2, 5</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sentence">
+            <div class="sentence-content">
+                <span class="sentence-number">S10</span>
+                By embracing skill development and maintaining flexibility, workers can turn this challenge into an opportunity for career growth in the AI era.
+            </div>
+            <div class="sentence-tags">
+                <span class="tag tag-tense">时态: 一般现在时</span>
+                <span class="tag tag-voice">语态: 主动语态</span>
+                <span class="tag tag-special">特殊结构: 分词短语作方式状语</span>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>1. 语法层面</h3>
+                <p>本句使用了一般现在时（can turn）表达可能性。通过现在分词短语（By embracing... and maintaining...）作方式状语，以及turn... into...结构表达转变。</p>
+                <p>在学术写作中，分词短语作方式状语常用于表达方法或手段，turn... into...结构则用于表达转变或转化，增强句子的动态感和说服力。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>2. 词汇原型</h3>
+                <ul class="vocabulary-list">
+                    <li class="vocabulary-item">
+                        <strong>By</strong> | baɪ | 介词 | 通过，凭借 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>embracing</strong> | ɪmˈbreɪsɪŋ | 动词 | 拥抱，接受 | 正式 | CEFR: C1 | AWL: 子列表 5
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>skill</strong> | skɪl | 名词 | 技能，技巧 | 中性 | CEFR: A2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>development</strong> | dɪˈveləpmənt | 名词 | 发展，开发 | 中性 | CEFR: B1 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>and</strong> | ænd | 连词 | 和，与 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>maintaining</strong> | ˌmeɪnˈteɪnɪŋ | 动词 | 维持，保持 | 正式 | CEFR: B2 | AWL: 子列表 2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>flexibility</strong> | ˌfleksəˈbɪləti | 名词 | 灵活性，弹性 | 正式 | CEFR: B2 | AWL: 子列表 4
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>workers</strong> | ˈwɜːkəz | 名词 | 工人，工作者 | 中性 | CEFR: A2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>can</strong> | kæn | 情态动词 | 能够，可以 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>turn</strong> | tɜːn | 动词 | 转变，变成 | 中性 | CEFR: A2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>this</strong> | ðɪs | 代词 | 这个 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>challenge</strong> | ˈtʃælɪndʒ | 名词 | 挑战，难题 | 中性 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>into</strong> | ˈɪntuː | 介词 | 变成，进入 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>an</strong> | ən | 冠词 | 一个 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>opportunity</strong> | ˌɒpəˈtjuːnəti | 名词 | 机会，机遇 | 中性 | CEFR: B2 | AWL: 子列表 1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>for</strong> | fɔː | 介词 | 为了，对于 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>career</strong> | kəˈrɪə | 名词 | 职业，生涯 | 中性 | CEFR: B1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>growth</strong> | ɡrəʊθ | 名词 | 成长，增长 | 中性 | CEFR: B2 | AWL: 子列表 2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>in</strong> | ɪn | 介词 | 在...里 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>the</strong> | ðə | 冠词 | 这，那 | 中性 | CEFR: A1
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>AI</strong> | eɪ aɪ | 名词 | 人工智能 | 正式 | CEFR: B2
+                    </li>
+                    <li class="vocabulary-item">
+                        <strong>era</strong> | ˈɪərə | 名词 | 时代，年代 | 正式 | CEFR: B2 | AWL: 子列表 3
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>3. 词汇搭配</h3>
+                <table class="collocation-table">
+                    <tr>
+                        <th>动词+名词（V+N）</th>
+                        <th>形容词+名词（Adj+N）</th>
+                        <th>固定短语/预制语块</th>
+                        <th>学术高频连接词</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>embracing development</strong><br>
+                            接受发展<br>
+                            语域: 正式<br>
+                            位置: 4-26
+                        </td>
+                        <td>
+                            <strong>skill development</strong><br>
+                            技能发展<br>
+                            语域: 正式<br>
+                            位置: 15-26
+                        </td>
+                        <td>
+                            <strong>By [gerund] and [gerund]</strong><br>
+                            通过[动名词]和[动名词]<br>
+                            语域: 正式<br>
+                            位置: 1-41
+                        </td>
+                        <td>
+                            <strong>and</strong><br>
+                            和，与<br>
+                            语域: 中性<br>
+                            位置: 27-28
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>maintaining flexibility</strong><br>
+                            保持灵活性<br>
+                            语域: 正式<br>
+                            位置: 30-50
+                        </td>
+                        <td>
+                            <strong>career growth</strong><br>
+                            职业成长<br>
+                            语域: 正式<br>
+                            位置: 84-95
+                        </td>
+                        <td>
+                            <strong>turn challenge into opportunity</strong><br>
+                            将挑战转化为机会<br>
+                            语域: 正式<br>
+                            位置: 55-80
+                        </td>
+                        <td>
+                            无
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>turn into</strong><br>
+                            变成，转变为<br>
+                            语域: 中性<br>
+                            位置: 55-63
+                        </td>
+                        <td>
+                            <strong>AI era</strong><br>
+                            人工智能时代<br>
+                            语域: 正式<br>
+                            位置: 100-106
+                        </td>
+                        <td>
+                            无
+                        </td>
+                        <td>
+                            无
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>4. 句子成分</h3>
+                <div class="sentence-structure">
+                    <span class="adverbial">By embracing skill development and maintaining flexibility</span>, <span class="subject">workers</span> <span class="predicate">can turn <span class="object">this challenge</span> <span class="complement">into an opportunity <span class="attribute">for career growth <span class="adverbial">in the AI era</span></span></span></span>.
+                </div>
+                <p>句子结构分析：本句为简单句，包含一个现在分词短语作方式状语，以及一个主句。主句中包含turn... into...结构，补语部分包含多层修饰语。句子结构较为复杂，展示了较高的语言表达能力。</p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>5. 记忆方法</h3>
+                <div class="template">
+                    <strong>公式化模板：</strong> By [gerund 1] [noun phrase 1] and [gerund 2] [noun phrase 2], [subject] can turn [noun phrase 3] into [noun phrase 4] for [noun phrase 5] in [noun phrase 6].<br>
+                    <strong>可替换槽位：</strong>
+                    <ul>
+                        <li>[gerund 1/2]: 动名词（如：adopting, developing, improving）</li>
+                        <li>[noun phrase 1/2/3/4/5/6]: 名词短语（如：technology, strategies, methods）</li>
+                        <li>[subject]: 名词（如：individuals, organizations, communities）</li>
+                    </ul>
+                </div>
+                
+                <div class="memory-tip">
+                    <strong>记忆口诀：</strong> 通过做两件事，某人能将某事物转变为另一事物以实现目标。
+                </div>
+                
+                <div class="error-comparison">
+                    <div class="error-example">
+                        <strong>错误例句：</strong><br>
+                        By embrace skill development and maintain flexibility, workers can turn challenge into opportunity.
+                        <p><em>错误原因：</em> 语法错误（by后应接动名词）；缺少冠词和指示代词；表达过于笼统。</p>
+                    </div>
+                    
+                    <div class="correct-example">
+                        <strong>正确例句：</strong><br>
+                        By embracing skill development and maintaining flexibility, workers can turn this challenge into an opportunity for career growth in the AI era.
+                        <p><em>正确原因：</em> 正确使用动名词；使用适当的冠词和指示代词；添加具体的目的和背景信息。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>6. 应用场景</h3>
+                <div class="application-scenarios">
+                    <div class="scenario">
+                        <strong>雅思写作：</strong> 适用于"原因与解决方案"或"同意与否"题型，用于提出解决方案或建议。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>托福写作：</strong> 适用于独立写作，用于总结建议或提出行动方案。
+                    </div>
+                    
+                    <div class="scenario">
+                        <strong>学术场景：</strong> 主要用于论文结论部分，提出建议或总结观点。
+                    </div>
+                </div>
+                
+                <div class="formality-scale">
+                    <strong>正式等级：4/5</strong>
+                    <div class="scale">
+                        <div class="scale-level scale-level-0">0</div>
+                        <div class="scale-level scale-level-1">1</div>
+                        <div class="scale-level scale-level-2">2</div>
+                        <div class="scale-level scale-level-3">3</div>
+                        <div class="scale-level scale-level-4">4</div>
+                        <div class="scale-level scale-level-5">5</div>
+                    </div>
+                    <p>适用于学术期刊、研究报告、商务邮件和会议报告。</p>
+                </div>
+            </div>
+            
+            <div class="example-sentences">
+                <h4>仿写例句：</h4>
+                <div class="example-sentence">
+                    By adopting new technologies and fostering innovation, companies can turn market challenges into competitive advantages for sustainable growth in the digital age. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 2, 4</span>
+                </div>
+                <div class="example-sentence">
+                    By promoting diversity and encouraging collaboration, organizations can turn differences into strengths for enhanced creativity in the global marketplace. <span class="level-badge level-cefr">CEFR: C1</span> <span class="level-badge level-awl">子列表 1, 3</span>
+                </div>
+                <div class="example-sentence">
+                    By investing in education and supporting lifelong learning, societies can turn economic challenges into opportunities for social progress in the knowledge economy. <span class="level-badge level-cefr">CEFR: C2</span> <span class="level-badge level-awl">子列表 2, 5</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="index">
+            <h2>一键检索索引</h2>
+            
+            <h3>词汇搭配索引</h3>
+            <div class="index-item">
+                <span class="index-term">artificial intelligence</span>
+                <span class="index-references">S1</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">automated customer service systems</span>
+                <span class="index-references">S5</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">career growth</span>
+                <span class="index-references">S10</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">continuous learning</span>
+                <span class="index-references">S8</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">data analysis</span>
+                <span class="index-references">S6</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">demand for new skills</span>
+                <span class="index-references">S6</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">emerging job categories</span>
+                <span class="index-references">S6</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">human expertise</span>
+                <span class="index-references">S7</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">human-machine collaboration</span>
+                <span class="index-references">S6</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">industrial upgrading</span>
+                <span class="index-references">S2</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">job displacement</span>
+                <span class="index-references">S1</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">manufacturing robots</span>
+                <span class="index-references">S5</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">repetitive positions</span>
+                <span class="index-references">S5</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">retraining programs</span>
+                <span class="index-references">S9</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">skill development</span>
+                <span class="index-references">S10</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">traditional industries</span>
+                <span class="index-references">S4</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">transformative force</span>
+                <span class="index-references">S3</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">widespread unemployment</span>
+                <span class="index-references">S2</span>
+            </div>
+            
+            <h3>句型模板索引</h3>
+            <div class="index-item">
+                <span class="index-term">As [subject] [verb] [adverb], [subject] [verb] [adverb].</span>
+                <span class="index-references">S1</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">Some [verb] [noun], while others [verb] [subject] will [verb] [noun] and [verb] [noun].</span>
+                <span class="index-references">S2</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">In my opinion, [subject] should be viewed as a [adjective] [noun] that [verb] [noun] rather than [adverb] [verb] [pronoun].</span>
+                <span class="index-references">S3</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">On the one hand, [subject] [emphatic do/does] [verb] [adjective] [noun], [present participle] [noun phrase].</span>
+                <span class="index-references">S4</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">For example, [subject 1] and [subject 2] have already [verb] [adjective] [noun].</span>
+                <span class="index-references">S5</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">On the other hand, [subject] [verb 1] [noun 1] for [adjective] [noun 2] and [verb 2] [adjective] [noun 3] in [noun 4] like [example 1], [example 2], and [example 3].</span>
+                <span class="index-references">S6</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">Moreover, [noun 1] such as [example 1] and [example 2] are increasingly [verb] on [noun 2] to [verb 1], rather than [verb 2], [noun 3].</span>
+                <span class="index-references">S7</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">Therefore, the key lies in [adjective] [noun 1] and [noun 2].</span>
+                <span class="index-references">S8</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">[Subject 1] and [Subject 2] also share the responsibility of [gerund] [noun phrase] to [verb] [adjective] [noun].</span>
+                <span class="index-references">S9</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">By [gerund 1] [noun phrase 1] and [gerund 2] [noun phrase 2], [subject] can turn [noun phrase 3] into [noun phrase 4] for [noun phrase 5] in [noun phrase 6].</span>
+                <span class="index-references">S10</span>
+            </div>
+            
+            <h3>连接词索引</h3>
+            <div class="index-item">
+                <span class="index-term">and</span>
+                <span class="index-references">S2, S5, S6, S7, S8, S9, S10</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">For example</span>
+                <span class="index-references">S5</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">In my opinion</span>
+                <span class="index-references">S3</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">Moreover</span>
+                <span class="index-references">S7</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">On the one hand</span>
+                <span class="index-references">S4</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">On the other hand</span>
+                <span class="index-references">S6</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">rather than</span>
+                <span class="index-references">S3, S7</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">such as</span>
+                <span class="index-references">S7</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">Therefore</span>
+                <span class="index-references">S8</span>
+            </div>
+            <div class="index-item">
+                <span class="index-term">while</span>
+                <span class="index-references">S2</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

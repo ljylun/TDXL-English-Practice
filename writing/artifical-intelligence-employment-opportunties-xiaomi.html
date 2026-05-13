@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英语学术写作范文 · 六维度深度解析报告</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf9f6;
+  --surface: #ffffff;
+  --border: #e5e2db;
+  --accent: #c05529;
+  --accent-light: #fdf0eb;
+  --text: #2c2825;
+  --text-muted: #7a746b;
+  --subj: #2563eb;
+  --pred: #16a34a;
+  --obj: #ea580c;
+  --attr: #9333ea;
+  --adv: #dc2626;
+  --comp: #6b7280;
+  --tag-tense: #0369a1;
+  --tag-clause: #7c3aed;
+  --tag-special: #b45309;
+  --dim1: #be185d;
+  --dim2: #0e7490;
+  --dim3: #6d28d9;
+  --dim4: #b91c1c;
+  --dim5: #047857;
+  --dim6: #1d4ed8;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: Calibri, 'Source Sans 3', 'Noto Serif SC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 100vh;
+}
+aside.sidebar {
+  position: sticky; top:0; height:100vh; overflow-y:auto;
+  background: #2c2825; color: #e8e4de; padding: 24px 16px;
+  font-size: 13px; line-height: 1.9;
+}
+aside.sidebar h3 { color: var(--accent); font-size:14px; margin:18px 0 6px; letter-spacing:1px; text-transform:uppercase; }
+aside.sidebar a { color: #c8c2b8; text-decoration:none; display:block; padding:2px 8px; border-radius:4px; transition:all .15s; }
+aside.sidebar a:hover { background: rgba(255,255,255,.08); color:#fff; }
+aside.sidebar .sec-label { color:#9a9389; font-size:11px; text-transform:uppercase; letter-spacing:.8px; margin-top:12px; }
+main.content { padding: 40px 48px 80px; max-width: 960px; }
+header.hero { margin-bottom:48px; border-bottom: 3px solid var(--accent); padding-bottom:24px; }
+header.hero h1 { font-family:'Noto Serif SC',serif; font-size:26px; font-weight:700; color:var(--text); }
+header.hero .sub { font-size:14px; color:var(--text-muted); margin-top:4px; }
+header.hero .original-text { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:20px 24px; margin-top:16px; font-size:15px; line-height:2; }
+header.hero .original-text p { margin-bottom:12px; }
+header.hero .original-text p:last-child { margin-bottom:0; }
+
+.sentence-section { margin-bottom:56px; scroll-margin-top:20px; }
+.sentence-header { display:flex; align-items:flex-start; gap:12px; margin-bottom:20px; }
+.sentence-header .num { background:var(--accent); color:#fff; font-size:13px; font-weight:700; padding:4px 10px; border-radius:4px; flex-shrink:0; margin-top:2px; }
+.sentence-header .text { font-size:16px; line-height:1.8; font-weight:600; }
+.sentence-header .text .s { color:var(--subj); }
+.sentence-header .text .v { color:var(--pred); }
+.sentence-header .text .o { color:var(--obj); }
+.sentence-header .text .a { color:var(--attr); }
+.sentence-header .text .d { color:var(--adv); }
+.sentence-header .text .c { color:var(--comp); }
+
+.dim { margin-bottom:28px; }
+.dim-title { font-size:15px; font-weight:700; padding:6px 14px; border-radius:4px; display:inline-block; margin-bottom:10px; letter-spacing:.5px; }
+.dim-title.d1 { background:#fce7f3; color:var(--dim1); }
+.dim-title.d2 { background:#ecfdf5; color:var(--dim2); }
+.dim-title.d3 { background:#ede9fe; color:var(--dim3); }
+.dim-title.d4 { background:#fef2f2; color:var(--dim4); }
+.dim-title.d5 { background:#ecfdf5; color:var(--dim5); }
+.dim-title.d6 { background:#eff6ff; color:var(--dim6); }
+
+.tag { display:inline-block; font-size:11px; padding:2px 8px; border-radius:3px; margin:2px 3px 2px 0; font-weight:600; }
+.tag-tense { background:#e0f2fe; color:var(--tag-tense); }
+.tag-voice { background:#dbeafe; color:#1e40af; }
+.tag-clause { background:#ede9fe; color:var(--tag-clause); }
+.tag-special { background:#fef3c7; color:var(--tag-special); }
+.tag-academic { background:#fce7f3; color:#9d174d; }
+.tag-formal { background:#f0fdf4; color:#166534; }
+.tag-cefr { background:#fff7ed; color:#9a3412; }
+.tag-awl { background:#fdf2f8; color:#831843; }
+
+table { width:100%; border-collapse:collapse; font-size:13px; margin:8px 0; }
+table th { background:#f5f3ef; text-align:left; padding:8px 10px; font-weight:700; border-bottom:2px solid var(--border); font-size:12px; text-transform:uppercase; letter-spacing:.5px; color:var(--text-muted); }
+table td { padding:7px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+table tr:hover td { background:#faf8f5; }
+table .ipa { color:var(--text-muted); font-size:12px; }
+table .register-tag { font-size:10px; padding:1px 6px; border-radius:3px; }
+.rt-formal { background:#dbeafe; color:#1e40af; }
+.rt-neutral { background:#f3f4f6; color:#374151; }
+.rt-informal { background:#fef3c7; color:#92400e; }
+
+.tree-block { background:#1e1e1e; color:#d4d4d4; padding:16px 20px; border-radius:8px; font-family:'Cascadia Code','Fira Code',monospace; font-size:13px; line-height:1.9; overflow-x:auto; white-space:pre; margin:8px 0; }
+.tree-block .t-s { color:#60a5fa; }
+.tree-block .t-v { color:#4ade80; }
+.tree-block .t-o { color:#fb923c; }
+.tree-block .t-a { color:#c084fc; }
+.tree-block .t-d { color:#f87171; }
+.tree-block .t-c { color:#9ca3af; }
+.tree-block .t-label { color:#6b7280; font-size:11px; }
+.depth-note { font-size:12px; color:var(--text-muted); margin:4px 0 0; padding:6px 10px; background:#f8f7f4; border-left:3px solid var(--accent); border-radius:0 4px 4px 0; }
+
+.template-box { background:var(--accent-light); border:1px solid #f5d0b5; border-radius:8px; padding:14px 18px; margin:8px 0; }
+.template-box .formula { font-family:'Cascadia Code','Fira Code',monospace; font-size:14px; color:var(--accent); font-weight:600; margin-bottom:6px; }
+.template-box .slot { display:inline-block; background:#fff; border:1px dashed var(--accent); border-radius:3px; padding:1px 6px; font-size:12px; margin:0 2px; }
+.mnemonic { font-family:'Noto Serif SC',serif; font-size:16px; font-weight:700; color:var(--accent); text-align:center; padding:10px; background:linear-gradient(135deg,#fdf0eb,#fef7f2); border-radius:8px; margin:10px 0; letter-spacing:2px; }
+
+.error-table td:first-child { color:var(--adv); text-decoration:line-through; font-size:12px; }
+.error-table td:nth-child(2) { color:var(--pred); font-weight:600; font-size:12px; }
+
+.app-cards { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:8px 0; }
+.app-card { background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:10px 14px; font-size:12px; }
+.app-card h4 { font-size:12px; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
+.formality-bar { display:flex; align-items:center; gap:8px; margin:8px 0; }
+.formality-bar .bar { flex:1; height:8px; background:#e5e2db; border-radius:4px; position:relative; overflow:hidden; }
+.formality-bar .bar .fill { height:100%; border-radius:4px; background:linear-gradient(90deg,#2563eb,#1e40af); }
+.formality-bar .label { font-size:12px; color:var(--text-muted); white-space:nowrap; }
+
+.imitation-box { background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; padding:14px 18px; margin:10px 0; }
+.imitation-box ol { margin-left:18px; }
+.imitation-box li { margin-bottom:6px; font-size:13px; line-height:1.7; }
+
+.index-section { margin-top:60px; border-top:3px solid var(--accent); padding-top:30px; }
+.index-section h2 { font-family:'Noto Serif SC',serif; font-size:22px; margin-bottom:20px; color:var(--accent); }
+.index-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.index-col h3 { font-size:14px; text-transform:uppercase; letter-spacing:.8px; color:var(--text-muted); margin-bottom:10px; border-bottom:1px solid var(--border); padding-bottom:6px; }
+.index-col table { font-size:12px; }
+.index-col table td:first-child { font-weight:600; color:var(--dim3); }
+.index-col table td a { color:var(--accent); text-decoration:none; }
+.index-col table td a:hover { text-decoration:underline; }
+
+@media (max-width:800px) {
+  body { grid-template-columns:1fr; }
+  aside.sidebar { position:static; height:auto; }
+  main.content { padding:20px 16px; }
+  .app-cards { grid-template-columns:1fr; }
+  .index-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== SIDEBAR ==================== -->
+<aside class="sidebar">
+  <h3>导航</h3>
+  <a href="#overview">原文总览</a>
+  <div class="sec-label">逐句分析</div>
+  <a href="#S1">S1 · AI发展与担忧</a>
+  <a href="#S2">S2 · 对立观点</a>
+  <a href="#S3">S3 · 个人观点</a>
+  <a href="#S4">S4 · 正面自动化</a>
+  <a href="#S5">S5 · 实例支撑</a>
+  <a href="#S6">S6 · 新机遇</a>
+  <a href="#S7">S7 · 增强而非取代</a>
+  <a href="#S8">S8 · 核心建议</a>
+  <a href="#S9">S9 · 政企责任</a>
+  <a href="#S10">S10 · 行动号召</a>
+  <div class="sec-label">附录</div>
+  <a href="#index">一键检索索引</a>
+  <div style="margin-top:24px;padding-top:12px;border-top:1px solid #444;">
+    <div class="sec-label">颜色图例</div>
+    <div style="margin-top:6px">
+      <span style="color:#60a5fa">■</span> 主语 &nbsp;
+      <span style="color:#4ade80">■</span> 谓语<br>
+      <span style="color:#fb923c">■</span> 宾语 &nbsp;
+      <span style="color:#c084fc">■</span> 定语<br>
+      <span style="color:#f87171">■</span> 状语 &nbsp;
+      <span style="color:#9ca3af">■</span> 补语
+    </div>
+  </div>
+</aside>
+
+<!-- ==================== MAIN ==================== -->
+<main class="content">
+
+<!-- HEADER -->
+<header class="hero" id="overview">
+  <h1>英语学术写作范文 · 六维度深度解析报告</h1>
+  <div class="sub">AI & Employment — 适用于雅思写作 / 托福写作 / SCI-SSCI 学术论文教学</div>
+  <div class="original-text">
+    <p>As artificial intelligence rapidly advances, concerns about job displacement have grown significantly. Some fear widespread unemployment, while others believe AI will create new opportunities and drive industrial upgrading. In my opinion, AI should be viewed as a transformative force that reshapes work rather than simply eliminates it.</p>
+    <p>On the one hand, AI does automate certain routine tasks, potentially displacing some workers in traditional industries. For example, manufacturing robots and automated customer service systems have already replaced many repetitive positions. On the other hand, it generates demand for new skills and creates emerging job categories in fields like AI development, data analysis, and human-machine collaboration. Moreover, industries such as healthcare and education are increasingly relying on AI to enhance, rather than replace, human expertise.</p>
+    <p>Therefore, the key lies in continuous learning and adaptation. Governments and businesses also share the responsibility of providing retraining programs to support affected workers. By embracing skill development and maintaining flexibility, workers can turn this challenge into an opportunity for career growth in the AI era.</p>
+  </div>
+</header>
+
+<!-- ================================================================ -->
+<!-- S1 -->
+<!-- ================================================================ -->
+<section class="sentence-section" id="S1">
+  <div class="sentence-header">
+    <span class="num">S1</span>
+    <div class="sentence-header text">
+      <span class="d">As</span> <span class="s">artificial intelligence</span> <span class="d">rapidly</span> <span class="v">advances</span>, <span class="s">concerns about job displacement</span> <span class="v">have grown</span> <span class="d">significantly</span>.
+    </div>
+  </div>
+
+  <!-- 1. Grammar -->
+  <div class="dim">
+    <div class="dim-title d1">1 · 语法层面</div>
+    <p>
+      <span class="tag tag-tense">时态: Present Simple (advances)</span>
+      <span class="tag tag-tense">Present Perfect (have grown)</span>
+      <span class="tag tag-voice">语态: Active</span>
+      <span class="tag tag-clause">从句: 状语从句 (As引导，表时间/原因)</span>
+    </p>
+    <p style="margin-top:6px;">
+      <span class="tag tag-special">无虚拟语气</span>
+      <span class="tag tag-special">无倒装</span>
+      <span class="tag tag-special">无省略</span>
+      <span class="tag tag-special">无分裂句</span>
+    </p>
+    <p class="tag-academic" style="margin-top:8px;font-size:13px;padding:8px 12px;background:#fdf2f8;border-radius:4px;">
+      <strong>学术适用：</strong>"As + S + V, S + have/has + V-ed" 是 SCI 论文 Introduction 部分描述研究趋势的经典句型；在 IELTS Task 2 开头段使用此结构可同时展示状语从句掌控力与现在完成时运用能力，属于 Grammatical Range & Accuracy 7.0+ 标配句型。
+    </p>
+  </div>
+
+  <!-- 2. Vocabulary -->
+  <div class="dim">
+    <div class="dim-title d2">2 · 词汇原型</div>
+    <table>
+      <tr><th>实词</th><th>原型 / IPA</th><th>词性</th><th>核心释义</th><th>语域</th><th>级别</th></tr>
+      <tr><td>artificial</td><td>artificial <span class="ipa">/ˌɑːrtɪˈfɪʃəl/</span></td><td>adj</td><td>人造的；人工的 (man-made, not natural)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>intelligence</td><td>intelligence <span class="ipa">/ɪnˈtelɪdʒəns/</span></td><td>n</td><td>智能；智力 (the ability to learn &amp; understand)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>rapidly</td><td>rapidly <span class="ipa">/ˈræpɪdli/</span></td><td>adv</td><td>迅速地 (at great speed)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>advances</td><td>advance <span class="ipa">/ədˈvæns/</span></td><td>v</td><td>前进；推进 (to move forward, progress)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>concerns</td><td>concern <span class="ipa">/kənˈsɜːrn/</span></td><td>n</td><td>关注；忧虑 (a matter of interest or worry)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>job</td><td>job <span class="ipa">/dʒɑːb/</span></td><td>n</td><td>工作 (paid employment)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">A2</span></td></tr>
+      <tr><td>displacement</td><td>displacement <span class="ipa">/dɪsˈpleɪsmənt/</span></td><td>n</td><td>取代；替换 (the act of displacing)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">C1</span></td></tr>
+      <tr><td>grown</td><td>grow <span class="ipa">/ɡroʊ/</span></td><td>v</td><td>增长；变得 (to increase)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">A2</span></td></tr>
+      <tr><td>significantly</td><td>significantly <span class="ipa">/sɪɡˈnɪfɪkəntli/</span></td><td>adv</td><td>显著地 (in a way that is large enough to be important)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span> <span class="tag tag-awl">AWL 1</span></td></tr>
+    </table>
+  </div>
+
+  <!-- 3. Collocation -->
+  <div class="dim">
+    <div class="dim-title d3">3 · 词汇搭配</div>
+    <table>
+      <tr><th>V+N</th><th>Adj+N</th><th>固定短语/语块</th><th>学术连接词</th></tr>
+      <tr>
+        <td data-collocation="grow concerns" data-sentence="S1">grow significantly <br><span style="font-size:11px;color:#888">显著增长 · Ch.83–101</span></td>
+        <td data-collocation="artificial intelligence" data-sentence="S1">artificial intelligence<br><span style="font-size:11px;color:#888">人工智能 · Ch.4–26</span></td>
+        <td data-collocation="concerns about" data-sentence="S1">concerns about …<br><span style="font-size:11px;color:#888">对…的担忧 · Ch.46–59</span></td>
+        <td data-collocation="As" data-sentence="S1">As (从属连词)<br><span style="font-size:11px;color:#888">随着 · Ch.1–2</span></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td data-collocation="job displacement" data-sentence="S1">job displacement<br><span style="font-size:11px;color:#888">岗位流失 · Ch.61–76</span></td>
+        <td data-collocation="rapidly advances" data-sentence="S1">rapidly advances<br><span style="font-size:11px;color:#888">快速推进 · Ch.28–43</span></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 4. Sentence Structure -->
+  <div class="dim">
+    <div class="dim-title d4">4 · 句子成分</div>
+    <div class="tree-block"><span class="t-label">[状语从句]</span> <span class="t-d">As</span> <span class="t-s">artificial intelligence</span> <span class="t-d">rapidly</span> <span class="t-v">advances</span>,
+<span class="t-label">[主句]</span>     <span class="t-s">concerns <span class="t-label">[定]</span> <span class="t-a">about job displacement</span></span> <span class="t-v">have grown</span> <span class="t-d">significantly</span>.
+
+<span class="t-label">嵌套层级: 2 (状语从句 → 主句)</span></div>
+    <div class="depth-note">可读性提示：状语从句前置是学术写作中展示信息层次的常用手段——先交代背景/条件，再引出主要论点。SCI 论文中此结构可将"研究背景→研究发现"的逻辑链一目了然。</div>
+  </div>
+
+  <!-- 5. Memory -->
+  <div class="dim">
+    <div class="dim-title d5">5 · 记忆方法</div>
+    <div class="template-box">
+      <div class="formula" data-template="As + S + rapidly + V, S + have/has + V-ed + significantly">
+        As + <span class="slot">S 名词/名词短语</span> + rapidly + <span class="slot">V 不及物动词</span> , <span class="slot">S 名词</span> + have/has + <span class="slot">V-ed 过去分词</span> + significantly
+      </div>
+    </div>
+    <div class="mnemonic">随 AI 快推进，担忧显著增</div>
+    <table class="error-table">
+      <tr><th>易错写法 ✗</th><th>正确写法 ✓</th><th>错误类型</th></tr>
+      <tr><td>As AI rapidly <strong>advance</strong></td><td>As AI rapidly <strong>advances</strong></td><td>第三人称单数遗漏 -s</td></tr>
+      <tr><td>concerns … <strong>has</strong> grown</td><td>concerns … <strong>have</strong> grown</td><td>主谓一致：concerns 为复数</td></tr>
+    </table>
+  </div>
+
+  <!-- 6. Application -->
+  <div class="dim">
+    <div class="dim-title d6">6 · 应用场景</div>
+    <div class="app-cards">
+      <div class="app-card"><h4>IELTS Task 2</h4>适用于<strong>同意与否</strong>与<strong>双边讨论</strong>开头段——以 "As … advances" 引出话题背景，展示复合句能力。</div>
+      <div class="app-card"><h4>TOEFL Writing</h4>综合写作中可用于转述阅读材料的趋势描述；学术讨论中可作话题引入句。</div>
+      <div class="app-card"><h4>学术论文</h4><strong>Introduction</strong> 开头首句或<strong>Discussion</strong> 趋势概括——引用研究领域发展态势。</div>
+      <div class="app-card"><h4>商务/会议</h4>适用于行业报告开头、会议 Keynote 背景介绍。</div>
+    </div>
+    <div class="formality-bar">
+      <span class="label">正式等级：</span>
+      <div class="bar"><div class="fill" style="width:80%"></div></div>
+      <span class="label"><strong>4</strong> / 5 — 学术期刊级</span>
+    </div>
+  </div>
+
+  <!-- Imitation -->
+  <div class="imitation-box">
+    <strong>仿写练习</strong>（保持原句型，替换关键词）
+    <ol>
+      <li data-cefr="B2" data-awl="1">As global temperatures <strong>rapidly</strong> rise, concerns about <strong>climate change</strong> have grown significantly.</li>
+      <li data-cefr="B2" data-awl="1">As <strong>online education</strong> rapidly expands, concerns about <strong>academic integrity</strong> have grown significantly.</li>
+      <li data-cefr="B2">As <strong>urbanization</strong> rapidly progresses, concerns about <strong>housing affordability</strong> have grown significantly.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- S2 -->
+<!-- ================================================================ -->
+<section class="sentence-section" id="S2">
+  <div class="sentence-header">
+    <span class="num">S2</span>
+    <div class="sentence-header text">
+      <span class="s">Some</span> <span class="v">fear</span> <span class="o">widespread unemployment</span>, <span class="d">while</span> <span class="s">others</span> <span class="v">believe</span> <span class="o">[<span class="s">AI</span> <span class="v">will create</span> <span class="o">new opportunities</span> and <span class="v">drive</span> <span class="o">industrial upgrading</span>]</span>.
+    </div>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d1">1 · 语法层面</div>
+    <p>
+      <span class="tag tag-tense">Present Simple (fear / believe)</span>
+      <span class="tag tag-tense">Future Simple (will create / drive)</span>
+      <span class="tag tag-voice">Active</span>
+      <span class="tag tag-clause">名词性从句 (that-clause 作 believe 宾语，that 省略)</span>
+      <span class="tag tag-clause">并列连词 while 表对比</span>
+    </p>
+    <p style="margin-top:6px;">
+      <span class="tag tag-special">平行结构: create … and drive …</span>
+    </p>
+    <p class="tag-academic" style="margin-top:8px;font-size:13px;padding:8px 12px;background:#fdf2f8;border-radius:4px;">
+      <strong>学术适用：</strong>"Some … while others …" 是雅思双边讨论型 (Discuss both views) 的标志性句型，展示对比论证能力。平行结构 "will create … and drive …" 体现 Grammatical Range 7.0+ 要求的句式多样性。
+    </p>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d2">2 · 词汇原型</div>
+    <table>
+      <tr><th>实词</th><th>原型 / IPA</th><th>词性</th><th>核心释义</th><th>语域</th><th>级别</th></tr>
+      <tr><td>fear</td><td>fear <span class="ipa">/fɪər/</span></td><td>v</td><td>恐惧；担忧 (to be afraid of)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>widespread</td><td>widespread <span class="ipa">/ˈwaɪdspred/</span></td><td>adj</td><td>广泛的；普遍的 (existing over a large area)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>unemployment</td><td>unemployment <span class="ipa">/ˌʌnɪmˈplɔɪmənt/</span></td><td>n</td><td>失业；失业率 (the state of being without a job)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>believe</td><td>believe <span class="ipa">/bɪˈliːv/</span></td><td>v</td><td>相信；认为 (to feel sure that sth is true)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">A2</span></td></tr>
+      <tr><td>create</td><td>create <span class="ipa">/kriˈeɪt/</span></td><td>v</td><td>创造；产生 (to bring into existence)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span> <span class="tag tag-awl">AWL 1</span></td></tr>
+      <tr><td>opportunity</td><td>opportunity <span class="ipa">/ˌɑːpərˈtuːnəti/</span></td><td>n</td><td>机会 (a chance to do sth)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>drive</td><td>drive <span class="ipa">/draɪv/</span></td><td>v</td><td>推动；驱动 (to cause sth to happen)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>industrial</td><td>industrial <span class="ipa">/ɪnˈdʌstriəl/</span></td><td>adj</td><td>工业的；产业的 (relating to industry)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>upgrading</td><td>upgrade <span class="ipa">/ʌpˈɡreɪd/</span></td><td>n/v</td><td>升级；改造 (to raise to a higher standard)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d3">3 · 词汇搭配</div>
+    <table>
+      <tr><th>V+N</th><th>Adj+N</th><th>固定短语/语块</th><th>学术连接词</th></tr>
+      <tr>
+        <td data-collocation="fear unemployment" data-sentence="S2">fear unemployment<br><span style="font-size:11px;color:#888">担忧失业 · Ch.6–33</span></td>
+        <td data-collocation="widespread unemployment" data-sentence="S2">widespread unemployment<br><span style="font-size:11px;color:#888">大规模失业 · Ch.11–33</span></td>
+        <td data-collocation="while others" data-sentence="S2">while others …<br><span style="font-size:11px;color:#888">而另一些人… · Ch.36–47</span></td>
+        <td data-collocation="while" data-sentence="S2">while (对比连词)<br><span style="font-size:11px;color:#888">然而 · Ch.36–40</span></td>
+      </tr>
+      <tr>
+        <td data-collocation="create opportunities" data-sentence="S2">create opportunities<br><span style="font-size:11px;color:#888">创造机会 · Ch.65–88</span></td>
+        <td data-collocation="new opportunities" data-sentence="S2">new opportunities<br><span style="font-size:11px;color:#888">新机遇 · Ch.72–88</span></td>
+        <td data-collocation="industrial upgrading" data-sentence="S2">industrial upgrading<br><span style="font-size:11px;color:#888">产业升级 · Ch.100–119</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td data-collocation="drive upgrading" data-sentence="S2">drive industrial upgrading<br><span style="font-size:11px;color:#888">推动产业升级 · Ch.94–119</span></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d4">4 · 句子成分</div>
+    <div class="tree-block"><span class="t-label">[主句1]</span> <span class="t-s">Some</span> <span class="t-v">fear</span> <span class="t-o">widespread unemployment</span>,
+<span class="t-label">[对比状语从句]</span> while <span class="t-s">others</span> <span class="t-v">believe</span>
+    <span class="t-label">[宾语从句 · that省略]</span>
+        <span class="t-s">AI</span> <span class="t-v">will create</span> <span class="t-o">new opportunities</span>
+        and <span class="t-v">drive</span> <span class="t-o">industrial upgrading</span>.
+
+<span class="t-label">嵌套层级: 2 (主句 → 宾语从句)</span></div>
+    <div class="depth-note">可读性提示：while 引导的对比结构在学术写作中比 but 更正式；平行结构 create + drive 使论证节奏紧凑，适合考试及论文中呈现对立观点。</div>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d5">5 · 记忆方法</div>
+    <div class="template-box">
+      <div class="formula" data-template="Some + V + N, while others + V + that S + will + V + N + and + V + N">
+        Some <span class="slot">V 感知动词</span> <span class="slot">N 现象/问题</span>, while others <span class="slot">V 认知动词</span> [that] <span class="slot">S</span> will <span class="slot">V₁</span> <span class="slot">N₁</span> and <span class="slot">V₂</span> <span class="slot">N₂</span>
+      </div>
+    </div>
+    <div class="mnemonic">有人怕失业，有人望新生</div>
+    <table class="error-table">
+      <tr><th>易错写法 ✗</th><th>正确写法 ✓</th><th>错误类型</th></tr>
+      <tr><td>while others <strong>believes</strong></td><td>while others <strong>believe</strong></td><td>others 为复数，谓语不加 -s</td></tr>
+      <tr><td>AI will <strong>creates</strong></td><td>AI will <strong>create</strong></td><td>will 后接动词原形</td></tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d6">6 · 应用场景</div>
+    <div class="app-cards">
+      <div class="app-card"><h4>IELTS Task 2</h4>专用于<strong>双边讨论</strong> (Discuss both views) 题型——"Some … while others …" 一句话呈现两种立场。</div>
+      <div class="app-card"><h4>TOEFL Writing</h4>学术讨论中用于呈现多元观点，展示立场对比能力。</div>
+      <div class="app-card"><h4>学术论文</h4><strong>Introduction</strong> 文献综述中对比不同学者观点：Some scholars argue … while others contend …</div>
+      <div class="app-card"><h4>商务/会议</h4>适用于行业辩论、策略讨论中呈现管理层分歧。</div>
+    </div>
+    <div class="formality-bar">
+      <span class="label">正式等级：</span>
+      <div class="bar"><div class="fill" style="width:70%"></div></div>
+      <span class="label"><strong>3.5</strong> / 5 — 正式议论文级</span>
+    </div>
+  </div>
+
+  <div class="imitation-box">
+    <strong>仿写练习</strong>
+    <ol>
+      <li data-cefr="B2">Some argue that <strong>remote work</strong> reduces <strong>productivity</strong>, while others believe it enhances <strong>work-life balance</strong>.</li>
+      <li data-cefr="B2" data-awl="1">Some predict that <strong>automation</strong> will eliminate <strong>entire sectors</strong>, while others believe it will stimulate <strong>economic diversification</strong>.</li>
+      <li data-cefr="B2">Some fear <strong>social media</strong> erodes <strong>critical thinking</strong>, while others believe it fosters <strong>democratic participation</strong>.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- S3 -->
+<!-- ================================================================ -->
+<section class="sentence-section" id="S3">
+  <div class="sentence-header">
+    <span class="num">S3</span>
+    <div class="sentence-header text">
+      <span class="d">In my opinion</span>, <span class="s">AI</span> <span class="v">should be viewed</span> <span class="c">as</span> <span class="o">a transformative force</span> <span class="a">that <span class="v">reshapes</span> work rather than simply <span class="v">eliminates</span> it</span>.
+    </div>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d1">1 · 语法层面</div>
+    <p>
+      <span class="tag tag-tense">Modal + Passive (should be viewed)</span>
+      <span class="tag tag-tense">Present Simple (reshapes / eliminates)</span>
+      <span class="tag tag-voice">被动语态 (should be viewed)</span>
+      <span class="tag tag-clause">定语从句 (that 引导，修饰 force)</span>
+    </p>
+    <p style="margin-top:6px;">
+      <span class="tag tag-special">插入语: In my opinion</span>
+      <span class="tag tag-special">平行结构: reshapes … rather than eliminates</span>
+    </p>
+    <p class="tag-academic" style="margin-top:8px;font-size:13px;padding:8px 12px;background:#fdf2f8;border-radius:4px;">
+      <strong>学术适用：</strong>被动语态 "should be viewed as" 是 SCI 论文中表达学术立场的高级手段，避免第一人称主观性；"rather than" 对比结构在 Discussion 部分用于区分研究意义时极为常见。IELTS 中 "In my opinion" 可替换为 "From my perspective" 以提升正式度。
+    </p>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d2">2 · 词汇原型</div>
+    <table>
+      <tr><th>实词</th><th>原型 / IPA</th><th>词性</th><th>核心释义</th><th>语域</th><th>级别</th></tr>
+      <tr><td>opinion</td><td>opinion <span class="ipa">/əˈpɪnjən/</span></td><td>n</td><td>观点；看法 (a personal view)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">A2</span></td></tr>
+      <tr><td>viewed</td><td>view <span class="ipa">/vjuː/</span></td><td>v</td><td>看待；视为 (to regard, consider)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>transformative</td><td>transformative <span class="ipa">/trænsˈfɔːrmətɪv/</span></td><td>adj</td><td>变革性的 (causing great change)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">C1</span></td></tr>
+      <tr><td>force</td><td>force <span class="ipa">/fɔːrs/</span></td><td>n</td><td>力量；势力 (strength or power)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>reshapes</td><td>reshape <span class="ipa">/riːˈʃeɪp/</span></td><td>v</td><td>重塑；重新塑造 (to shape again differently)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">C1</span></td></tr>
+      <tr><td>work</td><td>work <span class="ipa">/wɜːrk/</span></td><td>n</td><td>工作 (employment, labour)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">A1</span></td></tr>
+      <tr><td>eliminates</td><td>eliminate <span class="ipa">/ɪˈlɪmɪneɪt/</span></td><td>v</td><td>消除；淘汰 (to completely remove)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d3">3 · 词汇搭配</div>
+    <table>
+      <tr><th>V+N</th><th>Adj+N</th><th>固定短语/语块</th><th>学术连接词</th></tr>
+      <tr>
+        <td data-collocation="view as" data-sentence="S3">be viewed as<br><span style="font-size:11px;color:#888">被视为 · Ch.19–37</span></td>
+        <td data-collocation="transformative force" data-sentence="S3">transformative force<br><span style="font-size:11px;color:#888">变革性力量 · Ch.41–60</span></td>
+        <td data-collocation="In my opinion" data-sentence="S3">In my opinion<br><span style="font-size:11px;color:#888">在我看来 · Ch.1–13</span></td>
+        <td data-collocation="rather than" data-sentence="S3">rather than<br><span style="font-size:11px;color:#888">而不是 · Ch.81–91</span></td>
+      </tr>
+      <tr>
+        <td data-collocation="reshape work" data-sentence="S3">reshape work<br><span style="font-size:11px;color:#888">重塑工作形态 · Ch.67–79</span></td>
+        <td></td>
+        <td data-collocation="rather than simply" data-sentence="S3">rather than simply …<br><span style="font-size:11px;color:#888">而非仅仅… · Ch.81–98</span></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d4">4 · 句子成分</div>
+    <div class="tree-block"><span class="t-label">[插入语]</span> <span class="t-d">In my opinion</span>,
+<span class="t-label">[主句 · 被动]</span> <span class="t-s">AI</span> <span class="t-v">should be viewed</span> <span class="t-c">as</span> <span class="t-o">a transformative force</span>
+    <span class="t-label">[定语从句]</span> <span class="t-a">that <span class="t-v">reshapes</span> <span class="t-o">work</span>
+        rather than simply <span class="t-v">eliminates</span> <span class="t-o">it</span></span>.
+
+<span class="t-label">嵌套层级: 2 (主句 → 定语从句)</span></div>
+    <div class="depth-note">可读性提示：被动语态 + 定语从句 + 平行对比三重结构叠加，适合展示高水平语法掌控力。雅思 8.0+ / SCI 论文 Discussion 部分常用此组合。</div>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d5">5 · 记忆方法</div>
+    <div class="template-box">
+      <div class="formula" data-template="In my opinion, S + should be viewed as + N + that + V + rather than + V">
+        In my opinion, <span class="slot">S 主题</span> should be viewed as <span class="slot">N 概念名词</span> that <span class="slot">V₁ 积极动词</span> <span class="slot">O₁</span> rather than simply <span class="slot">V₂ 消极动词</span> <span class="slot">O₂</span>
+      </div>
+    </div>
+    <div class="mnemonic">视为变革力，重塑非消灭</div>
+    <table class="error-table">
+      <tr><th>易错写法 ✗</th><th>正确写法 ✓</th><th>错误类型</th></tr>
+      <tr><td>AI should <strong>viewed</strong> as</td><td>AI should <strong>be viewed</strong> as</td><td>被动语态缺少 be</td></tr>
+      <tr><td>reshapes work rather than simply <strong>eliminating</strong></td><td>reshapes work rather than simply <strong>eliminates</strong></td><td>平行结构要求动词形式一致 (V-s … V-s)</td></tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d6">6 · 应用场景</div>
+    <div class="app-cards">
+      <div class="app-card"><h4>IELTS Task 2</h4><strong>同意与否</strong>与<strong>双边讨论</strong>中表明个人立场的高分句型。"In my opinion" 可升级为 "From my perspective"。</div>
+      <div class="app-card"><h4>TOEFL Writing</h4>学术讨论中可用于表达个人观点并限定论点范围。</div>
+      <div class="app-card"><h4>学术论文</h4><strong>Discussion</strong> 部分可改写为 "X should be viewed as …" 用于阐述研究意义。</div>
+      <div class="app-card"><h4>商务/会议</h4>适用于会议发言中阐述己方立场，但需将 "In my opinion" 替换为更正式的 "It is our position that …"</div>
+    </div>
+    <div class="formality-bar">
+      <span class="label">正式等级：</span>
+      <div class="bar"><div class="fill" style="width:65%"></div></div>
+      <span class="label"><strong>3</strong> / 5 — 正式议论文级 ("In my opinion" 略降正式度)</span>
+    </div>
+  </div>
+
+  <div class="imitation-box">
+    <strong>仿写练习</strong>
+    <ol>
+      <li data-cefr="C1">In my opinion, <strong>nuclear energy</strong> should be viewed as a <strong>viable solution</strong> that addresses <strong>energy scarcity</strong> rather than simply threatens <strong>safety</strong>.</li>
+      <li data-cefr="B2">In my opinion, <strong>standardized testing</strong> should be viewed as a <strong>diagnostic tool</strong> that identifies <strong>gaps</strong> rather than merely ranks <strong>students</strong>.</li>
+      <li data-cefr="C1">In my opinion, <strong>immigration</strong> should be viewed as a <strong>demographic catalyst</strong> that enriches <strong>culture</strong> rather than exclusively strains <strong>resources</strong>.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- S4 -->
+<!-- ================================================================ -->
+<section class="sentence-section" id="S4">
+  <div class="sentence-header">
+    <span class="num">S4</span>
+    <div class="sentence-header text">
+      <span class="d">On the one hand</span>, <span class="s">AI</span> <span class="v">does automate</span> <span class="o">certain routine tasks</span>, <span class="d">potentially displacing some workers in traditional industries</span>.
+    </div>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d1">1 · 语法层面</div>
+    <p>
+      <span class="tag tag-tense">Present Simple (does automate)</span>
+      <span class="tag tag-tense">Present Participle (displacing)</span>
+      <span class="tag tag-voice">Active</span>
+      <span class="tag tag-clause">无从句；分词短语作结果/伴随状语</span>
+    </p>
+    <p style="margin-top:6px;">
+      <span class="tag tag-special">强调结构: does + V (强调肯定)</span>
+    </p>
+    <p class="tag-academic" style="margin-top:8px;font-size:13px;padding:8px 12px;background:#fdf2f8;border-radius:4px;">
+      <strong>学术适用：</strong>"does + V" 强调结构在学术写作中用于对前文观点做让步确认 (concession)，常与 "on the one hand … on the other hand" 搭配形成让步-转折论证链，是 IELTS 7.0+ 和 SCI Discussion 部分的核心修辞策略。
+    </p>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d2">2 · 词汇原型</div>
+    <table>
+      <tr><th>实词</th><th>原型 / IPA</th><th>词性</th><th>核心释义</th><th>语域</th><th>级别</th></tr>
+      <tr><td>hand</td><td>hand <span class="ipa">/hænd/</span></td><td>n</td><td>方面 (方面义为习语用法)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">A2</span></td></tr>
+      <tr><td>automate</td><td>automate <span class="ipa">/ˈɔːtəmeɪt/</span></td><td>v</td><td>使自动化 (to use machines instead of people)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>certain</td><td>certain <span class="ipa">/ˈsɜːrtn/</span></td><td>adj</td><td>某些；特定的 (specific but not named)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>routine</td><td>routine <span class="ipa">/ruːˈtiːn/</span></td><td>adj</td><td>常规的；例行的 (done as part of a normal process)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>tasks</td><td>task <span class="ipa">/tæsk/</span></td><td>n</td><td>任务 (a piece of work to be done)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">A2</span></td></tr>
+      <tr><td>potentially</td><td>potentially <span class="ipa">/pəˈtenʃəli/</span></td><td>adv</td><td>潜在地；有可能 (possibly, with the potential to)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>displacing</td><td>displace <span class="ipa">/dɪsˈpleɪs/</span></td><td>v</td><td>取代；使失业 (to take the place of)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">C1</span></td></tr>
+      <tr><td>workers</td><td>worker <span class="ipa">/ˈwɜːrkər/</span></td><td>n</td><td>工人；劳动者 (a person who works)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">A2</span></td></tr>
+      <tr><td>traditional</td><td>traditional <span class="ipa">/trəˈdɪʃənl/</span></td><td>adj</td><td>传统的 (based on customs)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B2</span> <span class="tag tag-awl">AWL 2</span></td></tr>
+      <tr><td>industries</td><td>industry <span class="ipa">/ˈɪndəstri/</span></td><td>n</td><td>行业；产业 (a particular type of business)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d3">3 · 词汇搭配</div>
+    <table>
+      <tr><th>V+N</th><th>Adj+N</th><th>固定短语/语块</th><th>学术连接词</th></tr>
+      <tr>
+        <td data-collocation="automate tasks" data-sentence="S4">automate tasks<br><span style="font-size:11px;color:#888">使任务自动化 · Ch.26–55</span></td>
+        <td data-collocation="routine tasks" data-sentence="S4">routine tasks<br><span style="font-size:11px;color:#888">常规任务 · Ch.43–55</span></td>
+        <td data-collocation="On the one hand" data-sentence="S4">On the one hand<br><span style="font-size:11px;color:#888">一方面 · Ch.1–15</span></td>
+        <td data-collocation="On the one hand" data-sentence="S4">On the one hand (过渡词)<br><span style="font-size:11px;color:#888"> · Ch.1–15</span></td>
+      </tr>
+      <tr>
+        <td data-collocation="displace workers" data-sentence="S4">displace workers<br><span style="font-size:11px;color:#888">取代工人 · Ch.70–92</span></td>
+        <td data-collocation="traditional industries" data-sentence="S4">traditional industries<br><span style="font-size:11px;color:#888">传统行业 · Ch.97–118</span></td>
+        <td data-collocation="potentially displacing" data-sentence="S4">potentially displacing<br><span style="font-size:11px;color:#888">可能取代 · Ch.58–79</span></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d4">4 · 句子成分</div>
+    <div class="tree-block"><span class="t-label">[过渡语]</span> <span class="t-d">On the one hand</span>,
+<span class="t-label">[主句]</span> <span class="t-s">AI</span> <span class="t-v">does automate</span> <span class="t-o">certain routine tasks</span>,
+<span class="t-label">[现在分词短语 · 结果状语]</span> <span class="t-d">potentially displacing</span> <span class="t-o">some workers</span> <span class="t-d">in traditional industries</span>.
+
+<span class="t-label">嵌套层级: 1 (简单句 + 分词短语)</span></div>
+    <div class="depth-note">可读性提示：分词短语 (displacing …) 作为结果状语是学术写作中替代 "so that" 从句的高级手法，能显著缩短句子长度同时保持信息密度。</div>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d5">5 · 记忆方法</div>
+    <div class="template-box">
+      <div class="formula" data-template="On the one hand, S + does + V + N, potentially V-ing + N in + N.">
+        On the one hand, <span class="slot">S</span> does <span class="slot">V</span> <span class="slot">O</span>, potentially <span class="slot">V-ing</span> <span class="slot">O₂</span> in <span class="slot">N 领域</span>.
+      </div>
+    </div>
+    <div class="mnemonic">一方面确实自动，潜在取代传统人</div>
+    <table class="error-table">
+      <tr><th>易错写法 ✗</th><th>正确写法 ✓</th><th>错误类型</th></tr>
+      <tr><td>potentially <strong>displaced</strong> some workers</td><td>potentially <strong>displacing</strong> some workers</td><td>分词作状语需用 -ing 形式 (伴随/结果)</td></tr>
+      <tr><td>AI does <strong>automates</strong></td><td>AI does <strong>automate</strong></td><td>does 后接动词原形</td></tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d6">6 · 应用场景</div>
+    <div class="app-cards">
+      <div class="app-card"><h4>IELTS Task 2</h4><strong>利弊分析</strong>与<strong>双边讨论</strong>中 "一方面" 段落的核心句；does 强调结构展示语法多样性。</div>
+      <div class="app-card"><h4>TOEFL Writing</h4>综合写作中用于转述阅读材料的让步观点。</div>
+      <div class="app-card"><h4>学术论文</h4><strong>Discussion</strong> 部分让步段落开头："On the one hand, X does demonstrate Y …"</div>
+      <div class="app-card"><h4>商务/会议</h4>适用于报告中呈现双面论证，尤其在投资/风险评估场景。</div>
+    </div>
+    <div class="formality-bar">
+      <span class="label">正式等级：</span>
+      <div class="bar"><div class="fill" style="width:75%"></div></div>
+      <span class="label"><strong>4</strong> / 5 — 学术期刊级</span>
+    </div>
+  </div>
+
+  <div class="imitation-box">
+    <strong>仿写练习</strong>
+    <ol>
+      <li data-cefr="B2">On the one hand, <strong>social media</strong> does influence <strong>public opinion</strong>, potentially shaping <strong>consumer behavior</strong> in competitive markets.</li>
+      <li data-cefr="B2">On the one hand, <strong>globalization</strong> does disrupt <strong>local economies</strong>, potentially displacing <strong>small businesses</strong> in developing regions.</li>
+      <li data-cefr="B2">On the one hand, <strong>climate change</strong> does threaten <strong>food security</strong>, potentially jeopardizing <strong>agricultural production</strong> in vulnerable areas.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- S5 -->
+<!-- ================================================================ -->
+<section class="sentence-section" id="S5">
+  <div class="sentence-header">
+    <span class="num">S5</span>
+    <div class="sentence-header text">
+      <span class="d">For example</span>, <span class="s">manufacturing robots and automated customer service systems</span> <span class="v">have already replaced</span> <span class="o">many repetitive positions</span>.
+    </div>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d1">1 · 语法层面</div>
+    <p>
+      <span class="tag tag-tense">Present Perfect (have replaced)</span>
+      <span class="tag tag-voice">Active</span>
+      <span class="tag tag-clause">无从句；简单句</span>
+    </p>
+    <p style="margin-top:6px;">
+      <span class="tag tag-special">复合主语 (A and B)</span>
+      <span class="tag tag-special">already 置于助动词与主动词之间</span>
+    </p>
+    <p class="tag-academic" style="margin-top:8px;font-size:13px;padding:8px 12px;background:#fdf2f8;border-radius:4px;">
+      <strong>学术适用：</strong>"For example, S have already V-ed" 是举例论证的核心模板；现在完成时表示"已经发生且仍具影响"，是 IELTS 和 SCI 论文中例证段的高频时态。"already" 的位置 (have + already + V-ed) 是中高阶英语的典型语序。
+    </p>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d2">2 · 词汇原型</div>
+    <table>
+      <tr><th>实词</th><th>原型 / IPA</th><th>词性</th><th>核心释义</th><th>语域</th><th>级别</th></tr>
+      <tr><td>example</td><td>example <span class="ipa">/ɪɡˈzæmpl/</span></td><td>n</td><td>例子；范例 (a thing characteristic of its kind)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">A2</span></td></tr>
+      <tr><td>manufacturing</td><td>manufacture <span class="ipa">/ˌmænjuˈfæktʃər/</span></td><td>n/adj</td><td>制造业 (the making of goods on a large scale)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>robots</td><td>robot <span class="ipa">/ˈroʊbɑːt/</span></td><td>n</td><td>机器人 (a machine capable of carrying out actions automatically)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>automated</td><td>automate <span class="ipa">/ˈɔːtəmeɪt/</span></td><td>adj</td><td>自动化的 (operated by machines)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>customer</td><td>customer <span class="ipa">/ˈkʌstəmər/</span></td><td>n</td><td>客户；顾客 (a person who buys goods)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">A2</span></td></tr>
+      <tr><td>service</td><td>service <span class="ipa">/ˈsɜːrvɪs/</span></td><td>n</td><td>服务 (work done for others)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">A2</span></td></tr>
+      <tr><td>systems</td><td>system <span class="ipa">/ˈsɪstəm/</span></td><td>n</td><td>系统 (a set of connected things forming a whole)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span> <span class="tag tag-awl">AWL 1</span></td></tr>
+      <tr><td>replaced</td><td>replace <span class="ipa">/rɪˈpleɪs/</span></td><td>v</td><td>取代；替换 (to take the place of)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>repetitive</td><td>repetitive <span class="ipa">/rɪˈpetɪtɪv/</span></td><td>adj</td><td>重复性的 (involving doing the same thing again)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>positions</td><td>position <span class="ipa">/pəˈzɪʃən/</span></td><td>n</td><td>职位 (a job)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d3">3 · 词汇搭配</div>
+    <table>
+      <tr><th>V+N</th><th>Adj+N</th><th>固定短语/语块</th><th>学术连接词</th></tr>
+      <tr>
+        <td data-collocation="replace positions" data-sentence="S5">replaced positions<br><span style="font-size:11px;color:#888">取代职位 · Ch.87–120</span></td>
+        <td data-collocation="manufacturing robots" data-sentence="S5">manufacturing robots<br><span style="font-size:11px;color:#888">制造机器人 · Ch.14–33</span></td>
+        <td data-collocation="For example" data-sentence="S5">For example<br><span style="font-size:11px;color:#888">例如 · Ch.1–11</span></td>
+        <td data-collocation="For example" data-sentence="S5">For example (举例)<br><span style="font-size:11px;color:#888"> · Ch.1–11</span></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td data-collocation="customer service" data-sentence="S5">customer service<br><span style="font-size:11px;color:#888">客户服务 · Ch.49–64</span></td>
+        <td data-collocation="customer service systems" data-sentence="S5">customer service systems<br><span style="font-size:11px;color:#888">客服系统 · Ch.49–72</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td data-collocation="repetitive positions" data-sentence="S5">repetitive positions<br><span style="font-size:11px;color:#888">重复性岗位 · Ch.101–120</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d4">4 · 句子成分</div>
+    <div class="tree-block"><span class="t-label">[评注性状语]</span> <span class="t-d">For example</span>,
+<span class="t-label">[主句]</span> <span class="t-s">manufacturing robots and automated customer service systems</span>
+    <span class="t-v">have already replaced</span> <span class="t-o">many repetitive positions</span>.
+
+<span class="t-label">嵌套层级: 1 (简单句)</span></div>
+    <div class="depth-note">可读性提示：简单句 + 明确举例是学术写作中例证段的首选结构。主语为并列名词短语，信息量大但句法清晰，符合学术可读性标准。</div>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d5">5 · 记忆方法</div>
+    <div class="template-box">
+      <div class="formula" data-template="For example, S + have/has + already + V-ed + N.">
+        For example, <span class="slot">S 并列名词</span> have already <span class="slot">V-ed</span> <span class="slot">O</span>.
+      </div>
+    </div>
+    <div class="mnemonic">举机器例，已替重复岗</div>
+    <table class="error-table">
+      <tr><th>易错写法 ✗</th><th>正确写法 ✓</th><th>错误类型</th></tr>
+      <tr><td>have already <strong>replace</strong></td><td>have already <strong>replaced</strong></td><td>现在完成时需用过去分词</td></tr>
+      <tr><td>robots and systems <strong>has</strong></td><td>robots and systems <strong>have</strong></td><td>复合主语 = 复数</td></tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d6">6 · 应用场景</div>
+    <div class="app-cards">
+      <div class="app-card"><h4>IELTS Task 2</h4>适用于所有需要<strong>举例论证</strong>的题型——"For example" 是最直接的例证信号词。</div>
+      <div class="app-card"><h4>TOEFL Writing</h4>综合写作中转述阅读材料的具体案例。</div>
+      <div class="app-card"><h4>学术论文</h4><strong>Introduction</strong> / <strong>Results</strong> 部分具体数据或案例的引入句。</div>
+      <div class="app-card"><h4>商务/会议</h4>报告中举证常用句型，适用于所有正式场合。</div>
+    </div>
+    <div class="formality-bar">
+      <span class="label">正式等级：</span>
+      <div class="bar"><div class="fill" style="width:65%"></div></div>
+      <span class="label"><strong>3.5</strong> / 5 — 正式议论文级</span>
+    </div>
+  </div>
+
+  <div class="imitation-box">
+    <strong>仿写练习</strong>
+    <ol>
+      <li data-cefr="B2">For example, <strong>online learning platforms</strong> have already transformed many <strong>traditional educational practices</strong>.</li>
+      <li data-cefr="B2">For example, <strong>autonomous vehicles</strong> have already challenged many <strong>conventional transportation models</strong>.</li>
+      <li data-cefr="B2">For example, <strong>digital currencies</strong> have already disrupted many <strong>established financial systems</strong>.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- S6 -->
+<!-- ================================================================ -->
+<section class="sentence-section" id="S6">
+  <div class="sentence-header">
+    <span class="num">S6</span>
+    <div class="sentence-header text">
+      <span class="d">On the other hand</span>, <span class="s">it</span> <span class="v">generates</span> <span class="o">demand for new skills</span> and <span class="v">creates</span> <span class="o">emerging job categories</span> <span class="d">in fields like AI development, data analysis, and human-machine collaboration</span>.
+    </div>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d1">1 · 语法层面</div>
+    <p>
+      <span class="tag tag-tense">Present Simple (generates / creates)</span>
+      <span class="tag tag-voice">Active</span>
+      <span class="tag tag-clause">无从句；并列谓语结构</span>
+    </p>
+    <p style="margin-top:6px;">
+      <span class="tag tag-special">平行结构: generates … and creates …</span>
+      <span class="tag tag-special">列举: A, B, and C</span>
+    </p>
+    <p class="tag-academic" style="margin-top:8px;font-size:13px;padding:8px 12px;background:#fdf2f8;border-radius:4px;">
+      <strong>学术适用：</strong>并列谓语 + 三项列举是 SCI 论文 Results 和 Discussion 中呈现多维数据/观点的标准手段。"On the other hand" 与前句 "On the one hand" 形成完整论证弧线，是 IELTS 7.0+ 的结构化标志。
+    </p>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d2">2 · 词汇原型</div>
+    <table>
+      <tr><th>实词</th><th>原型 / IPA</th><th>词性</th><th>核心释义</th><th>语域</th><th>级别</th></tr>
+      <tr><td>generates</td><td>generate <span class="ipa">/ˈdʒenəreɪt/</span></td><td>v</td><td>产生；生成 (to cause to arise, produce)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span> <span class="tag tag-awl">AWL 3</span></td></tr>
+      <tr><td>demand</td><td>demand <span class="ipa">/dɪˈmænd/</span></td><td>n</td><td>需求；需要 (a strong request or need)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>skills</td><td>skill <span class="ipa">/skɪl/</span></td><td>n</td><td>技能；能力 (the ability to do sth well)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>creates</td><td>create <span class="ipa">/kriˈeɪt/</span></td><td>v</td><td>创造；产生</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span> <span class="tag tag-awl">AWL 1</span></td></tr>
+      <tr><td>emerging</td><td>emerge <span class="ipa">/ɪˈmɜːrdʒ/</span></td><td>adj</td><td>新兴的 (just beginning to develop)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>categories</td><td>category <span class="ipa">/ˈkætəɡɔːri/</span></td><td>n</td><td>类别；种类 (a class or division)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span> <span class="tag tag-awl">AWL 2</span></td></tr>
+      <tr><td>fields</td><td>field <span class="ipa">/fiːld/</span></td><td>n</td><td>领域 (an area of activity or study)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>development</td><td>development <span class="ipa">/dɪˈveləpmənt/</span></td><td>n</td><td>开发；发展 (the process of developing)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>analysis</td><td>analysis <span class="ipa">/əˈnæləsɪs/</span></td><td>n</td><td>分析 (a detailed examination)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span> <span class="tag tag-awl">AWL 1</span></td></tr>
+      <tr><td>collaboration</td><td>collaboration <span class="ipa">/kəˌlæbəˈreɪʃən/</span></td><td>n</td><td>协作；合作 (the act of working together)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d3">3 · 词汇搭配</div>
+    <table>
+      <tr><th>V+N</th><th>Adj+N</th><th>固定短语/语块</th><th>学术连接词</th></tr>
+      <tr>
+        <td data-collocation="generate demand" data-sentence="S6">generates demand for<br><span style="font-size:11px;color:#888">催生对…的需求 · Ch.23–42</span></td>
+        <td data-collocation="new skills" data-sentence="S6">new skills<br><span style="font-size:11px;color:#888">新技能 · Ch.44–53</span></td>
+        <td data-collocation="On the other hand" data-sentence="S6">On the other hand<br><span style="font-size:11px;color:#888">另一方面 · Ch.1–17</span></td>
+        <td data-collocation="On the other hand" data-sentence="S6">On the other hand<br><span style="font-size:11px;color:#888"> · Ch.1–17</span></td>
+      </tr>
+      <tr>
+        <td data-collocation="create categories" data-sentence="S6">creates job categories<br><span style="font-size:11px;color:#888">创造岗位类别 · Ch.59–89</span></td>
+        <td data-collocation="emerging job categories" data-sentence="S6">emerging job categories<br><span style="font-size:11px;color:#888">新兴岗位类别 · Ch.67–89</span></td>
+        <td data-collocation="fields like" data-sentence="S6">in fields like …<br><span style="font-size:11px;color:#888">在诸如…的领域 · Ch.90–104</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td data-collocation="AI development" data-sentence="S6">AI development<br><span style="font-size:11px;color:#888">AI开发 · Ch.106–119</span></td>
+        <td data-collocation="data analysis" data-sentence="S6">data analysis<br><span style="font-size:11px;color:#888">数据分析 · Ch.122–134</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td data-collocation="human-machine collaboration" data-sentence="S6">human-machine collaboration<br><span style="font-size:11px;color:#888">人机协作 · Ch.141–167</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d4">4 · 句子成分</div>
+    <div class="tree-block"><span class="t-label">[过渡语]</span> <span class="t-d">On the other hand</span>,
+<span class="t-label">[主句]</span> <span class="t-s">it</span> <span class="t-v">generates</span> <span class="t-o">demand for new skills</span>
+    and <span class="t-v">creates</span> <span class="t-o">emerging job categories</span>
+    <span class="t-d">in fields like AI development, data analysis, and human-machine collaboration</span>.
+
+<span class="t-label">嵌套层级: 1 (并列简单句)</span></div>
+    <div class="depth-note">可读性提示：并列谓语 + 三项列举结构使信息呈现有层次且不冗长。学术写作中列举通常限于 2-4 项，超过 4 项应改用表格或分段。</div>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d5">5 · 记忆方法</div>
+    <div class="template-box">
+      <div class="formula" data-template="On the other hand, S + V₁ + N₁ + and + V₂ + N₂ in fields like A, B, and C.">
+        On the other hand, <span class="slot">S</span> <span class="slot">V₁</span> <span class="slot">N₁</span> and <span class="slot">V₂</span> <span class="slot">N₂</span> in fields like <span class="slot">A</span>, <span class="slot">B</span>, and <span class="slot">C</span>.
+      </div>
+    </div>
+    <div class="mnemonic">另一方面，催生新技新岗位</div>
+    <table class="error-table">
+      <tr><th>易错写法 ✗</th><th>正确写法 ✓</th><th>错误类型</th></tr>
+      <tr><td>generates demand <strong>of</strong> new skills</td><td>generates demand <strong>for</strong></td><td>demand 后接 for (需求的对象)</td></tr>
+      <tr><td>job <strong>category</strong> (单数)</td><td>job <strong>categories</strong> (复数)</td><td>泛指类别时用复数</td></tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d6">6 · 应用场景</div>
+    <div class="app-cards">
+      <div class="app-card"><h4>IELTS Task 2</h4>与 S4 搭配构成完整的"一方面…另一方面"论证。适用于<strong>双边讨论</strong>与<strong>利弊分析</strong>。</div>
+      <div class="app-card"><h4>TOEFL Writing</h4>学术讨论中用于列举正面影响的多个方面。</div>
+      <div class="app-card"><h4>学术论文</h4><strong>Discussion</strong> 部分列举研究贡献或未来研究方向。</div>
+      <div class="app-card"><h4>商务/会议</h4>行业报告中展示市场机遇与新兴领域。</div>
+    </div>
+    <div class="formality-bar">
+      <span class="label">正式等级：</span>
+      <div class="bar"><div class="fill" style="width:75%"></div></div>
+      <span class="label"><strong>4</strong> / 5 — 学术期刊级</span>
+    </div>
+  </div>
+
+  <div class="imitation-box">
+    <strong>仿写练习</strong>
+    <ol>
+      <li data-cefr="B2">On the other hand, <strong>renewable energy</strong> generates demand for <strong>green expertise</strong> and creates emerging career paths in fields like <strong>solar engineering, environmental consulting, and sustainable architecture</strong>.</li>
+      <li data-cefr="C1">On the other hand, <strong>biotechnology</strong> generates demand for <strong>specialized knowledge</strong> and creates emerging research areas in fields like <strong>gene therapy, pharmaceutical design, and clinical diagnostics</strong>.</li>
+      <li data-cefr="B2">On the other hand, <strong>digital transformation</strong> generates demand for <strong>technical proficiency</strong> and creates emerging roles in fields like <strong>cybersecurity, cloud computing, and UX design</strong>.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- S7 -->
+<!-- ================================================================ -->
+<section class="sentence-section" id="S7">
+  <div class="sentence-header">
+    <span class="num">S7</span>
+    <div class="sentence-header text">
+      <span class="d">Moreover</span>, <span class="s">industries such as healthcare and education</span> <span class="v">are increasingly relying on</span> <span class="o">AI</span> <span class="d">to enhance</span>, <span class="d">rather than replace</span>, <span class="o">human expertise</span>.
+    </div>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d1">1 · 语法层面</div>
+    <p>
+      <span class="tag tag-tense">Present Progressive (are relying)</span>
+      <span class="tag tag-voice">Active</span>
+      <span class="tag tag-clause">无从句；不定式作目的状语</span>
+    </p>
+    <p style="margin-top:6px;">
+      <span class="tag tag-special">插入语: rather than replace (逗号隔开)</span>
+      <span class="tag tag-special">省略: rather than (to) replace (省略 to)</span>
+    </p>
+    <p class="tag-academic" style="margin-top:8px;font-size:13px;padding:8px 12px;background:#fdf2f8;border-radius:4px;">
+      <strong>学术适用：</strong>"are increasingly V-ing" 表示渐进趋势，是 SCI 论文 Discussion 中描述研究领域动态的高频表达。插入语 "rather than + V" 用逗号隔开形成语义对比，是 IELTS 8.0+ 和 C1 写作中展示复杂句法的标志性手法。
+    </p>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d2">2 · 词汇原型</div>
+    <table>
+      <tr><th>实词</th><th>原型 / IPA</th><th>词性</th><th>核心释义</th><th>语域</th><th>级别</th></tr>
+      <tr><td>industries</td><td>industry <span class="ipa">/ˈɪndəstri/</span></td><td>n</td><td>行业</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>healthcare</td><td>healthcare <span class="ipa">/ˈhelθker/</span></td><td>n</td><td>医疗保健 (the organized provision of medical care)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>education</td><td>education <span class="ipa">/ˌedʒuˈkeɪʃən/</span></td><td>n</td><td>教育</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">A2</span></td></tr>
+      <tr><td>increasingly</td><td>increasingly <span class="ipa">/ɪnˈkriːsɪŋli/</span></td><td>adv</td><td>日益；越来越 (to a greater degree)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>relying</td><td>rely <span class="ipa">/rɪˈlaɪ/</span></td><td>v</td><td>依赖；依靠 (to depend on)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>enhance</td><td>enhance <span class="ipa">/ɪnˈhæns/</span></td><td>v</td><td>增强；提高 (to improve quality or value)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>replace</td><td>replace <span class="ipa">/rɪˈpleɪs/</span></td><td>v</td><td>取代</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>expertise</td><td>expertise <span class="ipa">/ˌekspɜːrˈtiːz/</span></td><td>n</td><td>专业知识；专长 (expert skill or knowledge)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">C1</span></td></tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d3">3 · 词汇搭配</div>
+    <table>
+      <tr><th>V+N</th><th>Adj+N</th><th>固定短语/语块</th><th>学术连接词</th></tr>
+      <tr>
+        <td data-collocation="enhance expertise" data-sentence="S7">enhance expertise<br><span style="font-size:11px;color:#888">提升专业能力 · Ch.89–133</span></td>
+        <td data-collocation="human expertise" data-sentence="S7">human expertise<br><span style="font-size:11px;color:#888">人类专业知识 · Ch.119–133</span></td>
+        <td data-collocation="such as" data-sentence="S7">such as<br><span style="font-size:11px;color:#888">诸如 · Ch.22–28</span></td>
+        <td data-collocation="Moreover" data-sentence="S7">Moreover<br><span style="font-size:11px;color:#888">此外 · Ch.1–8</span></td>
+      </tr>
+      <tr>
+        <td data-collocation="rely on" data-sentence="S7">relying on AI<br><span style="font-size:11px;color:#888">依赖AI · Ch.72–84</span></td>
+        <td></td>
+        <td data-collocation="rather than" data-sentence="S7">rather than replace<br><span style="font-size:11px;color:#888">而非取代 · Ch.98–116</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td data-collocation="increasingly" data-sentence="S7">are increasingly relying<br><span style="font-size:11px;color:#888">日益依赖 · Ch.55–78</span></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d4">4 · 句子成分</div>
+    <div class="tree-block"><span class="t-label">[连接副词]</span> <span class="t-d">Moreover</span>,
+<span class="t-label">[主句]</span> <span class="t-s">industries <span class="t-label">[同位语]</span> <span class="t-a">such as healthcare and education</span></span>
+    <span class="t-v">are increasingly relying on</span> <span class="t-o">AI</span>
+    <span class="t-label">[目的状语]</span> <span class="t-d">to enhance</span>,
+        <span class="t-label">[插入语]</span> <span class="t-d">rather than replace</span>,
+    <span class="t-o">human expertise</span>.
+
+<span class="t-label">嵌套层级: 1 (简单句 + 插入语 + 同位语)</span></div>
+    <div class="depth-note">可读性提示：插入语 "rather than replace" 将 "to enhance human expertise" 一分为二，形成"框架内对比"效果。这种手法在雅思 8.0+ / 学术期刊中极具辨识度，但使用时需确保逗号配对正确。</div>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d5">5 · 记忆方法</div>
+    <div class="template-box">
+      <div class="formula" data-template="Moreover, S + are increasingly relying on + N + to V₁, rather than V₂, + O.">
+        Moreover, <span class="slot">S</span> are increasingly relying on <span class="slot">N 工具/手段</span> to <span class="slot">V₁ 增强义</span>, rather than <span class="slot">V₂ 替代义</span>, <span class="slot">O 受益对象</span>.
+      </div>
+    </div>
+    <div class="mnemonic">行业倚 AI 增强，非取代专长</div>
+    <table class="error-table">
+      <tr><th>易错写法 ✗</th><th>正确写法 ✓</th><th>错误类型</th></tr>
+      <tr><td>are increasingly <strong>relied on</strong> AI</td><td>are increasingly <strong>relying on</strong> AI</td><td>进行时用 -ing 形式，非过去分词</td></tr>
+      <tr><td>to enhance, rather than <strong>to replace</strong></td><td>to enhance, rather than <strong>replace</strong></td><td>rather than 后用裸不定式 (省略 to)</td></tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d6">6 · 应用场景</div>
+    <div class="app-cards">
+      <div class="app-card"><h4>IELTS Task 2</h4>适用于<strong>原因与解决方案</strong>及<strong>利弊分析</strong>中递进论证。"Moreover" 标志论点深入。</div>
+      <div class="app-card"><h4>TOEFL Writing</h4>学术讨论中用于补充论据，展示递进逻辑。</div>
+      <div class="app-card"><h4>学术论文</h4><strong>Discussion</strong> 中递进补充论据；<strong>Introduction</strong> 中文献综述递进。</div>
+      <div class="app-card"><h4>商务/会议</h4>适用于提案报告中追加论据支持。</div>
+    </div>
+    <div class="formality-bar">
+      <span class="label">正式等级：</span>
+      <div class="bar"><div class="fill" style="width:80%"></div></div>
+      <span class="label"><strong>4</strong> / 5 — 学术期刊级</span>
+    </div>
+  </div>
+
+  <div class="imitation-box">
+    <strong>仿写练习</strong>
+    <ol>
+      <li data-cefr="B2">Moreover, <strong>universities</strong> are increasingly adopting <strong>AI tools</strong> to personalize, rather than standardize, <strong>the educational experience</strong>.</li>
+      <li data-cefr="B2">Moreover, <strong>corporations</strong> are increasingly leveraging <strong>big data</strong> to optimize, rather than replace, <strong>strategic decision-making</strong>.</li>
+      <li data-cefr="B2">Moreover, <strong>hospitals</strong> are increasingly integrating <strong>telemedicine</strong> to extend, rather than diminish, <strong>patient accessibility</strong>.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- S8 -->
+<!-- ================================================================ -->
+<section class="sentence-section" id="S8">
+  <div class="sentence-header">
+    <span class="num">S8</span>
+    <div class="sentence-header text">
+      <span class="d">Therefore</span>, <span class="s">the key</span> <span class="v">lies in</span> <span class="o">continuous learning and adaptation</span>.
+    </div>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d1">1 · 语法层面</div>
+    <p>
+      <span class="tag tag-tense">Present Simple (lies)</span>
+      <span class="tag tag-voice">Active</span>
+      <span class="tag tag-clause">无从句；简单句</span>
+    </p>
+    <p style="margin-top:6px;">
+      <span class="tag tag-special">固定搭配: the key lies in</span>
+      <span class="tag tag-special">平行名词: learning and adaptation</span>
+    </p>
+    <p class="tag-academic" style="margin-top:8px;font-size:13px;padding:8px 12px;background:#fdf2f8;border-radius:4px;">
+      <strong>学术适用：</strong>"the key lies in" 是学术论文 Conclusion 和 Discussion 中总结核心论点的黄金句型。简短有力，适合用于结论段首句，也适用于 IELTS Task 2 结尾段的核心概括。"Therefore" 表因果推论，是学术推理链中的关键连接词。
+    </p>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d2">2 · 词汇原型</div>
+    <table>
+      <tr><th>实词</th><th>原型 / IPA</th><th>词性</th><th>核心释义</th><th>语域</th><th>级别</th></tr>
+      <tr><td>key</td><td>key <span class="ipa">/kiː/</span></td><td>n/adj</td><td>关键 (the most important thing)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>lies</td><td>lie <span class="ipa">/laɪ/</span></td><td>v</td><td>在于 (to exist or be found in)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>continuous</td><td>continuous <span class="ipa">/kənˈtɪnjuəs/</span></td><td>adj</td><td>持续的 (without interruption)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>learning</td><td>learn <span class="ipa">/lɜːrn/</span></td><td>n (gerund)</td><td>学习 (the acquisition of knowledge)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">A2</span></td></tr>
+      <tr><td>adaptation</td><td>adaptation <span class="ipa">/ˌædæpˈteɪʃən/</span></td><td>n</td><td>适应 (the process of changing to fit new conditions)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d3">3 · 词汇搭配</div>
+    <table>
+      <tr><th>V+N</th><th>Adj+N</th><th>固定短语/语块</th><th>学术连接词</th></tr>
+      <tr>
+        <td data-collocation="lies in" data-sentence="S8">the key lies in<br><span style="font-size:11px;color:#888">关键在于 · Ch.12–26</span></td>
+        <td data-collocation="continuous learning" data-sentence="S8">continuous learning<br><span style="font-size:11px;color:#888">持续学习 · Ch.28–46</span></td>
+        <td data-collocation="the key lies in" data-sentence="S8">the key lies in …<br><span style="font-size:11px;color:#888">关键在于… · Ch.12–26</span></td>
+        <td data-collocation="Therefore" data-sentence="S8">Therefore<br><span style="font-size:11px;color:#888">因此 · Ch.1–9</span></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td data-collocation="continuous learning and adaptation" data-sentence="S8">continuous learning and adaptation<br><span style="font-size:11px;color:#888">持续学习和适应 · Ch.28–61</span></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d4">4 · 句子成分</div>
+    <div class="tree-block"><span class="t-label">[连接副词]</span> <span class="t-d">Therefore</span>,
+<span class="t-label">[主句]</span> <span class="t-s">the key</span> <span class="t-v">lies in</span> <span class="t-o">continuous learning and adaptation</span>.
+
+<span class="t-label">嵌套层级: 1 (简单句)</span></div>
+    <div class="depth-note">可读性提示：7 词精炼句作为结论段的 topic sentence，信息密度极高。学术写作中结论段应避免冗长，以简明扼要的短句点题为佳。</div>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d5">5 · 记忆方法</div>
+    <div class="template-box">
+      <div class="formula" data-template="Therefore, the key lies in + N₁ + and + N₂.">
+        Therefore, the key lies in <span class="slot">N₁ 抽象名词</span> and <span class="slot">N₂ 抽象名词</span>.
+      </div>
+    </div>
+    <div class="mnemonic">因此关键，在于学与适</div>
+    <table class="error-table">
+      <tr><th>易错写法 ✗</th><th>正确写法 ✓</th><th>错误类型</th></tr>
+      <tr><td>the key <strong>lie</strong> in</td><td>the key <strong>lies</strong> in</td><td>the key 为单数主语，谓语需 -s</td></tr>
+      <tr><td>continuous <strong>learn</strong> and adaptation</td><td>continuous <strong>learning</strong> and adaptation</td><td>平行结构：名词 and 名词 (learning n. + adaptation n.)</td></tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d6">6 · 应用场景</div>
+    <div class="app-cards">
+      <div class="app-card"><h4>IELTS Task 2</h4>适用于<strong>所有题型</strong>的结论段首句——一句话概括核心方案。</div>
+      <div class="app-card"><h4>TOEFL Writing</h4>学术讨论中用于总结论点立场。</div>
+      <div class="app-card"><h4>学术论文</h4><strong>Conclusion</strong> 部分总结核心发现 / <strong>Abstract</strong> 核心结论。</div>
+      <div class="app-card"><h4>商务/会议</h4>适用于报告/演示的结论与建议部分。</div>
+    </div>
+    <div class="formality-bar">
+      <span class="label">正式等级：</span>
+      <div class="bar"><div class="fill" style="width:70%"></div></div>
+      <span class="label"><strong>3.5</strong> / 5 — 正式议论文级</span>
+    </div>
+  </div>
+
+  <div class="imitation-box">
+    <strong>仿写练习</strong>
+    <ol>
+      <li data-cefr="C1">Therefore, the key lies in <strong>institutional reform</strong> and <strong>regulatory innovation</strong>.</li>
+      <li data-cefr="C1">Therefore, the key lies in <strong>evidence-based policy</strong> and <strong>stakeholder engagement</strong>.</li>
+      <li data-cefr="B2">Therefore, the key lies in <strong>technical literacy</strong> and <strong>adaptive capacity</strong>.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- S9 -->
+<!-- ================================================================ -->
+<section class="sentence-section" id="S9">
+  <div class="sentence-header">
+    <span class="num">S9</span>
+    <div class="sentence-header text">
+      <span class="s">Governments and businesses</span> <span class="d">also</span> <span class="v">share</span> <span class="o">the responsibility</span> <span class="a">of providing retraining programs</span> <span class="d">to support affected workers</span>.
+    </div>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d1">1 · 语法层面</div>
+    <p>
+      <span class="tag tag-tense">Present Simple (share)</span>
+      <span class="tag tag-voice">Active</span>
+      <span class="tag tag-clause">无从句；介词 + 动名词 + 不定式目的状语</span>
+    </p>
+    <p style="margin-top:6px;">
+      <span class="tag tag-special">动名词短语: of providing … (介词宾语)</span>
+      <span class="tag tag-special">不定式目的状语: to support …</span>
+      <span class="tag tag-special">过去分词作定语: affected workers</span>
+    </p>
+    <p class="tag-academic" style="margin-top:8px;font-size:13px;padding:8px 12px;background:#fdf2f8;border-radius:4px;">
+      <strong>学术适用：</strong>"S share the responsibility of V-ing" 是政策建议类议论文的高级表达。在 IELTS Task 2 原因与解决方案题型中用于分配责任主体；在 SCI 论文 Discussion 中用于提出实践建议。"affected + N" (过去分词作前置定语) 是学术写作中替代 "workers who are affected" 的简洁手法。
+    </p>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d2">2 · 词汇原型</div>
+    <table>
+      <tr><th>实词</th><th>原型 / IPA</th><th>词性</th><th>核心释义</th><th>语域</th><th>级别</th></tr>
+      <tr><td>governments</td><td>government <span class="ipa">/ˈɡʌvərnmənt/</span></td><td>n</td><td>政府</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>businesses</td><td>business <span class="ipa">/ˈbɪznəs/</span></td><td>n</td><td>企业；商业</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">A2</span></td></tr>
+      <tr><td>share</td><td>share <span class="ipa">/ʃer/</span></td><td>v</td><td>分担；共有 (to have in common)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>responsibility</td><td>responsibility <span class="ipa">/rɪˌspɑːnsəˈbɪləti/</span></td><td>n</td><td>责任；职责 (the state of being responsible)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>providing</td><td>provide <span class="ipa">/prəˈvaɪd/</span></td><td>v</td><td>提供 (to give or supply)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>retraining</td><td>retrain <span class="ipa">/riːˈtreɪn/</span></td><td>n/adj</td><td>再培训 (training sb for a new type of work)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>programs</td><td>program <span class="ipa">/ˈproʊɡræm/</span></td><td>n</td><td>项目；计划 (a planned series of activities)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>support</td><td>support <span class="ipa">/səˈpɔːrt/</span></td><td>v</td><td>支持；帮助</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">A2</span></td></tr>
+      <tr><td>affected</td><td>affect <span class="ipa">/əˈfekt/</span></td><td>adj (pp)</td><td>受影响的 (influenced or impacted)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>workers</td><td>worker <span class="ipa">/ˈwɜːrkər/</span></td><td>n</td><td>工人；劳动者</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">A2</span></td></tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d3">3 · 词汇搭配</div>
+    <table>
+      <tr><th>V+N</th><th>Adj+N</th><th>固定短语/语块</th><th>学术连接词</th></tr>
+      <tr>
+        <td data-collocation="share responsibility" data-sentence="S9">share the responsibility<br><span style="font-size:11px;color:#888">分担责任 · Ch.28–56</span></td>
+        <td data-collocation="affected workers" data-sentence="S9">affected workers<br><span style="font-size:11px;color:#888">受影响的工人 · Ch.102–117</span></td>
+        <td data-collocation="responsibility of V-ing" data-sentence="S9">the responsibility of providing<br><span style="font-size:11px;color:#888">提供…的责任 · Ch.43–69</span></td>
+        <td data-collocation="also" data-sentence="S9">also (补充连接)<br><span style="font-size:11px;color:#888">也 · Ch.28–31</span></td>
+      </tr>
+      <tr>
+        <td data-collocation="provide programs" data-sentence="S9">providing retraining programs<br><span style="font-size:11px;color:#888">提供再培训项目 · Ch.61–89</span></td>
+        <td data-collocation="retraining programs" data-sentence="S9">retraining programs<br><span style="font-size:11px;color:#888">再培训项目 · Ch.71–89</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d4">4 · 句子成分</div>
+    <div class="tree-block"><span class="t-label">[主句]</span>
+<span class="t-s">Governments and businesses</span> <span class="t-d">also</span>
+<span class="t-v">share</span> <span class="t-o">the responsibility</span>
+    <span class="t-label">[定语 · 介词+动名词]</span> <span class="t-a">of providing retraining programs</span>
+    <span class="t-label">[目的状语]</span> <span class="t-d">to support <span class="t-a">affected</span> workers</span>.
+
+<span class="t-label">嵌套层级: 1 (简单句 + 非限定结构)</span></div>
+    <div class="depth-note">可读性提示："of V-ing" 后置定语 + "to V" 目的状语构成双层修饰链，信息层次清晰。学术写作中此结构适合提出"谁+做什么+为何做"的政策建议。</div>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d5">5 · 记忆方法</div>
+    <div class="template-box">
+      <div class="formula" data-template="S + share + the responsibility of + V-ing + N + to V.">
+        <span class="slot">S 责任主体</span> share the responsibility of <span class="slot">V-ing</span> <span class="slot">N 措施/项目</span> to <span class="slot">V 目标</span>.
+      </div>
+    </div>
+    <div class="mnemonic">政企共担，培训之责助工人</div>
+    <table class="error-table">
+      <tr><th>易错写法 ✗</th><th>正确写法 ✓</th><th>错误类型</th></tr>
+      <tr><td>the responsibility <strong>to provide</strong></td><td>the responsibility <strong>of providing</strong></td><td>正式写作中 "of + V-ing" 更常见于抽象名词后</td></tr>
+      <tr><td><strong>affecting</strong> workers</td><td><strong>affected</strong> workers</td><td>过去分词表被动 (受影响的)；现在分词表主动 (影响的)</td></tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d6">6 · 应用场景</div>
+    <div class="app-cards">
+      <div class="app-card"><h4>IELTS Task 2</h4><strong>原因与解决方案</strong>题型中用于分配责任主体 (governments / businesses)。</div>
+      <div class="app-card"><h4>TOEFL Writing</h4>学术讨论中用于提出具体建议并指明责任方。</div>
+      <div class="app-card"><h4>学术论文</h4><strong>Discussion</strong> / <strong>Conclusion</strong> 中的实践建议段落。</div>
+      <div class="app-card"><h4>商务/会议</h4>适用于政策建议、企业社会责任报告。</div>
+    </div>
+    <div class="formality-bar">
+      <span class="label">正式等级：</span>
+      <div class="bar"><div class="fill" style="width:70%"></div></div>
+      <span class="label"><strong>3.5</strong> / 5 — 正式议论文级</span>
+    </div>
+  </div>
+
+  <div class="imitation-box">
+    <strong>仿写练习</strong>
+    <ol>
+      <li data-cefr="B2"><strong>Universities</strong> share the responsibility of developing <strong>curricula</strong> to prepare <strong>graduates</strong> for an evolving job market.</li>
+      <li data-cefr="B2" data-awl="1"><strong>Technology companies</strong> share the responsibility of establishing <strong>ethical guidelines</strong> to protect <strong>user privacy</strong>.</li>
+      <li data-cefr="B2"><strong>International organizations</strong> share the responsibility of coordinating <strong>relief efforts</strong> to assist <strong>displaced populations</strong>.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- S10 -->
+<!-- ================================================================ -->
+<section class="sentence-section" id="S10">
+  <div class="sentence-header">
+    <span class="num">S10</span>
+    <div class="sentence-header text">
+      <span class="d">By embracing skill development and maintaining flexibility</span>, <span class="s">workers</span> <span class="v">can turn</span> <span class="o">this challenge</span> <span class="c">into an opportunity</span> <span class="a">for career growth</span> <span class="d">in the AI era</span>.
+    </div>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d1">1 · 语法层面</div>
+    <p>
+      <span class="tag tag-tense">Modal (can turn)</span>
+      <span class="tag tag-voice">Active</span>
+      <span class="tag tag-clause">无从句；介词 + 并列动名词作方式状语</span>
+    </p>
+    <p style="margin-top:6px;">
+      <span class="tag tag-special">平行结构: embracing … and maintaining …</span>
+      <span class="tag tag-special">结果补语: turn … into …</span>
+    </p>
+    <p class="tag-academic" style="margin-top:8px;font-size:13px;padding:8px 12px;background:#fdf2f8;border-radius:4px;">
+      <strong>学术适用：</strong>"By V-ing …, S can V … into …" 是行动号召 (call to action) 的经典句型。在 IELTS Task 2 结尾段使用可展示积极结论的能力；在 SCI 论文 Conclusion 中用于概括应对策略。"turn … into" 的比喻性用法增添语言张力。
+    </p>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d2">2 · 词汇原型</div>
+    <table>
+      <tr><th>实词</th><th>原型 / IPA</th><th>词性</th><th>核心释义</th><th>语域</th><th>级别</th></tr>
+      <tr><td>embracing</td><td>embrace <span class="ipa">/ɪmˈbreɪs/</span></td><td>v</td><td>拥抱；接受 (to accept willingly)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>skill</td><td>skill <span class="ipa">/skɪl/</span></td><td>n</td><td>技能</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>development</td><td>development <span class="ipa">/dɪˈveləpmənt/</span></td><td>n</td><td>发展；培养</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>maintaining</td><td>maintain <span class="ipa">/meɪnˈteɪn/</span></td><td>v</td><td>保持；维持 (to keep in existence)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>flexibility</td><td>flexibility <span class="ipa">/ˌfleksəˈbɪləti/</span></td><td>n</td><td>灵活性 (the ability to change easily)</td><td><span class="register-tag rt-formal">正式</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>workers</td><td>worker <span class="ipa">/ˈwɜːrkər/</span></td><td>n</td><td>劳动者</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">A2</span></td></tr>
+      <tr><td>turn</td><td>turn <span class="ipa">/tɜːrn/</span></td><td>v</td><td>转变 (to change from one state to another)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">A2</span></td></tr>
+      <tr><td>challenge</td><td>challenge <span class="ipa">/ˈtʃælɪndʒ/</span></td><td>n</td><td>挑战 (a difficult task or situation)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+      <tr><td>opportunity</td><td>opportunity <span class="ipa">/ˌɑːpərˈtuːnəti/</span></td><td>n</td><td>机遇</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>career</td><td>career <span class="ipa">/kəˈrɪr/</span></td><td>n</td><td>职业生涯 (an occupation undertaken for a period of life)</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B2</span></td></tr>
+      <tr><td>growth</td><td>growth <span class="ipa">/ɡroʊθ/</span></td><td>n</td><td>增长；发展</td><td><span class="register-tag rt-neutral">中性</span></td><td><span class="tag tag-cefr">B1</span></td></tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d3">3 · 词汇搭配</div>
+    <table>
+      <tr><th>V+N</th><th>Adj+N</th><th>固定短语/语块</th><th>学术连接词</th></tr>
+      <tr>
+        <td data-collocation="embrace development" data-sentence="S10">embracing skill development<br><span style="font-size:11px;color:#888">拥抱技能发展 · Ch.4–30</span></td>
+        <td data-collocation="skill development" data-sentence="S10">skill development<br><span style="font-size:11px;color:#888">技能发展 · Ch.14–30</span></td>
+        <td data-collocation="By V-ing" data-sentence="S10">By embracing … and maintaining …<br><span style="font-size:11px;color:#888">通过…和… · Ch.1–58</span></td>
+        <td data-collocation="By" data-sentence="S10">By (方式介词)<br><span style="font-size:11px;color:#888">通过 · Ch.1–2</span></td>
+      </tr>
+      <tr>
+        <td data-collocation="maintain flexibility" data-sentence="S10">maintaining flexibility<br><span style="font-size:11px;color:#888">保持灵活性 · Ch.36–58</span></td>
+        <td data-collocation="career growth" data-sentence="S10">career growth<br><span style="font-size:11px;color:#888">职业发展 · Ch.117–129</span></td>
+        <td data-collocation="turn into" data-sentence="S10">turn … into an opportunity<br><span style="font-size:11px;color:#888">将…转化为机遇 · Ch.73–111</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td data-collocation="the AI era" data-sentence="S10">the AI era<br><span style="font-size:11px;color:#888">AI时代 · Ch.134–143</span></td>
+        <td data-collocation="this challenge" data-sentence="S10">this challenge<br><span style="font-size:11px;color:#888">这一挑战 · Ch.78–91</span></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d4">4 · 句子成分</div>
+    <div class="tree-block"><span class="t-label">[方式状语 · 介词+并列动名词]</span>
+<span class="t-d">By embracing skill development
+    and maintaining flexibility</span>,
+<span class="t-label">[主句]</span>
+<span class="t-s">workers</span> <span class="t-v">can turn</span> <span class="t-o">this challenge</span>
+    <span class="t-c">into an opportunity</span>
+    <span class="t-a">for career growth</span>
+    <span class="t-d">in the AI era</span>.
+
+<span class="t-label">嵌套层级: 1 (简单句 + 多层状语修饰)</span></div>
+    <div class="depth-note">可读性提示：前置方式状语 + 主句的 "turn A into B" 结构是结论段的绝佳收尾。方式状语在前可引导读者先理解手段，再看到结果，符合"措施→效果"的逻辑顺序。</div>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d5">5 · 计忆方法</div>
+    <div class="template-box">
+      <div class="formula" data-template="By V-ing + N₁ + and + V-ing + N₂, S + can + turn + N₃ + into + N₄.">
+        By <span class="slot">V-ing₁ 手段</span> <span class="slot">N₁</span> and <span class="slot">V-ing₂ 手段</span> <span class="slot">N₂</span>,
+        <span class="slot">S</span> can turn <span class="slot">N₃ 负面</span> into <span class="slot">N₄ 正面</span>.
+      </div>
+    </div>
+    <div class="mnemonic">拥抱技发展，挑战变机遇</div>
+    <table class="error-table">
+      <tr><th>易错写法 ✗</th><th>正确写法 ✓</th><th>错误类型</th></tr>
+      <tr><td>By <strong>embrace</strong> skill development</td><td>By <strong>embracing</strong> skill development</td><td>介词 by 后接动名词 (-ing)</td></tr>
+      <tr><td>turn this challenge <strong>to</strong> an opportunity</td><td>turn this challenge <strong>into</strong> an opportunity</td><td>固定搭配 turn A into B</td></tr>
+    </table>
+  </div>
+
+  <div class="dim">
+    <div class="dim-title d6">6 · 应用场景</div>
+    <div class="app-cards">
+      <div class="app-card"><h4>IELTS Task 2</h4>适用于<strong>所有题型</strong>结尾段的行动号召句。"By V-ing …, S can turn … into …" 展示积极结论能力。</div>
+      <div class="app-card"><h4>TOEFL Writing</h4>学术讨论中用于提出建设性建议并展望未来。</div>
+      <div class="app-card"><h4>学术论文</h4><strong>Conclusion</strong> 最后一段的展望 / <strong>Discussion</strong> 中的实践启示。</div>
+      <div class="app-card"><h4>商务/会议</h4>适用于演讲结尾、战略报告的行动建议部分。</div>
+    </div>
+    <div class="formality-bar">
+      <span class="label">正式等级：</span>
+      <div class="bar"><div class="fill" style="width:75%"></div></div>
+      <span class="label"><strong>4</strong> / 5 — 学术期刊级</span>
+    </div>
+  </div>
+
+  <div class="imitation-box">
+    <strong>仿写练习</strong>
+    <ol>
+      <li data-cefr="C1">By acquiring <strong>new competencies</strong> and embracing <strong>lifelong learning</strong>, individuals can convert <strong>technological disruption</strong> into a catalyst for <strong>professional development</strong>.</li>
+      <li data-cefr="C1">By investing in <strong>renewable infrastructure</strong> and promoting <strong>sustainable practices</strong>, nations can transform <strong>environmental challenges</strong> into drivers of <strong>economic resilience</strong>.</li>
+      <li data-cefr="C1">By cultivating <strong>digital literacy</strong> and fostering <strong>interdisciplinary collaboration</strong>, educators can turn <strong>pedagogical uncertainty</strong> into an opportunity for <strong>curricular innovation</strong>.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- INDEX -->
+<!-- ================================================================ -->
+<section class="index-section" id="index">
+  <h2>一键检索索引</h2>
+  <p style="font-size:13px;color:var(--text-muted);margin-bottom:20px;">按类别分组，点击句子编号可跳转至对应分析。数据属性 (data-*) 已嵌入各表格行，支持批量导入 Anki / Excel。</p>
+
+  <div class="index-grid">
+
+    <!-- Collocations Index -->
+    <div class="index-col">
+      <h3>搭配索引 (按字母排序)</h3>
+      <table>
+        <tr><th>搭配</th><th>中文</th><th>句号</th></tr>
+        <tr><td>artificial intelligence</td><td>人工智能</td><td><a href="#S1">S1</a></td></tr>
+        <tr><td>automate tasks</td><td>使任务自动化</td><td><a href="#S4">S4</a></td></tr>
+        <tr><td>career growth</td><td>职业发展</td><td><a href="#S10">S10</a></td></tr>
+        <tr><td>concerns about</td><td>对…的担忧</td><td><a href="#S1">S1</a></td></tr>
+        <tr><td>continuous learning</td><td>持续学习</td><td><a href="#S8">S8</a></td></tr>
+        <tr><td>create opportunities</td><td>创造机会</td><td><a href="#S2">S2</a></td></tr>
+        <tr><td>customer service</td><td>客户服务</td><td><a href="#S5">S5</a></td></tr>
+        <tr><td>data analysis</td><td>数据分析</td><td><a href="#S6">S6</a></td></tr>
+        <tr><td>demand for</td><td>对…的需求</td><td><a href="#S6">S6</a></td></tr>
+        <tr><td>displace workers</td><td>取代工人</td><td><a href="#S4">S4</a></td></tr>
+        <tr><td>drive industrial upgrading</td><td>推动产业升级</td><td><a href="#S2">S2</a></td></tr>
+        <tr><td>emerging job categories</td><td>新兴岗位类别</td><td><a href="#S6">S6</a></td></tr>
+        <tr><td>enhance expertise</td><td>提升专业能力</td><td><a href="#S7">S7</a></td></tr>
+        <tr><td>human expertise</td><td>人类专业知识</td><td><a href="#S7">S7</a></td></tr>
+        <tr><td>human-machine collaboration</td><td>人机协作</td><td><a href="#S6">S6</a></td></tr>
+        <tr><td>industrial upgrading</td><td>产业升级</td><td><a href="#S2">S2</a></td></tr>
+        <tr><td>job displacement</td><td>岗位流失</td><td><a href="#S1">S1</a></td></tr>
+        <tr><td>manufacturing robots</td><td>制造机器人</td><td><a href="#S5">S5</a></td></tr>
+        <tr><td>new opportunities</td><td>新机遇</td><td><a href="#S2">S2</a></td></tr>
+        <tr><td>new skills</td><td>新技能</td><td><a href="#S6">S6</a></td></tr>
+        <tr><td>rapidly advances</td><td>快速推进</td><td><a href="#S1">S1</a></td></tr>
+        <tr><td>repetitive positions</td><td>重复性岗位</td><td><a href="#S5">S5</a></td></tr>
+        <tr><td>retraining programs</td><td>再培训项目</td><td><a href="#S9">S9</a></td></tr>
+        <tr><td>routine tasks</td><td>常规任务</td><td><a href="#S4">S4</a></td></tr>
+        <tr><td>share the responsibility</td><td>分担责任</td><td><a href="#S9">S9</a></td></tr>
+        <tr><td>skill development</td><td>技能发展</td><td><a href="#S10">S10</a></td></tr>
+        <tr><td>the key lies in</td><td>关键在于</td><td><a href="#S8">S8</a></td></tr>
+        <tr><td>traditional industries</td><td>传统行业</td><td><a href="#S4">S4</a></td></tr>
+        <tr><td>transformative force</td><td>变革性力量</td><td><a href="#S3">S3</a></td></tr>
+        <tr><td>turn … into</td><td>将…转变为</td><td><a href="#S10">S10</a></td></tr>
+        <tr><td>widespread unemployment</td><td>大规模失业</td><td><a href="#S2">S2</a></td></tr>
+      </table>
+    </div>
+
+    <!-- Templates Index -->
+    <div class="index-col">
+      <h3>句型模板索引</h3>
+      <table>
+        <tr><th>模板</th><th>功能</th><th>句号</th></tr>
+        <tr><td>As + S + rapidly + V, S + have/has + V-ed + significantly</td><td>趋势背景引入</td><td><a href="#S1">S1</a></td></tr>
+        <tr><td>Some V + N, while others V + that-clause</td><td>对立观点呈现</td><td><a href="#S2">S2</a></td></tr>
+        <tr><td>In my opinion, S should be viewed as N that V₁ … rather than V₂</td><td>个人立场 + 对比</td><td><a href="#S3">S3</a></td></tr>
+        <tr><td>On the one hand, S does V, V-ing + N</td><td>让步承认 + 结果</td><td><a href="#S4">S4</a></td></tr>
+        <tr><td>For example, S have already V-ed N</td><td>举例论证</td><td><a href="#S5">S5</a></td></tr>
+        <tr><td>On the other hand, S V₁ N₁ and V₂ N₂ in fields like A, B, and C</td><td>对比 + 列举</td><td><a href="#S6">S6</a></td></tr>
+        <tr><td>Moreover, S are increasingly V-ing to V₁, rather than V₂, O</td><td>递进 + 插入对比</td><td><a href="#S7">S7</a></td></tr>
+        <tr><td>Therefore, the key lies in N₁ and N₂</td><td>结论概括</td><td><a href="#S8">S8</a></td></tr>
+        <tr><td>S share the responsibility of V-ing N to V</td><td>责任分配建议</td><td><a href="#S9">S9</a></td></tr>
+        <tr><td>By V-ing N₁ and V-ing N₂, S can turn N₃ into N₄</td><td>行动号召</td><td><a href="#S10">S10</a></td></tr>
+      </table>
+
+      <h3 style="margin-top:28px;">AWL 词汇速查</h3>
+      <table>
+        <tr><th>词汇</th><th>AWL 子列表</th><th>出现句号</th></tr>
+        <tr><td>analysis</td><td>AWL 1 (analyse)</td><td><a href="#S6">S6</a></td></tr>
+        <tr><td>category</td><td>AWL 2</td><td><a href="#S6">S6</a></td></tr>
+        <tr><td>create</td><td>AWL 1</td><td><a href="#S2">S2</a>, <a href="#S6">S6</a></td></tr>
+        <tr><td>data</td><td>AWL 1</td><td><a href="#S6">S6</a></td></tr>
+        <tr><td>generate</td><td>AWL 3</td><td><a href="#S6">S6</a></td></tr>
+        <tr><td>significant(ly)</td><td>AWL 1</td><td><a href="#S1">S1</a></td></tr>
+        <tr><td>system</td><td>AWL 1</td><td><a href="#S5">S5</a></td></tr>
+        <tr><td>tradition(al)</td><td>AWL 2</td><td><a href="#S4">S4</a></td></tr>
+      </table>
+
+      <h3 style="margin-top:28px;">连接词/过渡语速查</h3>
+      <table>
+        <tr><th>连接词</th><th>功能</th><th>句号</th></tr>
+        <tr><td>As</td><td>时间/原因从属连词</td><td><a href="#S1">S1</a></td></tr>
+        <tr><td>while</td><td>对比并列连词</td><td><a href="#S2">S2</a></td></tr>
+        <tr><td>On the one hand</td><td>分论点标记</td><td><a href="#S4">S4</a></td></tr>
+        <tr><td>For example</td><td>举例</td><td><a href="#S5">S5</a></td></tr>
+        <tr><td>On the other hand</td><td>对比分论点</td><td><a href="#S6">S6</a></td></tr>
+        <tr><td>Moreover</td><td>递进</td><td><a href="#S7">S7</a></td></tr>
+        <tr><td>Therefore</td><td>因果推论</td><td><a href="#S8">S8</a></td></tr>
+        <tr><td>also</td><td>补充</td><td><a href="#S9">S9</a></td></tr>
+        <tr><td>rather than</td><td>对比否定</td><td><a href="#S3">S3</a>, <a href="#S7">S7</a></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

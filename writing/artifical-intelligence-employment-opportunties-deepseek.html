@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>AI与就业 · 学术写作六维深度解析</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Noto Sans', system-ui, sans-serif;
+      background: #f5f3f0;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #1e1e2f;
+    }
+    .report-container {
+      max-width: 1300px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 2.5rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      padding: 2.5rem 2.2rem;
+      margin-bottom: 2rem;
+    }
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 600;
+      color: #0b2b44;
+      border-left: 10px solid #0f62fe;
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.5px;
+    }
+    .subtitle {
+      color: #4a4a6a;
+      font-size: 1.1rem;
+      margin-bottom: 2.5rem;
+      font-style: italic;
+      margin-left: 2.5rem;
+    }
+    .sentence-block {
+      background: #f9fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 2rem;
+      padding: 1.8rem;
+      margin: 2rem 0;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+      transition: all 0.2s;
+    }
+    .sentence-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+    }
+    .sentence-id {
+      background: #1e2b4f;
+      color: white;
+      font-weight: 700;
+      font-size: 1.2rem;
+      padding: 0.3rem 1rem;
+      border-radius: 3rem;
+      letter-spacing: 0.5px;
+    }
+    .quote-text {
+      font-size: 1.4rem;
+      font-weight: 500;
+      line-height: 1.5;
+      background: white;
+      padding: 0.8rem 1.2rem;
+      border-radius: 1.5rem;
+      display: inline-block;
+      margin-right: 1rem;
+      color: #0d1b2a;
+      border: 1px solid #dce3eb;
+      flex: 1;
+    }
+    /* 句中彩色标签 */
+    .tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.15rem 0.6rem;
+      border-radius: 2rem;
+      display: inline-block;
+      margin-left: 0.3rem;
+      background: #eef2f6;
+      color: #1e293b;
+      white-space: nowrap;
+    }
+    .tense { background: #dbeafe; color: #1e40af; }
+    .voice { background: #f1f5f9; color: #334155; }
+    .clause { background: #ede9fe; color: #5b21b6; }
+    .special { background: #fff7ed; color: #9a3412; }
+
+    .section-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin: 1.5rem 0 0.8rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 2px solid #cbd5e1;
+      color: #0f172a;
+    }
+    .color-label {
+      display: inline-block;
+      width: 0.9rem;
+      height: 0.9rem;
+      border-radius: 50%;
+      margin-right: 0.3rem;
+    }
+    /* 成分颜色 */
+    .subj { background: #2563eb; } /* 蓝 */
+    .pred { background: #16a34a; } /* 绿 */
+    .obj { background: #f97316; } /* 橙 */
+    .attr { background: #a855f7; } /* 紫 */
+    .adv { background: #ef4444; } /* 红 */
+    .comp { background: #6b7280; } /* 灰 */
+
+    .inline-code {
+      background: #f1f5f9;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 0.4rem;
+      color: #0f172a;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.9rem;
+      background: white;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    th {
+      background: #1e293b;
+      color: white;
+      font-weight: 600;
+      padding: 0.7rem;
+      text-align: left;
+    }
+    td {
+      padding: 0.7rem;
+      border-bottom: 1px solid #e9eef2;
+      vertical-align: top;
+    }
+    .tree-box {
+      background: #f8fafd;
+      border: 1px dashed #94a3b8;
+      padding: 1rem;
+      border-radius: 0.9rem;
+      font-family: 'JetBrains Mono', monospace;
+      white-space: pre-wrap;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin: 0.5rem 0;
+      color: #0b1e33;
+    }
+    .template-box {
+      background: #eff6ff;
+      border-left: 5px solid #2563eb;
+      padding: 0.8rem 1.2rem;
+      margin: 1rem 0;
+      border-radius: 0.7rem;
+      font-weight: 500;
+    }
+    .mnemonic {
+      background: #fef9c3;
+      padding: 0.3rem 1rem;
+      border-radius: 2rem;
+      display: inline-block;
+      font-weight: 600;
+    }
+    .example-sentence {
+      margin: 0.4rem 0;
+      padding-left: 1rem;
+      border-left: 3px solid #94a3b8;
+      color: #334155;
+    }
+    hr {
+      margin: 2rem 0 1rem;
+      border: 0.5px solid #d1d9e6;
+    }
+    .index-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .index-card {
+      background: #ffffff;
+      border: 1px solid #cfdde7;
+      border-radius: 1rem;
+      padding: 1rem;
+    }
+    button {
+      background: none;
+      border: none;
+      color: #2563eb;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .flex-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+<div class="report-container" id="top">
+  <h1>🤖 AI与就业 · 学术写作深度解析</h1>
+  <div class="subtitle">基于六维度语法词汇框架 · 适用于IELTS/TOEFL/SCI教学</div>
+
+  <!-- 动态内容由JavaScript生成，便于维护彩色标签与结构 -->
+  <div id="analysis-content"></div>
+
+  <!-- 一键检索索引 -->
+  <div style="margin-top: 3rem; background: #f2f6fc; border-radius: 2rem; padding: 1.8rem;">
+    <h2 style="color:#0b2b44; margin-bottom:1.2rem;">🔎 一键检索索引 (搭配/句型/编号)</h2>
+    <div class="index-grid" id="index-area"></div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // ---------- 句子数据定义 ----------
+    const sentences = [
+      {
+        id: "S1",
+        text: "As artificial intelligence rapidly advances, concerns about job displacement have grown significantly.",
+        analysis: {
+          grammar: {
+            tense: "主句现在完成时 (have grown)；状语从句一般现在时 (advances)",
+            voice: "主动语态",
+            clauseTypes: "状语从句 (As引导时间/原因状语从句)",
+            special: "无虚拟/倒装/分裂句；状语从句位于句首",
+            note: "As引导的状语从句在学术写作中高频使用，用于表示伴随原因或时间背景。SCI引言中常用来描述技术发展背景，IELTS Task2开头段引入话题可获Coherence & Cohesion加分。"
+          },
+          vocabulary: [
+            {word:"artificial", ipa:"/ˌɑːr.tɪˈfɪʃ.əl/", pos:"adj.", meaning:"人造的；人工的", level:"B2", awl:"AWL-3"},
+            {word:"intelligence", ipa:"/ɪnˈtel.ɪ.dʒəns/", pos:"n.", meaning:"智力；智能", level:"B2", awl:"AWL-6"},
+            {word:"rapidly", ipa:"/ˈræp.ɪd.li/", pos:"adv.", meaning:"迅速地", level:"B2", awl:"-"},
+            {word:"advances", ipa:"/ədˈvæn.sɪz/", pos:"v.", meaning:"前进；发展", level:"B2", awl:"AWL-2"},
+            {word:"concerns", ipa:"/kənˈsɜːrnz/", pos:"n.", meaning:"担忧；关注", level:"B2", awl:"AWL-1"},
+            {word:"job", ipa:"/dʒɒb/", pos:"n.", meaning:"工作；职位", level:"A2", awl:"-"},
+            {word:"displacement", ipa:"/dɪˈspleɪs.mənt/", pos:"n.", meaning:"取代；移位", level:"C1", awl:"AWL-5"},
+            {word:"grown", ipa:"/ɡrəʊn/", pos:"v.", meaning:"增长；变得", level:"B1", awl:"-"},
+            {word:"significantly", ipa:"/sɪɡˈnɪf.ɪ.kənt.li/", pos:"adv.", meaning:"显著地", level:"B2", awl:"AWL-1"}
+          ],
+          collocations: [
+            {type:"V+N", phrase:"have grown concerns", meaning:"担忧增加", register:"正式", position:"concerns ... have grown"},
+            {type:"Adj+N", phrase:"artificial intelligence", meaning:"人工智能", register:"中性/正式", position:"artificial intelligence"},
+            {type:"固定短语", phrase:"as ... advances", meaning:"随着...发展", register:"正式", position:"As artificial intelligence rapidly advances"},
+            {type:"连接词", phrase:"As (引导状语)", meaning:"随着；由于", register:"正式", position:"As..."}
+          ],
+          tree: "【主句】 concerns (主) have grown (谓) significantly (状) \n    └─ 定语: about job displacement\n【状语从句】 As artificial intelligence rapidly advances (状从,修饰主句)",
+          maxNest: 1,
+          readability: "1层嵌套，清晰易读，适合学术开头。"
+        }
+      },
+      {
+        id: "S2",
+        text: "Some fear widespread unemployment, while others believe AI will create new opportunities and drive industrial upgrading.",
+        analysis: {
+          grammar: {
+            tense: "一般现在时(fear/believe) ; 宾语从句中一般将来时(will create)",
+            voice: "主动",
+            clauseTypes: "并列句(while连接)；宾语从句(AI will create... 作believe的宾语)",
+            special: "平行结构(create ... and drive ...)",
+            note: "while表示对比的并列连词，常见于双边讨论题型，展示平衡观点。宾语从句嵌套使论证更丰富。"
+          },
+          vocabulary: [
+            {word:"fear", ipa:"/fɪər/", pos:"v.", meaning:"害怕；担心", level:"B1", awl:"-"},
+            {word:"widespread", ipa:"/ˈwaɪd.spred/", pos:"adj.", meaning:"广泛的", level:"B2", awl:"-"},
+            {word:"unemployment", ipa:"/ˌʌn.ɪmˈplɔɪ.mənt/", pos:"n.", meaning:"失业", level:"B1", awl:"-"},
+            {word:"believe", ipa:"/bɪˈliːv/", pos:"v.", meaning:"相信；认为", level:"A2", awl:"-"},
+            {word:"create", ipa:"/kriˈeɪt/", pos:"v.", meaning:"创造", level:"A2", awl:"AWL-1"},
+            {word:"opportunities", ipa:"/ˌɒp.əˈtjuː.nə.tiz/", pos:"n.", meaning:"机会", level:"B1", awl:"AWL-2"},
+            {word:"drive", ipa:"/draɪv/", pos:"v.", meaning:"推动；驱动", level:"B2", awl:"AWL-4"},
+            {word:"industrial", ipa:"/ɪnˈdʌs.tri.əl/", pos:"adj.", meaning:"工业的；产业的", level:"B2", awl:"AWL-1"},
+            {word:"upgrading", ipa:"/ʌpˈɡreɪ.dɪŋ/", pos:"n.", meaning:"升级", level:"B2", awl:"-"}
+          ],
+          collocations: [
+            {type:"V+N", phrase:"fear unemployment", meaning:"担心失业", register:"中性", position:"fear widespread unemployment"},
+            {type:"V+N", phrase:"create opportunities", meaning:"创造机会", register:"正式/中性", position:"create new opportunities"},
+            {type:"V+N", phrase:"drive upgrading", meaning:"推动升级", register:"正式", position:"drive industrial upgrading"},
+            {type:"Adj+N", phrase:"widespread unemployment", meaning:"大规模失业", register:"正式", position:"widespread unemployment"},
+            {type:"连接词", phrase:"while (对比)", meaning:"而；然而", register:"正式", position:"while others believe"}
+          ],
+          tree: "并列句：Some fear widespread unemployment, \n   while others believe [宾从: AI will create ... and drive ...]",
+          maxNest: 1,
+          readability: "宾语从句内平行结构，可读性强。"
+        }
+      },
+      {
+        id: "S3",
+        text: "In my opinion, AI should be viewed as a transformative force that reshapes work rather than simply eliminates it.",
+        analysis: {
+          grammar: {
+            tense: "情态动词被动语态(should be viewed)；定语从句一般现在时(reshapes)",
+            voice: "被动语态(should be viewed)",
+            clauseTypes: "定语从句(that reshapes ...) 修饰force",
+            special: "rather than 平行对比；插入语In my opinion",
+            note: "should be viewed 为学术推荐语气，定语从句精确定义属性。IELTS观点类结尾常用。"
+          },
+          vocabulary: [
+            {word:"opinion", ipa:"/əˈpɪn.jən/", pos:"n.", meaning:"观点", level:"A2", awl:"-"},
+            {word:"viewed", ipa:"/vjuːd/", pos:"v.", meaning:"视为；看待", level:"B1", awl:"AWL-2"},
+            {word:"transformative", ipa:"/trænsˈfɔːr.mə.tɪv/", pos:"adj.", meaning:"变革性的", level:"C1", awl:"AWL-6"},
+            {word:"force", ipa:"/fɔːrs/", pos:"n.", meaning:"力量；因素", level:"B1", awl:"AWL-1"},
+            {word:"reshapes", ipa:"/ˌriːˈʃeɪps/", pos:"v.", meaning:"重塑", level:"B2", awl:"-"},
+            {word:"eliminates", ipa:"/iˈlɪm.ɪ.neɪts/", pos:"v.", meaning:"消除；淘汰", level:"B2", awl:"AWL-3"}
+          ],
+          collocations: [
+            {type:"固定短语", phrase:"in my opinion", meaning:"在我看来", register:"中性", position:"In my opinion"},
+            {type:"Adj+N", phrase:"transformative force", meaning:"变革力量", register:"正式", position:"transformative force"},
+            {type:"V+N", phrase:"reshapes work", meaning:"重塑工作", register:"正式", position:"reshapes work"},
+            {type:"连接词", phrase:"rather than", meaning:"而不是", register:"正式", position:"rather than simply eliminates"}
+          ],
+          tree: "主句: AI should be viewed as a transformative force \n   └─ 定语从句: that reshapes work rather than eliminates it.",
+          maxNest: 1,
+          readability: "定语从句带rather than对比，学术性强。"
+        }
+      },
+      {
+        id: "S4",
+        text: "On the one hand, AI does automate certain routine tasks, potentially displacing some workers in traditional industries.",
+        analysis: {
+          grammar: {
+            tense: "一般现在时(does automate 强调)",
+            voice: "主动",
+            clauseTypes: "简单句+现在分词短语作结果状语",
+            special: "强调助动词does；现在分词短语displacing...",
+            note: "does automate 强调结构在学术写作中可增强论点力度。分词状语表达伴随结果。"
+          },
+          vocabulary: [
+            {word:"automate", ipa:"/ˈɔː.tə.meɪt/", pos:"v.", meaning:"自动化", level:"B2", awl:"AWL-5"},
+            {word:"routine", ipa:"/ruːˈtiːn/", pos:"adj.", meaning:"常规的", level:"B1", awl:"-"},
+            {word:"tasks", ipa:"/tæsks/", pos:"n.", meaning:"任务", level:"A2", awl:"-"},
+            {word:"potentially", ipa:"/pəˈten.ʃəl.i/", pos:"adv.", meaning:"潜在地", level:"B2", awl:"AWL-2"},
+            {word:"displacing", ipa:"/dɪˈspleɪ.sɪŋ/", pos:"v.", meaning:"取代", level:"C1", awl:"AWL-5"},
+            {word:"traditional", ipa:"/trəˈdɪʃ.ən.əl/", pos:"adj.", meaning:"传统的", level:"B1", awl:"AWL-2"}
+          ],
+          collocations: [
+            {type:"V+N", phrase:"automate tasks", meaning:"自动化任务", register:"正式", position:"automate certain routine tasks"},
+            {type:"Adj+N", phrase:"routine tasks", meaning:"常规任务", register:"中性", position:"routine tasks"},
+            {type:"固定短语", phrase:"on the one hand", meaning:"一方面", register:"正式", position:"On the one hand"}
+          ],
+          tree: "简单句: AI does automate ... tasks, [分词状语: potentially displacing ...].",
+          maxNest: 0,
+          readability: "强调结构+分词状语，句法紧凑。"
+        }
+      },
+      {
+        id: "S5",
+        text: "For example, manufacturing robots and automated customer service systems have already replaced many repetitive positions.",
+        analysis: {
+          grammar: { tense:"现在完成时", voice:"主动", clauseTypes:"简单句", special:"For example插入语", note:"举例论证典型句型。" },
+          vocabulary: [
+            {word:"manufacturing", ipa:"/ˌmæn.jəˈfæk.tʃər.ɪŋ/", pos:"n.", meaning:"制造业", level:"B2", awl:"AWL-3"},
+            {word:"robots", ipa:"/ˈrəʊ.bɒts/", pos:"n.", meaning:"机器人", level:"B1", awl:"-"},
+            {word:"automated", ipa:"/ˈɔː.tə.meɪ.tɪd/", pos:"adj.", meaning:"自动化的", level:"B2", awl:"AWL-5"},
+            {word:"replaced", ipa:"/rɪˈpleɪst/", pos:"v.", meaning:"取代", level:"B1", awl:"AWL-1"},
+            {word:"repetitive", ipa:"/rɪˈpet.ə.tɪv/", pos:"adj.", meaning:"重复的", level:"B2", awl:"-"}
+          ],
+          collocations: [
+            {type:"Adj+N", phrase:"manufacturing robots", meaning:"制造机器人", register:"正式", position:"manufacturing robots"},
+            {type:"V+N", phrase:"replaced positions", meaning:"取代岗位", register:"正式", position:"replaced many repetitive positions"}
+          ],
+          tree: "简单句: manufacturing robots ... have replaced ... positions.",
+          maxNest:0, readability:"举例清晰。"
+        }
+      },
+      {
+        id: "S6",
+        text: "On the other hand, it generates demand for new skills and creates emerging job categories in fields like AI development, data analysis, and human-machine collaboration.",
+        analysis: {
+          grammar: { tense:"一般现在时", voice:"主动", clauseTypes:"简单句(并列谓语)", special:"平行结构(generates...and creates...); like举例", note:"平行谓语提升信息密度。" },
+          vocabulary: [
+            {word:"generates", ipa:"/ˈdʒen.ə.reɪts/", pos:"v.", meaning:"产生", level:"B2", awl:"AWL-4"},
+            {word:"demand", ipa:"/dɪˈmænd/", pos:"n.", meaning:"需求", level:"B1", awl:"AWL-1"},
+            {word:"emerging", ipa:"/ɪˈmɜː.dʒɪŋ/", pos:"adj.", meaning:"新兴的", level:"C1", awl:"AWL-8"},
+            {word:"categories", ipa:"/ˈkæt.ə.ɡɔːr.iz/", pos:"n.", meaning:"类别", level:"B1", awl:"AWL-2"},
+            {word:"collaboration", ipa:"/kəˌlæb.əˈreɪ.ʃən/", pos:"n.", meaning:"协作", level:"B2", awl:"AWL-5"}
+          ],
+          collocations: [
+            {type:"V+N", phrase:"generates demand", meaning:"产生需求", register:"正式", position:"generates demand"},
+            {type:"V+N", phrase:"creates categories", meaning:"创造类别", register:"正式", position:"creates emerging job categories"},
+            {type:"固定短语", phrase:"on the other hand", meaning:"另一方面", register:"正式", position:"On the other hand"}
+          ],
+          tree: "简单句: it generates demand ... and creates ... categories [状语 in fields ...].",
+          maxNest:0
+        }
+      },
+      {
+        id: "S7",
+        text: "Moreover, industries such as healthcare and education are increasingly relying on AI to enhance, rather than replace, human expertise.",
+        analysis: {
+          grammar: { tense:"现在进行时", voice:"主动", clauseTypes:"简单句", special:"rather than插入对比; such as举例", note:"进行时表示当前趋势。" },
+          vocabulary: [
+            {word:"increasingly", ipa:"/ɪnˈkriː.sɪŋ.li/", pos:"adv.", meaning:"越来越", level:"B2", awl:"AWL-5"},
+            {word:"relying", ipa:"/rɪˈlaɪ.ɪŋ/", pos:"v.", meaning:"依赖", level:"B1", awl:"-"},
+            {word:"enhance", ipa:"/ɪnˈhæns/", pos:"v.", meaning:"增强", level:"B2", awl:"AWL-6"},
+            {word:"expertise", ipa:"/ˌek.spɜːˈtiːz/", pos:"n.", meaning:"专业知识", level:"B2", awl:"AWL-8"}
+          ],
+          collocations: [
+            {type:"V+N", phrase:"enhance expertise", meaning:"增强专业知识", register:"正式", position:"enhance human expertise"},
+            {type:"固定短语", phrase:"rather than replace", meaning:"而非取代", register:"正式", position:"rather than replace"}
+          ],
+          tree: "简单句: industries ... are relying on AI to enhance ... expertise.",
+          maxNest:0
+        }
+      },
+      {
+        id: "S8",
+        text: "Therefore, the key lies in continuous learning and adaptation.",
+        analysis: {
+          grammar: { tense:"一般现在时", voice:"主动", clauseTypes:"简单句", special:"therefore 结论副词", note:"总结句。" },
+          vocabulary: [
+            {word:"key", ipa:"/kiː/", pos:"n.", meaning:"关键", level:"B1", awl:"-"},
+            {word:"lies", ipa:"/laɪz/", pos:"v.", meaning:"在于", level:"B1", awl:"-"},
+            {word:"continuous", ipa:"/kənˈtɪn.ju.əs/", pos:"adj.", meaning:"持续的", level:"B1", awl:"AWL-3"},
+            {word:"adaptation", ipa:"/ˌæd.əpˈteɪ.ʃən/", pos:"n.", meaning:"适应", level:"B2", awl:"AWL-7"}
+          ],
+          collocations: [
+            {type:"固定短语", phrase:"the key lies in", meaning:"关键在于", register:"正式", position:"the key lies in"}
+          ],
+          tree: "简单句。",
+          maxNest:0
+        }
+      },
+      {
+        id: "S9",
+        text: "Governments and businesses also share the responsibility of providing retraining programs to support affected workers.",
+        analysis: {
+          grammar: { tense:"一般现在时", voice:"主动", clauseTypes:"简单句", special:"无", note:"责任分担表达。" },
+          vocabulary: [
+            {word:"share", ipa:"/ʃeər/", pos:"v.", meaning:"分担", level:"A2", awl:"-"},
+            {word:"responsibility", ipa:"/rɪˌspɒn.sɪˈbɪl.ə.ti/", pos:"n.", meaning:"责任", level:"B1", awl:"AWL-1"},
+            {word:"retraining", ipa:"/ˌriːˈtreɪ.nɪŋ/", pos:"n.", meaning:"再培训", level:"C1", awl:"-"}
+          ],
+          collocations: [
+            {type:"V+N", phrase:"share responsibility", meaning:"分担责任", register:"正式", position:"share the responsibility"}
+          ],
+          tree: "简单句。"
+        }
+      },
+      {
+        id: "S10",
+        text: "By embracing skill development and maintaining flexibility, workers can turn this challenge into an opportunity for career growth in the AI era.",
+        analysis: {
+          grammar: { tense:"情态动词can turn", voice:"主动", clauseTypes:"简单句+介词短语作方式状语", special:"By doing平行结构", note:"方式状语前置。" },
+          vocabulary: [
+            {word:"embracing", ipa:"/ɪmˈbreɪ.sɪŋ/", pos:"v.", meaning:"拥抱；接受", level:"B2", awl:"-"},
+            {word:"flexibility", ipa:"/ˌflek.sɪˈbɪl.ə.ti/", pos:"n.", meaning:"灵活性", level:"B2", awl:"AWL-6"},
+            {word:"turn", ipa:"/tɜːrn/", pos:"v.", meaning:"转变", level:"B1", awl:"-"},
+            {word:"challenge", ipa:"/ˈtʃæl.ɪndʒ/", pos:"n.", meaning:"挑战", level:"B1", awl:"AWL-3"},
+            {word:"opportunity", ipa:"/ˌɒp.əˈtjuː.nə.ti/", pos:"n.", meaning:"机会", level:"B1", awl:"AWL-2"}
+          ],
+          collocations: [
+            {type:"V+N", phrase:"turn challenge into opportunity", meaning:"化挑战为机遇", register:"正式", position:"turn this challenge into an opportunity"}
+          ],
+          tree: "状语: By embracing ... and maintaining ..., 主句: workers can turn ..."
+        }
+      }
+    ];
+
+    // 辅助函数：生成彩色标签HTML
+    function colorSpan(text, type) {
+      return `<span class="tag ${type}">${text}</span>`;
+    }
+
+    // 生成每个句子的完整HTML块
+    function renderSentenceBlock(s) {
+      const grammar = s.analysis.grammar;
+      const vocab = s.analysis.vocabulary || [];
+      const colls = s.analysis.collocations || [];
+      const tree = s.analysis.tree || "";
+      
+      // 语法标签
+      const tagsHtml = `
+        ${colorSpan('时态:'+grammar.tense, 'tense')}
+        ${colorSpan('语态:'+grammar.voice, 'voice')}
+        ${colorSpan('从句:'+grammar.clauseTypes, 'clause')}
+        ${grammar.special ? colorSpan('特殊:'+grammar.special, 'special') : ''}
+      `;
+
+      // 词汇表格
+      let vocabRows = vocab.map(v => `
+        <tr>
+          <td>${v.word}</td><td>${v.ipa}</td><td>${v.pos}</td><td>${v.meaning}</td>
+          <td>${v.level || '-'}</td><td>${v.awl || '-'}</td>
+        </tr>
+      `).join('');
+
+      // 搭配表格
+      let collRows = colls.map(c => `
+        <tr>
+          <td>${c.type}</td><td>${c.phrase}</td><td>${c.meaning}</td><td>${c.register}</td><td>${c.position}</td>
+        </tr>
+      `).join('');
+
+      // 句子成分树状图（彩色标记）
+      const treeColored = tree
+        .replace(/主/g, '<span style="color:#2563eb;font-weight:bold;">主</span>')
+        .replace(/谓/g, '<span style="color:#16a34a;font-weight:bold;">谓</span>')
+        .replace(/宾/g, '<span style="color:#f97316;font-weight:bold;">宾</span>')
+        .replace(/定/g, '<span style="color:#a855f7;font-weight:bold;">定</span>')
+        .replace(/状/g, '<span style="color:#ef4444;font-weight:bold;">状</span>')
+        .replace(/补/g, '<span style="color:#6b7280;font-weight:bold;">补</span>');
+
+      // 仿写例句（手动预设）
+      const imitations = {
+        S1: ["As climate change intensifies, worries about food security have risen dramatically. (B2/AWL-3)", "As digital transformation accelerates, demand for cybersecurity experts has grown substantially. (C1/AWL-5)"],
+        S2: ["Some predict economic recession, while others anticipate a swift recovery. (B2)", "Some emphasize individual effort, while others highlight systemic support. (C1)"],
+        S3: ["In my view, education should be regarded as a lifelong journey that empowers individuals rather than merely certifies them. (B2/AWL-6)"],
+        S4: ["On the one hand, automation does reduce manual labour, possibly displacing factory workers. (B2)"],
+        S5: ["For instance, chatbots have already taken over many enquiry-handling roles. (B1)"],
+        S6: ["On the other hand, digitalization creates demand for data analysts and AI ethicists. (C1)"],
+        S7: ["Moreover, schools are increasingly using AI to personalize learning. (B2)"],
+        S8: ["Therefore, the solution lies in policy innovation. (B1)"],
+        S9: ["Companies also bear the responsibility of upskilling employees. (B2)"],
+        S10: ["By adopting new technologies, firms can turn disruption into advantage. (C1/AWL-6)"]
+      };
+
+      const imitList = (imitations[s.id] || []).map(e => `<div class="example-sentence">🔹 ${e}</div>`).join('');
+
+      return `
+        <div class="sentence-block" id="sent-${s.id}">
+          <div class="sentence-header">
+            <span class="sentence-id">${s.id}</span>
+            <span class="quote-text">${s.text}</span>
+            <div>${tagsHtml}</div>
+          </div>
+          
+          <div><strong>📘 语法学术提示：</strong> ${grammar.note}</div>
+          
+          <div class="section-title">📚 词汇原型 (CEFR/AWL)</div>
+          <table><thead><tr><th>词</th><th>音标</th><th>词性</th><th>释义</th><th>CEFR</th><th>AWL</th></tr></thead><tbody>${vocabRows}</tbody></table>
+          
+          <div class="section-title">🔗 词汇搭配</div>
+          <table><thead><tr><th>类型</th><th>搭配</th><th>释义</th><th>语域</th><th>位置</th></tr></thead><tbody>${collRows}</tbody></table>
+          
+          <div class="section-title">🧩 句子成分树状图</div>
+          <div class="tree-box">${treeColored}</div>
+          <div><span class="inline-code">嵌套层级：${s.analysis.maxNest}</span> · ${s.analysis.readability || '清晰'}</div>
+          
+          <div class="section-title">🧠 记忆方法与模板</div>
+          <div class="template-box">📌 模板：${s.id.startsWith('S1')?'As + 名词 + 副词 + 动词, 名词 + 完成时': s.id.startsWith('S2')?'Some + 动词 + 名词, while others + 动词 + 宾语从句': s.id.startsWith('S3')?'In my opinion, 主语 + 情态被动 + as + 名词 + 定语从句': '见仿写'}</div>
+          <div><span class="mnemonic">💡 口诀：${s.id==='S1'?'随着AI快发展，担忧显著增长':'结构对比，观点平衡'}</span></div>
+          
+          <div class="section-title">✍️ 仿写例句 (保持结构)</div>
+          ${imitList}
+          
+          <div class="section-title">🎯 应用场景</div>
+          <div>✅ 雅思Task2：${s.id.includes('S1')?'同意与否/双边讨论开头': s.id.includes('S2')?'双边讨论对比': '观点/结论'} | 托福：${s.id.includes('S4')?'综合写作对比': '学术讨论'} | 论文章节：${s.id.includes('S1')?'引言': s.id.includes('S8')?'结论': '讨论/方法'} | 正式等级：4/5 (学术期刊)</div>
+        </div>
+      `;
+    }
+
+    // 渲染所有句子
+    const container = document.getElementById('analysis-content');
+    let allHtml = '';
+    sentences.forEach(s => { allHtml += renderSentenceBlock(s); });
+    container.innerHTML = allHtml;
+
+    // 生成索引
+    const indexArea = document.getElementById('index-area');
+    let indexItems = [];
+    sentences.forEach(s => {
+      const colls = s.analysis.collocations || [];
+      colls.forEach(c => {
+        indexItems.push(`<div class="index-card"><strong>${c.phrase}</strong> (${c.type}) · ${c.meaning} <br><a href="#sent-${s.id}">→ ${s.id}</a></div>`);
+      });
+      // 句型模板
+      indexItems.push(`<div class="index-card"><strong>📐 句型模板</strong> ${s.id} <br><a href="#sent-${s.id}">查看句子</a></div>`);
+    });
+    indexArea.innerHTML = indexItems.join('');
+  })();
+</script>
+</body>
+</html>

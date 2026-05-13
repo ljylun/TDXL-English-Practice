@@ -1,0 +1,2433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语学术写作范文深度解析报告</title>
+    <style>
+        :root {
+            --primary-blue: #1a5490;
+            --subject-color: #2563eb;
+            --predicate-color: #16a34a;
+            --object-color: #ea580c;
+            --attribute-color: #9333ea;
+            --adverbial-color: #dc2626;
+            --complement-color: #6b7280;
+            --bg-light: #f8fafc;
+            --border-color: #e2e8f0;
+            --highlight-yellow: #fef08a;
+            --highlight-green: #bbf7d0;
+            --highlight-pink: #fecdd3;
+            --highlight-blue: #bfdbfe;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', 'SimSun', Calibri, sans-serif;
+            line-height: 1.7;
+            color: #1e293b;
+            background: linear-gradient(135deg, #f0f4ff 0%, #fafbff 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #2d7dd2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: #f1f5f9;
+            padding: 15px 30px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            padding: 8px 18px;
+            border: none;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.95em;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .nav-btn.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            min-height: calc(100vh - 200px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: #fafbfc;
+            border-right: 1px solid var(--border-color);
+            padding: 25px;
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            border-bottom: 2px solid var(--primary-blue);
+            padding-bottom: 8px;
+        }
+
+        .sentence-list {
+            list-style: none;
+        }
+
+        .sentence-list li {
+            padding: 12px;
+            margin: 8px 0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+            font-size: 0.92em;
+        }
+
+        .sentence-list li:hover {
+            border-left-color: var(--primary-blue);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transform: translateX(3px);
+        }
+
+        .sentence-list li.active {
+            border-left-color: var(--primary-blue);
+            background: linear-gradient(90deg, #eff6ff 0%, white 100%);
+        }
+
+        .sentence-id {
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin-right: 8px;
+        }
+
+        /* Content Area */
+        .content-area {
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .sentence-section {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            scroll-margin-top: 100px;
+        }
+
+        .sentence-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--primary-blue);
+        }
+
+        .sentence-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+
+        .original-sentence {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 20px 25px;
+            border-radius: 10px;
+            font-size: 1.15em;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary-blue);
+            font-style: italic;
+        }
+
+        /* Dimension Cards */
+        .dimension-card {
+            margin: 20px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .dimension-header {
+            padding: 14px 20px;
+            font-weight: bold;
+            font-size: 1.05em;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dim-grammar { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .dim-vocab { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .dim-collocation { background: linear-gradient(135deg, #ec4899, #db2777); }
+        .dim-structure { background: linear-gradient(135deg, #10b981, #059669); }
+        .dim-memory { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .dim-application { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+        .dimension-body {
+            padding: 20px;
+            background: #fafbfc;
+            border: 1px solid var(--border-color);
+            border-top: none;
+        }
+
+        /* Grammar Tags */
+        .grammar-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 3px;
+        }
+
+        .tag-tense { background: #dbeafe; color: #1e40af; }
+        .tag-voice { background: #dcfce7; color: #166534; }
+        .tag-clause { background: #fce7f3; color: #9d174d; }
+        .tag-special { background: #fef3c7; color: #92400e; }
+
+        /* Vocabulary Table */
+        .vocab-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .vocab-table th {
+            background: #f1f5f9;
+            padding: 10px 8px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .vocab-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+
+        .vocab-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .cefr-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .cefr-b2 { background: #bbf7d0; color: #166534; }
+        .cefr-c1 { background: #a5f3fc; color: #155e75; }
+        .cefr-c2 { background: #ddd6fe; color: #5b21b6; }
+        .awl-tag { background: #fecaca; color: #991b1b; }
+
+        /* Collocation Grid */
+        .collocation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .collocation-item {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .collocation-type {
+            font-size: 0.8em;
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin-bottom: 6px;
+        }
+
+        .collocation-content {
+            font-family: 'Courier New', monospace;
+            background: #f8fafc;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        /* Syntax Tree */
+        .syntax-tree {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            line-height: 1.9;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+        }
+
+        .tree-subject { color: var(--subject-color); font-weight: bold; }
+        .tree-predicate { color: var(--predicate-color); font-weight: bold; }
+        .tree-object { color: var(--object-color); font-weight: bold; }
+        .tree-attribute { color: var(--attribute-color); font-weight: bold; }
+        .tree-adverbial { color: var(--adverbial-color); font-weight: bold; }
+        .tree-complement { color: var(--complement-color); font-weight: bold; }
+
+        /* Memory Template */
+        .template-box {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border: 2px dashed #f59e0b;
+            border-radius: 10px;
+            padding: 18px;
+            margin: 12px 0;
+        }
+
+        .formula {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Consolas', monospace;
+            text-align: center;
+            font-size: 1.05em;
+            margin: 10px 0;
+            border: 1px solid #fcd34d;
+        }
+
+        .slot {
+            background: #fef08a;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .mnemonic {
+            background: #fed7aa;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            color: #9a3412;
+            margin: 10px 0;
+        }
+
+        /* Error Comparison */
+        .error-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+
+        .error-table th, .error-table td {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .error-table .correct {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error-table .incorrect {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Application Scenarios */
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .scenario-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .scenario-ielts { border-color: #3b82f6; }
+        .scenario-toefl { border-color: #10b981; }
+        .scenario-academic { border-color: #8b5cf6; }
+        .scenario-formal { border-color: #f59e0b; }
+
+        .formal-meter {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px;
+        }
+
+        .meter-segment {
+            height: 20px;
+            flex: 1;
+            border-radius: 3px;
+            background: #e2e8f0;
+        }
+
+        .meter-segment.filled {
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+        }
+
+        /* Practice Sentences */
+        .practice-section {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px solid #86efac;
+        }
+
+        .practice-item {
+            background: white;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #22c55e;
+        }
+
+        .practice-level {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        /* Index Section */
+        .index-section {
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            padding: 40px;
+            border-radius: 12px;
+            margin-top: 40px;
+            border: 2px solid #d8b4fe;
+        }
+
+        .index-section h2 {
+            color: #7c3aed;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .index-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 12px;
+        }
+
+        .index-item {
+            background: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+        }
+
+        .index-ref {
+            background: #ede9fe;
+            color: #5b21b6;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 0.85em;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: relative;
+                top: 0;
+                max-height: none;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .sentence-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .sentence-list li {
+                display: inline-block;
+                margin: 0;
+            }
+        }
+
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; }
+            .sidebar { display: none; }
+            .main-content { grid-template-columns: 1fr; }
+            .nav-bar { position: relative; }
+            .dimension-card { break-inside: avoid; }
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dotted currentColor;
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            white-space: nowrap;
+            z-index: 1000;
+        }
+
+        /* Print Button */
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(26, 84, 144, 0.4);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(26, 84, 144, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📚 英语学术写作范文深度解析报告</h1>
+            <p>六维度标准化分析 · 可复制可导入Anki/Excel · 支持教学与自学</p>
+            <p style="margin-top: 10px; font-size: 0.95em;">主题：Artificial Intelligence and Employment (人工智能与就业)</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-bar">
+            <button class="nav-btn active" onclick="filterSection('all')">📋 全部内容</button>
+            <button class="nav-btn" onclick="filterSection('grammar')">📝 语法层面</button>
+            <button class="nav-btn" onclick="filterSection('vocab')">📖 词汇原型</button>
+            <button class="nav-btn" onclick="filterSection('collocation')">🔗 词汇搭配</button>
+            <button class="nav-btn" onclick="filterSection('structure')">🌳 句子成分</button>
+            <button class="nav-btn" onclick="filterSection('memory')">💡 记忆方法</button>
+            <button class="nav-btn" onclick="filterSection('application')">🎯 应用场景</button>
+            <button class="nav-btn" onclick="scrollToIndex()">📑 索引检索</button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <h3>📍 句子导航</h3>
+                <ul class="sentence-list">
+                    <li class="active" onclick="scrollToSentence('S1')"><span class="sentence-id">S1</span>As artificial intelligence...</li>
+                    <li onclick="scrollToSentence('S2')"><span class="sentence-id">S2</span>Some fear widespread...</li>
+                    <li onclick="scrollToSentence('S3')"><span class="sentence-id">S3</span>In my opinion, AI should...</li>
+                    <li onclick="scrollToSentence('S4')"><span class="sentence-id">S4</span>On the one hand, AI does...</li>
+                    <li onclick="scrollToSentence('S5')"><span class="sentence-id">S5</span>For example, manufacturing...</li>
+                    <li onclick="scrollToSentence('S6')"><span class="sentence-id">S6</span>On the other hand, it generates...</li>
+                    <li onclick="scrollToSentence('S7')"><span class="sentence-id">S7</span>Moreover, industries such as...</li>
+                    <li onclick="scrollToSentence('S8')"><span class="sentence-id">S8</span>Therefore, the key lies in...</li>
+                    <li onclick="scrollToSentence('S9')"><span class="sentence-id">S9</span>Governments and businesses also...</li>
+                    <li onclick="scrollToSentence('S10')"><span class="sentence-id">S10</span>By embracing skill development...</li>
+                </ul>
+
+                <h3 style="margin-top: 25px;">📊 统计信息</h3>
+                <div style="background: white; padding: 15px; border-radius: 8px; font-size: 0.9em;">
+                    <p><strong>总句子数：</strong>10 句</p>
+                    <p><strong>总词数：</strong>约 185 词</p>
+                    <p><strong>平均句长：</strong>约 18.5 词/句</p>
+                    <p><strong>CEFR等级：</strong>B2-C2</p>
+                    <p><strong>AWL覆盖：</strong>子列表1-10</p>
+                </div>
+            </aside>
+
+            <!-- Content Area -->
+            <main class="content-area">
+
+                <!-- ==================== S1 ==================== -->
+                <section id="S1" class="sentence-section">
+                    <div class="sentence-header">
+                        <h2 class="sentence-title">句子 S1</h2>
+                        <span style="background: #dbeafe; padding: 5px 15px; border-radius: 15px; font-size: 0.9em;">第一段 · 背景引入</span>
+                    </div>
+                    
+                    <div class="original-sentence">
+                        "As artificial intelligence rapidly advances, concerns about job displacement have grown significantly."
+                    </div>
+
+                    <!-- 维度1：语法层面 -->
+                    <div class="dimension-card" data-dimension="grammar">
+                        <div class="dimension-header dim-grammar">
+                            📝 维度一：语法层面分析
+                        </div>
+                        <div class="dimension-body">
+                            <h4 style="color: var(--primary-blue); margin-bottom: 12px;">1.1 语法标签标注</h4>
+                            <div style="margin-bottom: 15px;">
+                                <span class="grammar-tag tag-tense">时态：现在完成时 (Present Perfect)</span>
+                                <span class="grammar-tag tag-voice">语态：主动语态 (Active Voice)</span>
+                                <span class="grammar-tag tag-clause">从句类型：时间状语从句 (Adverbial Clause of Time)</span>
+                                <span class="grammar-tag tag-clause">从句类型：介词短语作后置定语</span>
+                            </div>
+
+                            <h4 style="color: var(--primary-blue); margin-bottom: 12px;">1.2 学术写作适用场景</h4>
+                            <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                                <p><strong>✅ SCI/SSCI论文：</strong>"As + 名词短语 + 动词"引导的时间状语从句是引言部分的标准背景陈述句型，用于建立研究语境。现在完成时表示"从过去持续到现在并产生影响"，适合描述趋势演变。</p>
+                                <p style="margin-top: 8px;"><strong>✅ IELTS/TOEFL高分要点：</strong>此句型在Task 2开头段使用可获得"连贯性"和"语法多样性"高分。关键词如 <em>significantly</em>, <em>rapidly</em> 属于C1级副词，体现语言精确性。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 维度2：词汇原型 -->
+                    <div class="dimension-card" data-dimension="vocab">
+                        <div class="dimension-header dim-vocab">
+                            📖 维度二：词汇原型提取
+                        </div>
+                        <div class="dimension-body">
+                            <table class="vocab-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 15%;">词汇</th>
+                                        <th style="width: 12%;">IPA音标</th>
+                                        <th style="width: 10%;">词性</th>
+                                        <th style="width: 28%;">核心释义 (EN/CN)</th>
+                                        <th style="width: 10%;">语域</th>
+                                        <th style="width: 25%;">级别标注</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>artificial</strong></td>
+                                        <td>/ˌɑːtɪˈfɪʃl/</td>
+                                        <td>adj.</td>
+                                        <td>made by humans, not natural / 人造的，人工的</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 8</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>intelligence</strong></td>
+                                        <td>/ɪnˈtelɪdʒəns/</td>
+                                        <td>n.</td>
+                                        <td>the ability to learn and understand / 智力，智能</td>
+                                        <td>中性</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>advance</strong></td>
+                                        <td>/ədˈvɑːns/</td>
+                                        <td>v.</td>
+                                        <td>to develop or progress / 发展，前进</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 3</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>rapidly</strong></td>
+                                        <td>/ˈræpɪdli/</td>
+                                        <td>adv.</td>
+                                        <td>very quickly; at a high speed / 迅速地</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>concern</strong></td>
+                                        <td>/kənˈsɜːrn/</td>
+                                        <td>n.</td>
+                                        <td>a feeling of worry / 担忧，关切</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 2</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>displacement</strong></td>
+                                        <td>/dɪsˈpleɪsmənt/</td>
+                                        <td>n.</td>
+                                        <td>the act of removing something / 取代，置换</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-c1">C1</span> <span class="awl-tag awl-tag">AWL Sublist 6</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>grow</strong></td>
+                                        <td>/ɡrəʊ/</td>
+                                        <td>v.</td>
+                                        <td>to increase in amount or degree / 增长，增长</td>
+                                        <td>中性</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>significantly</strong></td>
+                                        <td>/sɪɡˈnɪfɪkəntli/</td>
+                                        <td>adv.</td>
+                <td>in a way that is important / 显著地，重要地</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-c1">C1</span> <span class="awl-tag awl-tag">AWL Sublist 2</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 维度3：词汇搭配 -->
+                    <div class="dimension-card" data-dimension="collocation">
+                        <div class="dimension-header dim-collocation">
+                            🔗 维度三：词汇搭配分析
+                        </div>
+                        <div class="dimension-body">
+                            <div class="collocation-grid">
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🔵 动词+名词 (V+N)</div>
+                                    <div class="collocation-content">
+                                        <strong>advances</strong> [v.] + <strong>artificial intelligence</strong> [n.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">人工智能发展/进步</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 4-27 | 语域: 正式 | AWL: ✓</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟢 形容词+名词 (Adj+N)</div>
+                                    <div class="collocation-content">
+                                        <strong>artificial</strong> [adj.] + <strong>intelligence</strong> [n.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">人工智能</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 3-27 | 语域: 学术术语 | CEFR: B2</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟠 固定短语/预制语块</div>
+                                    <div class="collocation-content">
+                                        <strong>concerns about</strong> [prep. phrase]<br>
+                                        <span style="color: #666; font-size: 0.9em;">关于...的担忧</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 29-38 | 语域: 正式 | 高频: ★★★★☆</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🔴 学术连接词</div>
+                                    <div class="collocation-content">
+                                        <strong>As</strong> [conj.] = When/While<br>
+                                        <span style="color: #666; font-size: 0.9em;">随着；当...时候</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 0-2 | 功能: 引导时间状语从句</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟣 副词+动词搭配</div>
+                                    <div class="collocation-content">
+                                        <strong>rapidly</strong> [adv.] + <strong>advances</strong> [v.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">迅速发展</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 28-36 | 语域: 正式 | 强调程度</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟡 动词+副词搭配</div>
+                                    <div class="collocation-content">
+                                        <strong>have grown</strong> [v.] + <strong>significantly</strong> [adv.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">显著增长</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 64-79 | 语域: 正式 | AWL: ✓</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 维度4：句子成分 -->
+                    <div class="dimension-card" data-dimension="structure">
+                        <div class="dimension-header dim-structure">
+                            🌳 维度四：句子成分树状图
+                        </div>
+                        <div class="dimension-body">
+                            <div class="syntax-tree">
+<pre style="margin: 0;">
+<span class="tree-adverbial">├─ 状语从句 (Adverbial Clause of Time) - Level 1</span>
+<span class="tree-adverbial">│  ├─ 连接词: <strong>As</strong> (随着/当...时)</span>
+<span class="tree-subject">│  ├─ 主语: <strong>artificial intelligence</strong> (人工智能)</span>
+<span class="tree-attribute">│  │  └─ 定语: <strong>artificial</strong> (人工的) → 修饰 intelligence</span>
+<span class="tree-predicate">│  └─ 谓语: <strong>advances</strong> (发展)</span>
+<span class="tree-adverbial">│     └─ 状语: <strong>rapidly</strong> (迅速地) → 修饰 advances</span>
+<span class="tree-subject">├─ 主语: <strong>concerns</strong> (担忧/关切)</span>
+<span class="tree-attribute">│  └─ 后置定语: <strong>about job displacement</strong> (关于就业被取代的)</span>
+<span class="tree-attribute">│     ├─ 介词: about</span>
+<span class="tree-attribute">│     └─ 宾语: job displacement (就业置换)</span>
+<span class="tree-predicate">├─ 谓语: <strong>have grown</strong> (已增长)</span>
+<span class="tree-adverbial">│  ├─ 时态: Present Perfect (现在完成时)</span>
+<span class="tree-adverbial">│  └─ 状语: <strong>significantly</strong> (显著地) → 修饰 grown</span>
+</pre>
+                            </div>
+                            <div style="background: #f0fdf4; padding: 12px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #22c55e;">
+                                <strong>📊 结构分析说明：</strong><br>
+                                • <strong>嵌套层级：</strong>2层（主句 + 1个状语从句）<br>
+                                • <strong>学术可读性：</strong>优秀。句首"As..."从句提供背景，主句呈现核心论点，符合"背景→问题"的学术论证逻辑。<br>
+                                • <strong>建议：</strong>此类句型适合作为段落首句或论文Introduction的首句。
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 维度5：记忆方法 -->
+                    <div class="dimension-card" data-dimension="memory">
+                        <div class="dimension-header dim-memory">
+                            💡 维度五：记忆方法与模板
+                        </div>
+                        <div class="dimension-body">
+                            <div class="template-box">
+                                <h4 style="color: #b45309; margin-bottom: 10px;">📐 公式化模板</h4>
+                                <div class="formula">
+                                    As <span class="slot">【名词短语/主语】</span> <span class="slot">【副词】</span> <span class="slot">【动词(一般现在时)】</span>, 
+                                    <span class="slot">【主语】</span> have/has <span class="slot">【过去分词】</span> <span class="slot">【副词】</span>.
+                                </div>
+                                <div style="font-size: 0.9em; margin-top: 10px;">
+                                    <strong>槽位说明：</strong><br>
+                                    • 【名词短语】：研究主题/现象名称 (如 climate change, globalization)<br>
+                                    • 【副词】：程度副词 (rapidly, steadily, dramatically)<br>
+                                    • 【动词】：不及物动词 (advance, evolve, develop, emerge)<br>
+                                    • 【过去分词】：变化类动词 (grown, increased, risen, escalated)
+                                </div>
+                            </div>
+
+                            <div class="mnemonic">
+                                🗣️ 记忆口诀："随A发展，B显著变"
+                            </div>
+
+                            <h4 style="color: #b45309; margin: 15px 0 10px;">⚠️ 易错点对比</h4>
+                            <table class="error-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 45%;">❌ 错误写法</th>
+                                        <th style="width: 45%;">✅ 正确写法</th>
+                                        <th>错误原因</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="incorrect">As AI advanced, concerns grew.</td>
+                                        <td class="correct">As AI <strong>rapidly</strong> advances, concerns <strong>have grown significantly</strong>.</td>
+                                        <td>缺少程度副词与时态精确性</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="incorrect">With the advancement of AI, concern is growing.</td>
+                                        <td class="correct">As artificial intelligence <strong>rapidly advances</strong>, concerns <strong>have grown significantly</strong>.</td>
+                                        <td>介词短语不如As从句简洁有力</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="incorrect">Because AI develops fast, people worry more.</td>
+                                        <td class="correct">As artificial intelligence <strong>rapidly advances</strong>, concerns <strong>have grown significantly</strong>.</td>
+                                        <td>口语化表达，缺乏学术正式性</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 维度6：应用场景 -->
+                    <div class="dimension-card" data-dimension="application">
+                        <div class="dimension-header dim-application">
+                            🎯 维度六：应用场景分析
+                        </div>
+                        <div class="dimension-body">
+                            <div class="scenario-grid">
+                                <div class="scenario-card scenario-ielts">
+                                    <h4 style="color: #3b82f6; margin-bottom: 8px;">📘 雅思写作 IELTS</h4>
+                                    <p><strong>适用题型：</strong>Task 2 - 所有题型通用</p>
+                                    <p><strong>功能定位：</strong>引言段背景句 (Background Statement)</p>
+                                    <p><strong>得分点：</strong>LR (Lexical Resource) 7+, GRA (Grammar) 7+</p>
+                                    <p style="font-size: 0.9em; color: #666;">例：Technology话题、Environment话题、Social Issues话题</p>
+                                </div>
+                                <div class="scenario-card scenario-toefl">
+                                    <h4 style="color: #10b981; margin-bottom: 8px;">📗 托福写作 TOEFL</h4>
+                                    <p><strong>适用题型：</strong>Independent Writing</p>
+                                    <p><strong>功能定位：</strong>开篇引入句 (Hook Sentence)</p>
+                                    <p><strong>得分点：</strong>Demonstrates syntactic variety</p>
+                                    <p style="font-size: 0.9em; color: #666;">用于展示复杂句式掌握能力</p>
+                                </div>
+                                <div class="scenario-card scenario-academic">
+                                    <h4 style="color: #8b5cf6; margin-bottom: 8px;">📙 学术论文 Academic</h4>
+                                    <p><strong>适用部分：</strong>Introduction 第一段</p>
+                                    <p><strong>功能定位：</strong>Background/Context establishment</p>
+                                    <p><strong>期刊风格：</strong>Nature, Science, Lancet等顶刊常见</p>
+                                    <p style="font-size: 0.9em; color: #666;">SCI/SSCI论文标准开篇句型</p>
+                                </div>
+                                <div class="scenario-card scenario-formal">
+                                    <h4 style="color: #f59e0b; margin-bottom: 8px;">📧 正式等级 Formality</h4>
+                                    <p><strong>等级评分：</strong><strong style="font-size: 1.3em;">4.5</strong> / 5</p>
+                                    <div class="formal-meter">
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment" style="opacity: 0.5;"></div>
+                                    </div>
+                                    <p style="margin-top: 8px; font-size: 0.9em;"><strong>适用场景：</strong>学术论文✓ 商务报告✓ 会议演讲✓ 正式邮件✓ 日常聊天✗</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 仿写练习 -->
+                    <div class="practice-section">
+                        <h4 style="color: #15803d; margin-bottom: 15px;">✍️ 仿写练习 (保持原句型结构)</h4>
+                        <div class="practice-item">
+                            <strong>例句1:</strong> As climate change <em>increasingly</em> <em>intensifies</em>, concerns about environmental degradation <em>have escalated dramatically</em>. 
+                            <span class="practice-level" style="background: #bbf7d0;">CEFR C1 | AWL Sublist 2,6</span>
+                        </div>
+                        <div class="practice-item">
+                            <strong>例句2:</strong> As digital technology <em>widely</em> <em>proliferates</em>, debates about privacy protection <em>have emerged prominently</em>. 
+                            <span class="practice-level" style="background: #a5f3fc;">CEFR C1 | AWL Sublist 3,8</span>
+                        </div>
+                        <div class="practice-item">
+                            <strong>例句3:</strong> As globalization <em>steadily</em> <em>deepens</em>, discussions about cultural identity <em>have intensified considerably</em>. 
+                            <span class="practice-level" style="background: #ddd6fe;">CEFR C2 | AWL Sublist 2,6</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================== S2 ==================== -->
+                <section id="S2" class="sentence-section">
+                    <div class="sentence-header">
+                        <h2 class="sentence-title">句子 S2</h2>
+                        <span style="background: #dcfce7; padding: 5px 15px; border-radius: 15px; font-size: 0.9em;">第一段 · 观点对比</span>
+                    </div>
+                    
+                    <div class="original-sentence">
+                        "Some fear widespread unemployment, while others believe AI will create new opportunities and drive industrial upgrading."
+                    </div>
+
+                    <!-- 维度1：语法层面 -->
+                    <div class="dimension-card" data-dimension="grammar">
+                        <div class="dimension-header dim-grammar">
+                            📝 维度一：语法层面分析
+                        </div>
+                        <div class="dimension-body">
+                            <h4 style="color: var(--primary-blue); margin-bottom: 12px;">1.1 语法标签标注</h4>
+                            <div style="margin-bottom: 15px;">
+                                <span class="grammar-tag tag-tense">时态：一般现在时 + 一般将来时</span>
+                                <span class="grammar-tag tag-voice">语态：主动语态 (Active Voice)</span>
+                                <span class="grammar-tag tag-clause">从句类型：并列句 (Compound Sentence with 'while')</span>
+                                <span class="grammar-tag tag-special">特殊结构：平行结构 (Parallel Structure)</span>
+                                <span class="grammar-tag tag-special">特殊结构：省略句 (Ellipsis in second clause)</span>
+                            </div>
+
+                            <h4 style="color: var(--primary-blue); margin-bottom: 12px;">1.2 学术写作适用场景</h4>
+                            <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                                <p><strong>✅ SCI/SSCI论文：</strong>"Some..., while others..."是 Literature Review 中对比不同学者观点的经典句型。"while"在此处表对比而非时间，体现辩证思维。</p>
+                                <p style="margin-top: 8px;"><strong>✅ IELTS/TOEFL高分要点：</strong>Task 2中展示"双边讨论"能力的核心句型。<em>widespread</em>, <em>industrial upgrading</em> 为Topic-specific vocabulary加分项。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 维度2：词汇原型 -->
+                    <div class="dimension-card" data-dimension="vocab">
+                        <div class="dimension-header dim-vocab">
+                            📖 维度二：词汇原型提取
+                        </div>
+                        <div class="dimension-body">
+                            <table class="vocab-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 15%;">词汇</th>
+                                        <th style="width: 12%;">IPA音标</th>
+                                        <th style="width: 10%;">词性</th>
+                                        <th style="width: 28%;">核心释义 (EN/CN)</th>
+                                        <th style="width: 10%;">语域</th>
+                                        <th style="width: 25%;">级别标注</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>fear</strong></td>
+                                        <td>/fɪər/</td>
+                                        <td>v.</td>
+                                        <td>to be afraid of something / 担心，害怕</td>
+                                        <td>中性</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>widespread</strong></td>
+                                        <td>/ˈwaɪdspred/</td>
+                                        <td>adj.</td>
+                                        <td>existing or happening in many places / 广泛的，普遍的</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-c1">C1</span> <span class="awl-tag awl-tag">AWL Sublist 2</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>unemployment</strong></td>
+                                        <td>/ˌʌnɪmˈplɔɪmənt/</td>
+                                        <td>n.</td>
+                                        <td>the state of not having a job / 失业</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 1</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>believe</strong></td>
+                                        <td>/bɪˈliːv/</td>
+                                        <td>v.</td>
+                                        <td>to think that something is true / 认为，相信</td>
+                                        <td>中性</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>create</strong></td>
+                                        <td>/kriˈeɪt/</td>
+                                        <td>v.</td>
+                                        <td>to make something new exist / 创造，创造</td>
+                                        <td>中性</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 1</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>opportunity</strong></td>
+                                        <td>/ˌɒpəˈtjuːnəti/</td>
+                                        <td>n.</td>
+                                        <td>a chance to do something / 机会</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 1</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>drive</strong></td>
+                                        <td>/draɪv/</td>
+                                        <td>v.</td>
+                                        <td>to force or cause something to happen / 推动，驱动</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 3</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>industrial</strong></td>
+                                        <td>/ɪnˈdʌstriəl/</td>
+                                        <td>adj.</td>
+                                        <td>relating to industry / 工业的</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 1</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>upgrading</strong></td>
+                                        <td>/ʌpˈɡreɪdɪŋ/</td>
+                                        <td>n.</td>
+                                        <td>the process of improving something / 升级，提升</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-c1">C1</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 维度3：词汇搭配 -->
+                    <div class="dimension-card" data-dimension="collocation">
+                        <div class="dimension-header dim-collocation">
+                            🔗 维度三：词汇搭配分析
+                        </div>
+                        <div class="dimension-body">
+                            <div class="collocation-grid">
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🔵 动词+名词 (V+N)</div>
+                                    <div class="collocation-content">
+                                        <strong>fear</strong> [v.] + <strong>widespread unemployment</strong> [n.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">担心大规模失业</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 5-31 | 语域: 正式 | AWL: ✓✓</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟢 形容词+名词 (Adj+N)</div>
+                                    <div class="collocation-content">
+                                        <strong>widespread</strong> [adj.] + <strong>unemployment</strong> [n.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">广泛的失业（大规模失业）</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 11-24 | 语域: 正式 | CEFR: C1</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟠 固定短语/预制语块</div>
+                                    <div class="collocation-content">
+                                        <strong>while others</strong> [contrastive phrase]<br>
+                                        <span style="color: #666; font-size: 0.9em;">而其他人/另一方面</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 33-46 | 功能: 对比连接 | 高频: ★★★★★</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🔴 学术连接词</div>
+                                    <div class="collocation-content">
+                                        <strong>while</strong> [conj.] = whereas/in contrast<br>
+                                        <span style="color: #666; font-size: 0.9em;">然而；而（表对比）</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 27-32 | 功能: 对比连词</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟣 动词平行结构</div>
+                                    <div class="collocation-content">
+                                        <strong>create</strong> [v.] ... <strong>and drive</strong> [v.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">创造...并推动...</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 59-101 | 结构: Parallelism | 平行: ✓</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟡 名词+名词复合</div>
+                                    <div class="collocation-content">
+                                        <strong>industrial upgrading</strong> [compound n.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">产业升级</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 88-109 | 语域: 经济学术语 | CEFR: C1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 维度4：句子成分 -->
+                    <div class="dimension-card" data-dimension="structure">
+                        <div class="dimension-header dim-structure">
+                            🌳 维度四：句子成分树状图
+                        </div>
+                        <div class="dimension-body">
+                            <div class="syntax-tree">
+<pre style="margin: 0;">
+<span style="color: #64748b;">╔════════════════════ 并列句结构 (Compound Sentence) ════════════════════╗</span>
+<span class="tree-subject">├─ 分句1 (Clause 1) - 左侧观点</span>
+<span class="tree-subject">│  ├─ 主语: <strong>Some</strong> (一些人/有些人)</span>
+<span class="tree-predicate">│  ├─ 谓语: <strong>fear</strong> (担心/害怕)</span>
+<span class="tree-object">│  └─ 宾语: <strong>widespread unemployment</strong> (大规模失业)</span>
+<span class="tree-attribute">│     └─ 定语: <strong>widespread</strong> (广泛的) → 修饰 unemployment</span>
+<span style="color: #dc2626;">├─ 连接词: <strong>while</strong> (而/然而) → 表对比关系</span>
+<span class="tree-subject">├─ 分句2 (Clause 2) - 右侧观点</span>
+<span class="tree-subject">│  ├─ 主语: <strong>others</strong> (其他人)</span>
+<span class="tree-predicate">│  │  └─ [省略] 完整形式: other people</span>
+<span class="tree-predicate">│  ├─ 谓语: <strong>believe</strong> (认为/相信)</span>
+<span class="tree-object">│  └─ 宾语从句 (Noun Clause as Object) - Level 2</span>
+<span class="tree-subject">│     ├─ 主语: <strong>AI</strong></span>
+<span class="tree-predicate">│     ├─ 谓语: <strong>will create</strong> (将创造) [一般将来时]</span>
+<span class="tree-object">│     │  └─ 宾语: <strong>new opportunities</strong> (新机会)</span>
+<span class="tree-predicate">│     └─ 谓语2: <strong>(and) drive</strong> (并推动) [平行结构]</span>
+<span class="tree-object">│        └─ 宾语: <strong>industrial upgrading</strong> (产业升级)</span>
+<span style="color: #64748b;">╚════════════════════════════════════════════════════════════════════════╝</span>
+</pre>
+                            </div>
+                            <div style="background: #f0fdf4; padding: 12px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #22c55e;">
+                                <strong>📊 结构分析说明：</strong><br>
+                                • <strong>嵌套层级：</strong>2层（并列句 + 宾语从句）<br>
+                                • <strong>核心亮点：</strong>平行结构 "<strong>create</strong> ... <strong>and drive</strong>" 展示语法严谨性<br>
+                                • <strong>学术可读性：</strong>优秀。"Some..., while others..." 是展示critical thinking的黄金句型<br>
+                                • <strong>建议：</strong>适用于Discussion/Literature Review中对比不同观点
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 维度5：记忆方法 -->
+                    <div class="dimension-card" data-dimension="memory">
+                        <div class="dimension-header dim-memory">
+                            💡 维度五：记忆方法与模板
+                        </div>
+                        <div class="dimension-body">
+                            <div class="template-box">
+                                <h4 style="color: #b45309; margin-bottom: 10px;">📐 公式化模板</h4>
+                                <div class="formula">
+                                    Some <span class="slot">【动词】</span> <span class="slot">【名词短语(负面)】</span>, 
+                                    while others <span class="slot">【动词】</span> <span class="slot">【that从句(正面)】</span>.
+                                </div>
+                                <div style="font-size: 0.9em; margin-top: 10px;">
+                                    <strong>槽位说明：</strong><br>
+                                    • 【动词】：表达态度的动词 (fear, argue, claim, suggest, maintain)<br>
+                                    • 【名词短语(负面)】：问题/挑战/风险 (unemployment, inequality, pollution)<br>
+                                    • 【动词2】：对立观点动词 (believe, contend, assert, propose)<br>
+                                    • 【that从句】：正面预期/解决方案 (will create opportunities)
+                                </div>
+                            </div>
+
+                            <div class="mnemonic">
+                                🗣️ 记忆口诀："有人怕A，另些人却信B会来"
+                            </div>
+
+                            <h4 style="color: #b45309; margin: 15px 0 10px;">⚠️ 易错点对比</h4>
+                            <table class="error-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 45%;">❌ 错误写法</th>
+                                        <th style="width: 45%;">✅ 正确写法</th>
+                                        <th>错误原因</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="incorrect">Some people fear unemployment, but others think AI creates jobs.</td>
+                                        <td class="correct">Some <strong>fear widespread unemployment</strong>, while <strong>others believe</strong> AI will <strong>create new opportunities and drive industrial upgrading</strong>.</td>
+                                        <td>词汇贫乏，缺少学术精确性与平行结构</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="incorrect">Some fear unemployment when others believe AI helps.</td>
+                                        <td class="correct">Some fear widespread unemployment, <strong>while</strong> others believe AI will create new opportunities...</td>
+                                        <td>"when"表时间，"while"表对比</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 维度6：应用场景 -->
+                    <div class="dimension-card" data-dimension="application">
+                        <div class="dimension-header dim-application">
+                            🎯 维度六：应用场景分析
+                        </div>
+                        <div class="dimension-body">
+                            <div class="scenario-grid">
+                                <div class="scenario-card scenario-ielts">
+                                    <h4 style="color: #3b82f6; margin-bottom: 8px;">📘 雅思写作 IELTS</h4>
+                                    <p><strong>适用题型：</strong>Task 2 - 双边讨论 (Discuss Both Views)</p>
+                                    <p><strong>功能定位：</strong>引言段观点概述 (Thesis Statement preview)</p>
+                                    <p><strong>得分点：</strong>TR (Task Response) 展示全面性</p>
+                                </div>
+                                <div class="scenario-card scenario-toefl">
+                                    <h4 style="color: #10b981; margin-bottom: 8px;">📗 托福写作 TOEFL</h4>
+                                    <p><strong>适用题型：</strong>Independent Writing - Agree/Disagree</p>
+                                    <p><strong>功能定位：</strong>承认反方观点 (Acknowledging counterargument)</p>
+                                    <p><strong>得分点：</strong>Syntactic diversity & coherence</p>
+                                </div>
+                                <div class="scenario-card scenario-academic">
+                                    <h4 style="color: #8b5cf6; margin-bottom: 8px;">📙 学术论文 Academic</h4>
+                                    <p><strong>适用部分：</strong>Introduction / Literature Review</p>
+                                    <p><strong>功能定位：</strong>Contrasting perspectives / Research gap</p>
+                                    <p><strong>期刊风格：</strong>社会科学类论文常用</p>
+                                </div>
+                                <div class="scenario-card scenario-formal">
+                                    <h4 style="color: #f59e0b; margin-bottom: 8px;">📧 正式等级 Formality</h4>
+                                    <p><strong>等级评分：</strong><strong style="font-size: 1.3em;">4</strong> / 5</p>
+                                    <div class="formal-meter">
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment" style="opacity: 0.3;"></div>
+                                    </div>
+                                    <p style="margin-top: 8px; font-size: 0.9em;"><strong>适用：</strong>论文✓ 报告✓ 演讲✓ 邮件○ 聊天✗</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 仿写练习 -->
+                    <div class="practice-section">
+                        <h4 style="color: #15803d; margin-bottom: 15px;">✍️ 仿写练习 (保持原句型结构)</h4>
+                        <div class="practice-item">
+                            <strong>例句1:</strong> Some <em>criticize</em> social media's negative effects, <em>while others</em> <em>believe</em> it will <em>foster global connectivity and promote cultural exchange</em>. 
+                            <span class="practice-level" style="background: #bbf7d0;">CEFR C1 | AWL Sublist 1,3,6</span>
+                        </div>
+                        <div class="practice-item">
+                            <strong>例句2:</strong> Some <em>worry about</em> genetic engineering's risks, <em>while others</em> <em>argue</em> it will <em>cure diseases and enhance human capabilities</em>. 
+                            <span class="practice-level" style="background: #a5f3fc;">CEFR C1 | AWL Sublist 2,7</span>
+                        </div>
+                        <div class="practice-item">
+                            <strong>例句3:</strong> Some <em>question</em> online education's effectiveness, <em>while others</em> <em>contend</em> it will <em>democratize knowledge and revolutionize learning</em>. 
+                            <span class="practice-level" style="background: #ddd6fe;">CEFR C2 | AWL Sublist 3,6,8</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================== S3 ==================== -->
+                <section id="S3" class="sentence-section">
+                    <div class="sentence-header">
+                        <h2 class="sentence-title">句子 S3</h2>
+                        <span style="background: #fef3c7; padding: 5px 15px; border-radius: 15px; font-size: 0.9em;">第一段 · 个人立场</span>
+                    </div>
+                    
+                    <div class="original-sentence">
+                        "In my opinion, AI should be viewed as a transformative force that reshapes work rather than simply eliminates it."
+                    </div>
+
+                    <!-- 维度1：语法层面 -->
+                    <div class="dimension-card" data-dimension="grammar">
+                        <div class="dimension-header dim-grammar">
+                            📝 维度一：语法层面分析
+                        </div>
+                        <div class="dimension-body">
+                            <h4 style="color: var(--primary-blue); margin-bottom: 12px;">1.1 语法标签标注</h4>
+                            <div style="margin-bottom: 15px;">
+                                <span class="grammar-tag tag-tense">时态：情态动词被动语态 (Modal Passive)</span>
+                                <span class="grammar-tag tag-voice">语态：被动语态 (Passive Voice)</span>
+                                <span class="grammar-tag tag-clause">从句类型：定语从句 (Attributive/Relative Clause)</span>
+                                <span class="grammar-tag tag-special">特殊结构：rather than + 动词-ing/-s</span>
+                                <span class="grammar-tag tag-special">特殊结构：插入语 (Parenthetical Expression)</span>
+                            </div>
+
+                            <h4 style="color: var(--primary-blue); margin-bottom: 12px;">1.2 学术写作适用场景</h4>
+                            <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                                <p><strong>✅ SCI/SSCI论文：</strong>"should be viewed as..."是提出作者立场的标准学术表达，比"I think"更客观。<em>transformative force</em>, <em>reshapes</em> 属于高阶学术词汇。</p>
+                                <p style="margin-top: 8px;"><strong>✅ IELTS/TOEFL高分要点：</strong>Task 2 Thesis Statement 的完美模板。<em>rather than</em> 展示 nuanced argumentation 能力。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 维度2：词汇原型 -->
+                    <div class="dimension-card" data-dimension="vocab">
+                        <div class="dimension-header dim-vocab">
+                            📖 维度二：词汇原型提取
+                        </div>
+                        <div class="dimension-body">
+                            <table class="vocab-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 15%;">词汇</th>
+                                        <th style="width: 12%;">IPA音标</th>
+                                        <th style="width: 10%;">词性</th>
+                                        <th style="width: 28%;">核心释义 (EN/CN)</th>
+                                        <th style="width: 10%;">语域</th>
+                                        <th style="width: 25%;">级别标注</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>view</strong></td>
+                                        <td>/vjuː/</td>
+                                        <td>v.</td>
+                                        <td>to consider or regard something / 看待，认为</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 5</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>transformative</strong></td>
+                                        <td>/trænsˈfɔːrmətɪv/</td>
+                                        <td>adj.</td>
+                                        <td>causing a major change / 变革性的，转型的</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-c1">C1</span> <span class="awl-tag awl-tag">AWL Sublist 8</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>force</strong></td>
+                                        <td>/fɔːrs/</td>
+                                        <td>n.</td>
+                                        <td>a powerful influence or cause / 力量，势力</td>
+                                        <td>中性</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>reshape</strong></td>
+                                        <td>/ˌriːˈʃeɪp/</td>
+                                        <td>v.</td>
+                                        <td>to change the structure of something / 重塑，改造</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-c1">C1</span> <span class="awl-tag awl-tag">AWL Sublist 3</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>rather than</strong></td>
+                                        <td>/ˈræðər ðæn/</td>
+                                        <td>conj./prep.</td>
+                                        <td>instead of / 而不是</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>simply</strong></td>
+                                        <td>/ˈsɪmpli/</td>
+                                        <td>adv.</td>
+                                        <td>only; merely / 仅仅，只是</td>
+                                        <td>中性</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>eliminate</strong></td>
+                                        <td>/ɪˈlɪmɪneɪt/</td>
+                                        <td>v.</td>
+                                        <td>to completely remove or get rid of / 消除，淘汰</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-c1">C1</span> <span class="awl-tag awl-tag">AWL Sublist 6</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 维度3：词汇搭配 -->
+                    <div class="dimension-card" data-dimension="collocation">
+                        <div class="dimension-header dim-collocation">
+                            🔗 维度三：词汇搭配分析
+                        </div>
+                        <div class="dimension-body">
+                            <div class="collocation-grid">
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🔵 动词+名词 (V+N)</div>
+                                    <div class="collocation-content">
+                                        <strong>be viewed as</strong> [passive v.] + <strong>a transformative force</strong> [n.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">被视为一种变革力量</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 19-51 | 语域: 高正式 | AWL: ✓✓</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟢 形容词+名词 (Adj+N)</div>
+                                    <div class="collocation-content">
+                                        <strong>transformative</strong> [adj.] + <strong>force</strong> [n.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">变革性力量/转型力量</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 34-50 | 语域: 学术 | CEFR: C1</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟠 固定短语/预制语块</div>
+                                    <div class="collocation-content">
+                                        <strong>In my opinion</strong> [discourse marker]<br>
+                                        <span style="color: #666; font-size: 0.9em;">在我看来/依我看</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 0-13 | 功能: 表达个人立场 | 高频: ★★★★★</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🔴 对比连接词</div>
+                                    <div class="collocation-content">
+                                        <strong>rather than</strong> [conj.] = instead of<br>
+                                        <span style="color: #666; font-size: 0.9em;">而不是；而非</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 76-89 | 功能: 否定对比 | 高频: ★★★★☆</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟣 动词+宾语搭配</div>
+                                    <div class="collocation-content">
+                                        <strong>reshapes</strong> [v.] + <strong>work</strong> [n.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">重塑工作（方式）</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 57-68 | 语域: 正式 | AWL: ✓</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟡 副词+动词搭配</div>
+                                    <div class="collocation-content">
+                                        <strong>simply</strong> [adv.] + <strong>eliminates</strong> [v.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">仅仅消除/单纯淘汰</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 90-100 | 功能: 强调简化论</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 维度4：句子成分 -->
+                    <div class="dimension-card" data-dimension="structure">
+                        <div class="dimension-header dim-structure">
+                            🌳 维度四：句子成分树状图
+                        </div>
+                        <div class="dimension-body">
+                            <div class="syntax-tree">
+<pre style="margin: 0;">
+<span class="tree-adverbial">├─ 插入语/状语: <strong>In my opinion</strong> (在我看来) → 评注性状语</span>
+<span class="tree-subject">├─ 主语: <strong>AI</strong> (人工智能)</span>
+<span class="tree-predicate">├─ 谓语: <strong>should be viewed</strong> (应该被看待)</span>
+<span class="tree-predicate">│  ├─ 情态动词: should (应该)</span>
+<span class="tree-predicate">│  └─ 被动语态: be viewed (被看待)</span>
+<span class="tree-adverbial">├─ 方式状语: <strong>as a transformative force</strong> (作为一种变革力量)</span>
+<span class="tree-attribute">│  └─ 定语从句 (Relative Clause) - Level 2: <strong>that reshapes work</strong></span>
+<span class="tree-subject">│     ├─ 关系代词: that → 先行词: force</span>
+<span class="tree-predicate">│     ├─ 谓语: <strong>reshapes</strong> (重塑)</span>
+<span class="tree-object">│     └─ 宾语: <strong>work</strong> (工作)</span>
+<span class="tree-adverbial">├─ 对比状语: <strong>rather than</strong> (而不是)</span>
+<span class="tree-predicate">└─ [省略主语] 谓语: <strong>simply eliminates it</strong> (简单地消除它)</span>
+   ├─ 副词: simply (仅仅)
+   ├─ 谓语: eliminates (消除)
+   └─ 宾语: it (指代 work)
+</pre>
+                            </div>
+                            <div style="background: #f0fdf4; padding: 12px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #22c55e;">
+                                <strong>📊 结构分析说明：</strong><br>
+                                • <strong>嵌套层级：</strong>2层（主句 + 定语从句）<br>
+                                • <strong>核心亮点：</strong>被动语态 + <em>rather than</em> 对比结构展示学术客观性与辩证思维<br>
+                                • <strong>学术可读性：</strong>优秀。句式复杂但逻辑清晰，适合Thesis Statement<br>
+                                • <strong>建议：</strong>IELTS Task 2立场句、论文Conclusion总结观点时使用
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 维度5：记忆方法 -->
+                    <div class="dimension-card" data-dimension="memory">
+                        <div class="dimension-header dim-memory">
+                            💡 维度五：记忆方法与模板
+                        </div>
+                        <div class="dimension-body">
+                            <div class="template-box">
+                                <h4 style="color: #b45309; margin-bottom: 10px;">📐 公式化模板</h4>
+                                <div class="formula">
+                                    In my opinion, <span class="slot">【主语】</span> should be viewed as 
+                                    <span class="slot">【名词短语】</span> that <span class="slot">【动词-s】</span> <span class="slot">【宾语】</span> 
+                                    rather than simply <span class="slot">【动词-s】</span> it.
+                                </div>
+                                <div style="font-size: 0.9em; margin-top: 10px;">
+                                    <strong>槽位说明：</strong><br>
+                                    • 【主语】：研究议题 (technology, globalization, social media)<br>
+                                    • 【名词短语】：积极定义 (a double-edged sword, a catalyst for change)<br>
+                                    • 【动词-s】：建设性行为 (enhances, transforms, empowers, facilitates)<br>
+                                    • 【动词-s2】：消极行为 (destroys, undermines, threatens, disrupts)
+                                </div>
+                            </div>
+
+                            <div class="mnemonic">
+                                🗣️ 记忆口诀："应视为A做B事，而非简单C掉它"
+                            </div>
+
+                            <h4 style="color: #b45309; margin: 15px 0 10px;">⚠️ 易错点对比</h4>
+                            <table class="error-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 45%;">❌ 错误写法</th>
+                                        <th style="width: 45%;">✅ 正确写法</th>
+                                        <th>错误原因</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="incorrect">I think AI changes work not just removes jobs.</td>
+                                        <td class="correct">AI <strong>should be viewed as a transformative force</strong> that <strong>reshapes</strong> work <strong>rather than simply eliminates</strong> it.</td>
+                                        <td>过于口语化，缺乏学术正式性</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="incorrect">AI should be seen as good because it helps work instead of destroying it.</td>
+                                        <td class="correct">AI should be viewed as <strong>a transformative force</strong> that <strong>reshapes</strong> work rather than simply <strong>eliminates</strong> it.</td>
+                                        <td>词汇选择不精准，"seen as good"太笼统</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 维度6：应用场景 -->
+                    <div class="dimension-card" data-dimension="application">
+                        <div class="dimension-header dim-application">
+                            🎯 维度六：应用场景分析
+                        </div>
+                        <div class="dimension-body">
+                            <div class="scenario-grid">
+                                <div class="scenario-card scenario-ielts">
+                                    <h4 style="color: #3b82f6; margin-bottom: 8px;">📘 雅思写作 IELTS</h4>
+                                    <p><strong>适用题型：</strong>Task 2 - 所有题型的Thesis Statement</p>
+                                    <p><strong>功能定位：</strong>明确表达个人立场</p>
+                                    <p><strong>得分点：</strong>Position clarity & sophisticated expression</p>
+                                </div>
+                                <div class="scenario-card scenario-toefl">
+                                    <h4 style="color: #10b981; margin-bottom: 8px;">📗 托福写作 TOEFL</h4>
+                                    <p><strong>适用题型：</strong>Independent Writing</p>
+                                    <p><strong>功能定位：</strong>Thesis statement in introduction</p>
+                                    <p><strong>得分点：</strong>Demonstrates academic register</p>
+                                </div>
+                                <div class="scenario-card scenario-academic">
+                                    <h4 style="color: #8b5cf6; margin-bottom: 8px;">📙 学术论文 Academic</h4>
+                                    <p><strong>适用部分：</strong>Introduction末尾 / Conclusion</p>
+                                    <p><strong>功能定位：</strong>Author's stance / Research contribution</p>
+                                    <p><strong>期刊风格：</strong>所有学科通用</p>
+                                </div>
+                                <div class="scenario-card scenario-formal">
+                                    <h4 style="color: #f59e0b; margin-bottom: 8px;">📧 正式等级 Formality</h4>
+                                    <p><strong>等级评分：</strong><strong style="font-size: 1.3em;">5</strong> / 5</p>
+                                    <div class="formal-meter">
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment filled"></div>
+                                    </div>
+                                    <p style="margin-top: 8px; font-size: 0.9em;"><strong>适用：</strong>顶级期刊✓ 学位论文✓ 会议报告✓ 商务提案✓</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 仿写练习 -->
+                    <div class="practice-section">
+                        <h4 style="color: #15803d; margin-bottom: 15px;">✍️ 仿写练习 (保持原句型结构)</h4>
+                        <div class="practice-item">
+                            <strong>例句1:</strong> In my opinion, social media should be viewed as <em>a communication tool</em> that <em>connects communities</em> rather than simply <em>isolates individuals</em>. 
+                            <span class="practice-level" style="background: #bbf7d0;">CEFR C1 | AWL Sublist 3,5,6</span>
+                        </div>
+                        <div class="practice-item">
+                            <strong>例句2:</strong> In my opinion, globalization should be regarded as <em>an economic phenomenon</em> that <em>integrates markets</em> rather than merely <em>undermines local cultures</em>. 
+                            <span class="practice-level" style="background: #a5f3fc;">CEFR C1 | AWL Sublist 2,3,6</span>
+                        </div>
+                        <div class="practice-item">
+                            <strong>例句3:</strong> In my opinion, remote work should be perceived as <em>a flexible arrangement</em> that <em>redefines productivity</em> rather than simply <em>erodes workplace culture</em>. 
+                            <span class="practice-level" style="background: #ddd6fe;">CEFR C2 | AWL Sublist 3,5,8</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================== S4 ==================== -->
+                <section id="S4" class="sentence-section">
+                    <div class="sentence-header">
+                        <h2 class="sentence-title">句子 S4</h2>
+                        <span style="background: #dbeafe; padding: 5px 15px; border-radius: 15px; font-size: 0.9em;">第二段 · 论证展开(让步)</span>
+                    </div>
+                    
+                    <div class="original-sentence">
+                        "On the one hand, AI does automate certain routine tasks, potentially displacing some workers in traditional industries."
+                    </div>
+
+                    <!-- 维度1：语法层面 -->
+                    <div class="dimension-card" data-dimension="grammar">
+                        <div class="dimension-header dim-grammar">
+                            📝 维度一：语法层面分析
+                        </div>
+                        <div class="dimension-body">
+                            <h4 style="color: var(--primary-blue); margin-bottom: 12px;">1.1 语法标签标注</h4>
+                            <div style="margin-bottom: 15px;">
+                                <span class="grammar-tag tag-tense">时态：一般现在时 (Simple Present)</span>
+                                <span class="grammar-tag tag-voice">语态：主动语态 + 强调助动词"does"</span>
+                                <span class="grammar-tag tag-special">特殊结构：强调do/does/did</span>
+                                <span class="grammar-tag tag-special">特殊结构：现在分词作结果状语</span>
+                                <span class="grammar-tag tag-clause">短语类型：介词短语作后置定语</span>
+                            </div>
+
+                            <h4 style="color: var(--primary-blue); margin-bottom: 12px;">1.2 学术写作适用场景</h4>
+                            <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                                <p><strong>✅ SCI/SSCI论文：</strong>"On the one hand"标志论证结构的开启。<em>does automate</em>中的强调用法增强语气确定性。<em>potentially displacing</em> 用分词短语避免冗长从句。</p>
+                                <p style="margin-top: 8px;"><strong>✅ IELTS/TOEFL高分要点：</strong>Body Paragraph 1 的经典起始句型。展示"让步-转折"论证策略。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 维度2：词汇原型 -->
+                    <div class="dimension-card" data-dimension="vocab">
+                        <div class="dimension-header dim-vocab">
+                            📖 维度二：词汇原型提取
+                        </div>
+                        <div class="dimension-body">
+                            <table class="vocab-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 15%;">词汇</th>
+                                        <th style="width: 12%;">IPA音标</th>
+                                        <th style="width: 10%;">词性</th>
+                                        <th style="width: 28%;">核心释义 (EN/CN)</th>
+                                        <th style="width: 10%;">语域</th>
+                                        <th style="width: 25%;">级别标注</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>automate</strong></td>
+                                        <td>/ˈɔːtəmeɪt/</td>
+                                        <td>v.</td>
+                                        <td>to use machines or computers instead of people / 使自动化</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-c1">C1</span> <span class="awl-tag awl-tag">AWL Sublist 3</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>certain</strong></td>
+                                        <td>/ˈsɜːrtn/</td>
+                                        <td>adj.</td>
+                                        <td>particular but not named / 某些，特定的</td>
+                                        <td>中性</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>routine</strong></td>
+                                        <td>/ruːˈtiːn/</td>
+                                        <td>adj.</td>
+                                        <td>done regularly; ordinary / 例行的，常规的</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 5</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>potentially</strong></td>
+                                        <td>/pəˈtenʃəli/</td>
+                                        <td>adv.</td>
+                                        <td>possibly; possibly happening / 潜在地，可能地</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-c1">C1</span> <span class="awl-tag awl-tag">AWL Sublist 6</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>displace</strong></td>
+                                        <td>/dɪsˈpleɪs/</td>
+                                        <td>v.</td>
+                                        <td>to take the place of somebody / 取代，置换</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-c1">C1</span> <span class="awl-tag awl-tag">AWL Sublist 6</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>traditional</strong></td>
+                                        <td>/trəˈdɪʃənl/</td>
+                                        <td>adj.</td>
+                                        <td>following customs or ways of doing things / 传统的</td>
+                                        <td>中性</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 1</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 维度3：词汇搭配 -->
+                    <div class="dimension-card" data-dimension="collocation">
+                        <div class="dimension-header dim-collocation">
+                            🔗 维度三：词汇搭配分析
+                        </div>
+                        <div class="dimension-body">
+                            <div class="collocation-grid">
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🔵 动词+名词 (V+N)</div>
+                                    <div class="collocation-content">
+                                        <strong>automate</strong> [v.] + <strong>routine tasks</strong> [n.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">使常规任务自动化</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 23-41 | 语域: 技术/商业 | AWL: ✓✓</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟢 形容词+名词 (Adj+N)</div>
+                                    <div class="collocation-content">
+                                        <strong>certain routine</strong> [adj.] + <strong>tasks</strong> [n.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">某些常规任务</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 29-41 | 语域: 中性-正式</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟠 固定短语/预制语块</div>
+                                    <div class="collocation-content">
+                                        <strong>On the one hand</strong> [discourse marker]<br>
+                                        <span style="color: #666; font-size: 0.9em;">一方面</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 0-17 | 功能: 论证标记 | 配对: On the other hand</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🔴 强调结构</div>
+                                    <div class="collocation-content">
+                                        <strong>does + 动词原形</strong> [emphasis structure]<br>
+                                        <span style="color: #666; font-size: 0.9em;">确实/的确（加强语气）</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 18-22 | 功能: 强调事实确定性</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟣 分词短语作状语</div>
+                                    <div class="collocation-content">
+                                        <strong>potentially displacing</strong> [participle phrase]<br>
+                                        <span style="color: #666; font-size: 0.9em;">可能地取代/置换</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 43-65 | 功能: 结果/伴随状语 | AWL: ✓</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟡 介词短语定语</div>
+                                    <div class="collocation-content">
+                                        <strong>in traditional industries</strong> [prepositional phrase]<br>
+                                        <span style="color: #666; font-size: 0.9em;">在传统产业中</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 66-91 | 功能: 后置定语修饰workers | AWL: ✓</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 维度4：句子成分 -->
+                    <div class="dimension-card" data-dimension="structure">
+                        <div class="dimension-header dim-structure">
+                            🌳 维度四：句子成分树状图
+                        </div>
+                        <div class="dimension-body">
+                            <div class="syntax-tree">
+<pre style="margin: 0;">
+<span class="tree-adverbial">├─ 连接性状语: <strong>On the one hand</strong> (一方面) → 论证标记</span>
+<span class="tree-subject">├─ 主语: <strong>AI</strong> (人工智能)</span>
+<span class="tree-predicate">├─ 谓语: <strong>does automate</strong> (确实使...自动化)</span>
+<span class="tree-predicate">│  ├─ 强调助动词: does (确实/的确)</span>
+<span class="tree-predicate">│  └─ 实义动词: automate (自动化)</span>
+<span class="tree-object">├─ 宾语: <strong>certain routine tasks</strong> (某些常规任务)</span>
+<span class="tree-attribute">│  ├─ 定语: <strong>certain</strong> (某些) → 限定范围</span>
+<span class="tree-attribute">│  └─ 定语: <strong>routine</strong> (常规的) → 修饰 tasks</span>
+<span class="tree-adverbial">├─ 结果状语: <strong>potentially displacing some workers</strong> (可能取代一些工人)</span>
+<span class="tree-adverbial">│  ├─ 副词: potentially (潜在地)</span>
+<span class="tree-adverbial">│  ├─ 现在分词: displacing (取代) → 作结果状语</span>
+<span class="tree-adverbial">│  └─ 宾语: some workers (一些工人)</span>
+<span class="tree-attribute">└─ 后置定语: <strong>in traditional industries</strong> (在传统行业中)</span>
+   └─ 介词短语修饰 workers
+</pre>
+                            </div>
+                            <div style="background: #f0fdf4; padding: 12px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #22c55e;">
+                                <strong>📊 结构分析说明：</strong><br>
+                                • <strong>嵌套层级：</strong>1层（简单句 + 多重修饰成分）<br>
+                                • <strong>核心亮点：</strong><strong>does</strong> 强调 + 分词短语作状语 = 简洁有力<br>
+                                • <strong>学术可读性：</strong>良好。信息密度高但不晦涩<br>
+                                • <strong>建议：</strong>Body Paragraph 让步论证的首选句型
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 维度5：记忆方法 -->
+                    <div class="dimension-card" data-dimension="memory">
+                        <div class="dimension-header dim-memory">
+                            💡 维度五：记忆方法与模板
+                        </div>
+                        <div class="dimension-body">
+                            <div class="template-box">
+                                <h4 style="color: #b45309; margin-bottom: 10px;">📐 公式化模板</h4>
+                                <div class="formula">
+                                    On the one hand, <span class="slot">【主语】</span> does <span class="slot">【动词原形】</span> 
+                                    <span class="slot">【形容词】</span> <span class="slot">【名词】</span>, 
+                                    <span class="slot">【副词】</span> <span class="slot">【动词-ing】</span> <span class="slot">【名词短语】</span>.
+                                </div>
+                                <div style="font-size: 0.9em; margin-top: 10px;">
+                                    <strong>槽位说明：</strong><br>
+                                    • 【主语】：讨论对象 (technology, automation, globalization)<br>
+                                    • 【动词原形】：动作动词 (transform, affect, impact, influence)<br>
+                                    • 【形容词+名词】：受影响对象 (specific sectors, certain groups)<br>
+                                    • 【副词+动词-ing】：后果描述 (potentially causing, inevitably leading to)
+                                </div>
+                            </div>
+
+                            <div class="mnemonic">
+                                🗣️ 记忆口诀："一方面，A确实做B事，可能C了D"
+                            </div>
+
+                            <h4 style="color: #b45309; margin: 15px 0 10px;">⚠️ 易错点对比</h4>
+                            <table class="error-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 45%;">❌ 错误写法</th>
+                                        <th style="width: 45%;">✅ 正确写法</th>
+                                        <th>错误原因</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="incorrect">First, AI automates tasks and may displace workers.</td>
+                                        <td class="correct">On the one hand, AI <strong>does automate</strong> certain routine tasks, <strong>potentially displacing</strong> some workers...</td>
+                                        <td>缺少强调结构与分词状语的学术精确性</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="incorrect">On one side, AI really automates regular works which can displace workers in old industries.</td>
+                                        <td class="correct">On the one hand, AI <strong>does automate</strong> <strong>certain routine</strong> tasks, <strong>potentially displacing</strong> some workers <strong>in traditional industries</strong>.</td>
+                                        <td>"On one side"非标准表达；用which从句不够简洁</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 维度6：应用场景 -->
+                    <div class="dimension-card" data-dimension="application">
+                        <div class="dimension-header dim-application">
+                            🎯 维度六：应用场景分析
+                        </div>
+                        <div class="dimension-body">
+                            <div class="scenario-grid">
+                                <div class="scenario-card scenario-ielts">
+                                    <h4 style="color: #3b82f6; margin-bottom: 8px;">📘 雅思写作 IELTS</h4>
+                                    <p><strong>适用题型：</strong>Task 2 - 利弊分析 / 双边讨论</p>
+                                    <p><strong>功能定位：</strong>Body Paragraph 1 论点阐述</p>
+                                    <p><strong>得分点：</strong>Cohesion & Coherence 标记词使用</p>
+                                </div>
+                                <div class="scenario-card scenario-toefl">
+                                    <h4 style="color: #10b981; margin-bottom: 8px;">📗 托福写作 TOEFL</h4>
+                                    <p><strong>适用题型：</strong>Independent Writing</p>
+                                    <p><strong>功能定位：</strong>Supporting point 1 (concession)</p>
+                                    <p><strong>得分点：</strong>Organization & development</p>
+                                </div>
+                                <div class="scenario-card scenario-academic">
+                                    <h4 style="color: #8b5cf6; margin-bottom: 8px;">📙 学术论文 Academic</h4>
+                                    <p><strong>适用部分：</strong>Discussion / Results</p>
+                                    <p><strong>功能定位：</strong>Presenting one perspective/finding</p>
+                                    <p><strong>期刊风格：</strong>社会科学常用</p>
+                                </div>
+                                <div class="scenario-card scenario-formal">
+                                    <h4 style="color: #f59e0b; margin-bottom: 8px;">📧 正式等级 Formality</h4>
+                                    <p><strong>等级评分：</strong><strong style="font-size: 1.3em;">4</strong> / 5</p>
+                                    <div class="formal-meter">
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment" style="opacity: 0.3;"></div>
+                                    </div>
+                                    <p style="margin-top: 8px; font-size: 0.9em;"><strong>适用：</strong>论文✓ 报告✓ 演讲✓ 邮件○</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 仿写练习 -->
+                    <div class="practice-section">
+                        <h4 style="color: #15803d; margin-bottom: 15px;">✍️ 仿写练习 (保持原句型结构)</h4>
+                        <div class="practice-item">
+                            <strong>例句1:</strong> On the one hand, e-commerce <em>does transform</em> <em>certain retail patterns</em>, <em>potentially threatening</em> some businesses <em>in physical stores</em>. 
+                            <span class="practice-level" style="background: #bbf7d0;">CEFR C1 | AWL Sublist 3,5,6</span>
+                        </div>
+                        <div class="practice-item">
+                            <strong>例句2:</strong> On the one hand, urbanization <em>does accelerate</em> <em>economic development</em>, <em>inevitably straining</em> some resources <em>in rural areas</em>. 
+                            <span class="practice-level" style="background: #a5f3fc;">CEFR C1 | AWL Sublist 1,3,6</span>
+                        </div>
+                        <div class="practice-item">
+                            <strong>例句3:</strong> On the one hand, remote learning <em>does democratize</em> <em>educational access</em>, <em>potentially diminishing</em> some interactions <em>in classroom settings</em>. 
+                            <span class="practice-level" style="background: #ddd6fe;">CEFR C2 | AWL Sublist 3,5,8</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================== S5 ==================== -->
+                <section id="S5" class="sentence-section">
+                    <div class="sentence-header">
+                        <h2 class="sentence-title">句子 S5</h2>
+                        <span style="background: #dcfce7; padding: 5px 15px; border-radius: 15px; font-size: 0.9em;">第二段 · 举例支撑</span>
+                    </div>
+                    
+                    <div class="original-sentence">
+                        "For example, manufacturing robots and automated customer service systems have already replaced many repetitive positions."
+                    </div>
+
+                    <!-- 维度1：语法层面 -->
+                    <div class="dimension-card" data-dimension="grammar">
+                        <div class="dimension-header dim-grammar">
+                            📝 维度一：语法层面分析
+                        </div>
+                        <div class="dimension-body">
+                            <h4 style="color: var(--primary-blue); margin-bottom: 12px;">1.1 语法标签标注</h4>
+                            <div style="margin-bottom: 15px;">
+                                <span class="grammar-tag tag-tense">时态：现在完成时 (Present Perfect)</span>
+                                <span class="grammar-tag tag-voice">语态：主动语态 (Active Voice)</span>
+                                <span class="grammar-tag tag-special">特殊结构：并列主语 (Compound Subject)</span>
+                                <span class="grammar-tag tag-clause">短语类型：名词短语并列</span>
+                            </div>
+
+                            <h4 style="color: var(--primary-blue); margin-bottom: 12px;">1.2 学术写作适用场景</h4>
+                            <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                                <p><strong>✅ SCI/SSCI论文：</strong>"For example"是Evidence/Example提供的标准信号词。现在完成时的"<em>have already</em>"强调既成事实的可信度。</p>
+                                <p style="margin-top: 8px;"><strong>✅ IELTS/TOEFL高分要点：</strong>Body Paragraph中提供具体例证的黄金句型。<em>manufacturing robots</em>, <em>automated systems</em> 展示topic vocabulary广度。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 维度2：词汇原型 -->
+                    <div class="dimension-card" data-dimension="vocab">
+                        <div class="dimension-header dim-vocab">
+                            📖 维度二：词汇原型提取
+                        </div>
+                        <div class="dimension-body">
+                            <table class="vocab-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 15%;">词汇</th>
+                                        <th style="width: 12%;">IPA音标</th>
+                                        <th style="width: 10%;">词性</th>
+                                        <th style="width: 28%;">核心释义 (EN/CN)</th>
+                                        <th style="width: 10%;">语域</th>
+                                        <th style="width: 25%;">级别标注</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>manufacturing</strong></td>
+                                        <td>/ˌmænjuˈfæktʃərɪŋ/</td>
+                                        <td>adj./n.</td>
+                                        <td>relating to making goods / 制造业的；制造</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 1</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>robot</strong></td>
+                                        <td>/ˈroʊbɒt/</td>
+                                        <td>n.</td>
+                                        <td>a machine that can do work automatically / 机器人</td>
+                                        <td>中性</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>automated</strong></td>
+                                        <td>/ˈɔːtəmeɪtɪd/</td>
+                                        <td>adj.</td>
+                                        <td>operated by machines or computers / 自动化的</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-c1">C1</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>customer service</strong></td>
+                                        <td>/ˈkʌstəmər ˈsɜːrvɪs/</td>
+                                        <td>n. phrase</td>
+                                        <td>help and advice given to customers / 客户服务</td>
+                                        <td>中性</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>replace</strong></td>
+                                        <td>/rɪˈpleɪs/</td>
+                                        <td>v.</td>
+                                        <td>to take the place of someone/something / 取代，替代</td>
+                                        <td>中性</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 3</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>repetitive</strong></td>
+                                        <td>/rɪˈpetətɪv/</td>
+                                        <td>adj.</td>
+                                        <td>saying or doing the same thing many times / 重复的</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-c1">C1</span> <span class="awl-tag awl-tag">AWL Sublist 5</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>position</strong></td>
+                                        <td>/pəˈzɪʃn/</td>
+                                        <td>n.</td>
+                                        <td>a job / 职位，岗位</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 2</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 维度3：词汇搭配 -->
+                    <div class="dimension-card" data-dimension="collocation">
+                        <div class="dimension-header dim-collocation">
+                            🔗 维度三：词汇搭配分析
+                        </div>
+                        <div class="dimension-body">
+                            <div class="collocation-grid">
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🔵 动词+名词 (V+N)</div>
+                                    <div class="collocation-content">
+                                        <strong>have replaced</strong> [v.] + <strong>positions</strong> [n.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">已经取代了职位</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 56-78 | 时态: Present Perfect | AWL: ✓</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟢 形容词+名词 (Adj+N)</div>
+                                    <div class="collocation-content">
+                                        <strong>manufacturing robots</strong> [compound n.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">制造业机器人</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 13-32 | 语域: 技术/工业 | AWL: ✓</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟠 固定短语/预制语块</div>
+                                    <div class="collocation-content">
+                                        <strong>For example</strong> [discourse marker]<br>
+                                        <span style="color: #666; font-size: 0.9em;">例如</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 0-11 | 功能: 引入例证 | 高频: ★★★★★</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟣 复合名词短语</div>
+                                    <div class="collocation-content">
+                                        <strong>automated customer service systems</strong> [compound n.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">自动化客户服务系统</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 37-63 | 语域: 商业技术 | CEFR: C1</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟡 形容词+名词</div>
+                                    <div class="collocation-content">
+                                        <strong>repetitive</strong> [adj.] + <strong>positions</strong> [n.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">重复性岗位</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 79-97 | 语域: 正式 | AWL: ✓</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🔴 时间副词</div>
+                                    <div class="collocation-content">
+                                        <strong>already</strong> [adv.] + present perfect<br>
+                                        <span style="color: #666; font-size: 0.9em;">已经（强调既成事实）</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 47-55 | 功能: 加强语气</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 维度4：句子成分 -->
+                    <div class="dimension-card" data-dimension="structure">
+                        <div class="dimension-header dim-structure">
+                            🌳 维度四：句子成分树状图
+                        </div>
+                        <div class="dimension-body">
+                            <div class="syntax-tree">
+<pre style="margin: 0;">
+<span class="tree-adverbial">├─ 插入语/连接词: <strong>For example</strong> (例如) → 例证标记</span>
+<span class="tree-subject">├─ 主语 (并列): <strong>manufacturing robots and automated customer service systems</strong></span>
+<span class="tree-subject">│  ├─ 名词1: <strong>manufacturing robots</strong> (制造机器人)</span>
+<span class="tree-subject">│  │  └─ 定语: manufacturing (制造的) → 修饰 robots</span>
+<span class="tree-subject">│  ├─ 连词: and (和)</span>
+<span class="tree-subject">│  └─ 名词2: <strong>automated customer service systems</strong> (自动客服系统)</span>
+<span class="tree-subject">│     ├─ 定语: automated (自动化的)</span>
+<span class="tree-subject">│     └─ 定语: customer service (客户服务) → 修饰 systems</span>
+<span class="tree-predicate">├─ 谓语: <strong>have already replaced</strong> (已经取代)</span>
+<span class="tree-predicate">│  ├─ 时态: Present Perfect (现在完成时)</span>
+<span class="tree-predicate">│  └─ 副词: already (已经) → 强调</span>
+<span class="tree-object">├─ 宾语: <strong>many repetitive positions</strong> (许多重复性岗位)</span>
+<span class="tree-attribute">│  ├─ 限定词: many (许多)</span>
+<span class="tree-attribute">│  └─ 定语: <strong>repetitive</strong> (重复的) → 修饰 positions</span>
+</pre>
+                            </div>
+                            <div style="background: #f0fdf4; padding: 12px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #22c55e;">
+                                <strong>📊 结构分析说明：</strong><br>
+                                • <strong>嵌套层级：</strong>1层（简单句 + 复合主语）<br>
+                                • <strong>核心亮点：</strong>并列主语展示例证的丰富性；<em>already</em> + 现在完成时增强说服力<br>
+                                • <strong>学术可读性：</strong>优秀。例证具体、清晰、有说服力<br>
+                                • <strong>建议：</strong>Body Paragraph中紧跟论点后的支撑例证
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 维度5：记忆方法 -->
+                    <div class="dimension-card" data-dimension="memory">
+                        <div class="dimension-header dim-memory">
+                            💡 维度五：记忆方法与模板
+                        </div>
+                        <div class="dimension-body">
+                            <div class="template-box">
+                                <h4 style="color: #b45309; margin-bottom: 10px;">📐 公式化模板</h4>
+                                <div class="formula">
+                                    For example, <span class="slot">【名词A】</span> and <span class="slot">【名词B】</span> 
+                                    have already <span class="slot">【过去分词】</span> 
+                                    <span class="slot">【数量形容词】</span> <span class="slot">【名词】</span>.
+                                </div>
+                                <div style="font-size: 0.9em; margin-top: 10px;">
+                                    <strong>槽位说明：</strong><br>
+                                    • 【名词A/B】：具体例子 (online platforms, mobile applications, digital tools)<br>
+                                    • 【过去分词】：替代/改变类动词 (transformed, disrupted, replaced, eliminated)<br>
+                                    • 【数量形容词】：many, numerous, various, countless<br>
+                                    • 【名词】：受影响对象 (practices, methods, approaches, roles)
+                                </div>
+                            </div>
+
+                            <div class="mnemonic">
+                                🗣️ 记忆口诀："例如AB两事物，已把CD给替换"
+                            </div>
+
+                            <h4 style="color: #b45309; margin: 15px 0 10px;">⚠️ 易错点对比</h4>
+                            <table class="error-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 45%;">❌ 错误写法</th>
+                                        <th style="width: 45%;">✅ 正确写法</th>
+                                        <th>错误原因</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="incorrect">Like robots replace simple jobs now.</td>
+                                        <td class="correct">For example, <strong>manufacturing robots and automated customer service systems</strong> have <strong>already</strong> replaced <strong>many repetitive positions</strong>.</td>
+                                        <td>过于简略，缺乏学术细节与精确性</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="incorrect">For instance, machines are replacing boring work.</td>
+                                        <td class="correct">For example, <strong>manufacturing robots and automated customer service systems</strong> have <strong>already replaced</strong> <strong>many repetitive positions</strong>.</td>
+                                        <td>"boring work"太口语化；未用现在完成时</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 维度6：应用场景 -->
+                    <div class="dimension-card" data-dimension="application">
+                        <div class="dimension-header dim-application">
+                            🎯 维度六：应用场景分析
+                        </div>
+                        <div class="dimension-body">
+                            <div class="scenario-grid">
+                                <div class="scenario-card scenario-ielts">
+                                    <h4 style="color: #3b82f6; margin-bottom: 8px;">📘 雅思写作 IELTS</h4>
+                                    <p><strong>适用题型：</strong>Task 2 - 所有题型</p>
+                                    <p><strong>功能定位：</strong>Body Paragraph 例证句</p>
+                                    <p><strong>得分点：</strong>Specific examples & lexical range</p>
+                                </div>
+                                <div class="scenario-card scenario-toefl">
+                                    <h4 style="color: #10b981; margin-bottom: 8px;">📗 托福写作 TOEFL</h4>
+                                    <p><strong>适用题型：</strong>Independent Writing</p>
+                                    <p><strong>功能定位：</strong>Evidence/Example provision</p>
+                                    <p><strong>得分点：</strong>Development & specificity</p>
+                                </div>
+                                <div class="scenario-card scenario-academic">
+                                    <h4 style="color: #8b5cf6; margin-bottom: 8px;">📙 学术论文 Academic</h4>
+                                    <p><strong>适用部分：</strong>Results / Discussion</p>
+                                    <p><strong>功能定位：</strong>Empirical evidence citation</p>
+                                    <p><strong>期刊风格：</strong>实证研究常用</p>
+                                </div>
+                                <div class="scenario-card scenario-formal">
+                                    <h4 style="color: #f59e0b; margin-bottom: 8px;">📧 正式等级 Formality</h4>
+                                    <p><strong>等级评分：</strong><strong style="font-size: 1.3em;">3.5</strong> / 5</p>
+                                    <div class="formal-meter">
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment filled"></div>
+                                        <div class="meter-segment filled" style="opacity: 0.5;"></div>
+                                        <div class="meter-segment" style="opacity: 0.3;"></div>
+                                    </div>
+                                    <p style="margin-top: 8px; font-size: 0.9em;"><strong>适用：</strong>论文✓ 报告✓ 演讲✓ 邮件○</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 仿写练习 -->
+                    <div class="practice-section">
+                        <h4 style="color: #15803d; margin-bottom: 15px;">✍️ 仿写练习 (保持原句型结构)</h4>
+                        <div class="practice-item">
+                            <strong>例句1:</strong> For example, <em>online banking apps</em> and <em>digital payment platforms</em> have already <em>replaced</em> <em>many physical bank branches</em>. 
+                            <span class="practice-level" style="background: #bbf7d0;">CEFR C1 | AWL Sublist 2,3</span>
+                        </div>
+                        <div class="practice-item">
+                            <strong>例句2:</strong> For instance, <em>e-book readers</em> and <em>audiobook services</em> have already <em>transformed</em> <em>numerous reading habits</em>. 
+                            <span class="practice-level" style="background: #a5f3fc;">CEFR C1 | AWL Sublist 3,5</span>
+                        </div>
+                        <div class="practice-item">
+                            <strong>例句3:</strong> For example, <em>video conferencing tools</em> and <em>collaborative software</em> have already <em>revolutionized</em> <em>countless workplace communications</em>. 
+                            <span class="practice-level" style="background: #ddd6fe;">CEFR C2 | AWL Sublist 3,6,8</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================== S6 ==================== -->
+                <section id="S6" class="sentence-section">
+                    <div class="sentence-header">
+                        <h2 class="sentence-title">句子 S6</h2>
+                        <span style="background: #fee2e2; padding: 5px 15px; border-radius: 15px; font-size: 0.9em;">第二段 · 论证转折</span>
+                    </div>
+                    
+                    <div class="original-sentence">
+                        "On the other hand, it generates demand for new skills and creates emerging job categories in fields like AI development, data analysis, and human-machine collaboration."
+                    </div>
+
+                    <!-- 维度1：语法层面 -->
+                    <div class="dimension-card" data-dimension="grammar">
+                        <div class="dimension-header dim-grammar">
+                            📝 维度一：语法层面分析
+                        </div>
+                        <div class="dimension-body">
+                            <h4 style="color: var(--primary-blue); margin-bottom: 12px;">1.1 语法标签标注</h4>
+                            <div style="margin-bottom: 15px;">
+                                <span class="grammar-tag tag-tense">时态：一般现在时 (Simple Present)</span>
+                                <span class="grammar-tag tag-voice">语态：主动语态 (Active Voice)</span>
+                                <span class="grammar-tag tag-special">特殊结构：平行结构 (Parallel Structure)</span>
+                                <span class="grammar-tag tag-special">特殊结构：列举结构 (List with 'like')</span>
+                                <span class="grammar-tag tag-clause">短语类型：介词短语作后置定语</span>
+                            </div>
+
+                            <h4 style="color: var(--primary-blue); margin-bottom: 12px;">1.2 学术写作适用场景</h4>
+                            <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                                <p><strong>✅ SCI/SSCI论文：</strong>"On the other hand"与S4形成完整论证闭环。<em>generates demand for</em>, <em>creates emerging</em> 展示动态变化的学术表达。</p>
+                                <p style="margin-top: 8px;"><strong>✅ IELTS/TOEFL高分要点：</strong>Body Paragraph 2 反方论证的核心句型。长列表展示topic vocabulary深度。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 维度2：词汇原型 -->
+                    <div class="dimension-card" data-dimension="vocab">
+                        <div class="dimension-header dim-vocab">
+                            📖 维度二：词汇原型提取
+                        </div>
+                        <div class="dimension-body">
+                            <table class="vocab-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 15%;">词汇</th>
+                                        <th style="width: 12%;">IPA音标</th>
+                                        <th style="width: 10%;">词性</th>
+                                        <th style="width: 28%;">核心释义 (EN/CN)</th>
+                                        <th style="width: 10%;">语域</th>
+                                        <th style="width: 25%;">级别标注</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>generate</strong></td>
+                                        <td>/ˈdʒenəreɪt/</td>
+                                        <td>v.</td>
+                                        <td>to produce or create something / 产生，生成</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 2</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>demand</strong></td>
+                                        <td>/dɪˈmɑːnd/</td>
+                                        <td>n.</td>
+                                        <td>the need or desire for goods / 需求</td>
+                                        <td>中性</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 1</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>emerging</strong></td>
+                                        <td>/ɪˈmɜːrdʒɪŋ/</td>
+                                        <td>adj.</td>
+                                        <td>beginning to exist or become known / 新兴的</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-c1">C1</span> <span class="awl-tag awl-tag">AWL Sublist 3</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>category</strong></td>
+                                        <td>/ˈkætəɡɔːri/</td>
+                                        <td>n.</td>
+                                        <td>a group of similar things / 类别，范畴</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 5</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>development</strong></td>
+                                        <td>/dɪˈveləpmənt/</td>
+                                        <td>n.</td>
+                                        <td>the process of growing or improving / 发展，开发</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 1</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>analysis</strong></td>
+                                        <td>/əˈnæləsɪs/</td>
+                                        <td>n.</td>
+                                        <td>the process of studying something / 分析</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-b2">B2</span> <span class="awl-tag awl-tag">AWL Sublist 1</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>collaboration</strong></td>
+                                        <td>/kəˌlæbəˈreɪʃn/</td>
+                                        <td>n.</td>
+                                        <td>the action of working together / 协作，合作</td>
+                                        <td>正式</td>
+                                        <td><span class="cefr-tag cefr-c1">C1</span> <span class="awl-tag awl-tag">AWL Sublist 6</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 维度3：词汇搭配 -->
+                    <div class="dimension-card" data-dimension="collocation">
+                        <div class="dimension-header dim-collocation">
+                            🔗 维度三：词汇搭配分析
+                        </div>
+                        <div class="dimension-body">
+                            <div class="collocation-grid">
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🔵 动词+名词 (V+N)</div>
+                                    <div class="collocation-content">
+                                        <strong>generates demand for</strong> [v.+n.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">产生对...的需求</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 21-42 | 语域: 经济/学术 | AWL: ✓✓</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟢 形容词+名词 (Adj+N)</div>
+                                    <div class="collocation-content">
+                                        <strong>emerging job categories</strong> [adj.+n.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">新兴职业类别</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 58-79 | 语域: 劳动经济 | CEFR: C1</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟠 固定短语/预制语块</div>
+                                    <div class="collocation-content">
+                                        <strong>On the other hand</strong> [discourse marker]<br>
+                                        <span style="color: #666; font-size: 0.9em;">另一方面</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 0-20 | 功能: 转折标记 | 配对: On the one hand</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟣 平行动词结构</div>
+                                    <div class="collocation-content">
+                                        <strong>generates ... and creates ...</strong> [parallel verbs]<br>
+                                        <span style="color: #666; font-size: 0.9em;">产生...并创造...</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 21-57 | 结构: Parallelism | 平衡: ✓</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🟡 介词+领域列举</div>
+                                    <div class="collocation-content">
+                                        <strong>in fields like A, B, and C</strong> [prep.+list]<br>
+                                        <span style="color: #666; font-size: 0.9em;">在诸如A、B和C等领域</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 80-143 | 功能: 具体化举例</span>
+                                    </div>
+                                </div>
+                                <div class="collocation-item">
+                                    <div class="collocation-type">🔴 复合名词</div>
+                                    <div class="collocation-content">
+                                        <strong>human-machine collaboration</strong> [compound n.]<br>
+                                        <span style="color: #666; font-size: 0.9em;">人机协作</span><br>
+                                        <span style="font-size: 0.8em; color: #888;">位置: 120-143 | 语域: 技术/AI | CEFR: C1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 维度4：句子成分 -->
+                    <div class="dimension-card" data-dimension="structure">
+                        <div class="dimension-header dim-structure">
+                            🌳 维度四：句子成分树状图
+                        </div>
+                        <div class="dimension-body">
+                            <div class="syntax-tree">
+<pre style="margin: 0;">
+<span class="tree-adverbial">├─ 连接性状语: <strong>On the other hand</strong> (另一方面) → 转折标记</span>
+<span class="tree-subject">├─ 主语: <strong>it</strong> (它 → 指代 AI)</span>
+<span class="tree-predicate">├─ 谓语1
