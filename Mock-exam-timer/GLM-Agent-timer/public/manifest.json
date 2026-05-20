@@ -1,0 +1,14 @@
+{
+  "name": "智能考试倒计时系统",
+  "short_name": "考试倒计时",
+  "description": "英语考试全流程计时系统 - 7阶段自动切换、语音提醒、倒计时",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#10b981",
+  "orientation": "any",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}
