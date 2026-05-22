@@ -1,8 +1,564 @@
-<a href="情感词汇-code-practice.html">情感词汇练习</a>
-<br/>
-<a href="WritingReader.html">语音短文朗读</a>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TDXL English Practice</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<br/>
-<a href="english_writing_plan.html">5天写作计划</a>
-<br/>
-<a href="exam-mock-timerV2.html">模拟考场系统计划</a>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-card: #1e293b;
+      --bg-card-hover: #334155;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --accent-cyan: #06b6d4;
+      --border-color: #334155;
+      --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.1);
+      --radius: 16px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 25% 10%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 75% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .logo-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+      margin-bottom: 24px;
+      font-size: 32px;
+      box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #f1f5f9 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .section {
+      margin-bottom: 48px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .section:nth-child(2) { animation-delay: 0.1s; }
+    .section:nth-child(3) { animation-delay: 0.2s; }
+    .section:nth-child(4) { animation-delay: 0.3s; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .section-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .section-icon.blue { background: rgba(59, 130, 246, 0.15); }
+    .section-icon.purple { background: rgba(139, 92, 246, 0.15); }
+    .section-icon.emerald { background: rgba(16, 185, 129, 0.15); }
+    .section-icon.amber { background: rgba(245, 158, 11, 0.15); }
+
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .section-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-left: auto;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: all var(--transition);
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius);
+      opacity: 0;
+      transition: opacity var(--transition);
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: transparent;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card.blue::before { background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), transparent); }
+    .card.blue:hover { border-color: rgba(59, 130, 246, 0.3); }
+    .card.purple::before { background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), transparent); }
+    .card.purple:hover { border-color: rgba(139, 92, 246, 0.3); }
+    .card.emerald::before { background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), transparent); }
+    .card.emerald:hover { border-color: rgba(16, 185, 129, 0.3); }
+    .card.amber::before { background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), transparent); }
+    .card.amber:hover { border-color: rgba(245, 158, 11, 0.3); }
+    .card.rose::before { background: linear-gradient(135deg, rgba(244, 63, 94, 0.08), transparent); }
+    .card.rose:hover { border-color: rgba(244, 63, 94, 0.3); }
+    .card.cyan::before { background: linear-gradient(135deg, rgba(6, 182, 212, 0.08), transparent); }
+    .card.cyan:hover { border-color: rgba(6, 182, 212, 0.3); }
+
+    .card-emoji {
+      font-size: 28px;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+
+    .card-emoji.blue { background: rgba(59, 130, 246, 0.1); }
+    .card-emoji.purple { background: rgba(139, 92, 246, 0.1); }
+    .card-emoji.emerald { background: rgba(16, 185, 129, 0.1); }
+    .card-emoji.amber { background: rgba(245, 158, 11, 0.1); }
+    .card-emoji.rose { background: rgba(244, 63, 94, 0.1); }
+    .card-emoji.cyan { background: rgba(6, 182, 212, 0.1); }
+
+    .card-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-arrow {
+      flex-shrink: 0;
+      color: var(--text-muted);
+      transition: all var(--transition);
+      font-size: 18px;
+    }
+
+    .card:hover .card-arrow {
+      transform: translateX(4px);
+      color: var(--text-primary);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .badge.new { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
+    .badge.tool { background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); }
+
+    .writing-group {
+      margin-bottom: 24px;
+    }
+
+    .writing-group-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      padding-left: 4px;
+    }
+
+    .writing-group-title::before {
+      content: "";
+      display: inline-block;
+      width: 3px;
+      height: 16px;
+      border-radius: 2px;
+    }
+
+    .writing-group-title.blue::before { background: var(--accent-blue); }
+    .writing-group-title.purple::before { background: var(--accent-purple); }
+    .writing-group-title.amber::before { background: var(--accent-amber); }
+
+    .writing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 12px;
+    }
+
+    .writing-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: all var(--transition);
+      font-size: 0.9rem;
+    }
+
+    .writing-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(139, 92, 246, 0.3);
+      transform: translateX(4px);
+    }
+
+    .writing-card .model-tag {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: rgba(139, 92, 246, 0.1);
+      color: var(--accent-purple);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .writing-card .model-tag.deepseek { background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); }
+    .writing-card .model-tag.gemini { background: rgba(16, 185, 129, 0.1); color: var(--accent-emerald); }
+    .writing-card .model-tag.xiaomi { background: rgba(245, 158, 11, 0.1); color: var(--accent-amber); }
+    .writing-card .model-tag.doubao { background: rgba(244, 63, 94, 0.1); color: var(--accent-rose); }
+    .writing-card .model-tag.qwen { background: rgba(6, 182, 212, 0.1); color: var(--accent-cyan); }
+    .writing-card .model-tag.glm { background: rgba(139, 92, 246, 0.1); color: var(--accent-purple); }
+
+    footer {
+      text-align: center;
+      padding: 40px 0 0;
+      border-top: 1px solid var(--border-color);
+      margin-top: 20px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      animation: fadeInUp 0.8s ease-out 0.4s both;
+    }
+
+    footer a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .card,
+    .writing-card {
+      animation: slideIn 0.5s ease-out both;
+    }
+
+    .card-grid .card:nth-child(1) { animation-delay: 0.05s; }
+    .card-grid .card:nth-child(2) { animation-delay: 0.1s; }
+    .card-grid .card:nth-child(3) { animation-delay: 0.15s; }
+    .card-grid .card:nth-child(4) { animation-delay: 0.2s; }
+
+    .writing-grid .writing-card:nth-child(1) { animation-delay: 0.05s; }
+    .writing-grid .writing-card:nth-child(2) { animation-delay: 0.1s; }
+    .writing-grid .writing-card:nth-child(3) { animation-delay: 0.15s; }
+    .writing-grid .writing-card:nth-child(4) { animation-delay: 0.2s; }
+    .writing-grid .writing-card:nth-child(5) { animation-delay: 0.25s; }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 24px 16px 60px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .subtitle {
+        font-size: 0.95rem;
+      }
+
+      .section-header {
+        flex-wrap: wrap;
+      }
+
+      .section-desc {
+        margin-left: 52px;
+        width: 100%;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .writing-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .logo-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 24px;
+      }
+
+      .card {
+        padding: 16px;
+      }
+
+      .section-title {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="container">
+    <header>
+      <div class="logo-icon">📚</div>
+      <h1>TDXL English Practice</h1>
+      <p class="subtitle">英语学习练习平台 — 集成模拟考试、写作范文、词汇练习等多功能模块</p>
+    </header>
+
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon blue">🛠️</div>
+        <h2 class="section-title">学习工具</h2>
+        <span class="section-desc">实用练习与辅助功能</span>
+      </div>
+      <div class="card-grid">
+        <a href="exam-mock-timerV2.html" class="card blue">
+          <div class="card-emoji blue">⏱️</div>
+          <div class="card-body">
+            <div class="card-title">模拟考场系统</div>
+            <div class="card-desc">全真模拟考试环境，倒计时与阶段管理</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+        <a href="WritingReader.html" class="card emerald">
+          <div class="card-emoji emerald">🗣️</div>
+          <div class="card-body">
+            <div class="card-title">语音短文朗读</div>
+            <div class="card-desc">英语短文朗读与语音练习</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+        <a href="english_writing_plan.html" class="card purple">
+          <div class="card-emoji purple">📝</div>
+          <div class="card-body">
+            <div class="card-title">5天写作计划</div>
+            <div class="card-desc">系统化英语写作训练计划</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+        <a href="情感词汇-code-practice.html" class="card rose">
+          <div class="card-emoji rose">💬</div>
+          <div class="card-body">
+            <div class="card-title">情感词汇练习</div>
+            <div class="card-desc">英语情感表达词汇互动练习</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon purple">✍️</div>
+        <h2 class="section-title">写作范文库</h2>
+        <span class="section-desc">AI 多模型生成 · 对比学习</span>
+      </div>
+
+      <div class="writing-group">
+        <div class="writing-group-title blue">AI 就业机遇 · Employment Opportunities</div>
+        <div class="writing-grid">
+          <a href="writing/artifical-intelligence-employment-opportunties-deepseek.html" class="writing-card">
+            <span class="model-tag deepseek">DeepSeek</span>
+            <span>AI 就业机遇范文</span>
+          </a>
+          <a href="writing/artifical-intelligence-employment-opportuntiesGLM5.1.html" class="writing-card">
+            <span class="model-tag glm">GLM 5.1</span>
+            <span>AI 就业机遇范文</span>
+          </a>
+          <a href="writing/artifical-intelligence-employment-opportuntiesQwen.html" class="writing-card">
+            <span class="model-tag qwen">Qwen</span>
+            <span>AI 就业机遇范文</span>
+          </a>
+          <a href="writing/artifical-intelligence-employment-opportunties-doubaoapp.html" class="writing-card">
+            <span class="model-tag doubao">豆包</span>
+            <span>AI 就业机遇范文</span>
+          </a>
+          <a href="writing/artifical-intelligence-employment-opportunties-xiaomi.html" class="writing-card">
+            <span class="model-tag xiaomi">小米</span>
+            <span>AI 就业机遇范文</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="writing-group">
+        <div class="writing-group-title purple">AI 应用 · AI Application</div>
+        <div class="writing-grid">
+          <a href="writing/The-artifical-intelligence-appliation_Xiaomi.html" class="writing-card">
+            <span class="model-tag xiaomi">小米</span>
+            <span>AI 技术应用范文</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="writing-group">
+        <div class="writing-group-title amber">躺平现象 · The Lying Flat Phenomenon</div>
+        <div class="writing-grid">
+          <a href="writing/The Lying Flat Phenomenon-Deepseek.html" class="writing-card">
+            <span class="model-tag deepseek">DeepSeek</span>
+            <span>躺平现象范文</span>
+          </a>
+          <a href="writing/The Lying Flat Phenomenon-Gemini.html" class="writing-card">
+            <span class="model-tag gemini">Gemini</span>
+            <span>躺平现象范文</span>
+          </a>
+          <a href="writing/The Lying Flat Phenomenon-Xiaomi.html" class="writing-card">
+            <span class="model-tag xiaomi">小米</span>
+            <span>躺平现象范文</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>TDXL English Practice &copy; 2026 &mdash; 英语学习练习平台</p>
+    </footer>
+  </div>
+</body>
+</html>
