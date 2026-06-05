@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第6章：有限域 GF(p^m) | 密码学基础复习</title>
+  <meta name="description" content="有限域理论深度解析：伽罗瓦域、GF(2^m)构造、多项式表示与运算、AES域运算体系，含15道真题。">
+  <link rel="stylesheet" href="review-style-v2.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+</head>
+<body>
+
+<nav class="navbar" id="top-nav">
+  <a href="index-review.html">📚 总目录</a>
+  <a href="ch01-algebra-structure.html">Ch.1 代数结构</a>
+  <a href="ch02-number-theory.html">Ch.2 初等数论</a>
+  <a href="ch03-polynomial.html">Ch.3 多项式</a>
+  <a href="ch04-group-theory.html">Ch.4 群论</a>
+  <a href="ch05-ring-field.html">Ch.5 环与域</a>
+  <a href="ch06-finite-field.html" class="active">Ch.6 有限域</a>
+</nav>
+
+<div class="chapter-hero">
+  <div class="chapter-num">CHAPTER 06</div>
+  <h1>有限域 $GF(p^m)$：现代密码学的终极算术场</h1>
+  <p class="subtitle">伽罗瓦域的刚性法则、$GF(2^m)$ 精密构造、元素的四种形态与AES核心代数原理</p>
+  <div class="hero-stats">
+    <div class="hero-stat-item"><strong>唯一性</strong>定理</div>
+    <div class="hero-stat-item"><strong>15</strong>道真题</div>
+    <div class="hero-stat-item"><strong>AES·GF(2^8)</strong>工业应用</div>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="theory-section" id="theory">
+  <div class="section-title theory">
+    <div class="icon">📖</div>
+    <span>理论框架与深度解读</span>
+  </div>
+
+  <!-- 6.1 伽罗瓦域的存在法则 -->
+  <h2 class="subsection" id="galois-field">6.1 伽罗瓦域（Galois Field）的存在法则</h2>
+  <div class="theory-content">
+    <p>无限域（如 $\mathbb{R}, \mathbb{C}$）有无穷多种，但有限域展现出了极度的刚性：它们的规模只能是素数的幂次方，且同构意义下是唯一的。</p>
+    <p>关联知识点：<a class="kw-link" href="ch02-number-theory.html#prime">素数的基石作用</a></p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>存在性与唯一性定理</h4>
+    <p>一个有限域的元素个数只能是 $q = p^m$（$p$ 是素数，$m$ 是正整数）。</p>
+    <p>对于任何给定的素数幂 $p^m$，恰好存在一个含有 $p^m$ 个元素的有限域（同构意义下唯一），记为 $GF(p^m)$ 或 $\mathbb{F}_{p^m}$。其中 $p$ 是域的特征（Characteristic）。</p>
+    <p><strong>注意</strong>：当 $m=1$ 时，$GF(p)$ 即为我们熟悉的剩余类域 $\mathbb{Z}_p$。但当 $m > 1$ 时，$GF(p^m)$ 绝不等同于整数模 $p^m$ 的剩余类环 $\mathbb{Z}_{p^m}$（后者有零因子，不是域）。</p>
+  </div>
+
+  <!-- 6.2 扩域的构造 -->
+  <h2 class="subsection" id="gf-construction">6.2 扩域 $GF(p^m)$ 的多项式构造原理</h2>
+  <div class="theory-content">
+    <p>要在大小为 $p$ 的基础上构造出大小为 $p^m$ 的域，我们必须借助多项式工具和"模运算"的思想。这与复数的构造（$\mathbb{R}[x]/(x^2+1)$）如出一辙。</p>
+    <p>关联知识点：<a class="kw-link" href="ch03-polynomial.html#irreducible">不可约多项式的概念</a></p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>利用不可约多项式构造</h4>
+    <p>设 $P(x)$ 是 $GF(p)$ 上一个次数为 $m$ 的不可约多项式。</p>
+    <p>$GF(p^m)$ 的元素构成为 $GF(p)$ 上所有次数小于 $m$ 的多项式集合：
+    $$a(x) = a_{m-1}x^{m-1} + \dots + a_1x + a_0 \quad (a_i \in GF(p))$$</p>
+    <p>由于每个系数有 $p$ 种选择，共有 $p^m$ 种不同的多项式。其运算规则为：</p>
+    <ol>
+      <li>加减法：多项式系数按对应次序在 $GF(p)$ 中进行模 $p$ 的加减法。</li>
+      <li>乘法：两个多项式先进行普通乘法，然后将结果除以 $P(x)$ <strong>取余式</strong>。由于 $P(x)$ 不可约，这保证了非零元素都有乘法逆元。</li>
+    </ol>
+  </div>
+
+  <!-- 6.3 本原多项式与元素表示 -->
+  <h2 class="subsection" id="primitive-poly">6.3 本原多项式与元素的表示形态</h2>
+  <div class="theory-content">
+    <p>为了简化乘法运算，我们引入生成元（本原元）的概念，从而利用指数运算将乘法转化为加法。</p>
+  </div>
+
+  <div class="definition-card">
+    <h4>本原多项式（Primitive Polynomial）</h4>
+    <p>一个次数为 $m$ 的多项式 $P(x)$，如果它是不可约多项式，并且它的根 $x$ 是 $GF(p^m)$ 乘法群中的<strong>生成元</strong>，则称 $P(x)$ 为本原多项式。即 $x$ 的所有幂次能生成除了 $0$ 以外的所有 $p^m - 1$ 个元素。</p>
+  </div>
+
+  <div class="theory-content">
+    <p>在 $GF(p^m)$ 中，元素有四种等价的表示形态：</p>
+    <table class="data-table" style="width:100%;margin-top:0.5rem;font-size:0.9rem;">
+      <tr><th>形态</th><th>形式</th><th>优势操作</th></tr>
+      <tr><td><b>多项式形式</b></td><td>$a_{m-1}x^{m-1} + \dots + a_0$</td><td>理论推导与代数运算</td></tr>
+      <tr><td><b>向量（系数）形式</b></td><td>$(a_{m-1}, \dots, a_1, a_0)$</td><td>加减法（按位模 $p$）、存储</td></tr>
+      <tr><td><b>整数（或二进制字）</b></td><td>$\sum a_i p^i$（当 $p=2$ 则是十六进制）</td><td>计算机中的数据表示与传输</td></tr>
+      <tr><td><b>指数形式</b></td><td>$x^k$（$x$为生成元）</td><td>乘法、除法（指数相加减模 $p^m-1$）</td></tr>
+    </table>
+  </div>
+
+  <!-- 6.4 AES的域运算体系 -->
+  <h2 class="subsection" id="gf-ops">6.4 工业应用：AES中的 $GF(2^8)$ 运算体系</h2>
+  <div class="theory-content">
+    <p>现代密码标杆 AES 算法的所有字节变换均在 $GF(2^8)$ 中完成。</p>
+    <p>关联知识点：<a class="kw-link" href="ch03-polynomial.html#poly-gcd">多项式欧几里得算法与逆元求解</a></p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>AES $GF(2^8)$ 参数规范</h4>
+    <p><strong>底层域</strong>：$GF(2)$，系数只有 $0, 1$，加法和减法均为异或（XOR）运算。</p>
+    <p><strong>模多项式</strong>：不可约多项式 $m(x) = x^8 + x^4 + x^3 + x + 1$（十六进制表示为 $\text{0x11B}$）。</p>
+    <p><strong>乘法操作 $x \cdot a(x)$ (xtimes)</strong>：多项式乘以 $x$，相当于比特向量左移1位。如果最高位溢出（移出 $x^8$），则由于 $x^8 \equiv x^4 + x^3 + x + 1 \pmod{m(x)}$，需将结果与 $\text{0x1B}$ 进行异或。</p>
+    <p><strong>S-盒的核心</strong>：AES 的 S 盒主要由输入字节在 $GF(2^8)$ 中的<strong>乘法逆元</strong>与仿射变换叠加而成。求逆元是提供强非线性的密码学基石。</p>
+  </div>
+
+</div><!-- /theory-section -->
+
+<!-- ===== 真题解析 ===== -->
+<div class="exam-section" id="exam">
+  <div class="section-title exam">
+    <div class="icon">🧠</div>
+    <span>真题深度解析（共15题）</span>
+  </div>
+
+  <!-- 题6.1 -->
+  <div class="q-box" id="q6-1">
+    <div class="q-header">
+      <span class="q-num">6.1</span>
+      <span class="q-title">判断有限域的存在性</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">判断以下规模的集合是否可能构成有限域：(1) 9 (2) 10 (3) 15 (4) 32 (5) 16。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>伽罗瓦域存在定理：元素个数必为 $p^m$。</div>
+      <div class="q-steps"><ol>
+        <li>(1) 9 = $3^2$，是素数幂，能构造 $GF(3^2)$。</li>
+        <li>(2) 10 = $2 \times 5$，有两个不同的素因子，不能构成有限域。</li>
+        <li>(3) 15 = $3 \times 5$，有两个素因子，不能构成有限域。</li>
+        <li>(4) 32 = $2^5$，是素数幂，能构造 $GF(2^5)$。</li>
+        <li>(5) 16 = $2^4$，是素数幂，能构造 $GF(2^4)$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>在代数中，具有10个元素或15个元素的交换环确实存在（如剩余类环 $\mathbb{Z}_{10}$），但它们必然包含零因子，绝不可能构成一个没有零因子的完美"域"。</div>
+    </div>
+  </div>
+
+  <!-- 题6.2 -->
+  <div class="q-box" id="q6-2">
+    <div class="q-header">
+      <span class="q-num">6.2</span>
+      <span class="q-title">GF(p) 中的运算本质</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">在 $GF(7)$ 中计算 $\frac{3 + 5}{4 \times 6}$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>$GF(p)$ 即 $\mathbb{Z}_p$，所有运算均为模 $p$ 的算术，除法即为乘逆元。</div>
+      <div class="q-steps"><ol>
+        <li>分子：$3 + 5 = 8 \equiv 1 \pmod 7$。</li>
+        <li>分母：$4 \times 6 = 24 = 3 \times 7 + 3 \equiv 3 \pmod 7$。</li>
+        <li>式子化简为求解在 $GF(7)$ 中的 $1/3$，即求 $3$ 的乘法逆元。</li>
+        <li>寻找 $x$ 使 $3x \equiv 1 \pmod 7$：由于 $3 \times 5 = 15 = 2 \times 7 + 1 \equiv 1$，故逆元为 $5$。</li>
+        <li><b>结论</b>：计算结果为 $5$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>对于一次幂素数域，没有多项式的概念干扰，所有算子直接回归第2章初等数论的模运算。</div>
+    </div>
+  </div>
+
+  <!-- 题6.3 -->
+  <div class="q-box" id="q6-3">
+    <div class="q-header">
+      <span class="q-num">6.3</span>
+      <span class="q-title">GF(2^m) 元素的二进制形式转换</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">在 $GF(2^8)$ 中，将十六进制数 $\text{0x5A}$ 转换为多项式形式。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>十六进制 $\to$ 二进制 $\to$ 降幂排列作为多项式系数。</div>
+      <div class="q-steps"><ol>
+        <li>十六进制分解：$\text{5} \to 0101$，$\text{A} \to 1010$。</li>
+        <li>拼接二进制向量：$01011010$。</li>
+        <li>从左至右，赋予从高到低的多项式基底 $x^7$ 到 $x^0$：<br>
+        $0x^7 + 1x^6 + 0x^5 + 1x^4 + 1x^3 + 0x^2 + 1x^1 + 0x^0$</li>
+        <li><b>结论</b>：化简为 $x^6 + x^4 + x^3 + x$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 应用：</strong>在AES硬件实现或编程题中，数据全都是以十六进制存放的，第一步总是展开为多项式才能进行代数推演。</div>
+    </div>
+  </div>
+
+  <!-- 题6.4 -->
+  <div class="q-box" id="q6-4">
+    <div class="q-header">
+      <span class="q-num">6.4</span>
+      <span class="q-title">GF(2^m) 中的加法特性</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">在 $GF(2^8)$ 中，计算十六进制数 $\text{0x5A}$ 与 $\text{0x3F}$ 的加法和减法结果。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>在特征为2的域中，加法和减法完全等价，均表现为按位异或（XOR）。</div>
+      <div class="q-steps"><ol>
+        <li>将十六进制转为二进制：<br>
+        $\text{0x5A} = 0101 1010_2$<br>
+        $\text{0x3F} = 0011 1111_2$</li>
+        <li>执行按位异或运算（不进位）：<br>
+        $0101 1010$<br>
+        $\oplus$ $0011 1111$<br>
+        ----------------<br>
+        $0110 0101$</li>
+        <li>将结果转回十六进制：$0110 \to 6$，$0101 \to 5$。</li>
+        <li>由于特征为2，$-1 \equiv 1 \pmod 2$，减法就是加法，结果相同。</li>
+        <li><b>结论</b>：$\text{0x5A} + \text{0x3F} = \text{0x65}$，减法同样为 $\text{0x65}$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>在 $GF(2^m)$ 中永远不要使用带进位的算术加法！这是初学者最容易犯的低级错误。</div>
+    </div>
+  </div>
+
+  <!-- 题6.5 -->
+  <div class="q-box" id="q6-5">
+    <div class="q-header">
+      <span class="q-num">6.5</span>
+      <span class="q-title">GF(2^3) 模多项式乘法初步</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">构造 $GF(2^3)$，不可约多项式为 $P(x) = x^3 + x + 1$。计算 $(x^2+1) \cdot (x^2+x)$ 的结果多项式。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>两阶段操作：普通展开合并 $\to$ 长除法或降次代换求余数。</div>
+      <div class="q-steps"><ol>
+        <li>普通展开：$(x^2+1)(x^2+x) = x^4 + x^3 + x^2 + x$。</li>
+        <li>因为是 $GF(2)$，系数不变（无需异或消除同类项，全不同次）。</li>
+        <li>由于最高次 $4 \ge 3$，必须模 $P(x)$。</li>
+        <li>使用降次公式法：$P(x)=0 \Rightarrow x^3 \equiv x + 1$。</li>
+        <li>计算 $x^4$：$x^4 = x \cdot x^3 \equiv x(x+1) = x^2+x$。</li>
+        <li>代入原多项式：<br>
+        $(x^2+x) + (x+1) + x^2 + x$<br>
+        $= (x^2+x^2) + (x+x+x) + 1$<br>
+        $= 0 + x + 1$ （因为 $1+1+1=1$在 $GF(2)$ 中）</li>
+        <li><b>结论</b>：结果为 $x + 1$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>降次公式法（用低次替换高次）通常比硬写长除法更不容易算错符号，而且极具编程直觉。</div>
+    </div>
+  </div>
+
+  <!-- 题6.6 -->
+  <div class="q-box" id="q6-6">
+    <div class="q-header">
+      <span class="q-num">6.6</span>
+      <span class="q-title">AES xtimes 操作 (乘 $x$)</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">在 AES 的 $GF(2^8)$ 中，不可约多项式 $m(x) = x^8 + x^4 + x^3 + x + 1$。计算 $\text{0x87} \cdot \text{0x02}$（即 xtimes($\text{0x87}$)）。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>乘以 $x$ 时的移位与条件反馈机制。</div>
+      <div class="q-steps"><ol>
+        <li>乘数 $\text{0x02}$ 的多项式形式即为 $x$。</li>
+        <li>将被乘数化为二进制：$\text{0x87} = 1000 0111_2$。</li>
+        <li>它的多项式表示为：$x^7 + x^2 + x + 1$。</li>
+        <li>普通的乘以 $x$：$x(x^7+x^2+x+1) = x^8 + x^3 + x^2 + x$。<br>
+        在二进制中表现为整体左移一位：$0000 1110_2$（溢出了一个1）。</li>
+        <li>由于出现了 $x^8$，必须用不可约多项式降次。$x^8 \equiv x^4 + x^3 + x + 1$（十六进制为 $\text{0x1B}$）。</li>
+        <li>将剩余部分 $(x^3+x^2+x)$ 与 $(x^4+x^3+x+1)$ 模2相加（异或）：<br>
+        $(x^3+x^2+x) + (x^4+x^3+x+1) = x^4 + x^2 + 1$。</li>
+        <li>对应的二进制为 $0001 0101_2$，化为十六进制为 $\text{0x15}$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ AES运算口诀：</strong>xtimes 操作：将输入左移1位，如果最高位原本是1，则把移位结果与常量 $\text{0x1B}$ 进行 XOR。这不仅是手算技巧，也是芯片里的硬件连线逻辑。</div>
+    </div>
+  </div>
+
+  <!-- 题6.7 -->
+  <div class="q-box" id="q6-7">
+    <div class="q-header">
+      <span class="q-num">6.7</span>
+      <span class="q-title">本原元的生成规律与阶</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">在 $GF(2^4)$ 中，假设 $x$ 是一根本原多项式的根，故为本原元。求元素 $x^{10}$ 在乘法群中的阶，并说明它能否作为该域的一个新本原元。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>利用循环群阶公式 $|a^k| = \frac{n}{\gcd(k,n)}$ 求解。群的大小 $n = 2^m - 1$。</div>
+      <div class="q-steps"><ol>
+        <li>首先确定 $GF(2^4)$ 的乘法群结构。该群剔除了 $0$ 元，大小为 $2^4 - 1 = 15$。</li>
+        <li>本原元 $x$ 的阶即为 $15$，它生成群的所有15个元素。</li>
+        <li>计算 $x^{10}$ 的阶。使用群论公式：$\text{ord}(x^{10}) = \frac{15}{\gcd(10, 15)} = \frac{15}{5} = 3$。</li>
+        <li>验证：$(x^{10})^3 = x^{30} = (x^{15})^2 = 1^2 = 1$。</li>
+        <li><b>结论</b>：$x^{10}$ 的阶为3。因为 $3 \neq 15$，所以它不能生成整个群，不能作为本原元。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 拓展：</strong>$GF(2^4)$ 共有 $\varphi(15) = \varphi(3 \times 5) = 2 \times 4 = 8$ 个本原元，分别为 $x^k$，其中 $\gcd(k,15)=1$。</div>
+    </div>
+  </div>
+
+  <!-- 题6.8 -->
+  <div class="q-box" id="q6-8">
+    <div class="q-header">
+      <span class="q-num">6.8</span>
+      <span class="q-title">AES 加法循环矩阵乘法（MixColumns）前奏</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">在 AES 的列混淆（MixColumns）中，需计算 $GF(2^8)$ 下矩阵乘法，其中一个操作是计算 $\text{0x03} \cdot \text{0xD4}$。基于上题 xtimes，请计算该结果。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>利用分配律 $\text{0x03} \cdot Y = (\text{0x02} \oplus \text{0x01}) \cdot Y = \text{xtimes}(Y) \oplus Y$ 将复杂乘法拆解为基本操作。</div>
+      <div class="q-steps"><ol>
+        <li>分解常数乘数：多项式 $x+1$ 对应 $\text{0x03}$，所以 $\text{0x03} \cdot \text{0xD4} = \text{xtimes}(\text{0xD4}) \oplus \text{0xD4}$。</li>
+        <li>计算 $\text{xtimes}(\text{0xD4})$：<br>
+        $\text{0xD4} = 1101 0100_2$。最高位为1。<br>
+        左移一位：$1010 1000_2$（溢出被丢弃）。<br>
+        与 $\text{0x1B} = 0001 1011_2$ 异或：<br>
+        $1010 1000 \oplus 0001 1011 = 1011 0011_2 = \text{0xB3}$。</li>
+        <li>计算最终和：<br>
+        $\text{0xB3} \oplus \text{0xD4}$<br>
+        $= 1011 0011_2 \oplus 1101 0100_2 = 0110 0111_2$</li>
+        <li>化为十六进制：$0110 \to 6$，$0111 \to 7$。</li>
+        <li><b>结论</b>：计算结果为 $\text{0x67}$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>在AES中，乘以大常数（如解密时的0x0E等）总是通过分解为若干次 xtimes 并 XOR 叠加实现。这种设计极具效率。</div>
+    </div>
+  </div>
+
+  <!-- 题6.9 -->
+  <div class="q-box" id="q6-9">
+    <div class="q-header">
+      <span class="q-num">6.9</span>
+      <span class="q-title">GF(p^m) 中的费马小定理</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">证明：对有限域 $GF(q)$（$q=p^m$）中的任意非零元素 $a$，都有 $a^{q-1} = 1$；对所有元素（含0）都有 $a^q = a$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>这直接就是拉格朗日定理在有限域乘法群上的结论。</div>
+      <div class="q-steps"><ol>
+        <li>域 $GF(q)$ 的乘法群（由所有非零元素构成）的阶为 $q-1$。</li>
+        <li>由拉格朗日定理的推论，群中任何元素的群阶次幂等于单位元。</li>
+        <li>因此对任意非零 $a$，立刻有 $a^{q-1} = 1$。</li>
+        <li>在等式两边同乘 $a$，得 $a^q = a$。由于此等式在 $a=0$ 时（$0^q = 0$）显然也成立。</li>
+        <li><b>结论</b>：故对全域所有元素都有 $a^q = a$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>这其实就是费马小定理从整数域（一维）向广义有限域（多维）的自然推广。这个公式是极其强大的恒等变换工具。</div>
+    </div>
+  </div>
+
+  <!-- 题6.10 -->
+  <div class="q-box" id="q6-10">
+    <div class="q-header">
+      <span class="q-num">6.10</span>
+      <span class="q-title">扩展欧几里得求有限域逆元初步</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">在 $GF(2^3)$ 中（模多项式 $P(x) = x^3+x+1$），求元素 $a(x) = x^2$ 的乘法逆元。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>利用多项式欧几里得算法求解 $a(x)u(x) + P(x)v(x) = 1$。</div>
+      <div class="q-steps"><ol>
+        <li>初始状态：除数 $P(x) = x^3+x+1$，被除数 $a(x) = x^2$。</li>
+        <li>第一步相除：$(x^3+x+1) \div x^2$<br>
+        商为 $x$，减去 $x \cdot x^2 = x^3$。<br>
+        余数为 $x+1$。<br>
+        这可以用等式写为：$x+1 = P(x) - x \cdot a(x)$。在 $GF(2)$ 中减号即加号，即 $x+1 = P(x) + x \cdot a(x)$。</li>
+        <li>第二步相除：用上一步的除数 $x^2$ 除以余数 $x+1$。<br>
+        $(x^2) \div (x+1)$：<br>
+        商为 $x+1$。相乘得 $(x+1)^2 = x^2+1$。<br>
+        减去得余式：$x^2 - (x^2+1) = 1$。</li>
+        <li>将余式1用前面步骤回代：<br>
+        $1 = x^2 + (x+1)(x+1)$<br>
+        代入 $(x+1) = P(x) + x \cdot a(x)$：<br>
+        $1 = a(x) + (x+1)[P(x) + x \cdot a(x)]$（注意首项的 $x^2$ 就是 $a(x)$）<br>
+        $= a(x) + (x+1)P(x) + (x^2+x)a(x)$<br>
+        合并 $a(x)$ 的系数：$1 + (x^2+x) = x^2+x+1$。</li>
+        <li>所以 $a(x)$ 的逆元为 $x^2+x+1$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 验证：</strong>计算 $x^2 \cdot (x^2+x+1) = x^4+x^3+x^2$。使用 $x^3 \equiv x+1$ 和 $x^4 \equiv x^2+x$ 进行降次：<br> $(x^2+x) + (x+1) + x^2 = x^2+x^2+x+x+1 = 1$ ✓。这正是 AES S盒的核心操作。</div>
+    </div>
+  </div>
+
+  <!-- 题6.11 -->
+  <div class="q-box" id="q6-11">
+    <div class="q-header">
+      <span class="q-num">6.11</span>
+      <span class="q-title">用指数法求有限域逆元</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">基于题6.9中的费马小定理推广，给出一个在 $GF(p^m)$ 中求解逆元的不使用欧几里得算法的直接计算公式。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>$a^{q-1} = 1 \Rightarrow a \cdot a^{q-2} = 1$。</div>
+      <div class="q-steps"><ol>
+        <li>在 $GF(p^m)$ 中，大小 $q = p^m$。</li>
+        <li>对于任意非零元素 $a$，其属于阶为 $q-1$ 的乘法群。</li>
+        <li>由此恒有等式：$a^{p^m - 1} = 1$。</li>
+        <li>将指数拆分出一个一次项：$a \cdot a^{p^m - 2} = 1$。</li>
+        <li>根据逆元的定义 $a \cdot a^{-1} = 1$，显然括号里的部分就是逆元。</li>
+        <li><b>结论</b>：在 $GF(p^m)$ 中，逆元的计算公式直接是 $a^{-1} = a^{p^m - 2}$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>在 $GF(2^8)$ 中求逆元，只需计算 $a^{254}$ 即可。这可以通过快速幂算法在确定的时钟周期内完成（比如抵抗侧信道攻击时比时间可变的欧几里得法更受青睐）。这被硬件设计者广泛采用。</div>
+    </div>
+  </div>
+
+  <!-- 题6.12 -->
+  <div class="q-box" id="q6-12">
+    <div class="q-header">
+      <span class="q-num">6.12</span>
+      <span class="q-title">GF(q) 的子域结构</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">有限域 $GF(2^6)$ 可能包含哪些子域？</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>子域存在定理：$GF(p^m)$ 包含 $GF(p^k)$ 当且仅当 $k$ 整除 $m$。</div>
+      <div class="q-steps"><ol>
+        <li>首先考察基础特征 $p=2$，扩张次数 $m=6$。</li>
+        <li>根据定理，必须找出 6 的所有正约数 $k$。</li>
+        <li>$m=6$ 的约数有：$1, 2, 3, 6$。</li>
+        <li>对应的子域大小为：<br>
+        $k=1 \Rightarrow GF(2^1) = GF(2)$（基域）<br>
+        $k=2 \Rightarrow GF(2^2) = GF(4)$<br>
+        $k=3 \Rightarrow GF(2^3) = GF(8)$<br>
+        $k=6 \Rightarrow GF(2^6)$（自身）</li>
+        <li><b>结论</b>：$GF(2^6)$ 含有 $GF(2), GF(4), GF(8)$ 三个真子域。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>这在代数设计中极其有用，例如把复杂的 $GF(2^8)$ 乘法投影到它的子域 $GF(2^4)$（即把大域看作小域的二次扩张）可以极大减少硬件电路面积，这是 AES 硬件实现的最高端技巧（复合域技术）。</div>
+    </div>
+  </div>
+
+  <!-- 题6.13 -->
+  <div class="q-box" id="q6-13">
+    <div class="q-header">
+      <span class="q-num">6.13</span>
+      <span class="q-title">特征性质的深度应用</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">证明在 $GF(2^m)$ 中，$(x+y)^2 = x^2 + y^2$ 恒成立。这被称为"大一新生的梦想"。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>二项式展开与有限域特征的关系。</div>
+      <div class="q-steps"><ol>
+        <li>使用二项式定理对多项式展开：$(x+y)^2 = x^2 + 2xy + y^2$。</li>
+        <li>在 $GF(2^m)$ 中，底层基域是 $GF(2)$。</li>
+        <li>系数 $2$ 实际上代表 $1+1$。</li>
+        <li>由于特征为2，域中恒有 $1+1=0$，因此系数 $2 \equiv 0$。</li>
+        <li>交叉项 $2xy = 0 \cdot xy = 0$ 彻底消失。</li>
+        <li><b>结论</b>：$(x+y)^2 = x^2 + y^2$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 拓展：</strong>更一般地，在任何特征为 $p$ 的域 $GF(p^m)$ 中，恒有 $(x+y)^{p^k} = x^{p^k} + y^{p^k}$。这意味着操作映射 $\phi(x) = x^p$ 保留了加法，它是一个环自同态，称为弗罗贝尼乌斯自同态（Frobenius Endomorphism）。</div>
+    </div>
+  </div>
+
+  <!-- 题6.14 -->
+  <div class="q-box" id="q6-14">
+    <div class="q-header">
+      <span class="q-num">6.14</span>
+      <span class="q-title">本原多项式的非等价性</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">已知 $x^3+x+1$ 和 $x^3+x^2+1$ 都是 $GF(2)$ 上的本原多项式，它们各自构建出来的两个 $GF(2^3)$ 域相同吗？</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>同构唯一性定理：使用不同本原多项式构建的域在符号层面上可能不同，但代数结构完全同构。</div>
+      <div class="q-steps"><ol>
+        <li>令域 $F_1 = GF(2)[x]/(x^3+x+1)$，生成元为 $\alpha$。则 $\alpha^3 = \alpha + 1$。</li>
+        <li>令域 $F_2 = GF(2)[y]/(y^3+y^2+1)$，生成元为 $\beta$。则 $\beta^3 = \beta^2 + 1$。</li>
+        <li>考虑在 $F_1$ 中寻找元素 $z$，使得 $z$ 满足 $F_2$ 的构造方程，即 $z^3+z^2+1=0$。</li>
+        <li>尝试 $z = \alpha+1$：<br>
+        $z^3 = (\alpha+1)^3 = \alpha^3+\alpha^2+\alpha+1$<br>
+        代入 $\alpha^3=\alpha+1$ 得 $z^3 = (\alpha+1)+\alpha^2+\alpha+1 = \alpha^2$<br>
+        计算方程 $z^3+z^2+1 = \alpha^2 + (\alpha+1)^2 + 1 = \alpha^2 + (\alpha^2+1) + 1 = 0$！</li>
+        <li>由此找到了将 $F_2$ 中的 $\beta$ 映射到 $F_1$ 中的 $\alpha+1$ 的双射同态。</li>
+        <li><b>结论</b>：在代数内部结构上，它们是百分之百等同（同构）的，只是对于元素的命名和乘法规则做了坐标系变换。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>在工程上，选择不同的多项式只是为了底层硬件连线和查表逻辑的优化考量，AES选用 $x^8+x^4+x^3+x+1$ 并非因为它是唯一的，而是因为这个多项式的运算速度和电路复杂度取得了极佳的平衡。</div>
+    </div>
+  </div>
+
+  <!-- 题6.15 -->
+  <div class="q-box" id="q6-15">
+    <div class="q-header">
+      <span class="q-num">6.15</span>
+      <span class="q-title">AES S-盒构造代数解析</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">AES 的字节代换（SubBytes）步骤首先求输入字节在 $GF(2^8)$ 中的乘法逆元（若是 $\text{0x00}$ 则映射自身），然后再乘上一个固定的矩阵。为什么这个简单的代数操作能提供如此强的抗差分密码分析能力？</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>有限域逆元映射 $x \mapsto x^{-1}$（或 $x^{254}$）的极高代数次数和极强非线性。</div>
+      <div class="q-steps"><ol>
+        <li>首先，仿射变换（乘以矩阵和异或常数）只提供位上的线性混淆，没有任何抗差分强度。安全防线全在求逆元这一步。</li>
+        <li>分析逆元映射：$f(x) = x^{-1} = x^{254}$。</li>
+        <li>在特征为2的域中，通过布尔函数的代数次数分析发现，由于多项式 $x^{254}$ 的度极高且各项系数分布稠密（用香农理论叫做混淆度高），它的各项位之间的联动非常错综复杂。</li>
+        <li>计算其差分均匀度（Differential Uniformity），结果为4，这是8比特可逆映射（S盒）所能达到的最优或极优值。这确保了输入差分不会高概率地传播到输出差分。</li>
+        <li>为了破坏代数攻击（避免公式形式过于简单），最后乘以一个特定的矩阵将 $GF(2^8)$ 内紧凑的代数关系拆解为跨域的混乱位关系。</li>
+        <li><b>结论</b>：有限域的"除法"（逆元）是一把在混乱与数学美感之间取得极佳平衡的完美利刃。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>AES 算法之所以取代了由于设计靠直觉而有些混乱的 DES，正是因为它全身都是由完美、对称的代数结构尤其是有限域多项式拼接而成。它的美感与安全性同步达到了巅峰。</div>
+    </div>
+  </div>
+
+</div><!-- /exam-section -->
+
+<!-- 关联知识点 -->
+<div class="cross-ref-section" id="cross-ref">
+  <div class="section-title cross-ref">
+    <div class="icon">🔗</div>
+    <span>关联知识点——跨章节导航</span>
+  </div>
+  <div class="cross-ref-grid">
+    <a href="ch03-polynomial.html#irreducible" class="cross-ref-card">
+      <div class="ref-chapter">→ 第3章：多项式</div>
+      <div class="ref-topic">不可约多项式的根本地位</div>
+      <div class="ref-desc">有限域扩张的所有魔法都基于不可约多项式充当了不会被完全分解的"质数"。</div>
+    </a>
+    <a href="ch05-ring-field.html#field-def" class="cross-ref-card">
+      <div class="ref-chapter">→ 第5章：环与域</div>
+      <div class="ref-topic">域的最高代数形态</div>
+      <div class="ref-desc">有限域是剔除了所有零因子的最完美的代数系统，它是上一章所讲域概念在有限情况下的落地。</div>
+    </a>
+    <a href="ch04-group-theory.html#lagrange" class="cross-ref-card">
+      <div class="ref-chapter">→ 第4章：群论</div>
+      <div class="ref-topic">拉格朗日定理控制乘法群</div>
+      <div class="ref-desc">本章本原元、阶的计算以及费马小定理推广全部受控于群论中的拉格朗日定理。</div>
+    </a>
+    <a href="ch02-number-theory.html#gcd" class="cross-ref-card">
+      <div class="ref-chapter">→ 第2章：初等数论</div>
+      <div class="ref-topic">扩展欧几里得计算逆元</div>
+      <div class="ref-desc">数论中处理大整数 GCD 用的扩展欧几里得算法被原封不动地搬到了多项式计算中。</div>
+    </a>
+  </div>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

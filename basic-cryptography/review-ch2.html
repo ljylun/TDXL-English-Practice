@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第2章：初等数论 - 密码学复习</title>
+  <link rel="stylesheet" href="review-style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+</head>
+<body>
+<nav class="navbar">
+  <a href="review-notes.html">📚 首页目录</a>
+  <a href="review-ch1.html">第1章：代数结构</a>
+  <a href="review-ch2.html" class="active">第2章：初等数论</a>
+  <a href="review-ch3.html">第3章：多项式理论</a>
+  <a href="review-ch4.html">第4章：群论</a>
+  <a href="review-ch5.html">第5章：环与域</a>
+</nav>
+
+<div class="container">
+  <h1>第2章：初等数论</h1>
+  
+  <div class="theory-box">
+    <div class="theory-title">📖 理论公式与深度解读</div>
+    <div class="theory-item">
+      <h4>1. 扩展欧几里得算法 (Extended Euclidean Algorithm)</h4>
+      <p><b>公式推导与参数：</b> $ax + by = \gcd(a,b)$。通过倒推带余除法，可求出使得该等式成立的整数 $x, y$。</p>
+      <p><b>适用场景：</b> 用于求解模逆元。若求 $a$ 模 $b$ 的逆元，即解 $ax + by = 1$，求出的 $x$ 就是逆元。这是非对称密码（如 RSA 计算私钥 $d$）的核心实现。</p>
+    </div>
+    <div class="theory-item">
+      <h4>2. 欧拉函数 (Euler's Totient Function)</h4>
+      <p><b>公式推导与参数：</b> $\phi(n) = n(1-\frac{1}{p_1})(1-\frac{1}{p_2})\dots$。其中 $p_i$ 是 $n$ 的质因数。</p>
+      <p><b>适用场景：</b> 用于计算小于 $n$ 且与 $n$ 互素的整数个数。在 RSA 中，选定两素数 $p, q$，公钥模数 $n=pq$，则 $\phi(n)=(p-1)(q-1)$，这一步是密钥生成的基石。</p>
+    </div>
+    <div class="theory-item">
+      <h4>3. 费马小定理与欧拉定理 (Fermat's & Euler's Theorem)</h4>
+      <p><b>公式推导与参数：</b> 费马: $a^{p-1} \equiv 1 \pmod p$；欧拉: $a^{\phi(n)} \equiv 1 \pmod n$。要求 $\gcd(a, n) = 1$。</p>
+      <p><b>适用场景：</b> 用于解决密码系统中的大数幂运算降次问题，极大提高运算效率。RSA的加密解密能恢复出原文，数学上完全依赖于欧拉定理的正确性。</p>
+    </div>
+    <div class="theory-item">
+      <h4>4. 中国剩余定理 (Chinese Remainder Theorem, CRT)</h4>
+      <p><b>公式推导与参数：</b> 设 $x \equiv a_i \pmod{m_i}$。解为 $x = \sum a_i M_i y_i \pmod M$。其中 $M = \prod m_i$，$M_i = M/m_i$，$y_i$ 是 $M_i$ 模 $m_i$ 的逆元。</p>
+      <p><b>适用场景：</b> 加速解密过程（RSA-CRT技术），或者密钥分发与共享系统中，通过多个小模数的余数重构出原本的大秘密。</p>
+    </div>
+  </div>
+
+  <h2>🧠 配套计算类真题解析 (共15题)</h2>
+
+  <div class="q-box">
+    <div class="qt">题2.1：辗转相除算法求 GCD</div>
+    <div class="qq">求最大公因子 $\gcd(2058, 714)$。</div>
+    <div class="qa">
+      <div><b>🎯 核心考点：</b>欧几里得算法（辗转相除法）的核心定理：$\gcd(a, b) = \gcd(b, a \bmod b)$。</div>
+      <div><b>📝 题型拆解：</b>计算题。通过不断使用带余除法（$a = bq + r$），将大数的最大公因子计算转化为不断减小规模的小数公因子计算，直到余数为零。</div>
+      <div><b>🛠️ 详细解题步骤：</b>
+        <ol>
+          <li>首先，对2058和714使用带余除法：$2058 \div 714 = 2 \dots 630$，写成等式为 $2058 = 714 \times 2 + 630$。根据定理，$\gcd(2058, 714) = \gcd(714, 630)$。</li>
+          <li>继续对除数和余数进行带余除法：$714 \div 630 = 1 \dots 84$，即 $714 = 630 \times 1 + 84$。转化为 $\gcd(630, 84)$。</li>
+          <li>再计算：$630 \div 84 = 7 \dots 42$，即 $630 = 84 \times 7 + 42$。转化为 $\gcd(84, 42)$。</li>
+          <li>最后计算：$84 \div 42 = 2 \dots 0$，即 $84 = 42 \times 2 + 0$。当余数为0时，除数即为最大公因子。</li>
+          <li>由于最后一个非零余数是 42，因此 $\gcd(2058, 714) = 42$。</li>
+        </ol>
+      </div>
+      <div class="analysis"><b>✅ 校验与总结：</b>计算结束后，可验证 $2058 \div 42 = 49$，$714 \div 42 = 17$，49和17互素，证明结果正确。此题是后续求乘法逆元（扩展欧几里得）的必要前置步骤，务必保证带余除法每一步数值计算的绝对准确无误。</div>
+    </div>
+  </div>
+
+  <div class="q-box">
+    <div class="qt">题2.2：扩展欧几里得求逆元完整步骤</div>
+    <div class="qq">求 11 在模 26 下的乘法逆元。</div>
+    <div class="qa">
+      <div><b>🎯 核心考点：</b>扩展欧几里得算法及裴蜀定理：存在整数 $x, y$ 使得 $ax + by = \gcd(a, b)$，当且仅当 $\gcd(a, b)=1$ 时，$a$ 模 $b$ 才有逆元。</div>
+      <div><b>📝 题型拆解：</b>计算题。第一步先用普通欧几里得算法求证 $\gcd(11, 26)=1$ 并记录商和余数；第二步将余数反向代入，构造出线性组合形式 $11x + 26y = 1$，则 $x$ 就是所求的逆元。</div>
+      <div><b>🛠️ 详细解题步骤：</b>
+        <ol>
+          <li>正向带余除法（寻找 $\gcd$）：<br>$26 = 2 \times 11 + 4 \implies 4 = 26 - 2 \times 11$<br>$11 = 2 \times 4 + 3 \implies 3 = 11 - 2 \times 4$<br>$4 = 1 \times 3 + 1 \implies 1 = 4 - 1 \times 3$<br>最后 $3 = 3 \times 1 + 0$。最大公因子为1，说明逆元存在。</li>
+          <li>反向代入推导（求解线性组合）：<br>从倒数第二步非零余数开始：$1 = 4 - 1 \times 3$<br>将上一步的 $3$ 用 $11 - 2 \times 4$ 替换：<br>$1 = 4 - 1 \times (11 - 2 \times 4) = 4 - 11 + 2 \times 4 = 3 \times 4 - 1 \times 11$<br>再将 $4$ 用 $26 - 2 \times 11$ 替换：<br>$1 = 3 \times (26 - 2 \times 11) - 1 \times 11 = 3 \times 26 - 6 \times 11 - 1 \times 11 = 3 \times 26 - 7 \times 11$</li>
+          <li>提取逆元：整理等式得 $-7 \times 11 + 3 \times 26 = 1$。两边对26取模得：$-7 \times 11 \equiv 1 \pmod{26}$。</li>
+          <li>将负数逆元转化为正数：$-7 \equiv -7 + 26 = 19 \pmod{26}$。因此逆元为 19。</li>
+        </ol>
+      </div>
+      <div class="analysis"><b>✅ 校验与总结：</b>验证：$11 \times 19 = 209$，$209 \div 26 = 8 \dots 1$，即 $11 \times 19 \equiv 1 \pmod{26}$，结果完全正确。反向代换时极其容易弄混余数与系数，建议保留原数字不化简，并在系数外打括号以防出错。</div>
+    </div>
+  </div>
+
+  <div class="q-box">
+    <div class="qt">题2.3：模运算求大数幂</div>
+    <div class="qq">计算 $5^{2024} \pmod 7$。</div>
+    <div class="qa">
+      <div><b>🎯 核心考点：</b>费马小定理（Fermat's Little Theorem）：若 $p$ 为素数且 $\gcd(a, p)=1$，则 $a^{p-1} \equiv 1 \pmod p$。</div>
+      <div><b>📝 题型拆解：</b>计算题。用于解决底数较小但指数极大的同余计算。核心策略是利用费马小定理找到底数的指数周期，进而对大指数进行降阶（取模）。</div>
+      <div><b>🛠️ 详细解题步骤：</b>
+        <ol>
+          <li>验证前提条件：模数 $p = 7$ 是一个素数。底数 $a = 5$，由于 $\gcd(5, 7) = 1$，满足费马小定理的应用条件。</li>
+          <li>套用定理：根据费马小定理，可知周期为 $p-1 = 6$，即 $5^6 \equiv 1 \pmod 7$。这说明指数每增加6，结果在模7意义下循环一次。</li>
+          <li>指数降阶（用除法求商和余数）：将大指数 $2024$ 除以周期 $6$。<br>$2024 \div 6 = 337 \dots 2$，即 $2024 = 6 \times 337 + 2$。</li>
+          <li>原式化简：<br>$5^{2024} = 5^{6 \times 337 + 2} = (5^6)^{337} \times 5^2$。</li>
+          <li>代入循环值：因为 $5^6 \equiv 1 \pmod 7$，所以等式变为 $1^{337} \times 5^2 \equiv 25 \pmod 7$。</li>
+          <li>最终化简求值：计算 $25 \div 7 = 3 \dots 4$，因此 $25 \equiv 4 \pmod 7$。最终结果为 4。</li>
+        </ol>
+      </div>
+      <div class="analysis"><b>✅ 校验与总结：</b>费马小定理的作用在于“降指数”，凡是遇到大数幂运算且模数为素数时，第一反应应是除以 $p-1$ 取其余数作为新指数。不要误把指数除以 $p$。</div>
+    </div>
+  </div>
+
+  <div class="q-box">
+    <div class="qt">题2.4：大数欧拉函数计算</div>
+    <div class="qq">计算 $\phi(5040)$ 的值。</div>
+    <div class="qa">
+      <div><b>🎯 核心考点：</b>欧拉函数的计算公式与积性性质：若 $n = p_1^{k_1} p_2^{k_2} \dots p_r^{k_r}$，则 $\phi(n) = n(1-\frac{1}{p_1})(1-\frac{1}{p_2})\dots(1-\frac{1}{p_r})$。</div>
+      <div><b>📝 题型拆解：</b>计算题。直接求解定义不仅耗时且易错，唯一的标准解法是先将大数分解为其质因子的乘积（标准分解式），然后带入欧拉函数公式进行计算。</div>
+      <div><b>🛠️ 详细解题步骤：</b>
+        <ol>
+          <li>首先对 5040 进行质因数分解。我们可以先拆解明显因子：<br>$5040 = 504 \times 10$。<br>$10 = 2 \times 5$。<br>$504 = 8 \times 63 = 2^3 \times (9 \times 7) = 2^3 \times 3^2 \times 7$。</li>
+          <li>合并所有质因数：<br>$5040 = (2^3 \times 3^2 \times 7) \times (2 \times 5) = 2^4 \cdot 3^2 \cdot 5^1 \cdot 7^1$。<br>可知 5040 的质因子集合为 $\{2, 3, 5, 7\}$。</li>
+          <li>代入欧拉函数通项公式：<br>$\phi(5040) = 5040 \times (1 - \frac{1}{2}) \times (1 - \frac{1}{3}) \times (1 - \frac{1}{5}) \times (1 - \frac{1}{7})$。</li>
+          <li>化简括号内分数：<br>$= 5040 \times \frac{1}{2} \times \frac{2}{3} \times \frac{4}{5} \times \frac{6}{7}$。</li>
+          <li>进行约分和乘法计算：<br>分母乘积为 $2 \times 3 \times 5 \times 7 = 210$。分子部分的数字部分为 $1 \times 2 \times 4 \times 6 = 48$。<br>原式 $= 5040 \times \frac{48}{210}$。因为 $5040 \div 210 = 24$，所以结果 $= 24 \times 48$。</li>
+          <li>计算最终乘积：$24 \times 48 = 1152$。</li>
+        </ol>
+      </div>
+      <div class="analysis"><b>✅ 校验与总结：</b>也可以利用积性函数的性质分别计算 $\phi(2^4)=8, \phi(3^2)=6, \phi(5)=4, \phi(7)=6$，相乘 $8\times6\times4\times6=1152$。两种方法结果一致。欧拉函数的正确计算是RSA密钥生成的核心，质因子分解步骤不容有失。</div>
+    </div>
+  </div>
+
+  <div class="q-box">
+    <div class="qt">题2.5：中国剩余定理 CRT 基础应用</div>
+    <div class="qq">求解联立同余方程组：$x \equiv 1 \pmod 3$, $x \equiv 2 \pmod 5$, $x \equiv 3 \pmod 7$。</div>
+    <div class="qa">
+      <div><b>🎯 核心考点：</b>中国剩余定理 (CRT)：通过构造法求解一元线性同余方程组，前提是各个模数两两互素。解的构造公式为 $x \equiv \sum a_i M_i y_i \pmod M$。</div>
+      <div><b>📝 题型拆解：</b>计算题。这是一个标准的三元同余方程组求解。解题必须严格按“求大模数 -> 求系数 -> 求逆元 -> 组合求和 -> 归约”这五个规范步骤进行。</div>
+      <div><b>🛠️ 详细解题步骤：</b>
+        <ol>
+          <li>检查互素条件与求总模数 $M$：模数3、5、7两两互素，满足CRT条件。<br>$M = m_1 \times m_2 \times m_3 = 3 \times 5 \times 7 = 105$。</li>
+          <li>计算各个分部系数 $M_i = M / m_i$：<br>$M_1 = 105 / 3 = 35$<br>$M_2 = 105 / 5 = 21$<br>$M_3 = 105 / 7 = 15$</li>
+          <li>求解各个分部的模逆元 $y_i$，满足 $M_i y_i \equiv 1 \pmod{m_i}$：<br>对于 $m_1=3$：$35 \equiv 2 \pmod 3$，即解 $2 y_1 \equiv 1 \pmod 3$，显然 $y_1 = 2$（因为 $2\times2=4\equiv1$）。<br>对于 $m_2=5$：$21 \equiv 1 \pmod 5$，即解 $1 y_2 \equiv 1 \pmod 5$，显然 $y_2 = 1$。<br>对于 $m_3=7$：$15 \equiv 1 \pmod 7$，即解 $1 y_3 \equiv 1 \pmod 7$，显然 $y_3 = 1$。</li>
+          <li>代入构造公式求和：<br>$x = a_1 M_1 y_1 + a_2 M_2 y_2 + a_3 M_3 y_3$<br>$x = 1 \times 35 \times 2 + 2 \times 21 \times 1 + 3 \times 15 \times 1$<br>$x = 70 + 42 + 45 = 157$。</li>
+          <li>取模归约：<br>由于 $x$ 需要在模 $M=105$ 的范围内，计算 $157 \pmod{105} = 157 - 105 = 52$。<br>因此唯一解为 $x \equiv 52 \pmod{105}$。</li>
+        </ol>
+      </div>
+      <div class="analysis"><b>✅ 校验与总结：</b>验证解的正确性：$52 = 17\times3 + 1$ (余1)，$52 = 10\times5 + 2$ (余2)，$52 = 7\times7 + 3$ (余3)。完全符合题意。此算法由于无需试错，非常适合在计算机中通过硬件并行加速（RSA-CRT加密原理）。</div>
+    </div>
+  </div>
+
+  <div class="q-box">
+    <div class="qt">题2.6：一次同余方程多解情况</div>
+    <div class="qq">解同余方程 $14x \equiv 21 \pmod{35}$。</div>
+    <div class="qa">
+      <div><b>🎯 核心考点：</b>线性同余方程 $ax \equiv b \pmod m$ 的可解性定理：有解的充要条件是 $d = \gcd(a, m)$ 能整除 $b$。若有解，则在模 $m$ 意义下恰有 $d$ 个不同的解。</div>
+      <div><b>📝 题型拆解：</b>计算题。不能直接两边除以14或求14的逆元，因为14与35不互素，14没有模35的逆元。需要先求最大公因子进行方程缩放降维，再求特解并生成所有解。</div>
+      <div><b>🛠️ 详细解题步骤：</b>
+        <ol>
+          <li>计算 $\gcd(a, m)$：求 $d = \gcd(14, 35) = 7$。</li>
+          <li>验证可解性：检查 $d$ 是否整除 $b$，即检查 7 是否整除 21。因为 $21 \div 7 = 3$，成立，故该同余方程有解，且恰有 7 个解。</li>
+          <li>化简同余方程：将方程两边及模数同时除以 $d=7$。<br>得到等价的缩放方程：$2x \equiv 3 \pmod 5$。此时新系数 2 与新模数 5 互素，保证了逆元存在。</li>
+          <li>求解缩放方程：寻找 2 模 5 的逆元。因为 $2 \times 3 = 6 \equiv 1 \pmod 5$，所以逆元是 3。<br>方程两边同乘 3：$3 \times 2x \equiv 3 \times 3 \pmod 5 \implies x \equiv 9 \pmod 5 \implies x \equiv 4 \pmod 5$。<br>所以基础特解为 $x_0 = 4$。</li>
+          <li>还原所有解：根据定理，原模数35下的 7 个解可以由公式 $x = x_0 + k \cdot \frac{m}{d}$ 给出，其中 $k = 0, 1, \dots, d-1$。<br>此题中 $\frac{m}{d} = 5$，$k \in [0, 6]$。<br>$k=0: x = 4$<br>$k=1: x = 4 + 5 = 9$<br>$k=2: x = 4 + 10 = 14$<br>依次可得所有解为：4, 9, 14, 19, 24, 29, 34。</li>
+        </ol>
+      </div>
+      <div class="analysis"><b>✅ 校验与总结：</b>抽查 $x=14$，代入 $14 \times 14 = 196$，$196 \div 35 = 5 \dots 21$，符合 $14x \equiv 21 \pmod{35}$。常见错误是化简方程后只写出了 $x \equiv 4 \pmod 5$，忘记将其还原到原模数 $35$ 下寻找全部 $d$ 个解。</div>
+    </div>
+  </div>
+
+  <div class="q-box">
+    <div class="qt">题2.7：快速幂算法（平方乘法）</div>
+    <div class="qq">用平方乘法算法（Square-and-Multiply）计算 $3^7 \pmod{11}$。</div>
+    <div class="qa">
+      <div><b>🎯 核心考点：</b>模幂运算加速：通过将指数转化为二进制形式，将 $O(n)$ 的连乘降低为 $O(\log n)$ 次的平方和乘法运算，极大提升密码学系统的运算效率。</div>
+      <div><b>📝 题型拆解：</b>计算题。不使用费马小定理降次，而是严格模拟计算机底层处理大数幂次运算的过程。步骤包括：指数转二进制 -> 逐位扫描 -> 进行平方（遇0仅平方，遇1平方且乘底数）并随时取模。</div>
+      <div><b>🛠️ 详细解题步骤：</b>
+        <ol>
+          <li>指数二进制化：将指数 7 转化为二进制。<br>$7 = 4 + 2 + 1 = 2^2 + 2^1 + 2^0$，故二进制表示为 $(111)_2$。</li>
+          <li>初始化：令初始结果 $R = 1$。底数为 $A = 3$。</li>
+          <li>从左至右扫描二进制位 $(1, 1, 1)$：<br><b>第一位（最高位 1）</b>：<br>操作：平方（Square）然后乘（Multiply）。<br>$R = R^2 \pmod{11} = 1^2 \pmod{11} = 1$。<br>$R = (R \times A) \pmod{11} = (1 \times 3) \pmod{11} = 3$。</li>
+          <li><b>第二位（1）</b>：<br>操作：平方然后乘。<br>$R = R^2 \pmod{11} = 3^2 \pmod{11} = 9$。<br>$R = (R \times A) \pmod{11} = (9 \times 3) \pmod{11} = 27 \pmod{11} = 5$。</li>
+          <li><b>第三位（最低位 1）</b>：<br>操作：平方然后乘。<br>$R = R^2 \pmod{11} = 5^2 \pmod{11} = 25 \pmod{11} = 3$。<br>$R = (R \times A) \pmod{11} = (3 \times 3) \pmod{11} = 9$。</li>
+          <li>最终结果为 9。故 $3^7 \equiv 9 \pmod{11}$。</li>
+        </ol>
+      </div>
+      <div class="analysis"><b>✅ 校验与总结：</b>传统计算法验证：$3^7 = 2187$，$2187 = 11 \times 198 + 9$，结果正确。注意，平方乘法要求每执行一次乘方或乘法都要立即取模，绝对不能把数字乘到极大再去取模。</div>
+    </div>
+  </div>
+
+  <div class="q-box">
+    <div class="qt">题2.8：裴蜀定理应用与整除性质推导</div>
+    <div class="qq">若 $a, b$ 是互素的整数，证明 $\gcd(a+b, a-b)$ 只能等于 1 或 2。</div>
+    <div class="qa">
+      <div><b>🎯 核心考点：</b>整除的线性组合性质与最大公因子的定义。若 $d \mid x$ 且 $d \mid y$，则对于任意整数 $m, n$，都有 $d \mid (mx + ny)$。</div>
+      <div><b>📝 题型拆解：</b>证明题。运用假设法，设这两个代数式的最大公因子为 $d$，通过等式加减消元，将含有 $a,b$ 的复杂组合还原为对单独 $a$ 和 $b$ 的整除性约束，最后利用前提条件得出 $d$ 的可能取值。</div>
+      <div><b>🛠️ 详细解题步骤：</b>
+        <ol>
+          <li>设定公因子：设 $d = \gcd(a+b, a-b)$。根据公因子的定义，$d$ 必定同时整除这两个数。<br>即：$d \mid (a+b)$ 且 $d \mid (a-b)$。</li>
+          <li>利用整除线性组合性质进行消元：<br>两式相加：$d \mid ((a+b) + (a-b)) \implies d \mid 2a$。<br>两式相减：$d \mid ((a+b) - (a-b)) \implies d \mid 2b$。</li>
+          <li>结合已知条件推导界限：<br>既然 $d$ 同时整除 $2a$ 和 $2b$，那么 $d$ 必然整除它们的最大公因子。<br>即 $d \mid \gcd(2a, 2b)$。<br>提出公因子 2，得到 $\gcd(2a, 2b) = 2 \times \gcd(a, b)$。</li>
+          <li>代入互素条件：<br>题目已知 $a, b$ 互素，即 $\gcd(a, b) = 1$。<br>所以，$\gcd(2a, 2b) = 2 \times 1 = 2$。<br>因此推导出 $d \mid 2$。</li>
+          <li>得出结论：由于 $d$ 必须是一个正整数，且能整除 2 的正整数只有 1 和 2。所以 $d$ 只能是 1 或 2，证明完毕。</li>
+        </ol>
+      </div>
+      <div class="analysis"><b>✅ 校验与总结：</b>举例验证：$a=3, b=2$（互素），$\gcd(5, 1) = 1$；$a=5, b=3$（互素），$\gcd(8, 2) = 2$。完美符合结论。这种“设d-加减消元-利用互素”是数论证明中最经典的套路。</div>
+    </div>
+  </div>
+
+  <div class="q-box">
+    <div class="qt">题2.9：欧拉函数素数幂性质证明</div>
+    <div class="qq">若 $p$ 为素数，$k$ 为正整数，证明 $\phi(p^k) = p^k - p^{k-1}$。</div>
+    <div class="qa">
+      <div><b>🎯 核心考点：</b>欧拉函数 $\phi(n)$ 的定义：表示在区间 $[1, n]$ 中与 $n$ 互素的整数个数。以及素数性质的本质应用。</div>
+      <div><b>📝 题型拆解：</b>证明题。采用逆向思维（容斥原理的特例）。“互素的数量 = 总数量 - 不互素的数量”。由于模数是单纯的素数幂，寻找不互素的数量非常简单。</div>
+      <div><b>🛠️ 详细解题步骤：</b>
+        <ol>
+          <li>确立总范围：我们需要考察的整数集合是从 1 到 $p^k$，总共有 $p^k$ 个整数。</li>
+          <li>寻找不互素的充要条件：<br>对于任意整数 $m \in [1, p^k]$，如果 $m$ 与 $p^k$ 不互素（即 $\gcd(m, p^k) > 1$），因为 $p^k$ 唯一的质因子就是 $p$，所以 $m$ 必须能够被 $p$ 整除。<br>换句话说，与 $p^k$ 不互素的数，必然是 $p$ 的倍数。</li>
+          <li>统计不互素（即 $p$ 的倍数）的个数：<br>在区间 $[1, p^k]$ 内，$p$ 的倍数有：<br>$1 \times p, 2 \times p, 3 \times p, \dots, (p^{k-1}) \times p = p^k$。<br>从系数可以看出，这样的数总共有 $p^{k-1}$ 个。</li>
+          <li>运用逆向计数法计算欧拉函数值：<br>与 $p^k$ 互素的个数 $\phi(p^k)$ = 全部数字的总个数 - 不互素（$p$的倍数）的个数。<br>$\phi(p^k) = p^k - p^{k-1}$。</li>
+          <li>等式成立，证明完毕。（也可提取公因式写为 $\phi(p^k) = p^k(1 - \frac{1}{p})$，这是推导通用公式的基础）。</li>
+        </ol>
+      </div>
+      <div class="analysis"><b>✅ 校验与总结：</b>举例验证：$p=3, k=2$，$p^k = 9$。与9不互素的数是3,6,9（共3个），互素的是1,2,4,5,7,8（共6个）。套用公式 $3^2 - 3^1 = 9 - 3 = 6$，完全正确。证明时必须清晰点出“不互素必然是质因子p的倍数”这一逻辑环节。</div>
+    </div>
+  </div>
+
+  <div class="q-box">
+    <div class="qt">题2.10：模运算恒等式与综合降阶</div>
+    <div class="qq">求 $10^{20} + 20^{10} \pmod 7$。</div>
+    <div class="qa">
+      <div><b>🎯 核心考点：</b>同余基本性质与费马小定理结合。$(a+b) \bmod m = (a \bmod m + b \bmod m) \bmod m$，且底数可以随时用同余数替换。</div>
+      <div><b>📝 题型拆解：</b>计算题。分为两部分处理：第一步，底数降阶（大底数先取模转化为小底数）；第二步，指数降阶（利用费马小定理消除大指数）；第三步，求和后再取模。</div>
+      <div><b>🛠️ 详细解题步骤：</b>
+        <ol>
+          <li>底数降阶（取模化简）：<br>因为 $10 \div 7 = 1 \dots 3$，所以 $10 \equiv 3 \pmod 7$。<br>因为 $20 \div 7 = 2 \dots 6$，所以 $20 \equiv 6 \pmod 7$。为了进一步简化计算，可以引入负数同余：$6 \equiv 6 - 7 = -1 \pmod 7$。<br>原式化为等价形式：$3^{20} + (-1)^{10} \pmod 7$。</li>
+          <li>计算第一项 $3^{20} \pmod 7$：<br>7为素数且 $\gcd(3, 7)=1$，应用费马小定理：$3^{7-1} = 3^6 \equiv 1 \pmod 7$。<br>将指数 20 拆分：$20 = 6 \times 3 + 2$。<br>$3^{20} = (3^6)^3 \times 3^2 \equiv 1^3 \times 9 \equiv 9 \pmod 7$。<br>化简：$9 \pmod 7 = 2$。所以第一项的结果为 2。</li>
+          <li>计算第二项 $(-1)^{10} \pmod 7$：<br>因为指数 10 为偶数，负数的偶数次方为正，所以 $(-1)^{10} = 1$。<br>$1 \pmod 7 = 1$。第二项的结果为 1。</li>
+          <li>合并求和：<br>$2 + 1 = 3$。<br>最终结果为 $3 \pmod 7 = 3$。</li>
+        </ol>
+      </div>
+      <div class="analysis"><b>✅ 校验与总结：</b>巧妙引入负数逆元（如将6变为-1）可以极大简化甚至彻底消除后续的模幂运算。在考试中遇到奇数偶数交替的题型，寻找$-1$的同余代换是必杀技。</div>
+    </div>
+  </div>
+
+  <div class="q-box">
+    <div class="qt">题2.11：中国剩余定理推广与一致性条件</div>
+    <div class="qq">判断同余方程组 $x \equiv 2 \pmod 4, x \equiv 4 \pmod 6$ 是否有解。若有，求出其通解。</div>
+    <div class="qa">
+      <div><b>🎯 核心考点：</b>不互素模数下的中国剩余定理（CRT）。同余方程组 $x \equiv a_1 \pmod{m_1}$ 且 $x \equiv a_2 \pmod{m_2}$ 有解的充要条件是：$a_1 \equiv a_2 \pmod{\gcd(m_1, m_2)}$。</div>
+      <div><b>📝 题型拆解：</b>计算与判断题。传统的CRT要求模数互素，这里4和6的最大公因数为2，因此必须先检验“一致性条件”。如果满足条件，通过代入法（或最小公倍数法）推导出通解。</div>
+      <div><b>🛠️ 详细解题步骤：</b>
+        <ol>
+          <li>检查互素性与提取参数：<br>模数 $m_1=4, m_2=6$。求它们的最大公因子 $d = \gcd(4, 6) = 2$。因为 $d > 1$，不能直接套用基础 CRT 公式。</li>
+          <li>检验一致性条件：<br>定理要求余数满足 $a_1 \equiv a_2 \pmod d$。代入数据：$2 \equiv 4 \pmod 2$。<br>因为 $4 - 2 = 2$，显然能被 2 整除，因此 $2 \equiv 0 \pmod 2$ 且 $4 \equiv 0 \pmod 2$，等式成立。说明方程组有解。</li>
+          <li>利用代入法求通解：<br>将第一个方程写成一般代数式：$x = 4k + 2$（$k$ 为整数）。<br>代入第二个方程：$4k + 2 \equiv 4 \pmod 6$。<br>化简得到：$4k \equiv 2 \pmod 6$。<br>这是一个关于 $k$ 的同余方程。求出解：可以穷举验证 $k=0,1,2,3...$，发现当 $k=2$ 时，$4\times2 = 8 \equiv 2 \pmod 6$ 成立。实际上解为 $k \equiv 2 \pmod 3$，即 $k = 3t + 2$。</li>
+          <li>代回原式：<br>$x = 4(3t + 2) + 2 = 12t + 8 + 2 = 12t + 10$。<br>转化为同余形式，即 $x \equiv 10 \pmod{12}$。注意此处的模数 12 正好是原来两个模数 4 和 6 的最小公倍数 $\text{lcm}(4,6)$。</li>
+        </ol>
+      </div>
+      <div class="analysis"><b>✅ 校验与总结：</b>验证 $x=10$：$10 \div 4 = 2 \dots 2$，满足第一式；$10 \div 6 = 1 \dots 4$，满足第二式。通解的形式永远是在两个模数的最小公倍数下取得。当出现模数不互素时，先判断是否有解是关键避坑点。</div>
+    </div>
+  </div>
+
+  <div class="q-box">
+    <div class="qt">题2.12：原根的定义与判断</div>
+    <div class="qq">证明 2 不是模 7 的原根。</div>
+    <div class="qa">
+      <div><b>🎯 核心考点：</b>阶与原根（Primitive Root）的定义。若整数 $a$ 模 $n$ 的阶等于欧拉函数值 $\phi(n)$，即 $\text{ord}_n(a) = \phi(n)$，则称 $a$ 为模 $n$ 的原根。</div>
+      <div><b>📝 题型拆解：</b>证明题。解题思路是通过穷举计算或根据拉格朗日定理求出底数 2 在模 7 下的“阶”（使 $a^k \equiv 1 \pmod n$ 成立的最小正整数 $k$），然后对比该阶与 $\phi(7)$ 是否相等。</div>
+      <div><b>🛠️ 详细解题步骤：</b>
+        <ol>
+          <li>计算欧拉函数值：模数为素数 7，因此 $\phi(7) = 7 - 1 = 6$。<br>根据定义，若 2 是模 7 的原根，则 2 的阶必须等于 6。即 2 的各次幂应当生成 1 到 6 的所有整数。</li>
+          <li>逐步计算 2 的模 7 幂次，寻找阶：<br>$2^1 \equiv 2 \pmod 7$<br>$2^2 \equiv 4 \pmod 7$<br>$2^3 = 8 \equiv 1 \pmod 7$。<br>因为当指数达到 3 时，结果已经等于 1，说明序列在此处开始循环。</li>
+          <li>确认 2 的阶：使 $2^k \equiv 1 \pmod 7$ 成立的最小正整数 $k$ 为 3。<br>因此，2 模 7 的阶 $\text{ord}_7(2) = 3$。</li>
+          <li>对比阶与欧拉函数值：<br>因为 2 的阶（3）不等于 $\phi(7)$（6），它不能生成模 7 下的整个既约剩余系。</li>
+          <li>结论：2 不是模 7 的原根。证明完毕。</li>
+        </ol>
+      </div>
+      <div class="analysis"><b>✅ 校验与总结：</b>补充：我们可以试算 3 的幂次：$3^1=3, 3^2=2, 3^3=6, 3^4=4, 3^5=5, 3^6=1$，生成了1到6的全部数字，所以3才是模7的原根。计算阶时，阶必然是 $\phi(n)$ 的因数（此题中3是6的因数），利用此性质可大幅缩减大数的原根检测计算量。</div>
+    </div>
+  </div>
+
+  <div class="q-box">
+    <div class="qt">题2.13：利用逆元解代数同余题</div>
+    <div class="qq">已知 $x^{-1} \equiv 3 \pmod{11}$，求 $(2x+1)^{-1} \pmod{11}$。</div>
+    <div class="qa">
+      <div><b>🎯 核心考点：</b>逆元的反向定义与线性同余方程的变量替换。若 $A^{-1} \equiv B \pmod m$，则等价于 $A \times B \equiv 1 \pmod m$ 且 $B^{-1} \equiv A \pmod m$。</div>
+      <div><b>📝 题型拆解：</b>计算题。分为三个清晰阶段：首先根据给定的逆元推导出未知数 $x$ 的值；然后将 $x$ 代入多项式 $(2x+1)$ 中计算出基础数值；最后计算该基础数值在模 11 下的逆元。</div>
+      <div><b>🛠️ 详细解题步骤：</b>
+        <ol>
+          <li>解出未知数 $x$：<br>题目已知 $x$ 的逆元是 3，即 $3x \equiv 1 \pmod{11}$。或者可以直接说 $x$ 就是 3 的逆元。<br>寻找 3 模 11 的逆元：由于 $3 \times 4 = 12 \equiv 1 \pmod{11}$，所以 $x = 4$。</li>
+          <li>代入多项式求值：<br>将 $x = 4$ 代入待求的表达式 $(2x + 1)$ 中。<br>$2(4) + 1 = 8 + 1 = 9$。<br>此时，题目转化为求解 9 模 11 的逆元，即求 $9^{-1} \pmod{11}$。</li>
+          <li>求解新逆元：<br>设逆元为 $y$，解同余方程 $9y \equiv 1 \pmod{11}$。<br>可以通过穷举或观察法求解：由于 9 与 -2 同余 ($9 \equiv -2 \pmod{11}$)，可以转化为解 $-2y \equiv 1 \pmod{11}$。<br>因为 $-2 \times 5 = -10 \equiv 1 \pmod{11}$，所以 $y = 5$。<br>如果不使用负数：检验 $9 \times 5 = 45$，而 $45 = 11 \times 4 + 1$，满足条件。</li>
+          <li>得出最终答案：$(2x+1)^{-1} \pmod{11}$ 的值为 5。</li>
+        </ol>
+      </div>
+      <div class="analysis"><b>✅ 校验与总结：</b>验算全流程：$x=4, 4\times3=12\equiv1$（成立）；$2x+1=9, 9\times5=45\equiv1$（成立）。这种题型考查对逆元定义的灵活理解，切忌将 $x^{-1}$ 当作实数域的 $\frac{1}{x}$ 进行分式化简，那在模运算中是无意义且错误的。</div>
+    </div>
+  </div>
+
+  <div class="q-box">
+    <div class="qt">题2.14：欧拉定理的代数推演（求逆元性质）</div>
+    <div class="qq">若整数 $a, n$ 满足 $\gcd(a, n)=1$，请证明 $a^{\phi(n)-1}$ 就是 $a$ 模 $n$ 的逆元。</div>
+    <div class="qa">
+      <div><b>🎯 核心考点：</b>欧拉定理：若 $\gcd(a, n)=1$，则 $a^{\phi(n)} \equiv 1 \pmod n$。以及乘法逆元的定义：若 $ax \equiv 1 \pmod n$，则 $x$ 就是 $a$ 的逆元。</div>
+      <div><b>📝 题型拆解：</b>证明题。这是一个纯粹的代数结构推演。思路非常直接：将欧拉定理的指数表达式进行拆项，凑成“$a \times 某项 = 1$”的形式，对比逆元定义直接得出结论。</div>
+      <div><b>🛠️ 详细解题步骤：</b>
+        <ol>
+          <li>引入基础定理：由于题目已知前提条件 $\gcd(a, n)=1$，这完美满足欧拉定理的使用条件。<br>根据欧拉定理，我们有恒等式：$a^{\phi(n)} \equiv 1 \pmod n$。</li>
+          <li>指数拆解：根据指数运算法则 $x^{m+n} = x^m \cdot x^n$，因为 $\phi(n) \ge 1$（$n>1$ 时），我们可以从 $a^{\phi(n)}$ 中单独分离出一个 $a$ 的一次方。<br>即：$a^{\phi(n)} = a^1 \cdot a^{\phi(n)-1}$。</li>
+          <li>重写同余等式：将拆解后的形式代回原定理。<br>得到：$a \cdot a^{\phi(n)-1} \equiv 1 \pmod n$。</li>
+          <li>对比逆元定义：根据模 $n$ 乘法逆元的定义，如果有整数 $x$ 满足 $a \cdot x \equiv 1 \pmod n$，那么 $x$ 就是 $a$ 的逆元，记作 $a^{-1}$。<br>在上面的等式中，处于 $x$ 位置的就是 $a^{\phi(n)-1}$。</li>
+          <li>得出结论：因此，可知 $a^{\phi(n)-1} \equiv a^{-1} \pmod n$。得证。</li>
+        </ol>
+      </div>
+      <div class="analysis"><b>✅ 校验与总结：</b>这不仅是一道证明题，也是在实际编程中求解逆元的另一大途径（费马-欧拉求逆元法）。当模数 $n$ 是素数 $p$ 时，推论变为 $a^{p-2} \pmod p$ 就是逆元。相比扩展欧几里得，它方便使用快速幂算法在硬件中直接实现。</div>
+    </div>
+  </div>
+
+  <div class="q-box">
+    <div class="qt">题2.15：威尔逊定理变体应用</div>
+    <div class="qq">计算 $16! \pmod{19}$。</div>
+    <div class="qa">
+      <div><b>🎯 核心考点：</b>威尔逊定理 (Wilson's Theorem)：对于任意素数 $p$，都有 $(p-1)! \equiv -1 \pmod p$。该定理揭示了阶乘与素数之间的深层联系。</div>
+      <div><b>📝 题型拆解：</b>计算题。要求解的阶乘比威尔逊定理给出的基准阶乘小，这属于“不完全阶乘”题型。解法是利用定理写出基准等式，然后逐步向下展开，通过求逆元将多余的因子消去。</div>
+      <div><b>🛠️ 详细解题步骤：</b>
+        <ol>
+          <li>验证素数并套用定理：19 是一个素数。根据威尔逊定理，当 $p=19$ 时有：<br>$(19-1)! \equiv -1 \pmod{19}$，即 $18! \equiv -1 \pmod{19}$。<br>为了计算方便，也可以写成 $18! \equiv 18 \pmod{19}$。</li>
+          <li>向下展开阶乘建立联系：将 $18!$ 展开为包含待求项 $16!$ 的形式。<br>$18! = 18 \times 17 \times 16!$。</li>
+          <li>引入同余替换消减数值：在模 19 意义下，大数字可以用负数替代以减小运算量。<br>$18 \equiv -1 \pmod{19}$。<br>$17 \equiv -2 \pmod{19}$。<br>代入展开式：$18 \times 17 \times 16! \equiv (-1) \times (-2) \times 16! \equiv 2 \times 16! \pmod{19}$。</li>
+          <li>建立方程并求解：<br>根据第1步和第3步的结果，我们得到等式：<br>$2 \times 16! \equiv -1 \pmod{19}$。<br>令未知数 $y = 16!$，解线性同余方程 $2y \equiv -1 \pmod{19}$。</li>
+          <li>求逆元消去系数：方程右侧 $-1 \equiv 18 \pmod{19}$。<br>方程变为 $2y \equiv 18 \pmod{19}$。因为 $\gcd(2, 19)=1$，等式两边可以直接除以 2。<br>得到 $y \equiv 9 \pmod{19}$。</li>
+          <li>得出最终结果：所以 $16! \equiv 9 \pmod{19}$。</li>
+        </ol>
+      </div>
+      <div class="analysis"><b>✅ 校验与总结：</b>如果不用负数代换，求解方程就变成了 $306 \times 16! \equiv 18 \pmod{19}$，计算量大且容易出错。掌握这种“定理定基调 + 负同余替换展开 + 求逆元还原”的三步曲，所有威尔逊定理的变形题均可迎刃而解。</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

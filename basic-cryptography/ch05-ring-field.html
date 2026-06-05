@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第5章：环与域 | 密码学基础复习</title>
+  <meta name="description" content="环与域深度解析：环的公理体系、零因子与消去律的破坏、整环、剩余类环，含15道真题。">
+  <link rel="stylesheet" href="review-style-v2.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+</head>
+<body>
+
+<nav class="navbar" id="top-nav">
+  <a href="index-review.html">📚 总目录</a>
+  <a href="ch01-algebra-structure.html">Ch.1 代数结构</a>
+  <a href="ch02-number-theory.html">Ch.2 初等数论</a>
+  <a href="ch03-polynomial.html">Ch.3 多项式</a>
+  <a href="ch04-group-theory.html">Ch.4 群论</a>
+  <a href="ch05-ring-field.html" class="active">Ch.5 环与域</a>
+  <a href="ch06-finite-field.html">Ch.6 有限域</a>
+</nav>
+
+<div class="chapter-hero">
+  <div class="chapter-num">CHAPTER 05</div>
+  <h1>环与域：双运算代数系统的进化</h1>
+  <p class="subtitle">环的公理体系、零因子的灾难性破坏、整环与域的层级演化</p>
+  <div class="hero-stats">
+    <div class="hero-stat-item"><strong>2</strong>重运算体系</div>
+    <div class="hero-stat-item"><strong>15</strong>道真题</div>
+    <div class="hero-stat-item"><strong>零因子·整环</strong>重点覆盖</div>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="theory-section" id="theory">
+  <div class="section-title theory">
+    <div class="icon">📖</div>
+    <span>理论框架与深度解读</span>
+  </div>
+
+  <!-- 5.1 环的定义 -->
+  <h2 class="subsection" id="ring-def">5.1 环的公理体系（Ring Axioms）</h2>
+  <div class="theory-content">
+    <p>如果说群是单引擎的代数结构，那么环（Ring）就是双引擎系统，它同时支持加法和乘法，并且通过分配律将两者紧密结合。</p>
+    <p>关联知识点：<a class="kw-link" href="ch04-group-theory.html#group-axioms">阿贝尔群公理</a></p>
+  </div>
+
+  <div class="definition-card">
+    <h4>定义 5.1：环（Ring）</h4>
+    <p>一个集合 $R$ 连同两个二元运算（记为 $+$ 和 $\cdot$），若满足以下条件，则称 $(R, +, \cdot)$ 为一个环：</p>
+    <ol>
+      <li><strong>加法群</strong>：$(R, +)$ 是一个阿贝尔群（满足封闭、结合、交换、有单位元 $0$、有逆元 $-a$）。</li>
+      <li><strong>乘法半群</strong>：$(R, \cdot)$ 满足封闭性和结合律。</li>
+      <li><strong>分配律</strong>：乘法对加法满足左分配律和右分配律：$a(b+c)=ab+ac$ 及 $(a+b)c=ac+bc$。</li>
+    </ol>
+    <p>如果乘法还满足交换律，则称为<strong>交换环（Commutative Ring）</strong>。如果有乘法单位元 $1$，则称为<strong>有单位元环</strong>。</p>
+  </div>
+
+  <!-- 5.2 零因子与整环 -->
+  <h2 class="subsection" id="zero-divisor">5.2 零因子与消去律的破坏</h2>
+  <div class="theory-content">
+    <p>在普通的实数计算中，我们习惯了"$ab=0 \Rightarrow a=0$ 或 $b=0$"。但在环中，这个铁律可能被打破。</p>
+  </div>
+
+  <div class="definition-card">
+    <h4>零因子（Zero Divisor）</h4>
+    <p>在环 $R$ 中，若存在非零元素 $a$ 和 $b$，使得 $ab = 0$，则称 $a$ 是一个左零因子，$b$ 是一个右零因子。</p>
+    <p><strong>消去律失效</strong>：在有零因子的环中，$ab=ac \not\Rightarrow b=c$。因为 $a(b-c)=0$ 时，即使 $a \neq 0$，$b-c$ 也可以不为0。</p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>整环（Integral Domain）</h4>
+    <p>一个有单位元（$1 \neq 0$）的交换环，如果它<strong>没有零因子</strong>，则称为整环。在整环中，乘法消去律成立：$ab=ac$ 且 $a \neq 0 \Rightarrow b=c$。</p>
+    <p>整数环 $\mathbb{Z}$ 是最典型的整环。</p>
+  </div>
+
+  <!-- 5.3 域的公理 -->
+  <h2 class="subsection" id="field-def">5.3 域的公理体系与代数最高形态</h2>
+  <div class="theory-content">
+    <p>域（Field）是比环更严格的代数结构，它允许进行完美的除法。</p>
+    <p>关联知识点：<a class="kw-link" href="ch06-finite-field.html#gf-ops">有限域中的封闭运算</a></p>
+  </div>
+
+  <div class="definition-card">
+    <h4>定义 5.3：域（Field）</h4>
+    <p>一个至少包含两个元素（$0 \neq 1$）的集合 $F$，如果满足：</p>
+    <ol>
+      <li>$(F, +, \cdot)$ 是一个交换环。</li>
+      <li>它的所有非零元素在乘法下构成一个阿贝尔群（即每个非零元素都有乘法逆元）。</li>
+    </ol>
+    <p>简而言之，<strong>域 = 交换环 + 非零元均可逆</strong>。域自动是整环（因为可逆元绝不可能是零因子）。</p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>有限整环必定是域定理</h4>
+    <p>任何一个有限整环（Finite Integral Domain）必然是一个域。这一数学性质是密码学中有限域存在性的根本保障。</p>
+  </div>
+
+  <!-- 5.4 剩余类环与可逆元 -->
+  <h2 class="subsection" id="unit-elem">5.4 剩余类环 $\mathbb{Z}_n$ 的结构剖析</h2>
+  <div class="theory-content">
+    <p>剩余类环 $\mathbb{Z}_n = \{0, 1, 2, \dots, n-1\}$ 在模 $n$ 的加法和乘法下构成一个环。</p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>$\mathbb{Z}_n$ 的代数特性</h4>
+    <p><strong>可逆元（Unit）</strong>：$a \in \mathbb{Z}_n$ 可逆 $\iff \gcd(a, n) = 1$。所有可逆元构成乘法群 $\mathbb{Z}_n^*$，阶为 $\varphi(n)$。</p>
+    <p><strong>零因子</strong>：$a \in \mathbb{Z}_n$ 是非零零因子 $\iff \gcd(a, n) > 1$（且 $a \neq 0$）。</p>
+    <p><strong>结论</strong>：$\mathbb{Z}_n$ 中每个非零元素，要么是可逆元，要么是零因子。因此，$\mathbb{Z}_n$ 是域当且仅当 $n$ 是素数 $p$（此时它记为有限域 $GF(p)$）。</p>
+  </div>
+
+</div><!-- /theory-section -->
+
+<!-- ===== 真题解析 ===== -->
+<div class="exam-section" id="exam">
+  <div class="section-title exam">
+    <div class="icon">🧠</div>
+    <span>真题深度解析（共15题）</span>
+  </div>
+
+  <div class="q-box" id="q5-1">
+    <div class="q-header">
+      <span class="q-num">5.1</span>
+      <span class="q-title">零因子的寻找</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">在剩余类环 $\mathbb{Z}_{12}$ 中，找出所有的零因子和所有的可逆元。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>根据 $\gcd(a, n)$ 的值判断元素性质。</div>
+      <div class="q-steps"><ol>
+        <li>在 $\mathbb{Z}_{12} = \{0, 1, \dots, 11\}$ 中：</li>
+        <li><b>可逆元</b>：与12互素的元素。$\gcd(a, 12)=1 \Rightarrow \{1, 5, 7, 11\}$。</li>
+        <li><b>零因子</b>：不与12互素的非零元素。$\gcd(a, 12)>1 \Rightarrow \{2, 3, 4, 6, 8, 9, 10\}$。</li>
+        <li><b>验证零因子</b>：<br>
+        $2 \times 6 = 12 \equiv 0$<br>
+        $3 \times 4 = 12 \equiv 0$<br>
+        $4 \times 3 = 12 \equiv 0$<br>
+        $6 \times 2 = 12 \equiv 0$<br>
+        $8 \times 3 = 24 \equiv 0$<br>
+        $9 \times 4 = 36 \equiv 0$<br>
+        $10 \times 6 = 60 \equiv 0$</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>在 $\mathbb{Z}_n$ 中，0 是特殊的（既不是可逆元也不是零因子）。非零元素被完美切割为两类：互素者为可逆元，不互素者必为零因子。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q5-2">
+    <div class="q-header">
+      <span class="q-num">5.2</span>
+      <span class="q-title">环的单位元与零元定律</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">证明在任何环 $R$ 中，对于任意元素 $a \in R$，都有 $a \cdot 0 = 0$ 和 $0 \cdot a = 0$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>利用加法单位元 $0$ 的性质 $0=0+0$ 和乘法分配律。</div>
+      <div class="q-steps"><ol>
+        <li>已知 $0$ 是加法单位元，故 $0 + 0 = 0$。</li>
+        <li>考虑元素 $a \cdot 0$。根据分配律展开 $a \cdot (0 + 0)$：<br>
+        $a \cdot 0 = a \cdot (0 + 0) = a \cdot 0 + a \cdot 0$。</li>
+        <li>两边在加法群中加上 $a \cdot 0$ 的加法逆元 $-(a \cdot 0)$：<br>
+        $a \cdot 0 - a \cdot 0 = (a \cdot 0 + a \cdot 0) - a \cdot 0$。</li>
+        <li>简化得：$0 = a \cdot 0$。</li>
+        <li>同理可证 $0 \cdot a = 0$。</li>
+        <li><b>结论</b>：在环中，0乘任何元素都得0。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>这是从群公理（加法逆元）和环公理（分配律）推导出的第一条基本性质，它是"零元乘任何数得零"的数学证明。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q5-3">
+    <div class="q-header">
+      <span class="q-num">5.3</span>
+      <span class="q-title">域的特性：没有零因子</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">证明：域中不可能存在（非零的）零因子。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>利用域中非零元素都有逆元这一性质，配合反证法。</div>
+      <div class="q-steps"><ol>
+        <li>假设域 $F$ 中存在零因子，即存在非零元素 $a \neq 0, b \neq 0$ 使得 $ab = 0$。</li>
+        <li>因为 $F$ 是域，且 $a \neq 0$，所以 $a$ 必定有乘法逆元 $a^{-1} \in F$。</li>
+        <li>在等式 $ab = 0$ 两边左乘 $a^{-1}$：<br>
+        $a^{-1}(ab) = a^{-1}(0)$。</li>
+        <li>根据结合律和乘0规则：<br>
+        $(a^{-1}a)b = 0$ $\Rightarrow$ $1 \cdot b = 0$ $\Rightarrow$ $b = 0$。</li>
+        <li>这与假设 $b \neq 0$ 矛盾。</li>
+        <li><b>结论</b>：假设不成立，域中绝对没有零因子。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>可逆性（域的特征）和零因子（破坏消去律）是水火不容的。一个非零元素如果可逆，就绝不可能是零因子。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q5-4">
+    <div class="q-header">
+      <span class="q-num">5.4</span>
+      <span class="q-title">布尔环性质推导</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">在一个环 $R$ 中，如果对所有 $x \in R$ 都有 $x^2 = x$（幂等环/布尔环），证明 $R$ 的特征为2（即 $x+x=0$）。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>利用分配律展开 $(x+y)^2$，并利用 $x^2=x$ 消去项。</div>
+      <div class="q-steps"><ol>
+        <li>对任意元素 $x, y \in R$，考察它们的和 $x+y$。</li>
+        <li>由条件得：$(x+y)^2 = x+y$。</li>
+        <li>展开左边：$(x+y)(x+y) = x^2 + xy + yx + y^2$。</li>
+        <li>代入 $x^2=x$ 和 $y^2=y$：<br>
+        $x + xy + yx + y = x + y$。</li>
+        <li>两边消去 $x$ 和 $y$，得到：$xy + yx = 0$。这是布尔环的关键性质。</li>
+        <li>令 $y = x$，代入得：$x^2 + x^2 = 0 \Rightarrow x + x = 0$。</li>
+        <li><b>结论</b>：$2x = 0$，即环的特征为2。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 拓展：</strong>布尔环必然是交换环（由 $xy+yx=0$ 和特征2得 $xy=-yx=yx$），在计算机科学中（如按位运算系统）有重要应用。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q5-5">
+    <div class="q-header">
+      <span class="q-num">5.5</span>
+      <span class="q-title">单位元唯一性证明</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">证明：如果一个环有乘法单位元，那么该单位元是唯一的。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>唯一性证明标准手法：假设有两个，利用它们自身的定义推导它们相等。</div>
+      <div class="q-steps"><ol>
+        <li>假设环 $R$ 中存在两个乘法单位元 $e_1$ 和 $e_2$。</li>
+        <li>根据 $e_1$ 是单位元的定义，对任意元素 $x \in R$，有 $e_1 x = x e_1 = x$。<br>
+        特别地，取 $x = e_2$，有 $e_1 e_2 = e_2$。</li>
+        <li>根据 $e_2$ 是单位元的定义，对任意元素 $y \in R$，有 $e_2 y = y e_2 = y$。<br>
+        特别地，取 $y = e_1$，有 $e_1 e_2 = e_1$。</li>
+        <li>综合上述两式，得到 $e_2 = e_1 e_2 = e_1$。</li>
+        <li><b>结论</b>：$e_1 = e_2$，乘法单位元如果存在，必定是唯一的。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>"假设有俩，互相利用，得出相等"是数学中证明"唯一性"的万能模板。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q5-6">
+    <div class="q-header">
+      <span class="q-num">5.6</span>
+      <span class="q-title">整环与消去律的等价性</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">证明：在一个交换环 $R$ 中，如果没有零因子，则乘法消去律成立。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>将消去律方程转化为零因子定义式。</div>
+      <div class="q-steps"><ol>
+        <li>假设 $ab = ac$ 且 $a \neq 0$。我们需要证明 $b = c$。</li>
+        <li>移项得：$ab - ac = 0$。</li>
+        <li>由乘法对加法的分配律提取公因子：$a(b - c) = 0$。</li>
+        <li>因为环 $R$ 中没有零因子，所以如果两个元素的乘积为0，必有一个元素为0。</li>
+        <li>已知 $a \neq 0$，所以必须有 $b - c = 0$。</li>
+        <li>即 $b = c$。</li>
+        <li><b>结论</b>：无零因子是乘法消去律成立的充分条件（其实也是必要条件，整环和消去律是完全绑定的）。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 密码学意义：</strong>整数环没有零因子，所以可以用消去律。但在有零因子的模代数（例如模15计算）中，$3 \times 4 = 3 \times 9 = 12 \equiv 0 \pmod{15}$，但绝不能消去3得出 $4 \equiv 9$。消去律在很多时候是骗人的陷阱！</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q5-7">
+    <div class="q-header">
+      <span class="q-num">5.7</span>
+      <span class="q-title">多项式环的零因子</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">判断多项式环 $\mathbb{Z}_4[x]$ 是否为整环，并举例说明。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>系数环决定了多项式环的性质。若系数环有零因子，那么多项式环也有。</div>
+      <div class="q-steps"><ol>
+        <li>考察系数环 $\mathbb{Z}_4 = \{0, 1, 2, 3\}$。</li>
+        <li>在 $\mathbb{Z}_4$ 中，$2 \neq 0$，但 $2 \times 2 = 4 \equiv 0 \pmod 4$。故2是零因子。</li>
+        <li>在多项式环 $\mathbb{Z}_4[x]$ 中，考虑两个非零常数多项式 $f(x) = 2$ 和 $g(x) = 2$（或者考虑 $f(x)=2x$, $g(x)=2x$）。</li>
+        <li>$f(x)g(x) = 2 \cdot 2 = 4 \equiv 0$。</li>
+        <li><b>结论</b>：存在非零多项式乘积为0多项式，故 $\mathbb{Z}_4[x]$ 中有零因子，不是整环。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>多项式环 $R[x]$ 是整环的充要条件是：它的底层系数环 $R$ 必须是整环。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q5-8">
+    <div class="q-header">
+      <span class="q-num">5.8</span>
+      <span class="q-title">域的子环判断</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">集合 $S = \{a + b\sqrt{2} \mid a,b \in \mathbb{Z}\}$ 是不是实数域 $\mathbb{R}$ 的子域？</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>子域必须满足除法封闭性（非零元素有逆元）。</div>
+      <div class="q-steps"><ol>
+        <li>首先验证 $S$ 是一个环（加法乘法均封闭，$\mathbb{Z}[\sqrt{2}]$ 是一个整环）。</li>
+        <li>要成为子域，$S$ 中的每个非零元素必须在 $S$ 中有逆元。</li>
+        <li>考察元素 $x = 2 \in S$（取 $a=2, b=0$）。</li>
+        <li>其逆元为 $1/2$。但 $1/2$ 不能表示为 $a + b\sqrt{2}$（$a,b \in \mathbb{Z}$）的形式。</li>
+        <li><b>结论</b>：集合中存在没有逆元的非零元素，所以它不是域，更不是子域。（它只是一个整环）。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 拓展：</strong>如果把 $\mathbb{Z}$ 改为 $\mathbb{Q}$，即 $S = \{a + b\sqrt{2} \mid a,b \in \mathbb{Q}\}$，那么此时逆元为 $\frac{a - b\sqrt{2}}{a^2 - 2b^2}$，就构成了一个真正的域 $\mathbb{Q}(\sqrt{2})$。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q5-9">
+    <div class="q-header">
+      <span class="q-num">5.9</span>
+      <span class="q-title">矩阵环的非交换性与零因子</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">在实数上的二阶方阵环 $M_2(\mathbb{R})$ 中，找出一个左零因子和一个非交换的例子。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>矩阵乘法的结合方式与不可逆矩阵的性质。</div>
+      <div class="q-steps"><ol>
+        <li><b>寻找零因子</b>：需要两个非零矩阵乘积为零矩阵。只要行列式为0的矩阵就有可能是零因子。<br>
+        取 $A = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}$，$B = \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}$。<br>
+        计算：$AB = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}$。故 $A, B$ 都是非零的零因子。</li>
+        <li><b>验证非交换性</b>：反向相乘<br>
+        $BA = \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix} = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}$（这里碰巧交换了）。<br>
+        换一个例子：$C = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}, D = \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}$。<br>
+        $CD = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}$，而 $DC = \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}$。<br>
+        显然 $CD \neq DC$。</li>
+        <li><b>结论</b>：矩阵环是典型的有零因子且非交换的环结构。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>在 $M_2(\mathbb{R})$ 中，一个矩阵是零因子 $\iff$ 它是非零不可逆矩阵（行列式为0）。这是线性代数中"矩阵乘积的秩不等式"在代数结构中的体现。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q5-10">
+    <div class="q-header">
+      <span class="q-num">5.10</span>
+      <span class="q-title">有限整环必为域（核心推导）</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">证明：一个有限的整环必定是一个域。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>整环无零因子 $\Rightarrow$ 乘法对有限集的映射是单射 $\Rightarrow$ 单射在有限集中必为满射（鸽巢原理） $\Rightarrow$ 存在逆元。</div>
+      <div class="q-steps"><ol>
+        <li>设有限整环为 $D = \{r_1, r_2, \dots, r_n\}$。我们需要证明对任意非零 $a \in D$，$a$ 都有逆元。</li>
+        <li>考察映射 $f_a: D \to D$，定义为 $f_a(x) = ax$。</li>
+        <li><b>证明单射</b>：若 $f_a(x) = f_a(y)$，即 $ax = ay$。因为 $D$ 是整环（无零因子且 $a \neq 0$），由消去律得 $x = y$。故 $f_a$ 是单射。</li>
+        <li><b>证明满射</b>：由于 $D$ 是有限集，一个从 $D$ 到自身 $D$ 的单射必定也是满射。</li>
+        <li>这意味着 $D$ 中的所有元素都能被 $ax$ 遍历，特别地，单位元 $1 \in D$ 也必定在映射的像集之中。</li>
+        <li>即存在某个 $r_k \in D$，使得 $ar_k = 1$。</li>
+        <li><b>结论</b>：所以 $a$ 存在逆元 $r_k$。因此 $D$ 是一个域。证毕。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 密码学意义：</strong>这是将模素数的算术系统 $\mathbb{Z}_p$ 升级为域 $GF(p)$ 的最核心数学证明。无限整环（如整数环 $\mathbb{Z}$）不满足满射条件（例如 $2x$ 只能生成偶数），所以 $\mathbb{Z}$ 不是域。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q5-11">
+    <div class="q-header">
+      <span class="q-num">5.11</span>
+      <span class="q-title">逆元乘积法则</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">在有单位元的环中，若元素 $a, b$ 可逆，证明 $ab$ 也可逆，并且 $(ab)^{-1} = b^{-1}a^{-1}$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>利用结合律和单位元的定义直接验证逆元性质。</div>
+      <div class="q-steps"><ol>
+        <li>已知存在 $a^{-1}, b^{-1}$，使得 $a a^{-1} = 1, b b^{-1} = 1$ 等。</li>
+        <li>我们需要找一个元素 $x$，使得 $(ab)x = 1$ 且 $x(ab) = 1$。</li>
+        <li>猜测 $x = b^{-1}a^{-1}$。验证右乘：<br>
+        $(ab)(b^{-1}a^{-1}) = a(b b^{-1})a^{-1}$ （结合律）<br>
+        $= a(1)a^{-1} = aa^{-1} = 1$</li>
+        <li>验证左乘：<br>
+        $(b^{-1}a^{-1})(ab) = b^{-1}(a^{-1}a)b$<br>
+        $= b^{-1}(1)b = b^{-1}b = 1$</li>
+        <li><b>结论</b>：由逆元的定义，$ab$ 是可逆的，且其逆元确为 $b^{-1}a^{-1}$（倒序相乘法则）。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>这就是"穿袜子和穿鞋"定律。穿的顺序是先袜子后鞋子（$ab$），脱的顺序必然是先脱鞋子后脱袜子（$b^{-1}a^{-1}$）。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q5-12">
+    <div class="q-header">
+      <span class="q-num">5.12</span>
+      <span class="q-title">环同态核（Ideal 理想的基础）</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">设 $\phi: R \to S$ 是环同态，证明同态核 $\ker(\phi) = \{x \in R \mid \phi(x) = 0_S\}$ 是一个理想（即吸收乘法）。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>不仅验证加法子群性质，更要验证其"吸收"乘法：$r \in R, x \in \ker(\phi) \Rightarrow rx \in \ker(\phi)$。</div>
+      <div class="q-steps"><ol>
+        <li>首先 $\ker(\phi)$ 作为加法群的子群（参考群论部分的同态核证明）。这里重点证明其对乘法的吸收性。</li>
+        <li>任取环中任意元素 $r \in R$ 和核中元素 $x \in \ker(\phi)$。</li>
+        <li>计算 $\phi(rx)$。由于 $\phi$ 是环同态，保持乘法运算：<br>
+        $\phi(rx) = \phi(r)\phi(x)$。</li>
+        <li>因为 $x \in \ker(\phi)$，所以 $\phi(x) = 0_S$。</li>
+        <li>代入得：$\phi(rx) = \phi(r) \cdot 0_S$。</li>
+        <li>根据环中"零乘任何数为零"定理，$\phi(r) \cdot 0_S = 0_S$。</li>
+        <li>这表明 $rx \in \ker(\phi)$。同理 $xr \in \ker(\phi)$。</li>
+        <li><b>结论</b>：$\ker(\phi)$ 满足左理想和右理想的吸收条件，故为一个双边理想（Ideal）。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>理想是环论中最重要的概念之一，正如正规子群可以构造商群，理想可以构造"商环"。例如 $\mathbb{Z}_n$ 就是整数环 $\mathbb{Z}$ 模去理想 $n\mathbb{Z}$ 的商环。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q5-13">
+    <div class="q-header">
+      <span class="q-num">5.13</span>
+      <span class="q-title">元素阶与环的特征的关系</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">在一个有单位元 $1$ 且特征为 $n > 0$ 的环 $R$ 中，证明对任意元素 $a \in R$，在加法群下的阶 $m = \text{ord}(a)$ 必然整除 $n$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>环的特征本质上是单位元 $1$ 的加法阶。</div>
+      <div class="q-steps"><ol>
+        <li>环 $R$ 的特征为 $n$，定义为最小的整数使得 $\underbrace{1+1+\dots+1}_{n\text{ 个}} = n \cdot 1 = 0$。</li>
+        <li>对任意元素 $a$，利用分配律有：$n \cdot a = \underbrace{a+a+\dots+a}_{n\text{ 个}} = a(1+1+\dots+1) = a(n \cdot 1)$。</li>
+        <li>代入 $n \cdot 1 = 0$，得 $n \cdot a = a \cdot 0 = 0$。</li>
+        <li>这说明加法操作进行 $n$ 次后元素 $a$ 必定回零。</li>
+        <li>设 $a$ 在加法下的实际阶为 $m$，即 $m$ 是满足 $m \cdot a = 0$ 的最小正整数。</li>
+        <li>根据群论定理（元素的阶必须整除导致它回单位元的任何倍数），$m$ 必定整除 $n$。</li>
+        <li><b>结论</b>：在特征为 $n$ 的环中，任何元素的加法阶都是 $n$ 的因子。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>这个性质非常优雅。如果环的特征是素数 $p$（如有限域 $GF(p^m)$），那么所有非零元素的加法阶必须整除 $p$，而素数只有1和 $p$，故所有非零元素的加法阶<strong>全都是</strong> $p$。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q5-14">
+    <div class="q-header">
+      <span class="q-num">5.14</span>
+      <span class="q-title">非零因子的可逆性</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">在有限环 $R$ 中，证明若一个元素 $a \neq 0$ 不是右零因子，则它一定有左逆元。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>再次应用有限集的鸽巢原理：无零因子 $\Rightarrow$ 单射映射 $\Rightarrow$ 满射。</div>
+      <div class="q-steps"><ol>
+        <li>因为 $a$ 不是右零因子，意味着不存在非零元素 $x$ 使得 $xa=0$。</li>
+        <li>考察右乘映射 $f_a(x) = xa$，域为整个环 $R$。</li>
+        <li>若 $f_a(x) = f_a(y)$，则 $xa = ya \Rightarrow (x-y)a = 0$。</li>
+        <li>由于 $a$ 不是右零因子，故 $x-y$ 必须为 $0$，即 $x=y$。</li>
+        <li>所以映射 $f_a$ 是单射。</li>
+        <li>由于 $R$ 是有限集合，单射必定是满射。</li>
+        <li>因此映射的值域覆盖了 $R$ 中的所有元素，包括单位元 $1$。</li>
+        <li>故必存在某个 $b \in R$ 使得 $f_a(b) = ba = 1$。</li>
+        <li><b>结论</b>：$b$ 即为 $a$ 的左逆元。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>这与题5.10原理一致。对于有限集合，“不丢失信息（无零因子导致单射）”必然意味着“覆盖全集（可逆）”。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q5-15">
+    <div class="q-header">
+      <span class="q-num">5.15</span>
+      <span class="q-title">解多元模方程系统（整环应用）</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">在环 $\mathbb{Z}_p$ 中（$p$ 为素数），求解方程 $x^2 - y^2 = 0$。如果是环 $\mathbb{Z}_{15}$，解的情况有什么不同？</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>域（整环）中的方程可以使用消去律，但在有零因子的环中不能。</div>
+      <div class="q-steps"><ol>
+        <li>首先在任何交换环中，因式分解 $x^2 - y^2 = (x-y)(x+y) = 0$ 都成立。</li>
+        <li><b>情况1：在域 $\mathbb{Z}_p$ 中</b><br>
+        因为 $p$ 是素数，$\mathbb{Z}_p$ 是域（整环），没有零因子。<br>
+        乘积为0必定有因子为0：故 $x-y=0$ 或 $x+y=0$。<br>
+        解为 $x=y$ 或 $x=-y \pmod p$。仅有这两条对角线上的解。</li>
+        <li><b>情况2：在环 $\mathbb{Z}_{15}$ 中</b><br>
+        $15$ 不是素数，存在零因子。除了 $x=y$ 和 $x=-y$ 外，还可以有 $(x-y)(x+y) \equiv 0 \pmod{15}$ 但两者都不为0的情况。<br>
+        例如需要因子一个是3的倍数，另一个是5的倍数。<br>
+        令 $x-y = 3, x+y = 5$ $\Rightarrow 2x = 8 \Rightarrow x=4, y=1$。验证：$4^2-1^2 = 16-1 = 15 \equiv 0 \pmod{15}$。<br>
+        所以 $(4,1)$ 也是一个解！此时出现了交叉"鬼影"解。</li>
+        <li><b>结论</b>：在域中方程行为符合常理，在有零因子的环中会产生额外的不平凡解。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>在解密码学多项式方程或代数攻击时，理解所处环的性质是决定采用什么解法的前提。RSA系统利用模 $pq$ 环境正是由于此环境下因式分解困难且有额外解空间的复杂性。</div>
+    </div>
+  </div>
+
+</div><!-- /exam-section -->
+
+<!-- 关联知识点 -->
+<div class="cross-ref-section" id="cross-ref">
+  <div class="section-title cross-ref">
+    <div class="icon">🔗</div>
+    <span>关联知识点——跨章节导航</span>
+  </div>
+  <div class="cross-ref-grid">
+    <a href="ch02-number-theory.html#gcd" class="cross-ref-card">
+      <div class="ref-chapter">→ 第2章：初等数论</div>
+      <div class="ref-topic">剩余类环与同余理论</div>
+      <div class="ref-desc">第2章的同余理论实际上就在研究本章中剩余类环 $\mathbb{Z}_n$ 的具体加乘性质。</div>
+    </a>
+    <a href="ch03-polynomial.html#poly-ring" class="cross-ref-card">
+      <div class="ref-chapter">→ 第3章：多项式</div>
+      <div class="ref-topic">多项式环的底层系数</div>
+      <div class="ref-desc">本章关于整环和域的讨论直接决定了上一章多项式在进行带余除法时的合法性。</div>
+    </a>
+    <a href="ch06-finite-field.html#gf-extension" class="cross-ref-card">
+      <div class="ref-chapter">→ 第6章：有限域</div>
+      <div class="ref-topic">有限域作为代数的顶峰</div>
+      <div class="ref-desc">有限域是剔除了所有零因子的最完美的代数系统，本章证明了有限整环必为域。</div>
+    </a>
+    <a href="ch04-group-theory.html#group-axioms" class="cross-ref-card">
+      <div class="ref-chapter">→ 第4章：群论</div>
+      <div class="ref-topic">从群到环的公理叠加</div>
+      <div class="ref-desc">环就是在群（阿贝尔群）的基础上加入第二个运算以及连接两者的分配律，形成了更丰富的结构。</div>
+    </a>
+  </div>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第2章：初等数论 | 密码学基础复习</title>
+  <meta name="description" content="初等数论深度解析：GCD与欧几里得算法、欧拉函数、费马小定理、中国剩余定理，含15道RSA相关真题。">
+  <link rel="stylesheet" href="review-style-v2.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+</head>
+<body>
+
+<nav class="navbar" id="top-nav">
+  <a href="index-review.html">📚 总目录</a>
+  <a href="ch01-algebra-structure.html">Ch.1 代数结构</a>
+  <a href="ch02-number-theory.html" class="active">Ch.2 初等数论</a>
+  <a href="ch03-polynomial.html">Ch.3 多项式</a>
+  <a href="ch04-group-theory.html">Ch.4 群论</a>
+  <a href="ch05-ring-field.html">Ch.5 环与域</a>
+  <a href="ch06-finite-field.html">Ch.6 有限域</a>
+</nav>
+
+<div class="chapter-hero">
+  <div class="chapter-num">CHAPTER 02</div>
+  <h1>初等数论：非对称密码体系的算术基石</h1>
+  <p class="subtitle">整除性、GCD、同余理论、欧拉函数——RSA公钥密码系统数学命脉的深度剖析</p>
+  <div class="hero-stats">
+    <div class="hero-stat-item"><strong>6</strong>核心工具</div>
+    <div class="hero-stat-item"><strong>15</strong>道真题</div>
+    <div class="hero-stat-item"><strong>RSA·GCD·φ(n)</strong>密钥生成</div>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="theory-section" id="theory">
+  <div class="section-title theory">
+    <div class="icon">📖</div>
+    <span>理论框架与深度解读</span>
+  </div>
+
+  <!-- 2.1 整除性与GCD -->
+  <h2 class="subsection" id="gcd">2.1 整除性与最大公因子（GCD）</h2>
+  <div class="theory-content">
+    <p>整除性是数论最原生的关系。若存在整数 $k$ 使得 $b = a \cdot k$，则称 $a$ 整除 $b$，记作 $a \mid b$。最大公因子（GCD）$\gcd(a, b)$ 是能同时整除 $a$ 和 $b$ 的最大正整数。</p>
+    <p>密码学中，验证 $\gcd(e, \varphi(N)) = 1$ 是RSA公钥指数 $e$ 合法性的必要条件，而扩展欧几里得算法则直接用于计算私钥 $d$。</p>
+    <p>关联知识点：<a class="kw-link" href="ch05-ring-field.html#unit-elem">环中的可逆元（单位）</a></p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>欧几里得算法（辗转相除法）</h4>
+    <p><strong>核心等式</strong>：$\gcd(a, b) = \gcd(b, a \bmod b)$</p>
+    <p><strong>迭代终止</strong>：当余数为0时，最后一个非零余数即为GCD。</p>
+    <p><strong>时间复杂度</strong>：$O(\log \min(a, b))$，远优于逐一枚举。</p>
+  </div>
+
+  <!-- 2.2 素数与算术基本定理 -->
+  <h2 class="subsection" id="prime">2.2 素数分布与算术基本定理</h2>
+  <div class="theory-content">
+    <p>素数是只能被1和自身整除（大于1）的自然数，是整数乘法的"原子"。</p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>算术基本定理（唯一分解定理）</h4>
+    <p>任何大于1的整数 $n$ 可以被<strong>唯一</strong>分解为素数的乘积（忽略顺序）：
+    $$n = p_1^{e_1} \cdot p_2^{e_2} \cdots p_k^{e_k}$$</p>
+    <p>由此推导：$\gcd(A, B) = \prod p_i^{\min(e_i, f_i)}$，$\text{lcm}(A, B) = \prod p_i^{\max(e_i, f_i)}$</p>
+  </div>
+
+  <div class="key-axiom">
+    <div class="axiom-label">🔐 RSA安全性基础</div>
+    <p>大整数的素因子分解在当前经典计算理论中是<strong>困难问题（Intractable Problem）</strong>。攻击者无法从公钥 $N = p \cdot q$ 中有效还原 $p$ 和 $q$，这是RSA算法安全性的数学命脉。</p>
+  </div>
+
+  <!-- 2.3 同余理论 -->
+  <h2 class="subsection" id="congruence">2.3 同余理论与剩余类框架</h2>
+  <div class="theory-content">
+    <p>关联知识点：<a class="kw-link" href="ch05-ring-field.html#ring-def">剩余类环 $\mathbb{Z}_n$ 的代数结构</a></p>
+  </div>
+
+  <div class="definition-card">
+    <h4>定义 2.1：同余关系</h4>
+    <p>若整数 $a$ 和 $b$ 除以正整数 $m$ 具有相同余数（等价地，$m \mid (a-b)$），则称 $a$ 与 $b$ 模 $m$ 同余，记为 $a \equiv b \pmod{m}$。</p>
+    <p>同余是等价关系（自反、对称、传递），将整数集精确划分为 $m$ 个互不相交的剩余类 $[0]_m, [1]_m, \ldots, [m-1]_m$。</p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>同余的运算性质</h4>
+    <p>若 $a \equiv b \pmod{m}$ 且 $c \equiv d \pmod{m}$，则：</p>
+    <p>$a \pm c \equiv b \pm d \pmod{m}$（加减保同余）</p>
+    <p>$a \cdot c \equiv b \cdot d \pmod{m}$（乘法保同余）</p>
+    <p><strong>注意</strong>：除法不自然保同余，需借助乘法逆元才能"两边除以同一数"。</p>
+  </div>
+
+  <!-- 2.4 欧拉函数 -->
+  <h2 class="subsection" id="euler">2.4 欧拉函数 $\varphi(n)$ 与欧拉定理</h2>
+  <div class="theory-content">
+    <p>欧拉函数 $\varphi(n)$ 精确统计 $[1, n-1]$ 中与 $n$ 互素的整数个数。</p>
+    <p>关联知识点：<a class="kw-link" href="ch04-group-theory.html#lagrange">拉格朗日定理：群阶与子群阶的整除关系</a></p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>欧拉函数计算公式</h4>
+    <p>若 $n = p_1^{e_1} \cdot p_2^{e_2} \cdots p_k^{e_k}$，则：
+    $$\varphi(n) = n \left(1 - \frac{1}{p_1}\right)\left(1 - \frac{1}{p_2}\right) \cdots \left(1 - \frac{1}{p_k}\right)$$</p>
+    <p><strong>特殊值</strong>：$\varphi(p) = p-1$；$\varphi(p^k) = p^k - p^{k-1}$；$\varphi(pq) = (p-1)(q-1)$（$p,q$ 不同素数）</p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>欧拉定理（Euler's Theorem）</h4>
+    <p>若 $\gcd(a, n) = 1$，则 $a^{\varphi(n)} \equiv 1 \pmod{n}$。</p>
+    <p><strong>费马小定理（特例）</strong>：若 $p$ 是素数，$\gcd(a, p) = 1$，则 $a^{p-1} \equiv 1 \pmod{p}$。</p>
+    <p><strong>RSA连接</strong>：私钥 $d$ 满足 $ed \equiv 1 \pmod{\varphi(N)}$，RSA解密正确性依赖于欧拉定理。</p>
+  </div>
+
+  <!-- 2.5 扩展欧几里得 -->
+  <h2 class="subsection" id="ext-euclidean">2.5 扩展欧几里得算法与模逆元</h2>
+
+  <div class="theorem-card">
+    <h4>裴蜀定理（Bézout's Identity）</h4>
+    <p>对任意整数 $a, b$，存在整数 $x, y$ 使得 $ax + by = \gcd(a, b)$。</p>
+    <p>当 $\gcd(a, n) = 1$ 时，方程 $ax \equiv 1 \pmod{n}$ 有解，解即为 $a$ 的模 $n$ 乘法逆元 $a^{-1}$。</p>
+    <p>关联知识点：<a class="kw-link" href="ch06-finite-field.html#gf-inverse">有限域 GF(p^m) 中的元素逆元</a></p>
+  </div>
+
+  <!-- 2.6 中国剩余定理 -->
+  <h2 class="subsection" id="crt">2.6 中国剩余定理（CRT）</h2>
+
+  <div class="theorem-card">
+    <h4>中国剩余定理</h4>
+    <p>设 $m_1, m_2, \ldots, m_k$ 两两互素，$M = \prod m_i$，方程组 $x \equiv a_i \pmod{m_i}$ 在模 $M$ 下有唯一解：
+    $$x \equiv \sum_{i=1}^{k} a_i M_i y_i \pmod{M}$$
+    其中 $M_i = M / m_i$，$y_i = M_i^{-1} \pmod{m_i}$。</p>
+    <p><strong>应用</strong>：RSA-CRT 技术将大模运算拆分为两个小模运算并行计算，加速约4倍。</p>
+  </div>
+
+</div><!-- /theory-section -->
+
+<!-- ===== 真题解析 ===== -->
+<div class="exam-section" id="exam">
+  <div class="section-title exam">
+    <div class="icon">🧠</div>
+    <span>真题深度解析（共15题）</span>
+  </div>
+
+  <div class="q-box" id="q2-1">
+    <div class="q-header">
+      <span class="q-num">2.1</span>
+      <span class="q-title">辗转相除法求 GCD</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">使用辗转相除法计算 $\gcd(414, 662)$，展示完整迭代过程。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>欧几里得算法的核心公式：$\gcd(a,b) = \gcd(b, a \bmod b)$。</div>
+      <div class="q-steps"><ol>
+        <li>$662 = 1 \times 414 + 248$，故 $\gcd(662, 414) = \gcd(414, 248)$</li>
+        <li>$414 = 1 \times 248 + 166$，故 $\gcd(414, 248) = \gcd(248, 166)$</li>
+        <li>$248 = 1 \times 166 + 82$，故 $\gcd(248, 166) = \gcd(166, 82)$</li>
+        <li>$166 = 2 \times 82 + 2$，故 $\gcd(166, 82) = \gcd(82, 2)$</li>
+        <li>$82 = 41 \times 2 + 0$，余数为0，终止。</li>
+        <li><strong>结论</strong>：最后非零余数为 $2$，故 $\gcd(414, 662) = 2$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 验证：</strong>$414 \div 2 = 207$，$662 \div 2 = 331$，$\gcd(207, 331) = 1$（互素），正确。步骤中务必保证每次除法的余数计算无误。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q2-2">
+    <div class="q-header">
+      <span class="q-num">2.2</span>
+      <span class="q-title">素因子分解求 GCD 和 LCM</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">$X = 3150$，$Y = 2520$，用素因子分解计算 $\gcd(X,Y)$ 和 $\text{lcm}(X,Y)$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>GCD取各素因子指数最小值，LCM取最大值。</div>
+      <div class="q-steps"><ol>
+        <li><b>分解 $X$</b>：$3150 = 2 \times 1575 = 2 \times 3^2 \times 175 = 2^1 \cdot 3^2 \cdot 5^2 \cdot 7^1$</li>
+        <li><b>分解 $Y$</b>：$2520 = 8 \times 315 = 2^3 \cdot 3^2 \cdot 5^1 \cdot 7^1$</li>
+        <li><b>GCD</b>：$\gcd = 2^{\min(1,3)} \cdot 3^{\min(2,2)} \cdot 5^{\min(2,1)} \cdot 7^{\min(1,1)} = 2^1 \cdot 3^2 \cdot 5^1 \cdot 7^1 = 2 \times 9 \times 5 \times 7 = 630$</li>
+        <li><b>LCM</b>：$\text{lcm} = 2^3 \cdot 3^2 \cdot 5^2 \cdot 7^1 = 8 \times 9 \times 25 \times 7 = 12600$</li>
+        <li><b>验证</b>：$\gcd \times \text{lcm} = 630 \times 12600 = 7938000 = 3150 \times 2520$ ✓</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>利用公式 $\gcd(A,B) \times \text{lcm}(A,B) = A \times B$ 进行快速验证，是检查计算正确性的标准方法。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q2-3">
+    <div class="q-header">
+      <span class="q-num">2.3</span>
+      <span class="q-title">欧拉函数计算</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">计算 $\varphi(7920)$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>欧拉函数公式依赖于素因子分解，先分解再代公式。</div>
+      <div class="q-steps"><ol>
+        <li><b>素因子分解</b>：$7920 = 16 \times 495 = 2^4 \times 9 \times 55 = 2^4 \cdot 3^2 \cdot 5 \cdot 11$</li>
+        <li><b>代入公式</b>：$\varphi(7920) = 7920 \times \left(1-\tfrac{1}{2}\right)\left(1-\tfrac{1}{3}\right)\left(1-\tfrac{1}{5}\right)\left(1-\tfrac{1}{11}\right)$</li>
+        <li>$= 7920 \times \tfrac{1}{2} \times \tfrac{2}{3} \times \tfrac{4}{5} \times \tfrac{10}{11} = 7920 \times \tfrac{80}{330}$</li>
+        <li>$7920 \div 330 = 24$，$24 \times 80 = 1920$</li>
+        <li><b>结论</b>：$\varphi(7920) = 1920$</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 验证（积性函数法）：</strong>$\varphi(2^4)=8, \varphi(3^2)=6, \varphi(5)=4, \varphi(11)=10$，乘积 $8 \times 6 \times 4 \times 10 = 1920$ ✓</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q2-4">
+    <div class="q-header">
+      <span class="q-num">2.4</span>
+      <span class="q-title">费马小定理降阶</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">计算 $5^{2024} \pmod{7}$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>费马小定理：$p$ 素数，$\gcd(a,p)=1 \Rightarrow a^{p-1} \equiv 1 \pmod{p}$（指数降阶）。</div>
+      <div class="q-steps"><ol>
+        <li><b>验证条件</b>：$p=7$ 是素数，$\gcd(5,7)=1$，可用费马小定理。周期为 $p-1=6$，即 $5^6 \equiv 1 \pmod 7$。</li>
+        <li><b>指数降阶</b>：$2024 = 6 \times 337 + 2$，故 $5^{2024} = (5^6)^{337} \times 5^2$。</li>
+        <li><b>代入</b>：$\equiv 1^{337} \times 25 \equiv 25 \pmod 7$。</li>
+        <li><b>化简</b>：$25 = 3 \times 7 + 4$，故 $25 \equiv 4 \pmod 7$。<br><strong>结论</strong>：$5^{2024} \equiv 4 \pmod 7$</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>核心策略是"将大指数对 $p-1$ 取模，得到等价的小指数"。切忌将指数对 $p$ 取模（那是把底数对 $p$ 取模）。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q2-5">
+    <div class="q-header">
+      <span class="q-num">2.5</span>
+      <span class="q-title">扩展欧几里得求模逆元</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">用扩展欧几里得算法求 $11$ 模 $26$ 的乘法逆元。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>扩展欧几里得：正向求GCD + 反向回代构造线性组合 $11x + 26y = 1$。</div>
+      <div class="q-steps"><ol>
+        <li><b>正向（求GCD）</b>：<br>
+          $26 = 2 \times 11 + 4 \Rightarrow 4 = 26 - 2 \times 11$<br>
+          $11 = 2 \times 4 + 3 \Rightarrow 3 = 11 - 2 \times 4$<br>
+          $4 = 1 \times 3 + 1 \Rightarrow 1 = 4 - 1 \times 3$<br>
+          $3 = 3 \times 1 + 0$，终止，$\gcd(11,26)=1$，逆元存在。</li>
+        <li><b>反向回代</b>：<br>
+          $1 = 4 - 1 \times 3$<br>
+          $= 4 - 1 \times (11 - 2 \times 4) = 3 \times 4 - 11$<br>
+          $= 3(26 - 2 \times 11) - 11 = 3 \times 26 - 7 \times 11$</li>
+        <li><b>提取逆元</b>：$-7 \times 11 \equiv 1 \pmod{26}$，$-7 \equiv 19 \pmod{26}$。</li>
+        <li><b>结论</b>：$11^{-1} \equiv 19 \pmod{26}$</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 验证：</strong>$11 \times 19 = 209 = 8 \times 26 + 1$，即 $11 \times 19 \equiv 1 \pmod{26}$ ✓。反向回代时极易弄混符号，建议每步标注每个数的来源。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q2-6">
+    <div class="q-header">
+      <span class="q-num">2.6</span>
+      <span class="q-title">线性同余方程多解情况</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">解同余方程 $14x \equiv 21 \pmod{35}$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>$ax \equiv b \pmod m$ 有解的充要条件：$\gcd(a,m) \mid b$，解的个数恰好是 $d = \gcd(a,m)$。</div>
+      <div class="q-steps"><ol>
+        <li><b>求GCD</b>：$d = \gcd(14, 35) = 7$。</li>
+        <li><b>可解性检验</b>：$7 \mid 21$ ✓，方程有 $d=7$ 个解。</li>
+        <li><b>化简方程</b>：两边及模数同除以 $d=7$，得 $2x \equiv 3 \pmod 5$。</li>
+        <li><b>求逆元</b>：$2^{-1} \pmod 5 = 3$（因 $2 \times 3 = 6 \equiv 1$）。方程两边乘3：$x \equiv 9 \equiv 4 \pmod 5$。</li>
+        <li><b>生成全部解</b>：$x = 4 + k \times \frac{35}{7} = 4 + 5k$（$k = 0,1,...,6$）：<br>
+          $x \in \{4, 9, 14, 19, 24, 29, 34\}$（模35下共7个解）</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>最常见错误是化简后只写 $x \equiv 4 \pmod 5$，忘记还原到原模数35下的全部7个解。必须生成从0到 $d-1$ 的所有 $k$ 值对应的解。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q2-7">
+    <div class="q-header">
+      <span class="q-num">2.7</span>
+      <span class="q-title">平方乘法快速幂</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">用平方乘法算法（Square-and-Multiply）计算 $3^7 \pmod{11}$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>快速幂：将指数转为二进制，从高位到低位"遇0仅平方，遇1平方再乘底数"。</div>
+      <div class="q-steps"><ol>
+        <li><b>指数二进制化</b>：$7 = (111)_2$，从最高位（最左）开始扫描。</li>
+        <li><b>初始化</b>：$R = 1$，底数 $A = 3$。</li>
+        <li><b>位1（最高位）</b>：平方 $R=1^2=1$，遇1再乘 $R=1 \times 3=3$。</li>
+        <li><b>位1</b>：平方 $R=3^2=9$，遇1再乘 $R=9 \times 3=27 \equiv 5 \pmod{11}$。</li>
+        <li><b>位1（最低位）</b>：平方 $R=5^2=25 \equiv 3$，遇1再乘 $R=3 \times 3=9$。</li>
+        <li><b>结论</b>：$3^7 \equiv 9 \pmod{11}$</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 验证：</strong>$3^7 = 2187 = 11 \times 198 + 9$ ✓。快速幂在每次乘法/平方后必须立即取模，防止数字膨胀。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q2-8">
+    <div class="q-header">
+      <span class="q-num">2.8</span>
+      <span class="q-title">整除线性组合证明</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">若 $a, b$ 互素，证明 $\gcd(a+b, a-b)$ 只能等于1或2。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>整除的线性组合性质：$d \mid x$ 且 $d \mid y \Rightarrow d \mid (mx + ny)$。</div>
+      <div class="q-steps"><ol>
+        <li><b>设公因子</b>：设 $d = \gcd(a+b, a-b)$，则 $d \mid (a+b)$ 且 $d \mid (a-b)$。</li>
+        <li><b>消元</b>：两式相加 $d \mid 2a$；两式相减 $d \mid 2b$。</li>
+        <li><b>利用GCD性质</b>：$d \mid \gcd(2a, 2b) = 2\gcd(a,b) = 2 \times 1 = 2$（由互素条件）。</li>
+        <li><b>结论</b>：$d \mid 2$ 且 $d$ 是正整数，故 $d \in \{1, 2\}$。证毕。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 验证：</strong>$a=3,b=2$：$\gcd(5,1)=1$；$a=5,b=3$：$\gcd(8,2)=2$。两种情况均能取到，结论紧。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q2-9">
+    <div class="q-header">
+      <span class="q-num">2.9</span>
+      <span class="q-title">欧拉函数素数幂公式证明</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">若 $p$ 为素数，$k$ 为正整数，证明 $\varphi(p^k) = p^k - p^{k-1}$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>欧拉函数的定义 + 逆向计数（容斥原理特例）。</div>
+      <div class="q-steps"><ol>
+        <li><b>总数</b>：$[1, p^k]$ 中共 $p^k$ 个整数。</li>
+        <li><b>不互素的数</b>：与 $p^k$ 不互素 $\iff$ 存在公因子 $> 1$ $\iff$ 能被 $p$ 整除（因 $p^k$ 唯一素因子是 $p$）。</li>
+        <li><b>不互素的数的个数</b>：$[1, p^k]$ 中 $p$ 的倍数有 $p, 2p, \ldots, p^{k-1} \cdot p = p^k$，共 $p^{k-1}$ 个。</li>
+        <li><b>互素数的个数</b>：$\varphi(p^k) = p^k - p^{k-1} = p^k(1 - 1/p)$。证毕。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 验证：</strong>$\varphi(9) = 9 - 3 = 6$，验算：$1,2,4,5,7,8$ 与9互素，共6个 ✓。此公式是推导欧拉函数乘积公式的基础。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q2-10">
+    <div class="q-header">
+      <span class="q-num">2.10</span>
+      <span class="q-title">综合模运算</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">计算 $10^{20} + 20^{10} \pmod{7}$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>底数降阶（取模替换）+ 指数降阶（费马小定理）+ 负数同余技巧。</div>
+      <div class="q-steps"><ol>
+        <li><b>底数降阶</b>：$10 \equiv 3 \pmod 7$，$20 \equiv 6 \equiv -1 \pmod 7$。</li>
+        <li><b>计算第一项</b>：$3^{20}$；费马：$3^6 \equiv 1$；$20 = 6 \times 3 + 2$；$3^{20} \equiv 3^2 = 9 \equiv 2 \pmod 7$。</li>
+        <li><b>计算第二项</b>：$(-1)^{10} = 1$（偶数次方为正）。</li>
+        <li><b>求和</b>：$2 + 1 = 3$。<br><strong>结论</strong>：$10^{20} + 20^{10} \equiv 3 \pmod 7$</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 技巧：</strong>将 $6 \equiv -1 \pmod 7$ 替换为 $-1$，消去了所有乘方运算，是极高效的简化手段。遇到"接近模数的数"立即考虑负数替换。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q2-11">
+    <div class="q-header">
+      <span class="q-num">2.11</span>
+      <span class="q-title">中国剩余定理基础应用</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">求解同余方程组：$x \equiv 1 \pmod 3$，$x \equiv 2 \pmod 5$，$x \equiv 3 \pmod 7$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>CRT五步法：求总模 → 求分部系数 → 求逆元 → 组合求和 → 归约。</div>
+      <div class="q-steps"><ol>
+        <li><b>总模</b>：$M = 3 \times 5 \times 7 = 105$（三模数两两互素）。</li>
+        <li><b>分部系数</b>：$M_1 = 35, M_2 = 21, M_3 = 15$。</li>
+        <li><b>逆元</b>：$35 \equiv 2 \pmod 3$，$y_1 = 2$（$2 \times 2 = 4 \equiv 1$）；$21 \equiv 1 \pmod 5$，$y_2 = 1$；$15 \equiv 1 \pmod 7$，$y_3 = 1$。</li>
+        <li><b>组合</b>：$x = 1 \times 35 \times 2 + 2 \times 21 \times 1 + 3 \times 15 \times 1 = 70 + 42 + 45 = 157$。</li>
+        <li><b>归约</b>：$157 \equiv 157 - 105 = 52 \pmod{105}$。<br><strong>结论</strong>：$x \equiv 52 \pmod{105}$</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 验证：</strong>$52 = 17 \times 3 + 1$（余1）；$52 = 10 \times 5 + 2$（余2）；$52 = 7 \times 7 + 3$（余3）。三式全部满足 ✓。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q2-12">
+    <div class="q-header">
+      <span class="q-num">2.12</span>
+      <span class="q-title">原根判断</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">证明 $2$ 不是模 $7$ 的原根。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>原根定义：$\text{ord}_n(a) = \varphi(n)$。阶是使 $a^k \equiv 1 \pmod n$ 成立的最小正整数 $k$。</div>
+      <div class="q-steps"><ol>
+        <li>$\varphi(7) = 6$，若2是原根则阶必须等于6。</li>
+        <li>逐步计算：$2^1 \equiv 2$，$2^2 \equiv 4$，$2^3 = 8 \equiv 1 \pmod 7$。</li>
+        <li>$\text{ord}_7(2) = 3 \neq 6 = \varphi(7)$，故2不是模7的原根。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 补充：</strong>验算原根3：$3^1=3, 3^2=2, 3^3=6, 3^4=4, 3^5=5, 3^6=1$（生成了1~6的全部值），故3才是模7的原根。元素的阶必定整除 $\varphi(n)=6$，所以只需检验是否能在6步前提前归1。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q2-13">
+    <div class="q-header">
+      <span class="q-num">2.13</span>
+      <span class="q-title">利用逆元解代入题</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">已知 $x^{-1} \equiv 3 \pmod{11}$，求 $(2x+1)^{-1} \pmod{11}$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>逆元的反向定义：$x^{-1} \equiv 3$ 等价于 $x$ 是 $3$ 的逆元。</div>
+      <div class="q-steps"><ol>
+        <li><b>求 $x$</b>：$x^{-1} \equiv 3$ 意味着 $x \times 3 \equiv 1 \pmod{11}$，故 $x$ 是3的逆元。$3 \times 4 = 12 \equiv 1$，故 $x \equiv 4$。</li>
+        <li><b>代入多项式</b>：$2x + 1 = 2 \times 4 + 1 = 9$。</li>
+        <li><b>求9的逆元</b>：$9 \equiv -2 \pmod{11}$，$(-2) \times (-6) = 12 \equiv 1$，故 $9^{-1} \equiv (-6) \equiv 5 \pmod{11}$。</li>
+        <li><b>结论</b>：$(2x+1)^{-1} \equiv 5 \pmod{11}$</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 验证：</strong>$x=4$：$4 \times 3 = 12 \equiv 1$ ✓；$2x+1=9$：$9 \times 5 = 45 = 4 \times 11 + 1 \equiv 1$ ✓。切忌在模运算中把 $x^{-1}$ 当作实数分式 $1/x$ 处理！</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q2-14">
+    <div class="q-header">
+      <span class="q-num">2.14</span>
+      <span class="q-title">欧拉定理推导逆元公式</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">若 $\gcd(a,n)=1$，证明 $a^{\varphi(n)-1}$ 是 $a$ 模 $n$ 的乘法逆元。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>欧拉定理 + 指数分解 + 逆元定义的代数推导。</div>
+      <div class="q-steps"><ol>
+        <li><b>引入定理</b>：由 $\gcd(a,n)=1$ 和欧拉定理：$a^{\varphi(n)} \equiv 1 \pmod n$。</li>
+        <li><b>指数分解</b>：$a^{\varphi(n)} = a \cdot a^{\varphi(n)-1}$。</li>
+        <li><b>重写同余式</b>：$a \cdot a^{\varphi(n)-1} \equiv 1 \pmod n$。</li>
+        <li><b>对比逆元定义</b>：满足 $a \cdot x \equiv 1 \pmod n$ 的 $x$ 就是 $a$ 的逆元，故 $a^{-1} \equiv a^{\varphi(n)-1} \pmod n$。证毕。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 工程价值：</strong>当 $n=p$ 为素数时，$a^{-1} \equiv a^{p-2} \pmod p$（费马-欧拉求逆元法），可用快速幂直接计算，在密码学硬件中广泛使用。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q2-15">
+    <div class="q-header">
+      <span class="q-num">2.15</span>
+      <span class="q-title">威尔逊定理变体</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">计算 $16! \pmod{19}$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>威尔逊定理：素数 $p$ 满足 $(p-1)! \equiv -1 \pmod p$。不完全阶乘用逆推法处理。</div>
+      <div class="q-steps"><ol>
+        <li><b>套用定理</b>：$p=19$ 是素数，$18! \equiv -1 \equiv 18 \pmod{19}$。</li>
+        <li><b>展开阶乘</b>：$18! = 18 \times 17 \times 16!$。</li>
+        <li><b>负数替换</b>：$18 \equiv -1$，$17 \equiv -2 \pmod{19}$，故 $18 \times 17 \equiv (-1)(-2) = 2$。</li>
+        <li><b>建立方程</b>：$2 \times 16! \equiv -1 \equiv 18 \pmod{19}$。</li>
+        <li><b>两边除以2</b>（$\gcd(2,19)=1$，除法合法）：$16! \equiv 9 \pmod{19}$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>"威尔逊定基调 + 展开拆分 + 负数替换 + 求逆还原"四步曲，是处理一切威尔逊定理变体题的通用模板。</div>
+    </div>
+  </div>
+
+</div><!-- /exam-section -->
+
+<!-- 关联知识点 -->
+<div class="cross-ref-section" id="cross-ref">
+  <div class="section-title cross-ref">
+    <div class="icon">🔗</div>
+    <span>关联知识点——跨章节导航</span>
+  </div>
+  <div class="cross-ref-grid">
+    <a href="ch04-group-theory.html#lagrange" class="cross-ref-card">
+      <div class="ref-chapter">→ 第4章：群论</div>
+      <div class="ref-topic">拉格朗日定理</div>
+      <div class="ref-desc">欧拉定理中"元素阶整除 $\varphi(n)$"是拉格朗日定理在乘法群 $\mathbb{Z}_n^*$ 上的具体体现。</div>
+    </a>
+    <a href="ch05-ring-field.html#ring-def" class="cross-ref-card">
+      <div class="ref-chapter">→ 第5章：环与域</div>
+      <div class="ref-topic">剩余类环 $\mathbb{Z}_n$</div>
+      <div class="ref-desc">本章同余理论是理解剩余类环 $\mathbb{Z}_n$ 的代数结构（模加法/乘法）的数论基础。</div>
+    </a>
+    <a href="ch06-finite-field.html#gf-inverse" class="cross-ref-card">
+      <div class="ref-chapter">→ 第6章：有限域</div>
+      <div class="ref-topic">GF(p^m) 中的逆元</div>
+      <div class="ref-desc">扩展欧几里得算法在有限域中被用于计算多项式的模逆元，是GF(2^m)运算的基础工具。</div>
+    </a>
+    <a href="ch03-polynomial.html#irreducible" class="cross-ref-card">
+      <div class="ref-chapter">→ 第3章：多项式</div>
+      <div class="ref-topic">不可约多项式与素数的类比</div>
+      <div class="ref-desc">素数在整数中的"不可分割"性质，在多项式环中对应不可约多项式，是构造有限域的关键工具。</div>
+    </a>
+  </div>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

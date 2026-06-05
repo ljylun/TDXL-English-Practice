@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>密码学基础 · 代数结构与有限域 | 期末复习宝典</title>
+  <meta name="description" content="基于西安邮电大学密码学基础考纲，涵盖代数结构、初等数论、多项式、群论、环与域、有限域的深度理论解析与真题训练。">
+  <link rel="stylesheet" href="review-style-v2.css">
+</head>
+<body>
+
+<nav class="navbar" id="top-nav">
+  <a href="index-review.html" class="active">📚 总目录</a>
+  <a href="ch01-algebra-structure.html">Ch.1 代数结构</a>
+  <a href="ch02-number-theory.html">Ch.2 初等数论</a>
+  <a href="ch03-polynomial.html">Ch.3 多项式</a>
+  <a href="ch04-group-theory.html">Ch.4 群论</a>
+  <a href="ch05-ring-field.html">Ch.5 环与域</a>
+  <a href="ch06-finite-field.html">Ch.6 有限域</a>
+</nav>
+
+<div class="home-hero">
+  <h1>《密码学基础》期末冲刺宝典</h1>
+  <p class="tagline">代数结构与有限域 · 深度理论解析 + 90道真题全解 · 跨章节知识关联</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;">
+    <div class="hero-stat-item"><strong>6</strong>核心章节</div>
+    <div class="hero-stat-item"><strong>90</strong>道真题解析</div>
+    <div class="hero-stat-item"><strong>100+</strong>知识点关联</div>
+    <div class="hero-stat-item"><strong>W3C</strong>标准合规</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="card" style="text-align:center;padding:2rem;">
+    <p style="font-size:1.05rem;color:var(--text-sub);max-width:700px;margin:0 auto 1rem;">
+      本系统基于西安邮电大学《密码学基础》考纲要求，对代数结构、有限域等核心数学模块进行极具深度的理论剖析，并结合代表性高阶考试真题进行多维度计算推演，为专业学者及应考人员提供详尽、完备且富有逻辑深度的理论审查与复习指南。
+    </p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:600px;margin:1.5rem auto 0;text-align:left;">
+      <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:var(--radius-md);padding:1rem;">
+        <div style="font-size:1.5rem;margin-bottom:0.5rem;">📐</div>
+        <strong style="color:#065f46;">理论深度</strong>
+        <p style="font-size:0.83rem;color:#047857;margin-top:0.3rem;">公理推导、定理证明、知识体系全链路梳理</p>
+      </div>
+      <div style="background:#eff6ff;border:1px solid #bae6fd;border-radius:var(--radius-md);padding:1rem;">
+        <div style="font-size:1.5rem;margin-bottom:0.5rem;">🎯</div>
+        <strong style="color:#1e40af;">真题解析</strong>
+        <p style="font-size:0.83rem;color:#1d4ed8;margin-top:0.3rem;">考点拆解、解题步骤、误区警示、拓展延伸</p>
+      </div>
+      <div style="background:#faf5ff;border:1px solid #c4b5fd;border-radius:var(--radius-md);padding:1rem;">
+        <div style="font-size:1.5rem;margin-bottom:0.5rem;">🔗</div>
+        <strong style="color:#6b21a8;">知识关联</strong>
+        <p style="font-size:0.83rem;color:#7c3aed;margin-top:0.3rem;">跨章节内链、知识图谱、逻辑链条梳理</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="subsection">📑 章节导航</h2>
+  <div class="chapter-grid">
+
+    <a href="ch01-algebra-structure.html" class="chapter-card" style="--chapter-color:#4f46e5;">
+      <div class="ch-icon">🔢</div>
+      <div class="ch-num">CHAPTER 01</div>
+      <h3>代数结构与初步概念</h3>
+      <p>封闭性公理、置换群与函数合成的计算本质、代数结构的层级进阶（Magma→群→阿贝尔群）</p>
+      <div class="ch-meta">
+        <span class="tag">封闭性</span>
+        <span class="tag">置换群</span>
+        <span class="tag">同态同构</span>
+        <span class="tag">15题</span>
+      </div>
+    </a>
+
+    <a href="ch02-number-theory.html" class="chapter-card" style="--chapter-color:#0ea5e9;">
+      <div class="ch-icon">🔐</div>
+      <div class="ch-num">CHAPTER 02</div>
+      <h3>初等数论</h3>
+      <p>整除性与GCD、欧几里得算法、同余理论、欧拉函数φ(n)——RSA公钥密码的数学命脉</p>
+      <div class="ch-meta">
+        <span class="tag">欧几里得</span>
+        <span class="tag">欧拉函数</span>
+        <span class="tag">费马定理</span>
+        <span class="tag">CRT</span>
+        <span class="tag">15题</span>
+      </div>
+    </a>
+
+    <a href="ch03-polynomial.html" class="chapter-card" style="--chapter-color:#10b981;">
+      <div class="ch-icon">📐</div>
+      <div class="ch-num">CHAPTER 03</div>
+      <h3>多项式理论与代数根基</h3>
+      <p>数域层级、不可约多项式（素多项式）、因式定理（定理2.33）、可约性的相对性</p>
+      <div class="ch-meta">
+        <span class="tag">不可约多项式</span>
+        <span class="tag">因式定理</span>
+        <span class="tag">可约性</span>
+        <span class="tag">15题</span>
+      </div>
+    </a>
+
+    <a href="ch04-group-theory.html" class="chapter-card" style="--chapter-color:#f59e0b;">
+      <div class="ch-icon">⚙️</div>
+      <div class="ch-num">CHAPTER 04</div>
+      <h3>群论</h3>
+      <p>群的四条铁律公理、元素的阶、循环群与生成元、拉格朗日定理、置换群奇偶性</p>
+      <div class="ch-meta">
+        <span class="tag">循环群</span>
+        <span class="tag">生成元</span>
+        <span class="tag">拉格朗日</span>
+        <span class="tag">15题</span>
+      </div>
+    </a>
+
+    <a href="ch05-ring-field.html" class="chapter-card" style="--chapter-color:#8b5cf6;">
+      <div class="ch-icon">💫</div>
+      <div class="ch-num">CHAPTER 05</div>
+      <h3>环与域</h3>
+      <p>环的公理体系、零因子的灾难性破坏、整环与域的层级演化、剩余类环Zₙ的全盘分析</p>
+      <div class="ch-meta">
+        <span class="tag">零因子</span>
+        <span class="tag">整环</span>
+        <span class="tag">模运算环</span>
+        <span class="tag">15题</span>
+      </div>
+    </a>
+
+    <a href="ch06-finite-field.html" class="chapter-card" style="--chapter-color:#ef4444;">
+      <div class="ch-icon">🌐</div>
+      <div class="ch-num">CHAPTER 06</div>
+      <h3>有限域 GF(p<sup>m</sup>)</h3>
+      <p>伽罗瓦域的刚性存在法则、GF(2^m)精密构造、元素的四种表示形态、AES核心运算</p>
+      <div class="ch-meta">
+        <span class="tag">伽罗瓦域</span>
+        <span class="tag">本原元</span>
+        <span class="tag">AES</span>
+        <span class="tag">15题</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="card" style="margin-top:2rem;">
+    <h2 class="subsection">🗺️ 知识体系逻辑链条</h2>
+    <div style="overflow-x:auto;padding:1rem 0;">
+      <div style="display:flex;align-items:center;gap:0.5rem;min-width:700px;justify-content:center;flex-wrap:wrap;">
+        <div style="background:linear-gradient(135deg,#4f46e5,#818cf8);color:white;padding:0.7rem 1.2rem;border-radius:var(--radius-md);text-align:center;font-size:0.85rem;font-weight:600;">
+          集合与运算<br><span style="font-size:0.72rem;opacity:0.8;">Ch.1 代数结构</span>
+        </div>
+        <div style="font-size:1.5rem;color:var(--text-muted);">→</div>
+        <div style="background:linear-gradient(135deg,#0ea5e9,#38bdf8);color:white;padding:0.7rem 1.2rem;border-radius:var(--radius-md);text-align:center;font-size:0.85rem;font-weight:600;">
+          整数与模运算<br><span style="font-size:0.72rem;opacity:0.8;">Ch.2 初等数论</span>
+        </div>
+        <div style="font-size:1.5rem;color:var(--text-muted);">→</div>
+        <div style="background:linear-gradient(135deg,#10b981,#34d399);color:white;padding:0.7rem 1.2rem;border-radius:var(--radius-md);text-align:center;font-size:0.85rem;font-weight:600;">
+          多项式运算<br><span style="font-size:0.72rem;opacity:0.8;">Ch.3 多项式</span>
+        </div>
+        <div style="font-size:1.5rem;color:var(--text-muted);">→</div>
+        <div style="background:linear-gradient(135deg,#f59e0b,#fbbf24);color:white;padding:0.7rem 1.2rem;border-radius:var(--radius-md);text-align:center;font-size:0.85rem;font-weight:600;">
+          对称结构<br><span style="font-size:0.72rem;opacity:0.8;">Ch.4 群论</span>
+        </div>
+        <div style="font-size:1.5rem;color:var(--text-muted);">→</div>
+        <div style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);color:white;padding:0.7rem 1.2rem;border-radius:var(--radius-md);text-align:center;font-size:0.85rem;font-weight:600;">
+          双运算系统<br><span style="font-size:0.72rem;opacity:0.8;">Ch.5 环与域</span>
+        </div>
+        <div style="font-size:1.5rem;color:var(--text-muted);">→</div>
+        <div style="background:linear-gradient(135deg,#ef4444,#f87171);color:white;padding:0.7rem 1.2rem;border-radius:var(--radius-md);text-align:center;font-size:0.85rem;font-weight:600;">
+          有限密码空间<br><span style="font-size:0.72rem;opacity:0.8;">Ch.6 有限域</span>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;color:var(--text-muted);font-size:0.85rem;margin-top:0.5rem;">知识体系层层递进，每一章都建立在前章的数学工具之上</p>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,583 @@
+<!-- Chosen Palette: Scholar Calm (Warm stone background #FAFAF9, Slate text #334155, Accent Teal #0D9488, Soft Amber highlights #F59E0B) -->
+<!-- Application Structure Plan: The SPA uses a dashboard structure with a dual-pane layout. 
+     Left panel: Navigation & Progress tracking to give students a sense of accomplishment. 
+     Right panel: Dynamic content display. The content is broken down into "Modules" (chapters) 
+     and a dedicated "Exam Practice" section. This structure is chosen because studying cryptography 
+     requires nonlinear exploration—students might need to jump from Finite Fields back to Polynomials. 
+     The interactive flashcard and step-by-step calculator elements foster active recall rather than passive reading. -->
+<!-- Visualization & Content Choices: 
+     1. Overall Syllabus Weight -> Goal: Inform -> Polar Area Chart (Chart.js Canvas) -> Visualizes importance of chapters -> Library: Chart.js.
+     2. Core Concepts -> Goal: Organize -> Accordion lists (HTML/Tailwind + JS) -> Click to expand -> Reduces cognitive overload.
+     3. Algorithms (e.g. Euclidean) -> Goal: Inform/Change -> Step-by-step interactive simulator -> Inputs trigger JS calculation & display -> Enhances understanding.
+     4. Mock Exam -> Goal: Compare/Test -> Flashcard style div -> Click to reveal answer -> Active recall. 
+     CONFIRMING: NO SVG/Mermaid used. Only HTML/CSS/JS and Chart.js Canvas. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>密码学基础 - 交互式复习系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Base typography and scrollbar styles */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* Chart container constraint as per strict requirements */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 40vh;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container { height: 350px; }
+        }
+
+        /* Utilities */
+        .tab-btn.active {
+            background-color: #0D9488;
+            color: white;
+            font-weight: 600;
+        }
+        .content-section { display: none; }
+        .content-section.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Interactive text */
+        .math-text { font-family: 'Courier New', Courier, monospace; font-weight: 600; color: #334155; }
+    </style>
+</head>
+<body class="bg-stone-50 text-slate-800 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-stone-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center flex-wrap">
+            <h1 class="text-2xl font-bold text-slate-900 tracking-tight">&#x1F4DA; 密码学基础 <span class="text-teal-600">复习冲刺系统</span></h1>
+            <div class="flex items-center gap-3 mt-2 sm:mt-0">
+                <span class="text-sm font-medium text-slate-500">复习进度</span>
+                <div class="w-32 bg-stone-200 rounded-full h-2.5">
+                    <div id="progress-bar" class="bg-teal-600 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <span id="progress-text" class="text-xs font-bold text-teal-700">0/7</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <main class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-12 gap-8">
+        
+        <!-- Sidebar Navigation -->
+        <nav class="md:col-span-3 space-y-2">
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-stone-100 mb-6">
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">知识导航</p>
+                <button onclick="switchTab('dashboard')" class="tab-btn active w-full text-left px-4 py-2 rounded-lg text-slate-600 hover:bg-stone-100 transition-colors mb-1">&#x1F3AF; 总览与学习权重</button>
+                <button onclick="switchTab('ch1')" class="tab-btn w-full text-left px-4 py-2 rounded-lg text-slate-600 hover:bg-stone-100 transition-colors mb-1" data-ch="1">&#x1F539; 1. 代数结构与初步</button>
+                <button onclick="switchTab('ch2')" class="tab-btn w-full text-left px-4 py-2 rounded-lg text-slate-600 hover:bg-stone-100 transition-colors mb-1" data-ch="2">&#x1F539; 2. 初等数论</button>
+                <button onclick="switchTab('ch3')" class="tab-btn w-full text-left px-4 py-2 rounded-lg text-slate-600 hover:bg-stone-100 transition-colors mb-1" data-ch="3">&#x1F539; 3. 多项式理论</button>
+                <button onclick="switchTab('ch4')" class="tab-btn w-full text-left px-4 py-2 rounded-lg text-slate-600 hover:bg-stone-100 transition-colors mb-1" data-ch="4">&#x1F539; 4. 群论</button>
+                <button onclick="switchTab('ch5')" class="tab-btn w-full text-left px-4 py-2 rounded-lg text-slate-600 hover:bg-stone-100 transition-colors mb-1" data-ch="5">&#x1F539; 5. 环与域</button>
+                <button onclick="switchTab('ch6')" class="tab-btn w-full text-left px-4 py-2 rounded-lg text-slate-600 hover:bg-stone-100 transition-colors mb-1" data-ch="6">&#x1F539; 6. 有限域 (重点)</button>
+            </div>
+            
+            <div class="bg-teal-50 p-4 rounded-xl border border-teal-100">
+                <p class="text-xs font-semibold text-teal-800 uppercase tracking-wider mb-3">实战检验</p>
+                <button onclick="switchTab('exam')" class="tab-btn w-full text-left px-4 py-2 rounded-lg text-teal-700 hover:bg-teal-100 transition-colors font-medium">&#x270D;&#xFE0F; 期末模拟真题库</button>
+            </div>
+        </nav>
+
+        <!-- Content Area -->
+        <section class="md:col-span-9 bg-white rounded-xl shadow-sm border border-stone-200 p-6 lg:p-8 min-h-[600px]">
+            
+            <!-- Dashboard View -->
+            <div id="dashboard" class="content-section active">
+                <h2 class="text-2xl font-bold text-slate-800 border-b border-stone-100 pb-3 mb-6">学习规划总览</h2>
+                <p class="text-slate-600 mb-8 leading-relaxed">
+                    欢迎使用密码学基础复习系统。本系统提取了课程大纲中的核心考点，重组为更易于交互学习的卡片模块。下方图表展示了各章节在现代密码学基础计算中的权重与联系。请在左侧导航栏开始你的复习之旅，每完成一个模块请点击页面底部的“标记为已掌握”来追踪进度。
+                </p>
+                <div class="bg-stone-50 rounded-xl p-6 border border-stone-200">
+                    <h3 class="text-center text-sm font-semibold text-slate-500 mb-4 uppercase tracking-widest">知识点分值/难度权重雷达图</h3>
+                    <div class="chart-container">
+                        <canvas id="weightChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chapter 1 -->
+            <div id="ch1" class="content-section">
+                <h2 class="text-2xl font-bold text-slate-800 border-b border-stone-100 pb-3 mb-6">1. 代数结构与初步概念</h2>
+                <p class="text-slate-600 mb-6 leading-relaxed bg-amber-50 p-4 rounded-lg border border-amber-100">
+                    本章主要介绍了抽象代数的最基本单元：代数结构。这是后续群、环、域等概念的基石，核心在于理解集合与运算的“封闭性”。
+                </p>
+                
+                <div class="space-y-4">
+                    <div class="border border-stone-200 rounded-lg overflow-hidden">
+                        <button class="w-full text-left px-5 py-4 bg-stone-50 hover:bg-stone-100 font-semibold text-slate-700 flex justify-between items-center" onclick="toggleAccordion('c1-1')">
+                            核心概念：代数结构与封闭性 <span>&#9660;</span>
+                        </button>
+                        <div id="c1-1" class="hidden px-5 py-4 text-slate-600 border-t border-stone-200 leading-relaxed">
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>代数结构由一个**非空集合 M** 和其上的**代数运算**组成。</li>
+                                <li>**封闭性**：对于集合 M 中的任意两个元素 a, b，经过运算后的结果 c 必定也属于集合 M。</li>
+                                <li>举例：整数集合对加法封闭，但奇数集合对加法不封闭（奇数+奇数=偶数）。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-stone-200 rounded-lg overflow-hidden">
+                        <button class="w-full text-left px-5 py-4 bg-stone-50 hover:bg-stone-100 font-semibold text-slate-700 flex justify-between items-center" onclick="toggleAccordion('c1-2')">
+                            计算重点：置换群的合成 <span>&#9660;</span>
+                        </button>
+                        <div id="c1-2" class="hidden px-5 py-4 text-slate-600 border-t border-stone-200 leading-relaxed">
+                            <p class="mb-2">置换的本质是双射函数。两个置换相乘即为函数的合成 <span class="math-text">f(g(x))</span>。</p>
+                            <p class="mb-2"><strong>注意：</strong>计算时通常遵循从右向左的复合顺序。</p>
+                            <div class="bg-slate-800 text-teal-400 p-4 rounded mt-2 font-mono text-sm">
+                                示例：<br>
+                                p1 = (1 2 3) <br>
+                                p2 = (2 3) <br>
+                                p1 * p2 计算：<br>
+                                1 -> [p2] -> 1 -> [p1] -> 2 <br>
+                                2 -> [p2] -> 3 -> [p1] -> 1 <br>
+                                3 -> [p2] -> 2 -> [p1] -> 3 <br>
+                                结果: (1 2)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 text-right">
+                    <button onclick="markComplete('ch1')" class="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-lg font-medium transition-colors shadow-sm">标记本章为已掌握</button>
+                </div>
+            </div>
+
+            <!-- Chapter 2 -->
+            <div id="ch2" class="content-section">
+                <h2 class="text-2xl font-bold text-slate-800 border-b border-stone-100 pb-3 mb-6">2. 初等数论</h2>
+                <p class="text-slate-600 mb-6 leading-relaxed bg-amber-50 p-4 rounded-lg border border-amber-100">
+                    数论是RSA等非对称加密体系的灵魂。本节包含必须掌握的核心计算，包括最大公因子求解、素数分解、同余类以及欧拉函数的计算。
+                </p>
+                
+                <div class="space-y-4">
+                    <div class="border border-stone-200 rounded-lg overflow-hidden">
+                        <button class="w-full text-left px-5 py-4 bg-stone-50 hover:bg-stone-100 font-semibold text-slate-700 flex justify-between items-center" onclick="toggleAccordion('c2-1')">
+                            关键定理与概念 <span>&#9660;</span>
+                        </button>
+                        <div id="c2-1" class="hidden px-5 py-4 text-slate-600 border-t border-stone-200 leading-relaxed">
+                            <ul class="list-disc pl-5 space-y-3">
+                                <li>**算术基本定理**：任何大于1的整数都能唯一地分解为素数的乘积（不计顺序）。这为求欧拉函数提供了基础。</li>
+                                <li>**同余 (Congruence)**：<span class="math-text">a &#8801; b (mod m)</span> 意味着 m 整除 (a-b)。</li>
+                                <li>**欧拉函数 &phi;(n)**：小于或等于n且与n互素的正整数个数。公式：如果 <span class="math-text">n = p<sub>1</sub><sup>k1</sup> p<sub>2</sub><sup>k2</sup></span>，则 <span class="math-text">&phi;(n) = n(1 - 1/p<sub>1</sub>)(1 - 1/p<sub>2</sub>)</span>。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-stone-200 rounded-lg overflow-hidden">
+                        <button class="w-full text-left px-5 py-4 bg-teal-50 hover:bg-teal-100 font-semibold text-teal-800 flex justify-between items-center" onclick="toggleAccordion('c2-calc')">
+                            &#9881;&#xFE0F; 交互演示：辗转相除法求 GCD <span>&#9660;</span>
+                        </button>
+                        <div id="c2-calc" class="hidden px-5 py-4 bg-white text-slate-600 border-t border-stone-200">
+                            <p class="mb-4 text-sm">输入两个正整数，系统将演示欧几里得算法的执行步骤：</p>
+                            <div class="flex gap-2 mb-4">
+                                <input type="number" id="gcdA" value="252" class="border p-2 rounded w-24 focus:outline-none focus:border-teal-500">
+                                <input type="number" id="gcdB" value="198" class="border p-2 rounded w-24 focus:outline-none focus:border-teal-500">
+                                <button onclick="calculateGCD()" class="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700 transition">计算并演示</button>
+                            </div>
+                            <div id="gcdResult" class="bg-slate-800 text-teal-400 p-4 rounded font-mono text-sm min-h-[100px]">
+                                <!-- Result injected via JS -->
+                                等待计算...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 text-right">
+                    <button onclick="markComplete('ch2')" class="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-lg font-medium transition-colors shadow-sm">标记本章为已掌握</button>
+                </div>
+            </div>
+
+            <!-- Chapter 3 -->
+            <div id="ch3" class="content-section">
+                <h2 class="text-2xl font-bold text-slate-800 border-b border-stone-100 pb-3 mb-6">3. 多项式理论</h2>
+                <p class="text-slate-600 mb-6 leading-relaxed bg-amber-50 p-4 rounded-lg border border-amber-100">
+                    多项式理论是构造高级有限域（如AES使用的有限域）的基础。重点在于区分可约与不可约多项式，并能利用定理判断因式。
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-stone-50 p-5 rounded-lg border border-stone-200 shadow-sm">
+                        <h4 class="font-bold text-slate-700 mb-2">可约性 (Irreducibility)</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            不可约多项式类似于整数中的素数。如果一个次数大于0的多项式不能写成两个次数较低的多项式的乘积，它就是不可约的（素多项式）。这取决于所讨论的<strong>域</strong>（如 $x^2+1$ 在实数域不可约，在复数域可约）。
+                        </p>
+                    </div>
+                    <div class="bg-teal-50 p-5 rounded-lg border border-teal-200 shadow-sm">
+                        <h4 class="font-bold text-teal-800 mb-2">核心定理 2.33</h4>
+                        <p class="text-sm text-teal-700 leading-relaxed">
+                            多项式 <span class="math-text">f(x)</span> 含有根 <span class="math-text">&alpha;</span>（即 <span class="math-text">f(&alpha;) = 0</span>），当且仅当 <span class="math-text">(x - &alpha;)</span> 是 <span class="math-text">f(x)</span> 的一个因式。
+                        </p>
+                        <p class="text-xs mt-2 font-semibold">考试高频考点：利用此定理求证或提取一次因式。</p>
+                    </div>
+                </div>
+                <div class="mt-8 text-right">
+                    <button onclick="markComplete('ch3')" class="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-lg font-medium transition-colors shadow-sm">标记本章为已掌握</button>
+                </div>
+            </div>
+
+            <!-- Chapter 4 -->
+            <div id="ch4" class="content-section">
+                <h2 class="text-2xl font-bold text-slate-800 border-b border-stone-100 pb-3 mb-6">4. 群论</h2>
+                <p class="text-slate-600 mb-6 leading-relaxed bg-amber-50 p-4 rounded-lg border border-amber-100">
+                    群是定义了单一运算并满足特定公理的代数结构。掌握群的四个公理、元素的阶以及拉格朗日定理是解题的钥匙。
+                </p>
+                
+                <div class="space-y-4">
+                     <div class="border border-stone-200 rounded-lg p-5">
+                        <h4 class="font-bold text-slate-800 mb-3 text-lg">群的四条公理</h4>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-sm font-medium">1. 封闭性</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-sm font-medium">2. 结合律</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-sm font-medium">3. 存在单位元 e</span>
+                            <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-sm font-medium">4. 存在逆元 a<sup>-1</sup></span>
+                        </div>
+                        <p class="text-sm text-slate-500">（若额外满足交换律，则称为阿贝尔群/交换群）</p>
+                    </div>
+
+                    <div class="border border-stone-200 rounded-lg overflow-hidden">
+                        <button class="w-full text-left px-5 py-4 bg-stone-50 hover:bg-stone-100 font-semibold text-slate-700 flex justify-between items-center" onclick="toggleAccordion('c4-1')">
+                            元素的阶与循环群 <span>&#9660;</span>
+                        </button>
+                        <div id="c4-1" class="hidden px-5 py-4 text-slate-600 border-t border-stone-200 leading-relaxed">
+                            <p><strong>元素的阶 (Order):</strong> 满足 <span class="math-text">a<sup>k</sup> = e</span> 的最小正整数 k。在有限群中，元素的阶必为有限。</p>
+                            <p class="mt-2"><strong>循环群:</strong> 若群 G 中的所有元素都可以表示为某个元素 g 的幂次（<span class="math-text">g<sup>n</sup></span>），则 G 是循环群，g 称为生成元。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-stone-200 rounded-lg overflow-hidden">
+                        <button class="w-full text-left px-5 py-4 bg-stone-50 hover:bg-stone-100 font-semibold text-slate-700 flex justify-between items-center" onclick="toggleAccordion('c4-2')">
+                            &#11088; 拉格朗日定理 (核心) <span>&#9660;</span>
+                        </button>
+                        <div id="c4-2" class="hidden px-5 py-4 text-slate-600 border-t border-stone-200 leading-relaxed">
+                            <p class="font-semibold text-slate-800">定理内容：</p>
+                            <p>对于有限群 G 的任何子群 H，子群 H 的阶（元素个数）必定能整除群 G 的阶。</p>
+                            <p class="font-semibold text-slate-800 mt-2">极其重要的推论：</p>
+                            <ul class="list-disc pl-5">
+                                <li>群中任意元素的阶必须整除群的阶。</li>
+                                <li><strong>素数阶的群必定是循环群。</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 text-right">
+                    <button onclick="markComplete('ch4')" class="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-lg font-medium transition-colors shadow-sm">标记本章为已掌握</button>
+                </div>
+            </div>
+
+            <!-- Chapter 5 -->
+            <div id="ch5" class="content-section">
+                <h2 class="text-2xl font-bold text-slate-800 border-b border-stone-100 pb-3 mb-6">5. 环与域</h2>
+                <p class="text-slate-600 mb-6 leading-relaxed bg-amber-50 p-4 rounded-lg border border-amber-100">
+                    本章进一步增加了结构约束。环定义了两种运算（通常记为加和乘），而域是结构最完善的代数系统，支持加减乘除四则运算。
+                </p>
+                <div class="flex flex-col gap-4">
+                    <div class="bg-white p-5 border-l-4 border-slate-400 rounded shadow-sm">
+                        <h4 class="font-bold text-slate-700">概念递进关系</h4>
+                        <p class="text-sm mt-2 text-slate-600">
+                            <strong>环 (Ring)</strong> &#8594; 存在加法群且乘法满足结合律与分配律。<br>
+                            <strong>整环 (Integral Domain)</strong> &#8594; 交换环且无零因子。<br>
+                            <strong>域 (Field)</strong> &#8594; 交换除环（非零元素都有乘法逆元）。
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white p-5 border-l-4 border-teal-500 rounded shadow-sm">
+                        <h4 class="font-bold text-slate-700">模 n 剩余类环 Z<sub>n</sub> 的性质 (常考)</h4>
+                        <ul class="list-disc pl-5 mt-2 text-sm text-slate-600 space-y-1">
+                            <li>运算：<span class="math-text">(a+b) mod n</span>, <span class="math-text">(a*b) mod n</span></li>
+                            <li><strong>是否为域：</strong> 当且仅当 n 为素数时，Z<sub>n</sub> 才是域 (即 GF(p) 或 Z<sub>p</sub>)。</li>
+                            <li><strong>可逆元：</strong> 与 n 互素的元素具有乘法逆元。</li>
+                            <li><strong>零因子：</strong> 与 n 不互素的非零元素。例如在 Z<sub>6</sub> 中，2*3 = 0，故2和3都是零因子。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 text-right">
+                    <button onclick="markComplete('ch5')" class="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-lg font-medium transition-colors shadow-sm">标记本章为已掌握</button>
+                </div>
+            </div>
+
+             <!-- Chapter 6 -->
+             <div id="ch6" class="content-section">
+                <h2 class="text-2xl font-bold text-slate-800 border-b border-stone-100 pb-3 mb-6">6. 有限域 (高级密码学基石)</h2>
+                <p class="text-slate-600 mb-6 leading-relaxed bg-amber-50 p-4 rounded-lg border border-amber-100">
+                    这部分是考试压轴题常客，主要涉及从低阶有限域扩域到高阶有限域的计算，特别是如何利用不可约多项式构造 GF(p<sup>m</sup>)。
+                </p>
+                
+                <div class="space-y-4">
+                    <div class="border border-stone-200 rounded-lg p-5 bg-stone-50">
+                        <h4 class="font-bold text-slate-800 mb-2">构造法核心口诀</h4>
+                        <p class="text-slate-600 leading-relaxed text-sm">
+                            要构造有限域 <span class="math-text">GF(p<sup>m</sup>)</span>，你需要：<br>
+                            1. 找到基础素数域 <span class="math-text">GF(p)</span>（通常为二元域 GF(2)）。<br>
+                            2. 找到一个在 <span class="math-text">GF(p)</span> 上的 <strong>m 次不可约多项式 f(x)</strong>。<br>
+                            3. 该有限域的元素是次数小于 m 的所有多项式。<br>
+                            4. 加减法对应系数在 <span class="math-text">GF(p)</span> 下运算；乘法为多项式相乘后对 <span class="math-text">f(x)</span> 取余（即令 <span class="math-text">f(x)=0</span> 进行降次）。
+                        </p>
+                    </div>
+
+                    <div class="border border-teal-200 rounded-lg p-5 bg-white">
+                        <h4 class="font-bold text-teal-800 mb-3">&#x1F4DD; 元素的不同表示形式</h4>
+                        <p class="text-sm text-slate-600 mb-2">在 GF(2<sup>m</sup>) 中，同一元素有四种等价写法，掌握其转化对计算至关重要：</p>
+                        <table class="min-w-full border-collapse border border-stone-200 text-sm">
+                            <thead>
+                                <tr class="bg-stone-100">
+                                    <th class="border border-stone-200 p-2 text-left">表示法</th>
+                                    <th class="border border-stone-200 p-2 text-left">示例 (GF(2^3))</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-stone-200 p-2">多项式</td>
+                                    <td class="border border-stone-200 p-2">x<sup>2</sup> + 1</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-stone-200 p-2">二进制</td>
+                                    <td class="border border-stone-200 p-2">101 (对应多项式系数)</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-stone-200 p-2">整数</td>
+                                    <td class="border border-stone-200 p-2">5 (101的十进制)</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-stone-200 p-2">指数形式</td>
+                                    <td class="border border-stone-200 p-2">g<sup>k</sup> (如果g是本原元)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="mt-8 text-right">
+                    <button onclick="markComplete('ch6')" class="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-lg font-medium transition-colors shadow-sm">标记本章为已掌握</button>
+                </div>
+            </div>
+
+            <!-- Exam Practice Section -->
+            <div id="exam" class="content-section">
+                <h2 class="text-2xl font-bold text-teal-800 border-b border-teal-100 pb-3 mb-6">&#x270D;&#xFE0F; 期末模拟真题自测</h2>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    点击题目卡片可展开/折叠查看答案解析。建议在看答案前先自行在草稿纸上计算。
+                </p>
+                
+                <div class="space-y-4" id="exam-questions-container">
+                    <!-- Questions injected by JS -->
+                </div>
+            </div>
+            
+        </section>
+    </main>
+
+    <script>
+        // --- State Management ---
+        const state = {
+            completedModules: new Set(),
+            totalModules: 6
+        };
+
+        // --- Mock Data ---
+        const mockQuestions = [
+            {
+                type: '单选题',
+                q: '在模 12 的剩余类环 Z_12 中，以下哪个元素是零因子？\n A. 1 \n B. 5 \n C. 7 \n D. 9',
+                a: '答案：D。解析：在 Z_12 中，零因子是与 12 不互素的非零元素。gcd(9, 12)=3，不等于1。且 9*4 = 36 = 0 (mod 12)。'
+            },
+            {
+                type: '判断题',
+                q: '多项式 x^2 + 1 在实数域上是不可约多项式，但在复数域上是可约多项式。',
+                a: '答案：正确。解析：它在实数域无实根，因此不可约；但在复数域有根 +i, -i，可分解为 (x-i)(x+i)。'
+            },
+            {
+                type: '计算题',
+                q: '利用公式计算欧拉函数 φ(100)。',
+                a: '解析：100 = 2^2 * 5^2。 根据公式：φ(100) = 100 * (1 - 1/2) * (1 - 1/5) = 100 * (1/2) * (4/5) = 40。'
+            },
+            {
+                type: '综合证明',
+                q: '设 G 是一个阶为 31 的有限群，判断 G 的特性。',
+                a: '解析：根据拉格朗日定理的推论，素数阶群必定是循环群，同时也必定是阿贝尔群(交换群)。因为 31 是素数，所以 G 必为循环群。'
+            },
+            {
+                type: '有限域计算',
+                q: '已知 f(x) = x^2 + x + 1 是 GF(2) 上的不可约多项式。以 f(x) 构造有限域 GF(2^2)，计算域中元素 (x+1) 乘以 x 的结果。',
+                a: '解析：(x+1)*x = x^2 + x。由于模多项式为 x^2+x+1=0，即 x^2 = -x-1。在 GF(2) 中，加减等价，故 x^2 = x+1。代入原式：(x+1)+x = 2x+1。因系数在 GF(2)中，2x=0，所以最终结果为 1。'
+            }
+        ];
+
+        // --- Core Interactions & Rendering ---
+
+        function switchTab(tabId) {
+            // Update buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-teal-600', 'text-white', 'font-semibold');
+                btn.classList.add('text-slate-600', 'hover:bg-stone-100');
+                if(btn.textContent.includes('真题库') && tabId !== 'exam') {
+                    btn.classList.replace('text-slate-600', 'text-teal-700');
+                    btn.classList.replace('hover:bg-stone-100', 'hover:bg-teal-100');
+                }
+            });
+            
+            const activeBtn = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-slate-600', 'hover:bg-stone-100', 'text-teal-700', 'hover:bg-teal-100');
+                activeBtn.classList.add('active', 'bg-teal-600', 'text-white', 'font-semibold');
+            }
+
+            // Update content sections
+            document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+
+            // Render specific components if needed
+            if (tabId === 'dashboard') renderChart();
+            if (tabId === 'exam') renderExam();
+        }
+
+        function toggleAccordion(id) {
+            const el = document.getElementById(id);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+
+        function markComplete(chId) {
+            state.completedModules.add(chId);
+            const activeBtn = document.querySelector(`button[onclick="switchTab('${chId}')"]`);
+            if(activeBtn && !activeBtn.innerHTML.includes('&#x2714;&#xFE0F;')) {
+                activeBtn.innerHTML = '&#x2714;&#xFE0F; ' + activeBtn.innerHTML.replace('&#x1F539; ', '');
+            }
+            updateProgress();
+            
+            // Visual feedback on button
+            const btn = document.querySelector(`#${chId} button.bg-teal-600`);
+            if(btn) {
+                btn.textContent = "已标记掌握";
+                btn.classList.replace('bg-teal-600', 'bg-slate-400');
+                btn.classList.replace('hover:bg-teal-700', 'cursor-default');
+            }
+        }
+
+        function updateProgress() {
+            const percentage = (state.completedModules.size / state.totalModules) * 100;
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+            document.getElementById('progress-text').textContent = `${state.completedModules.size}/${state.totalModules}`;
+        }
+
+        // --- Specific Logic: GCD Calculator ---
+        function calculateGCD() {
+            let a = parseInt(document.getElementById('gcdA').value);
+            let b = parseInt(document.getElementById('gcdB').value);
+            const display = document.getElementById('gcdResult');
+            
+            if (isNaN(a) || isNaN(b) || a <= 0 || b <= 0) {
+                display.innerHTML = '<span class="text-amber-400">请输入有效的正整数</span>';
+                return;
+            }
+
+            let log = `计算 GCD(${a}, ${b}) 的步骤：<br><br>`;
+            
+            let tempA = Math.max(a, b);
+            let tempB = Math.min(a, b);
+            
+            while (tempB !== 0) {
+                let q = Math.floor(tempA / tempB);
+                let r = tempA % tempB;
+                log += `${tempA} = ${tempB} * ${q} + <span class="text-white">${r}</span><br>`;
+                tempA = tempB;
+                tempB = r;
+            }
+            log += `<br>=> 最大公因子为: <strong class="text-lg text-white">${tempA}</strong>`;
+            display.innerHTML = log;
+        }
+
+        // --- Exam Renderer ---
+        function renderExam() {
+            const container = document.getElementById('exam-questions-container');
+            if (container.children.length > 0) return; // already rendered
+            
+            mockQuestions.forEach((mq, index) => {
+                const id = `exam-q-${index}`;
+                const html = `
+                    <div class="border border-stone-200 rounded-lg overflow-hidden shadow-sm">
+                        <button class="w-full text-left px-5 py-4 bg-white hover:bg-stone-50 font-medium text-slate-700 flex justify-between items-start" onclick="toggleAccordion('${id}')">
+                            <div>
+                                <span class="inline-block bg-teal-100 text-teal-800 text-xs px-2 py-1 rounded mr-2">${mq.type}</span>
+                                <span>${mq.q.replace(/\n/g, '<br>')}</span>
+                            </div>
+                            <span class="text-slate-400 shrink-0 ml-4">&#128065; 解析</span>
+                        </button>
+                        <div id="${id}" class="hidden px-5 py-4 bg-stone-50 text-slate-700 border-t border-stone-200 leading-relaxed font-mono text-sm">
+                            ${mq.a.replace(/\n/g, '<br>')}
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', html);
+            });
+        }
+
+        // --- Chart.js ---
+        let weightChartInst = null;
+        function renderChart() {
+            const ctx = document.getElementById('weightChart');
+            if (!ctx) return;
+            
+            if (weightChartInst) weightChartInst.destroy();
+
+            weightChartInst = new Chart(ctx, {
+                type: 'polarArea',
+                data: {
+                    labels: ['代数结构 (10%)', '初等数论 (25%)', '多项式理论 (15%)', '群论 (20%)', '环与域 (10%)', '有限域 (20%)'],
+                    datasets: [{
+                        label: '考点权重',
+                        data: [10, 25, 15, 20, 10, 20],
+                        backgroundColor: [
+                            'rgba(148, 163, 184, 0.6)', // slate-400
+                            'rgba(13, 148, 136, 0.6)',  // teal-600
+                            'rgba(245, 158, 11, 0.6)',  // amber-500
+                            'rgba(51, 65, 85, 0.6)',    // slate-700
+                            'rgba(203, 213, 225, 0.6)', // slate-300
+                            'rgba(20, 184, 166, 0.6)'   // teal-500
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right', labels: { font: { family: 'Segoe UI' } } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label.split(' ')[0] + ': 考察概率约为 ' + context.raw + '%';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        r: { display: false } // hide radial scale for cleaner look
+                    }
+                }
+            });
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            renderChart();
+        });
+
+    </script>
+</body>
+</html>

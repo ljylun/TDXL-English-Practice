@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第3章：多项式理论 | 密码学基础复习</title>
+  <meta name="description" content="多项式理论深度解析：不可约多项式、因式定理、多项式GCD、域扩张与GF(2^m)构造，含15道真题。">
+  <link rel="stylesheet" href="review-style-v2.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+</head>
+<body>
+
+<nav class="navbar" id="top-nav">
+  <a href="index-review.html">📚 总目录</a>
+  <a href="ch01-algebra-structure.html">Ch.1 代数结构</a>
+  <a href="ch02-number-theory.html">Ch.2 初等数论</a>
+  <a href="ch03-polynomial.html" class="active">Ch.3 多项式</a>
+  <a href="ch04-group-theory.html">Ch.4 群论</a>
+  <a href="ch05-ring-field.html">Ch.5 环与域</a>
+  <a href="ch06-finite-field.html">Ch.6 有限域</a>
+</nav>
+
+<div class="chapter-hero">
+  <div class="chapter-num">CHAPTER 03</div>
+  <h1>多项式理论与代数根基</h1>
+  <p class="subtitle">不可约多项式——有限域扩张的灵魂工具，密码学的方程语言</p>
+  <div class="hero-stats">
+    <div class="hero-stat-item"><strong>3</strong>核心定理</div>
+    <div class="hero-stat-item"><strong>15</strong>道真题</div>
+    <div class="hero-stat-item"><strong>不可约·根·可约性</strong>重点覆盖</div>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="theory-section" id="theory">
+  <div class="section-title theory">
+    <div class="icon">📖</div>
+    <span>理论框架与深度解读</span>
+  </div>
+
+  <!-- 3.1 数域与多项式环 -->
+  <h2 class="subsection" id="poly-ring">3.1 数域的定义与多项式环层级</h2>
+  <div class="theory-content">
+    <p>数域是多项式理论赖以生存的土壤。了解多项式系数所在的域，是判断多项式性质的第一步。</p>
+    <p>关联知识点：<a class="kw-link" href="ch05-ring-field.html#field-def">域的公理体系与环的区别</a>、<a class="kw-link" href="ch06-finite-field.html#gf-extension">有限域扩张的构造</a></p>
+  </div>
+
+  <div class="definition-card">
+    <h4>域（Field）与多项式环（Polynomial Ring）</h4>
+    <p><strong>域</strong>：允许无障碍进行加、减、乘、除（除数不为0）的代数结构。经典数域层级：$\mathbb{Q} \subset \mathbb{R} \subset \mathbb{C}$。</p>
+    <p><strong>多项式环 $F[x]$</strong>：系数取自域 $F$ 的所有多项式 $f(x) = a_nx^n + \dots + a_1x + a_0$ 构成的集合，对加法和乘法封闭，构成一个环结构。</p>
+  </div>
+  
+  <div class="theorem-card">
+    <h4>带余除法定理（Division Algorithm）</h4>
+    <p>在 $F[x]$ 中，对于多项式 $f(x)$ 和非零多项式 $g(x)$，存在唯一的多项式 $q(x)$（商）和 $r(x)$（余式），使得：</p>
+    <p>$$f(x) = q(x)g(x) + r(x)$$</p>
+    <p>且满足 $r(x) = 0$ 或 $\deg(r) < \deg(g)$。这是多项式欧几里得算法的基础。</p>
+  </div>
+
+  <!-- 3.2 不可约多项式 -->
+  <h2 class="subsection" id="irreducible">3.2 不可约多项式（素多项式）</h2>
+  <div class="theory-content">
+    <p>不可约多项式在多项式环中的地位，等同于素数在整数环中的地位。它们是"不可分割"的基本构建块。</p>
+    <p>关联知识点：<a class="kw-link" href="ch06-finite-field.html#primitive-poly">本原多项式的选取标准</a></p>
+  </div>
+
+  <div class="definition-card">
+    <h4>定义 3.1：不可约性（Irreducibility）</h4>
+    <p>若次数大于0的多项式 $f(x) \in F[x]$ 不能分解为两个次数更低且系数仍属于 $F$ 的多项式的乘积，则称 $f(x)$ 在域 $F$ 上不可约。否则称为可约（Reducible）。</p>
+  </div>
+
+  <div class="key-axiom">
+    <div class="axiom-label">⚠️ 相对性原则</div>
+    <p>多项式的可约性<strong>完全依赖于底层域 $F$</strong>！同一个多项式，在 $\mathbb{Q}$ 上可能不可约，而在 $\mathbb{R}$ 或 $\mathbb{C}$ 上可能可约。例如：$x^2-2$ 在 $\mathbb{Q}$ 上不可约（$\sqrt{2} \notin \mathbb{Q}$），但在 $\mathbb{R}$ 上可约：$x^2-2 = (x-\sqrt{2})(x+\sqrt{2})$。</p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>低次多项式可约性判别法则</h4>
+    <p>对于次数为 $2$ 或 $3$ 的多项式 $f(x) \in F[x]$：</p>
+    <p>$f(x)$ 在 $F$ 上可约 $\iff$ $f(x)$ 在 $F$ 中有根。</p>
+    <p><strong>注意</strong>：此法则仅适用于2次和3次多项式。对于4次及以上多项式（如 $x^4+x^2+1 = (x^2+x+1)(x^2-x+1)$），无根不代表不可约。</p>
+  </div>
+
+  <!-- 3.3 因式定理 -->
+  <h2 class="subsection" id="factor-theorem">3.3 因式定理与代数基本定理</h2>
+  <div class="theory-content">
+    <p>根的存在与多项式降次分解息息相关。</p>
+    <p>关联知识点：<a class="kw-link" href="ch02-number-theory.html#prime">素数在整数中的类比地位</a></p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>因式定理（Factor Theorem / 定理2.33）</h4>
+    <p>对于 $f(x) \in F[x]$ 和元素 $\beta \in F$：</p>
+    <p>$$f(\beta) = 0 \iff (x - \beta) \mid f(x)$$</p>
+    <p>即 $\beta$ 是多项式方程的根，当且仅当 $(x-\beta)$ 是多项式的因式。证明基于带余除法：$f(x) = (x-\beta)q(x) + r$，其中 $r = f(\beta)$ 是常数。</p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>代数基本定理（Fundamental Theorem of Algebra）</h4>
+    <p>任何 $n \ge 1$ 次的<strong>复系数</strong>多项式在复数域 $\mathbb{C}$ 中恰好有 $n$ 个根（计重数）。</p>
+    <p>这意味着在 $\mathbb{C}[x]$ 中，所有的不可约多项式都只能是一次的。在 $\mathbb{R}[x]$ 中，不可约多项式只能是一次或判别式小于0的二次多项式。</p>
+  </div>
+
+  <!-- 3.4 GCD与互素 -->
+  <h2 class="subsection" id="poly-gcd">3.4 多项式 GCD 与互素</h2>
+  <div class="theory-content">
+    <p>正如整数一样，多项式也有最大公因子和欧几里得算法。这在计算有限域元素的乘法逆元时起决定性作用。</p>
+    <p>关联知识点：<a class="kw-link" href="ch06-finite-field.html#gf-inverse">有限域元素的逆元求解</a></p>
+  </div>
+
+  <div class="definition-card">
+    <h4>多项式最大公因子</h4>
+    <p>多项式 $f(x)$ 和 $g(x)$ 的最大公因子 $\gcd(f(x), g(x))$ 是能同时整除两者的最高次多项式（通常约定为首一多项式）。若 $\gcd(f,g) = 1$，则称两者互素。</p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>多项式欧几里得算法</h4>
+    <p>基于带余除法：$\gcd(f, g) = \gcd(g, f \bmod g)$。</p>
+    <p><strong>密码学应用</strong>：在有限域 $GF(p^m)$ 中，域元素由多项式 $a(x)$ 表示，模不可约多项式 $P(x)$。由于 $P(x)$ 不可约，只要 $a(x) \neq 0$，必有 $\gcd(a(x), P(x)) = 1$。通过扩展欧几里得算法求解 $a(x)u(x) + P(x)v(x) = 1$，即可得到逆元 $a(x)^{-1} \equiv u(x) \pmod{P(x)}$。</p>
+  </div>
+
+</div><!-- /theory-section -->
+
+<!-- ===== 真题解析 ===== -->
+<div class="exam-section" id="exam">
+  <div class="section-title exam">
+    <div class="icon">🧠</div>
+    <span>真题深度解析（共15题）</span>
+  </div>
+
+  <div class="q-box" id="q3-1">
+    <div class="q-header">
+      <span class="q-num">3.1</span>
+      <span class="q-title">因式定理验根</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">判断 $f(x) = x^3 - 4x^2 + x + 6$ 在 $\mathbb{Q}$ 上是否有根，并将其完全因式分解。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>有理根候选法 + 因式定理。</div>
+      <div class="q-steps"><ol>
+        <li><b>备选根</b>：常数项 $6$ 的约数 $\pm 1, \pm 2, \pm 3, \pm 6$。</li>
+        <li><b>验根</b>：$f(-1) = -1 - 4 - 1 + 6 = 0$，故 $x = -1$ 是一个根。</li>
+        <li><b>多项式除法</b>：$(x^3 - 4x^2 + x + 6) \div (x + 1) = x^2 - 5x + 6$。</li>
+        <li><b>继续分解</b>：$x^2 - 5x + 6 = (x - 2)(x - 3)$。</li>
+        <li><b>结论</b>：$f(x) = (x+1)(x-2)(x-3)$，三个根为 $-1, 2, 3$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>寻找首个有理根是降次分解的突破口，找到一个根 $\beta$ 即可提取因式 $(x-\beta)$，将三次问题转化为二次问题。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q3-2">
+    <div class="q-header">
+      <span class="q-num">3.2</span>
+      <span class="q-title">可约性域比较</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">比较 $x^2 - 2$ 在有理数域 $\mathbb{Q}$、实数域 $\mathbb{R}$、复数域 $\mathbb{C}$ 中的可约性。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>多项式可约性的相对性原则。</div>
+      <div class="q-steps"><ol>
+        <li><b>在 $\mathbb{Q}$ 上</b>：令 $x^2 - 2 = 0$ 得根 $x = \pm \sqrt{2} \notin \mathbb{Q}$。且2次多项式在 $\mathbb{Q}$ 上无根等价于不可约，故在 $\mathbb{Q}$ 上<strong>不可约</strong>。</li>
+        <li><b>在 $\mathbb{R}$ 上</b>：$\sqrt{2} \in \mathbb{R}$，可分解为 $x^2 - 2 = (x - \sqrt{2})(x + \sqrt{2})$，因式系数属于 $\mathbb{R}$，故在 $\mathbb{R}$ 上<strong>可约</strong>。</li>
+        <li><b>在 $\mathbb{C}$ 上</b>：因为 $\mathbb{R} \subset \mathbb{C}$，既然在 $\mathbb{R}$ 上可约，在 $\mathbb{C}$ 上必然<strong>可约</strong>（分解形式同上）。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>这道题深刻体现了"可约性是多项式与底层域的相对属性，不是多项式固有的绝对属性"这一核心理念。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q3-3">
+    <div class="q-header">
+      <span class="q-num">3.3</span>
+      <span class="q-title">$GF(2)$ 上的多项式加法</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">在 $GF(2)[x]$ 中计算 $(x^3 + x + 1) + (x^3 + x^2 + 1)$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>$GF(2)$ 中的系数运算本质是模2加法（异或，XOR），相同项抵消。</div>
+      <div class="q-steps"><ol>
+        <li>合并同类项：$(1+1)x^3 + (0+1)x^2 + (1+0)x + (1+1)$。</li>
+        <li>在 $GF(2)$ 中，$1+1=0$。</li>
+        <li>化简：$0x^3 + 1x^2 + 1x + 0 = x^2 + x$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>密码学中广泛使用 $GF(2)$ 上的多项式，其加法和减法完全等效，没有进位/借位，运算速度极快。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q3-4">
+    <div class="q-header">
+      <span class="q-num">3.4</span>
+      <span class="q-title">$GF(2)$ 上不可约性判断</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">判断 $f(x) = x^2 + x + 1$ 在 $GF(2)$ 上是否不可约。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>$GF(2)$ 上2次多项式不可约 $\iff$ 在 $GF(2)=\{0, 1\}$ 中无根。</div>
+      <div class="q-steps"><ol>
+        <li>检验 $x=0$：$f(0) = 0^2 + 0 + 1 = 1 \neq 0$。</li>
+        <li>检验 $x=1$：$f(1) = 1^2 + 1 + 1 = 1 + 1 + 1$。在 $GF(2)$ 中，$1+1=0$，故 $1+1+1 = 0+1 = 1 \neq 0$。</li>
+        <li><b>结论</b>：由于 $GF(2)$ 中仅有的两个元素都不是 $f(x)$ 的根，且 $f(x)$ 次数为2，故其在 $GF(2)$ 上<strong>不可约</strong>。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 拓展：</strong>$x^2+x+1$ 是构造有限域 $GF(2^2) = GF(4)$ 的不可约多项式。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q3-5">
+    <div class="q-header">
+      <span class="q-num">3.5</span>
+      <span class="q-title">有理根定理综合</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">确定 $f(x) = 2x^3 - 3x^2 - 8x + 12$ 在 $\mathbb{Q}$ 上是否有有理根，并完全分解。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>有理根定理：根形如 $p/q$，其中 $p$ 整除常数项，$q$ 整除最高次项系数。</div>
+      <div class="q-steps"><ol>
+        <li><b>备选根</b>：$p \mid 12 \Rightarrow p \in \{\pm1, \pm2, \pm3, \pm4, \pm6, \pm12\}$；$q \mid 2 \Rightarrow q \in \{1, 2\}$。<br> 可能的有理根包括整根以及半整根 $\pm 1/2, \pm 3/2$。</li>
+        <li><b>验根</b>：尝试 $x = 3/2$：$f(3/2) = 2(27/8) - 3(9/4) - 8(3/2) + 12 = 27/4 - 27/4 - 12 + 12 = 0$ ✓。</li>
+        <li><b>提取因式</b>：存在因式 $(x - 3/2)$，或者等价的整系数形式 $(2x - 3)$。</li>
+        <li><b>长除法</b>：$(2x^3 - 3x^2 - 8x + 12) \div (2x - 3) = x^2 - 4$。</li>
+        <li><b>最终分解</b>：$x^2 - 4 = (x-2)(x+2)$。<br><strong>结论</strong>：$f(x) = (2x - 3)(x - 2)(x + 2)$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 技巧：</strong>不要盲目试根，有理根定理将无限的有理数缩小到了有限的候选集。分组分解法也可解此题：$x^2(2x-3) - 4(2x-3) = (x^2-4)(2x-3)$。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q3-6">
+    <div class="q-header">
+      <span class="q-num">3.6</span>
+      <span class="q-title">多项式长除法</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">计算 $f(x) = x^4 + 2x^3 - x - 2$ 除以 $g(x) = x^2 + x - 1$ 的商和余式。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>多项式带余除法的规范操作：首项相消，逐步降次。</div>
+      <div class="q-steps"><ol>
+        <li>$x^4 \div x^2 = x^2$（第一项商）。减去 $x^2(x^2+x-1) = x^4+x^3-x^2$，余式为 $x^3+x^2-x-2$。</li>
+        <li>$x^3 \div x^2 = x$（第二项商）。减去 $x(x^2+x-1) = x^3+x^2-x$，余式为 $-2$。</li>
+        <li>$-2$ 次数为 $0 < \deg(g)=2$，除法终止。</li>
+        <li><b>结论</b>：商 $q(x) = x^2 + x$，余式 $r(x) = -2$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 验证：</strong>$(x^2+x)(x^2+x-1) - 2 = x^4+x^3-x^2+x^3+x^2-x-2 = x^4+2x^3-x-2 = f(x)$ ✓</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q3-7">
+    <div class="q-header">
+      <span class="q-num">3.7</span>
+      <span class="q-title">$GF(2)$ 上的多项式乘法</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">在 $GF(2)[x]$ 中，计算 $(x^2 + x + 1) \cdot (x + 1)$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>常规展开 + $GF(2)$ 系数模2化简。</div>
+      <div class="q-steps"><ol>
+        <li><b>分配律展开</b>：$x(x^2+x+1) + 1(x^2+x+1) = x^3+x^2+x + x^2+x+1$。</li>
+        <li><b>合并同类项</b>：$x^3 + (1+1)x^2 + (1+1)x + 1$。</li>
+        <li><b>系数模2</b>：在 $GF(2)$ 中 $1+1=0$，得 $x^3 + 0x^2 + 0x + 1$。</li>
+        <li><b>结论</b>：结果为 $x^3 + 1$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>这实际上是代数恒等式 $a^3-b^3 = (a-b)(a^2+ab+b^2)$ 在特征为2的域上的变体。特征2域中 $a^3+b^3 = a^3-b^3$ 且 $(x+1)^3 \neq x^3+1$，但 $(x+1)(x^2+x+1) = x^3+1$ 成立。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q3-8">
+    <div class="q-header">
+      <span class="q-num">3.8</span>
+      <span class="q-title">不可约多项式验证 (AES相关)</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">验证 $p(x) = x^3 + x + 1$ 在 $GF(2)$ 上不可约。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>3次多项式在 $GF(2)$ 上不可约 $\iff$ 无根。</div>
+      <div class="q-steps"><ol>
+        <li>若 $p(x)$ 可约，由于它是3次，必定包含一个1次因式，即在 $GF(2)$ 中必定有根。</li>
+        <li>验根 $x=0$：$p(0) = 0 + 0 + 1 = 1 \neq 0$。</li>
+        <li>验根 $x=1$：$p(1) = 1 + 1 + 1 = 1 \neq 0$（在 $GF(2)$ 下）。</li>
+        <li><b>结论</b>：在 $GF(2)$ 中无根，故不可约。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 拓展：</strong>这是 $GF(2^3)$ 构造中的常用模多项式。类似地，AES算法 $GF(2^8)$ 使用的是8次不可约多项式 $x^8+x^4+x^3+x+1$。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q3-9">
+    <div class="q-header">
+      <span class="q-num">3.9</span>
+      <span class="q-title">多项式互素验证</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">验证 $f(x) = x^2 + 1$ 和 $g(x) = x^2 + x + 1$ 在 $GF(2)$ 上互素。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>使用多项式欧几里得算法计算 $\gcd$。</div>
+      <div class="q-steps"><ol>
+        <li>在 $GF(2)$ 下计算 $(x^2+x+1) \div (x^2+1)$：<br> 商1，减去 $1\cdot(x^2+1)=x^2+1$。<br> 余式为 $(x^2+x+1)-(x^2+1) = x$。</li>
+        <li>计算 $(x^2+1) \div x$：<br> 商 $x$，减去 $x\cdot x = x^2$。<br> 余式为 $1$。</li>
+        <li>计算 $x \div 1$，余式为 $0$。</li>
+        <li><b>结论</b>：最后一个非零余数为 $1$，故 $\gcd(f,g) = 1$，二者互素。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 替代解法：</strong>已知 $g(x) = x^2+x+1$ 在 $GF(2)$ 上不可约。任何多项式与不可约多项式要么互素，要么是其倍数。显然 $f(x)$ 并非 $g(x)$ 的倍数，故二者互素。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q3-10">
+    <div class="q-header">
+      <span class="q-num">3.10</span>
+      <span class="q-title">重根与重因式判断</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">设 $f(x) = x^3 - 3x^2 + 4$，验证 $x=2$ 是其二重根并给出完全分解。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>多重根判定定理：$x=\beta$ 是 $k$ 重根 $\iff$ $f(\beta)=0, f'(\beta)=0, \dots, f^{(k-1)}(\beta)=0$ 且 $f^{(k)}(\beta)\neq 0$。</div>
+      <div class="q-steps"><ol>
+        <li><b>验证原函数</b>：$f(2) = 8 - 12 + 4 = 0$ ✓。</li>
+        <li><b>验证一阶导数</b>：$f'(x) = 3x^2 - 6x$，$f'(2) = 12 - 12 = 0$ ✓。</li>
+        <li><b>验证二阶导数</b>：$f''(x) = 6x - 6$，$f''(2) = 12 - 6 = 6 \neq 0$。故 $x=2$ 恰好是二重根。</li>
+        <li><b>长除法分解</b>：已知有因式 $(x-2)^2 = x^2-4x+4$。<br>
+        $(x^3 - 3x^2 + 4) \div (x^2 - 4x + 4) = x + 1$。</li>
+        <li><b>结论</b>：$f(x) = (x-2)^2(x+1)$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>导数法则（形式导数）在代数中判定多重根极其有效，即便在不讨论极限的抽象域中，形式导数法则依然成立。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q3-11">
+    <div class="q-header">
+      <span class="q-num">3.11</span>
+      <span class="q-title">系数域扩张效果全面对比</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">将 $f(x) = x^4 + 1$ 在 $\mathbb{Q}, \mathbb{R}, \mathbb{C}$ 三个域上分别进行因式分解。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>四次多项式在不同域上的分解形态（域扩张的直观展示）。</div>
+      <div class="q-steps"><ol>
+        <li><b>在 $\mathbb{Q}$ 上</b>：无有理根，且不能表示为两个有理系数二次多项式的乘积。故在 $\mathbb{Q}$ 上<strong>不可约</strong>，$x^4+1$。</li>
+        <li><b>在 $\mathbb{R}$ 上</b>：配方构造平方差。<br>
+        $x^4 + 1 = (x^4 + 2x^2 + 1) - 2x^2 = (x^2+1)^2 - (\sqrt{2}x)^2$<br>
+        $= (x^2 + \sqrt{2}x + 1)(x^2 - \sqrt{2}x + 1)$。<br>
+        由于 $\sqrt{2} \in \mathbb{R}$，此为 $\mathbb{R}$ 上的分解，两个二次因式判别式 $\Delta = 2-4=-2 < 0$，在 $\mathbb{R}$ 上不可再分。</li>
+        <li><b>在 $\mathbb{C}$ 上</b>：由代数基本定理，完全分解为4个一次因式：<br>
+        $(x - e^{i\pi/4})(x - e^{3i\pi/4})(x - e^{-i\pi/4})(x - e^{-3i\pi/4})$<br>
+        $= (x - \frac{\sqrt{2}+i\sqrt{2}}{2})(x - \frac{-\sqrt{2}+i\sqrt{2}}{2})(x - \frac{\sqrt{2}-i\sqrt{2}}{2})(x - \frac{-\sqrt{2}-i\sqrt{2}}{2})$</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>"数域越大，拆解越碎"。这正反映了为什么我们需要对有限域进行扩张——为了能构造出更多的运算元素和性质。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q3-12">
+    <div class="q-header">
+      <span class="q-num">3.12</span>
+      <span class="q-title">$GF(2)$ 模多项式乘法运算</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">在有限域 $GF(2^3) \cong GF(2)[x]/(x^3+x+1)$ 中，计算 $x^2 \cdot (x+1)$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>有限域乘法的两阶段操作：先普通多项式乘法，再按不可约多项式取模（降次）。</div>
+      <div class="q-steps"><ol>
+        <li><b>代数乘法</b>：$x^2 \cdot (x+1) = x^3 + x^2$。</li>
+        <li><b>取模降次</b>：模多项式为 $x^3+x+1 = 0 \pmod{x^3+x+1}$。<br>
+        在 $GF(2)$ 中，移项等价于相加：$x^3 \equiv x + 1$。</li>
+        <li><b>替换高次项</b>：将 $x^3$ 替换为 $x+1$。<br>
+        $x^3 + x^2 \equiv (x+1) + x^2 = x^2 + x + 1$。</li>
+        <li><b>结论</b>：运算结果为 $x^2 + x + 1$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>这种"模不可约多项式"的运算结构是整个AES算法列混淆操作的底层数学原理。$x^n \equiv \dots$ 降次法则极其实用。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q3-13">
+    <div class="q-header">
+      <span class="q-num">3.13</span>
+      <span class="q-title">不可约多项式枚举</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">$GF(2)$ 上有多少个次数为 $2$ 的不可约多项式？列举出它们。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>通过排除法找出所有无根的低次多项式。</div>
+      <div class="q-steps"><ol>
+        <li><b>所有2次多项式</b>：形式为 $ax^2+bx+c$，由于次数为2，必有 $a=1$。共有 $2^2 = 4$ 个首一多项式：<br>
+        $x^2, x^2+1, x^2+x, x^2+x+1$</li>
+        <li><b>排除可约多项式</b>（在 $GF(2)$ 中有根的）：<br>
+        $x^2$：根为0，可约（$x \cdot x$）<br>
+        $x^2+x$：根为0和1，可约（$x(x+1)$）<br>
+        $x^2+1$：根为1，可约（因为 $(x+1)^2 = x^2+2x+1 \equiv x^2+1 \pmod 2$）</li>
+        <li><b>寻找不可约</b>：剩下 $x^2+x+1$。验根：$f(0)=1, f(1)=3 \equiv 1$，均非零。</li>
+        <li><b>结论</b>：只有 $1$ 个：$x^2+x+1$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>这是构建有限域 $GF(4)$ 的唯一多项式选项。$GF(2)$ 上的 $(x+y)^2 = x^2+y^2$（"大一新生的梦想"等式）是由于特征为2消去了交叉项 $2xy$。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q3-14">
+    <div class="q-header">
+      <span class="q-num">3.14</span>
+      <span class="q-title">多项式 GCD 综合求解</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">在 $GF(2)[x]$ 中，求 $\gcd(x^4+x^3+x^2+x, x^3+x^2+x+1)$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>多项式欧几里得除法 / 提取公因式法。</div>
+      <div class="q-steps"><ol>
+        <li><b>解法一：欧几里得法</b><br>
+        $(x^4+x^3+x^2+x) \div (x^3+x^2+x+1)$：<br>
+        商为 $x$：$x(x^3+x^2+x+1) = x^4+x^3+x^2+x$。<br>
+        两式相减，余数为 $0$！<br>
+        这意味着第二个多项式直接整除第一个。</li>
+        <li><b>解法二：因式分解法</b><br>
+        $f_1 = x(x^3+x^2+x+1)$<br>
+        $f_2 = x^3+x^2+x+1$<br>
+        显然 $\gcd = f_2$。</li>
+        <li><b>结论</b>：$\gcd$ 为 $x^3+x^2+x+1$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>做除法前先观察表达式结构。此题由于项数的巧合，提取一个 $x$ 即可看出倍数关系，极大简化了计算。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q3-15">
+    <div class="q-header">
+      <span class="q-num">3.15</span>
+      <span class="q-title">分裂域概念初步</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">$f(x) = x^2 - 2$ 在 $\mathbb{Q}$ 上的分裂域（Splitting Field）是什么？它的扩域维度是多少？</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>分裂域定义：使多项式能完全分解为一次因式的"最小"扩域。</div>
+      <div class="q-steps"><ol>
+        <li><b>求解根</b>：$x^2-2 = 0 \Rightarrow x = \pm\sqrt{2}$。</li>
+        <li><b>构造扩域</b>：为包含所有根，需要将 $\sqrt{2}$ 添加到基础域 $\mathbb{Q}$ 中，得到 $\mathbb{Q}(\sqrt{2}) = \{a + b\sqrt{2} \mid a,b \in \mathbb{Q}\}$。</li>
+        <li><b>验证分裂</b>：在 $\mathbb{Q}(\sqrt{2})$ 中，$x^2-2 = (x-\sqrt{2})(x+\sqrt{2})$ 完全分解。</li>
+        <li><b>计算维度</b>：集合 $\{1, \sqrt{2}\}$ 构成了 $\mathbb{Q}(\sqrt{2})$ 作为 $\mathbb{Q}$-线性空间的一组基，因此扩域维度 $[\mathbb{Q}(\sqrt{2}):\mathbb{Q}] = 2$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>分裂域概念正是有限域 $GF(p^m)$ 构造的核心原型。$GF(p^m)$ 实际上就是 $GF(p)$ 上多项式 $x^{p^m}-x$ 的分裂域。</div>
+    </div>
+  </div>
+
+</div><!-- /exam-section -->
+
+<!-- 关联知识点 -->
+<div class="cross-ref-section" id="cross-ref">
+  <div class="section-title cross-ref">
+    <div class="icon">🔗</div>
+    <span>关联知识点——跨章节导航</span>
+  </div>
+  <div class="cross-ref-grid">
+    <a href="ch05-ring-field.html#field-def" class="cross-ref-card">
+      <div class="ref-chapter">→ 第5章：环与域</div>
+      <div class="ref-topic">域的公理体系</div>
+      <div class="ref-desc">域是多项式理论的底层运算平台，确保多项式除法（系数相除）能够顺利进行。</div>
+    </a>
+    <a href="ch06-finite-field.html#gf-construction" class="cross-ref-card">
+      <div class="ref-chapter">→ 第6章：有限域</div>
+      <div class="ref-topic">GF(2^m) 构造</div>
+      <div class="ref-desc">不可约多项式充当了有限域扩张中的"模数"，定义了元素的等价关系和算术规则。</div>
+    </a>
+    <a href="ch02-number-theory.html#gcd" class="cross-ref-card">
+      <div class="ref-chapter">→ 第2章：初等数论</div>
+      <div class="ref-topic">GCD 与互素性</div>
+      <div class="ref-desc">多项式的GCD与整数的GCD在代数结构（欧几里得环）上具有完全的同构类比性。</div>
+    </a>
+    <a href="ch06-finite-field.html#primitive-poly" class="cross-ref-card">
+      <div class="ref-chapter">→ 第6章：有限域</div>
+      <div class="ref-topic">本原多项式</div>
+      <div class="ref-desc">特殊的不可约多项式，不仅不可约，而且其根能生成有限域乘法群中的所有非零元素。</div>
+    </a>
+  </div>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

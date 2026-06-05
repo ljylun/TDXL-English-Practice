@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第4章：群论 | 密码学基础复习</title>
+  <meta name="description" content="群论深度解析：群的公理体系、元素的阶、循环群与生成元、拉格朗日定理、置换群奇偶性，含15道真题。">
+  <link rel="stylesheet" href="review-style-v2.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+</head>
+<body>
+
+<nav class="navbar" id="top-nav">
+  <a href="index-review.html">📚 总目录</a>
+  <a href="ch01-algebra-structure.html">Ch.1 代数结构</a>
+  <a href="ch02-number-theory.html">Ch.2 初等数论</a>
+  <a href="ch03-polynomial.html">Ch.3 多项式</a>
+  <a href="ch04-group-theory.html" class="active">Ch.4 群论</a>
+  <a href="ch05-ring-field.html">Ch.5 环与域</a>
+  <a href="ch06-finite-field.html">Ch.6 有限域</a>
+</nav>
+
+<div class="chapter-hero">
+  <div class="chapter-num">CHAPTER 04</div>
+  <h1>群论：代数密码空间的对称架构</h1>
+  <p class="subtitle">群的四条铁律公理、循环群裂变、拉格朗日定理——构建安全状态空间的基石</p>
+  <div class="hero-stats">
+    <div class="hero-stat-item"><strong>4</strong>大公理</div>
+    <div class="hero-stat-item"><strong>15</strong>道真题</div>
+    <div class="hero-stat-item"><strong>循环群·拉格朗日定理</strong>重点覆盖</div>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="theory-section" id="theory">
+  <div class="section-title theory">
+    <div class="icon">📖</div>
+    <span>理论框架与深度解读</span>
+  </div>
+
+  <!-- 4.1 群的公理 -->
+  <h2 class="subsection" id="group-axioms">4.1 群的四条铁律公理</h2>
+  <div class="theory-content">
+    <p>群（Group）是刻画系统对称性和变换的最精简、最优美的代数结构。它摒弃了一切不必要的特征，只保留了最核心的变换规则。</p>
+    <p>关联知识点：<a class="kw-link" href="ch01-algebra-structure.html#closure">代数结构与运算的封闭性</a></p>
+  </div>
+
+  <div class="definition-card">
+    <h4>群的定义（Definition of a Group）</h4>
+    <p>一个集合 $G$ 连同一个二元运算 $*$，若满足以下四大公理，则称 $(G, *)$ 为一个群：</p>
+    <ol>
+      <li><strong>封闭性（Closure）</strong>：$\forall a, b \in G, a * b \in G$。</li>
+      <li><strong>结合律（Associativity）</strong>：$\forall a, b, c \in G, (a * b) * c = a * (b * c)$。</li>
+      <li><strong>单位元（Identity）</strong>：$\exists e \in G$，使得 $\forall a \in G, e * a = a * e = a$。</li>
+      <li><strong>逆元（Inverse）</strong>：$\forall a \in G, \exists a^{-1} \in G$，使得 $a * a^{-1} = a^{-1} * a = e$。</li>
+    </ol>
+    <p>若还满足交换律 $a*b=b*a$，则称为<strong>阿贝尔群（Abelian Group）</strong>或交换群。</p>
+  </div>
+
+  <div class="key-axiom">
+    <div class="axiom-label">🔐 密码学价值</div>
+    <p>群的每一条公理都在密码学中有其直接映射。封闭性防止状态溢出；结合律确保多步加密（如级联加密）的确定性；单位元对应"不加密"（空操作）；逆元则是"解密操作"存在的数学保证。</p>
+  </div>
+
+  <!-- 4.2 元素的阶与循环群 -->
+  <h2 class="subsection" id="element-order">4.2 元素的阶与循环群</h2>
+  <div class="theory-content">
+    <p>元素的阶决定了状态变换的周期，这在流密码的周期分析和离散对数问题（DLP）中至关重要。</p>
+    <p>关联知识点：<a class="kw-link" href="ch02-number-theory.html#euler">欧拉函数与欧拉定理</a></p>
+  </div>
+
+  <div class="definition-card">
+    <h4>元素的阶（Order of an Element）</h4>
+    <p>群 $G$ 中元素 $a$ 的阶记为 $\text{ord}(a)$ 或 $|a|$，定义为使得 $a^k = e$（或加法群中的 $ka = 0$）成立的最小正整数 $k$。</p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>循环群（Cyclic Group）与生成元</h4>
+    <p>若群 $G$ 中的每一个元素都可以表示为某个特定元素 $g$ 的幂（或倍数），即 $G = \{g^k \mid k \in \mathbb{Z}\}$，则称 $G$ 为循环群，$g$ 称为生成元，记作 $G = \langle g \rangle$。</p>
+    <p><strong>定理</strong>：$n$ 阶有限循环群有 $\varphi(n)$ 个不同的生成元。密码系统如Diffie-Hellman密钥交换就建立在大素数阶的循环群上。</p>
+  </div>
+
+  <!-- 4.3 子群与拉格朗日定理 -->
+  <h2 class="subsection" id="lagrange">4.3 子群与拉格朗日定理</h2>
+  <div class="theory-content">
+    <p>子群是群中维持群结构的最小封闭子集。拉格朗日定理则深刻揭示了整体结构与局部结构之间的强整除关系。</p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>拉格朗日定理（Lagrange's Theorem）</h4>
+    <p>若 $H$ 是有限群 $G$ 的子群，则 $H$ 的阶（元素个数 $|H|$）整除 $G$ 的阶 $|G|$。</p>
+    <p><strong>推论1</strong>：有限群中任何元素的阶必然整除群的阶。即 $a^{|G|} = e$ 恒成立。</p>
+    <p><strong>推论2</strong>：素数阶的群一定是循环群，且除了单位元外，每个元素都是生成元。</p>
+  </div>
+
+  <!-- 4.4 置换群 -->
+  <h2 class="subsection" id="permutation">4.4 置换群与奇偶性</h2>
+  <div class="theory-content">
+    <p>置换是分组密码设计的核心算子。</p>
+    <p>关联知识点：<a class="kw-link" href="ch01-algebra-structure.html#permutation">置换群与函数合成计算</a></p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>循环分解与奇偶性</h4>
+    <p>任意置换都可以分解为不相交循环的乘积。</p>
+    <p><strong>对换（Transposition）</strong>：长度为2的循环。任意置换都能分解为对换的乘积。</p>
+    <p><strong>奇偶性</strong>：若一个置换能分解为偶数个对换，则称为偶置换；若为奇数个，则为奇置换。$n$ 元置换群 $S_n$ 中，偶置换构成一个阶为 $n!/2$ 的正规子群，称为交错群 $A_n$。</p>
+  </div>
+
+</div><!-- /theory-section -->
+
+<!-- ===== 真题解析 ===== -->
+<div class="exam-section" id="exam">
+  <div class="section-title exam">
+    <div class="icon">🧠</div>
+    <span>真题深度解析（共15题）</span>
+  </div>
+
+  <div class="q-box" id="q4-1">
+    <div class="q-header">
+      <span class="q-num">4.1</span>
+      <span class="q-title">加法群阶的计算</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">在加法群 $\mathbb{Z}_{12}$ 中，求元素 $8$ 的阶。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>加法群元素的阶公式：$\text{ord}_n(a) = \frac{n}{\gcd(a, n)}$。</div>
+      <div class="q-steps"><ol>
+        <li>群的阶 $n = 12$，元素 $a = 8$。</li>
+        <li>计算 $\gcd(a, n) = \gcd(8, 12) = 4$。</li>
+        <li>代入公式：阶 $= 12 / 4 = 3$。</li>
+        <li>验证：$1 \times 8 \equiv 8$；$2 \times 8 \equiv 16 \equiv 4$；$3 \times 8 = 24 \equiv 0 \pmod{12}$。这是最小的正整数 $k$ 使 $k \times 8 \equiv 0$。</li>
+        <li><b>结论</b>：元素 $8$ 的阶是 $3$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>在 $\mathbb{Z}_n$ 中，元素 $a$ 生成的循环子群包含 $n/\gcd(a,n)$ 个元素。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q4-2">
+    <div class="q-header">
+      <span class="q-num">4.2</span>
+      <span class="q-title">循环群生成元个数</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">一个24阶的循环群 $G$ 有多少个生成元？</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>$n$ 阶循环群的生成元个数等于欧拉函数 $\varphi(n)$。</div>
+      <div class="q-steps"><ol>
+        <li>$n = 24$。</li>
+        <li>素因子分解：$24 = 2^3 \times 3^1$。</li>
+        <li>计算欧拉函数：$\varphi(24) = 24(1-1/2)(1-1/3) = 24 \times (1/2) \times (2/3) = 8$。</li>
+        <li><b>结论</b>：共有 $8$ 个生成元。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 拓展：</strong>如果 $g$ 是生成元，那么所有形如 $g^k$ 且 $\gcd(k, 24)=1$ 的元素都是生成元，它们分别是 $g^1, g^5, g^7, g^{11}, g^{13}, g^{17}, g^{19}, g^{23}$。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q4-3">
+    <div class="q-header">
+      <span class="q-num">4.3</span>
+      <span class="q-title">阿贝尔群判定</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">若群 $G$ 中对于任意元素 $a,b$ 都满足 $(ab)^2 = a^2b^2$，证明 $G$ 是阿贝尔群。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>利用群公理和消去律证明交换律 $ab=ba$。</div>
+      <div class="q-steps"><ol>
+        <li>根据定义展开左边：$(ab)^2 = abab$。</li>
+        <li>展开右边：$a^2b^2 = aabb$。</li>
+        <li>建立等式：$abab = aabb$。</li>
+        <li>左消去律（两边左乘 $a^{-1}$）：$bab = abb$。</li>
+        <li>右消去律（两边右乘 $b^{-1}$）：$ba = ab$。</li>
+        <li><b>结论</b>：群 $G$ 满足交换律，故为阿贝尔群。证毕。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>在非交换群中，$(ab)^n$ 一般不等于 $a^n b^n$。这个简单的等式恰好是交换律的充分必要条件。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q4-4">
+    <div class="q-header">
+      <span class="q-num">4.4</span>
+      <span class="q-title">拉格朗日定理的直接应用</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">群 $G$ 的阶为 $15$，证明 $G$ 中不可能包含阶为 $6$ 的元素。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>元素的阶必须整除群的阶。</div>
+      <div class="q-steps"><ol>
+        <li>由拉格朗日定理推论，群中任何元素的阶 $k$ 必须整除群的阶 $|G|$。</li>
+        <li>已知 $|G| = 15$，其约数为 $1, 3, 5, 15$。</li>
+        <li>由于 $6$ 不能整除 $15$（即 $15 \bmod 6 \neq 0$）。</li>
+        <li><b>结论</b>：群中绝不可能存在阶为 $6$ 的元素。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>拉格朗日定理提供了一个极强的排除机制。有限群中的结构尺寸总是受到群阶约数的严格限制。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q4-5">
+    <div class="q-header">
+      <span class="q-num">4.5</span>
+      <span class="q-title">置换的阶</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">求置换 $\sigma = (1\ 2\ 3)(4\ 5)$ 的阶。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>不相交循环乘积的阶，等于各循环长度的最小公倍数（LCM）。</div>
+      <div class="q-steps"><ol>
+        <li>置换已是不相交循环（第一个循环含1,2,3，第二个含4,5）。</li>
+        <li>第一个循环的长度为 $3$，第二个循环的长度为 $2$。</li>
+        <li>计算LCM：$\text{lcm}(3, 2) = 6$。</li>
+        <li><b>结论</b>：置换 $\sigma$ 的阶为 $6$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 拓展：</strong>如果循环不相交，需要先通过乘法将它们化为不相交循环，再求LCM。例如 $(1\ 2)(2\ 3) = (1\ 2\ 3)$，阶为3，而不是 $\text{lcm}(2,2)=2$。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q4-6">
+    <div class="q-header">
+      <span class="q-num">4.6</span>
+      <span class="q-title">循环群的子群数量</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">一个20阶循环群共有多少个子群？</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>有限循环群的子群与群阶的正约数一一对应。</div>
+      <div class="q-steps"><ol>
+        <li>群阶 $n = 20$。</li>
+        <li>寻找20的所有正约数：$1, 2, 4, 5, 10, 20$。</li>
+        <li>共有 $6$ 个约数，因此根据循环群子群定理，有 $6$ 个唯一的子群。</li>
+        <li><b>结论</b>：共有 $6$ 个子群。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 验证：</strong>如果 $n = p_1^{e_1} \dots p_k^{e_k}$，约数个数 $d(n) = (e_1+1)\dots(e_k+1)$。对于 $20=2^2 \times 5^1$，约数个数 $= (2+1)(1+1) = 6$ ✓。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q4-7">
+    <div class="q-header">
+      <span class="q-num">4.7</span>
+      <span class="q-title">置换的奇偶性判断</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">判断置换 $(1\ 2\ 3\ 4\ 5)$ 的奇偶性。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>长度为 $k$ 的循环可以分解为 $k-1$ 个对换。奇偶性由对换的个数决定。</div>
+      <div class="q-steps"><ol>
+        <li>分解为对换：$(1\ 2\ 3\ 4\ 5) = (1\ 5)(1\ 4)(1\ 3)(1\ 2)$。</li>
+        <li>对换的个数为 $4$。</li>
+        <li>因为 $4$ 是偶数。</li>
+        <li><b>结论</b>：该置换是偶置换。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结口诀：</strong>"奇长循环是偶置换，偶长循环是奇置换"。这里长度为5（奇数），所以是偶置换。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q4-8">
+    <div class="q-header">
+      <span class="q-num">4.8</span>
+      <span class="q-title">元素的自逆性</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">证明：若群 $G$ 中的每个元素都满足 $a^2 = e$，则 $G$ 是阿贝尔群。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>$a^2=e \Rightarrow a=a^{-1}$。利用逆元性质证明交换律。</div>
+      <div class="q-steps"><ol>
+        <li>已知 $\forall x \in G, x^2=e$，即 $x = x^{-1}$（每个元素都是自身的逆元）。</li>
+        <li>任取 $a, b \in G$，考察元素 $ab$。</li>
+        <li>由于 $G$ 关于运算封闭，$ab \in G$，故 $(ab)^{-1} = ab$。</li>
+        <li>根据逆元的倒序乘积法则：$(ab)^{-1} = b^{-1}a^{-1}$。</li>
+        <li>代入 $x=x^{-1}$ 的性质：$b^{-1} = b$，$a^{-1} = a$。</li>
+        <li>于是 $(ab)^{-1} = b^{-1}a^{-1} = ba$。</li>
+        <li>结合步骤3，得 $ab = ba$。</li>
+        <li><b>结论</b>：$G$ 满足交换律，是阿贝尔群。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 典型实例：</strong>Klein四元群 $V_4$ 和任何布尔群（例如特征2有限域加法群的底层结构）都满足此性质。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q4-9">
+    <div class="q-header">
+      <span class="q-num">4.9</span>
+      <span class="q-title">互素阶群元素的乘积阶</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">在阿贝尔群中，若 $\text{ord}(a)=3$，$\text{ord}(b)=4$，求 $\text{ord}(ab)$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>在交换群中，互素阶元素的乘积的阶等于各自阶的乘积（LCM）。</div>
+      <div class="q-steps"><ol>
+        <li>设 $\text{ord}(ab) = k$。由于是阿贝尔群，$(ab)^n = a^n b^n$。</li>
+        <li>我们找最小的 $k$ 使得 $a^k b^k = e$。</li>
+        <li>计算最小公倍数：$\text{lcm}(3, 4) = 12$。</li>
+        <li>检验：$(ab)^{12} = a^{12} b^{12} = (a^3)^4 (b^4)^3 = e^4 e^3 = e$。</li>
+        <li>由于3和4互素，不会在小于12的幂次下同时化为 $e$（严格证明略去冗余）。</li>
+        <li><b>结论</b>：阶为 $12$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>此性质在构造大阶元素时极其重要。注意，如果是<strong>非交换群</strong>，此结论不成立，元素的阶可能会无法预料！</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q4-10">
+    <div class="q-header">
+      <span class="q-num">4.10</span>
+      <span class="q-title">群的中心</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">证明群 $G$ 的中心 $Z(G) = \{z \in G \mid \forall x \in G, zx = xz\}$ 是 $G$ 的子群。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>子群判定法则（One-Step Subgroup Test）：若 $a, b \in H$，只需证明 $ab^{-1} \in H$。</div>
+      <div class="q-steps"><ol>
+        <li><b>非空性</b>：单位元 $e$ 满足 $ex=xe=x$，所以 $e \in Z(G)$，$Z(G)$ 非空。</li>
+        <li><b>封闭性与逆元检验</b>：任取 $a, b \in Z(G)$，需证 $ab^{-1} \in Z(G)$。对任意 $x \in G$：<br>
+        $(ab^{-1})x = a(b^{-1}x)$。</li>
+        <li>由于 $b \in Z(G)$，$bx = xb$，两边同时左右乘 $b^{-1}$ 得 $xb^{-1} = b^{-1}x$。</li>
+        <li>代回：$a(b^{-1}x) = a(xb^{-1}) = (ax)b^{-1}$。</li>
+        <li>由于 $a \in Z(G)$，$ax = xa$，故 $(ax)b^{-1} = (xa)b^{-1} = x(ab^{-1})$。</li>
+        <li>因为 $(ab^{-1})x = x(ab^{-1})$ 对所有 $x$ 成立，故 $ab^{-1} \in Z(G)$。</li>
+        <li><b>结论</b>：$Z(G)$ 是 $G$ 的子群。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>子群判定的两步（非空，封闭+逆元）或一步（$ab^{-1}$）法是群论的标准工具。群的中心量化了群"有多交换"。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q4-11">
+    <div class="q-header">
+      <span class="q-num">4.11</span>
+      <span class="q-title">拉格朗日定理的应用</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">证明：若群 $G$ 的阶为素数 $p$，则 $G$ 必定是循环群。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>素数阶群没有非平凡子群，故任一非单位元必然生成整个群。</div>
+      <div class="q-steps"><ol>
+        <li>群 $G$ 阶为素数 $p \ge 2$，故至少存在一个非单位元 $a \in G$。</li>
+        <li>考察由 $a$ 生成的循环子群 $H = \langle a \rangle$。</li>
+        <li>由拉格朗日定理，$|H|$ 必须整除 $|G| = p$。</li>
+        <li>素数 $p$ 的约数只有 $1$ 和 $p$。</li>
+        <li>因为 $a \neq e$，$H$ 中至少包含 $e$ 和 $a$ 两个元素，故 $|H| > 1$。</li>
+        <li>因此 $|H|$ 只能等于 $p$。</li>
+        <li>既然子群 $H$ 的大小和 $G$ 一样，且 $H \subseteq G$，则必然有 $H = G$。</li>
+        <li><b>结论</b>：$G = \langle a \rangle$，所以 $G$ 是由 $a$ 生成的循环群。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 密码学意义：</strong>这就是为什么我们在构造密码系统（如椭圆曲线密码 ECC）时，总是倾向于选择基点阶数为素数的群，以避免子群攻击（Small Subgroup Attack）。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q4-12">
+    <div class="q-header">
+      <span class="q-num">4.12</span>
+      <span class="q-title">同态核（Kernel）的性质</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">设 $\phi: G \to H$ 是群同态，证明其核 $\ker(\phi)$ 是 $G$ 的子群。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>同态定义与子群判定。$\ker(\phi) = \{x \in G \mid \phi(x) = e_H\}$。</div>
+      <div class="q-steps"><ol>
+        <li><b>非空性</b>：因为 $\phi(e_G) = e_H$，所以 $e_G \in \ker(\phi)$，非空。</li>
+        <li><b>封闭性</b>：若 $a,b \in \ker(\phi)$，则 $\phi(a)=e_H, \phi(b)=e_H$。<br>
+        $\phi(ab) = \phi(a)\phi(b) = e_H e_H = e_H$，故 $ab \in \ker(\phi)$。</li>
+        <li><b>逆元</b>：若 $a \in \ker(\phi)$，则 $\phi(a^{-1}) = (\phi(a))^{-1} = (e_H)^{-1} = e_H$，故 $a^{-1} \in \ker(\phi)$。</li>
+        <li><b>结论</b>：$\ker(\phi)$ 是 $G$ 的子群（实际上是正规子群）。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 拓展：</strong>同态核甚至满足正规性（Normal Subgroup）：$\forall g \in G, x \in \ker(\phi)$，有 $\phi(gxg^{-1}) = \phi(g)\phi(x)\phi(g^{-1}) = \phi(g)e_H\phi(g)^{-1} = e_H$，故 $gxg^{-1} \in \ker(\phi)$。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q4-13">
+    <div class="q-header">
+      <span class="q-num">4.13</span>
+      <span class="q-title">正规子群与商群</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">证明指数（Index）为 $2$ 的子群一定是正规子群。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>指数 $[G:H]=2$ 意味着除了 $H$ 本身，只有一个非平凡的左/右陪集。</div>
+      <div class="q-steps"><ol>
+        <li>设 $H \le G$，且 $[G:H]=2$。这意味着 $G$ 被划分为两个不相交的陪集。</li>
+        <li>左陪集划分：$G = H \cup aH$（其中 $a \notin H$）。</li>
+        <li>右陪集划分：$G = H \cup Ha$（其中 $a \notin H$）。</li>
+        <li>因为左陪集和右陪集都构成了对 $G$ 的无交并划分，且 $H$ 在两边都相同。</li>
+        <li>剩下的部分必须相等：$aH = G \setminus H = Ha$。</li>
+        <li>这表明对任意 $a \notin H$，都有 $aH = Ha$。对于 $a \in H$，显然 $aH = H = Ha$。</li>
+        <li><b>结论</b>：对任意 $g \in G$，$gH = Hg$ 恒成立，所以 $H$ 是正规子群。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>例如交错群 $A_n$ 在对称群 $S_n$ 中的指数为 $2$（一半偶置换一半奇置换），故 $A_n$ 必定是正规子群。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q4-14">
+    <div class="q-header">
+      <span class="q-num">4.14</span>
+      <span class="q-title">欧拉定理的群论解释</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">从群论（拉格朗日定理）的角度证明欧拉定理：若 $\gcd(a,n)=1$，则 $a^{\varphi(n)} \equiv 1 \pmod n$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>模乘法群 $\mathbb{Z}_n^*$ 的阶。</div>
+      <div class="q-steps"><ol>
+        <li>考虑集合 $G = \{x \mid 1 \le x < n, \gcd(x,n)=1\}$，它在模 $n$ 乘法下构成一个群，称为模 $n$ 的乘法群 $\mathbb{Z}_n^*$。</li>
+        <li>该群的元素个数（即群的阶）恰好为欧拉函数 $\varphi(n)$，即 $|G| = \varphi(n)$。</li>
+        <li>已知 $\gcd(a,n)=1$，所以 $a \in G$。</li>
+        <li>根据拉格朗日定理的推论，群 $G$ 中任何元素 $a$ 的群阶次幂等于单位元，即 $a^{|G|} \equiv e \pmod n$。</li>
+        <li>代入 $|G| = \varphi(n)$ 且单位元为 $1$，即得 $a^{\varphi(n)} \equiv 1 \pmod n$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>数论中的欧拉定理和费马小定理只是抽象代数中拉格朗日定理的特例，这就是代数结构理论统一性和威力的体现。</div>
+    </div>
+  </div>
+
+  <div class="q-box" id="q4-15">
+    <div class="q-header">
+      <span class="q-num">4.15</span>
+      <span class="q-title">群的共轭性</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">证明在任意群中，共轭元素的阶相等（即对任意 $g, x \in G$，$|x| = |gxg^{-1}|$）。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>共轭操作（内部自同构）的幂次传递法则 $(gxg^{-1})^n = g x^n g^{-1}$。</div>
+      <div class="q-steps"><ol>
+        <li>设 $|x| = n$。计算共轭元素的 $n$ 次方：<br>
+        $(gxg^{-1})^n = (gxg^{-1})(gxg^{-1})\dots(gxg^{-1})$</li>
+        <li>相邻的 $g^{-1}$ 和 $g$ 抵消为单位元 $e$：<br>
+        $= g(x)(x)\dots(x)g^{-1} = g x^n g^{-1}$</li>
+        <li>因为 $x^n = e$，代入得：$g e g^{-1} = gg^{-1} = e$。这说明 $|gxg^{-1}|$ 整除 $n$。</li>
+        <li>设 $|gxg^{-1}| = m$，则 $(gxg^{-1})^m = g x^m g^{-1} = e$。</li>
+        <li>两边左乘 $g^{-1}$，右乘 $g$，得到 $x^m = e$。这说明 $n$ 整除 $m$。</li>
+        <li>相互整除，故 $m=n$。</li>
+        <li><b>结论</b>：共轭元素必然具有相同的阶。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>共轭是一种等价关系，它不改变代数元素的"内部结构"（例如矩阵的特征值、置换的循环结构类型、元素的阶）。</div>
+    </div>
+  </div>
+
+</div><!-- /exam-section -->
+
+<!-- 关联知识点 -->
+<div class="cross-ref-section" id="cross-ref">
+  <div class="section-title cross-ref">
+    <div class="icon">🔗</div>
+    <span>关联知识点——跨章节导航</span>
+  </div>
+  <div class="cross-ref-grid">
+    <a href="ch01-algebra-structure.html#closure" class="cross-ref-card">
+      <div class="ref-chapter">→ 第1章：代数结构</div>
+      <div class="ref-topic">运算的封闭性公理</div>
+      <div class="ref-desc">群的第一条公理封闭性在此得到了拓展和完整的结构支撑。</div>
+    </a>
+    <a href="ch02-number-theory.html#euler" class="cross-ref-card">
+      <div class="ref-chapter">→ 第2章：初等数论</div>
+      <div class="ref-topic">欧拉函数与欧拉定理</div>
+      <div class="ref-desc">拉格朗日定理在模乘法群中的直接体现就是欧拉定理和费马小定理。</div>
+    </a>
+    <a href="ch05-ring-field.html#ring-def" class="cross-ref-card">
+      <div class="ref-chapter">→ 第5章：环与域</div>
+      <div class="ref-topic">环作为"群"的升级</div>
+      <div class="ref-desc">环结构是在阿贝尔加法群的基础上，引入了第二个运算（乘法）形成的更高级代数系统。</div>
+    </a>
+    <a href="ch01-algebra-structure.html#permutation" class="cross-ref-card">
+      <div class="ref-chapter">→ 第1章：代数结构</div>
+      <div class="ref-topic">置换的合成</div>
+      <div class="ref-desc">置换群奇偶性和循环分解是基于第1章中引入的函数合成概念的深入研究。</div>
+    </a>
+  </div>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

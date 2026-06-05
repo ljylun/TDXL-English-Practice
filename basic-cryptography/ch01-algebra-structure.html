@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第1章：代数结构与初步概念 | 密码学基础复习</title>
+  <meta name="description" content="代数结构的严密性分析：封闭性公理、置换群与函数合成、代数结构层级体系，含15道深度解析真题。">
+  <link rel="stylesheet" href="review-style-v2.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+</head>
+<body>
+
+<nav class="navbar" id="top-nav">
+  <a href="index-review.html">📚 总目录</a>
+  <a href="ch01-algebra-structure.html" class="active">Ch.1 代数结构</a>
+  <a href="ch02-number-theory.html">Ch.2 初等数论</a>
+  <a href="ch03-polynomial.html">Ch.3 多项式</a>
+  <a href="ch04-group-theory.html">Ch.4 群论</a>
+  <a href="ch05-ring-field.html">Ch.5 环与域</a>
+  <a href="ch06-finite-field.html">Ch.6 有限域</a>
+</nav>
+
+<!-- 章节英雄区 -->
+<div class="chapter-hero">
+  <div class="chapter-num">CHAPTER 01</div>
+  <h1>代数结构与初步概念的严密性分析</h1>
+  <p class="subtitle">封闭性公理是一切代数体系的基石，置换群是对称密码的底层逻辑——密码学从这里出发</p>
+  <div class="hero-stats">
+    <div class="hero-stat-item"><strong>4</strong>核心定义</div>
+    <div class="hero-stat-item"><strong>15</strong>道真题</div>
+    <div class="hero-stat-item"><strong>3</strong>跨章关联</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ===== 理论部分 ===== -->
+<div class="theory-section" id="theory">
+  <div class="section-title theory">
+    <div class="icon">📖</div>
+    <span>理论框架与深度解读</span>
+  </div>
+
+  <!-- 1.1 代数结构公理化定义 -->
+  <h2 class="subsection" id="closure">1.1 集合与代数运算的公理化定义</h2>
+  <div class="theory-content">
+    <p>一个纯粹的代数结构由一个<strong>非空集合 $M$</strong> 以及定义在该集合上的一个或多个代数运算共同构成。在密码学语境下，集合 $M$ 通常代表明文空间、密文空间或密钥空间，而代数运算则代表具体的加密、解密或密钥混合变换。</p>
+  </div>
+
+  <div class="definition-card" id="closure-axiom">
+    <h4>定义 1.1：代数结构（Algebraic Structure）</h4>
+    <p>由非空集合 $M$ 和定义于其上的二元运算 $*$ 构成的数学系统 $(M, *)$，称为一个代数结构。其核心要求是运算的<strong>封闭性（Closure）</strong>：</p>
+    <p style="text-align:center;margin-top:0.5rem;">$$\forall a, b \in M \implies a * b \in M$$</p>
+    <p>若运算结果逃逸出集合 $M$，则该系统彻底崩溃，不再构成合法的代数结构。</p>
+  </div>
+
+  <div class="theory-content">
+    <p>在密码算法设计中，封闭性确保了无论信息经过多少轮迭代加密或非线性代换，产生的数据形态始终处于预定义的有限状态空间内，从而避免状态溢出或未定义行为。</p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>代数结构的层级进阶（从宽到严）</h4>
+    <p>
+      <strong>原群（Magma）</strong>：仅满足封闭性<br>
+      <strong>半群（Semigroup）</strong>：封闭性 + 结合律<br>
+      <strong>幺半群（Monoid）</strong>：半群 + 单位元<br>
+      <strong>群（Group）</strong>：幺半群 + 逆元<br>
+      <strong>阿贝尔群（Abelian Group）</strong>：群 + 交换律
+    </p>
+    <p style="margin-top:0.5rem;"><strong>密码学对应</strong>：DES/AES 的 S 盒代换操作在有限集合上满足封闭性，构成置换结构体。</p>
+  </div>
+
+  <!-- 1.2 置换群 -->
+  <h2 class="subsection" id="permutation">1.2 置换群与函数合成的计算本质</h2>
+  <div class="theory-content">
+    <p>置换（Permutation）是构建对称密钥密码体制的最基本构件。在数学上，有限集 $S$ 上的置换被定义为从 $S$ 到自身的<strong>双射函数（Bijective Function）</strong>，即该映射既是单射又是满射。</p>
+    <p>置换群的计算本质是<strong>函数的合成（Function Composition）</strong>。合成置换 $f \circ g$ 意味着：先应用 $g$，再将结果输入 $f$，即 $(f \circ g)(x) = f(g(x))$。</p>
+  </div>
+
+  <div class="key-axiom">
+    <div class="axiom-label">⚠️ 核心要点</div>
+    <p>函数合成<strong>绝大多数情况下不满足交换律</strong>（即 $f \circ g \neq g \circ f$）。这一非交换性质正是构建非线性密码混淆机制的核心所在。$n$ 元置换群 $S_n$ 共有 $n!$ 个元素。</p>
+  </div>
+
+  <div class="definition-card">
+    <h4>定义 1.2：置换的两行式表示</h4>
+    <p>置换 $\sigma$ 将元素 $1,2,...,n$ 分别映射为 $\sigma(1),\sigma(2),...,\sigma(n)$，记为：
+    $$\sigma = \begin{pmatrix} 1 & 2 & \cdots & n \\ \sigma(1) & \sigma(2) & \cdots & \sigma(n) \end{pmatrix}$$</p>
+  </div>
+
+  <!-- 1.3 同态与同构 -->
+  <h2 class="subsection" id="homomorphism">1.3 同态与同构映射</h2>
+  <div class="theory-content">
+    <p>同态（Homomorphism）是保持运算结构的映射。若 $f: (S_1, \circ) \to (S_2, *)$ 满足 $f(a \circ b) = f(a) * f(b)$，则 $f$ 是同态。若 $f$ 还是双射，则称为<strong>同构（Isomorphism）</strong>，两个同构的代数结构在代数意义上完全等价。</p>
+    <p>密码学应用：同构映射可以将复杂的运算空间映射到更容易计算的空间（如对数映射将乘法转为加法），是 ElGamal 等密码系统的设计思想基础。</p>
+    <p>
+      关联知识点：
+      <a class="kw-link" href="ch04-group-theory.html#group-axioms">群的封闭性与公理体系</a>
+      <a class="kw-link" href="ch05-ring-field.html#ring-def">环同态与理想</a>
+    </p>
+  </div>
+
+  <div class="theorem-card">
+    <h4>同态核（Kernel）定理</h4>
+    <p>群同态 $f: G \to H$ 的核 $\ker(f) = \{g \in G \mid f(g) = e_H\}$ 是 $G$ 的一个<strong>正规子群（Normal Subgroup）</strong>。第一同构定理：$G / \ker(f) \cong \text{Im}(f)$。</p>
+  </div>
+</div>
+
+<!-- ===== 真题解析 ===== -->
+<div class="exam-section" id="exam">
+  <div class="section-title exam">
+    <div class="icon">🧠</div>
+    <span>真题深度解析（共15题）</span>
+  </div>
+
+  <!-- 题1.1 -->
+  <div class="q-box" id="q1-1">
+    <div class="q-header">
+      <span class="q-num">1.1</span>
+      <span class="q-title">封闭性判断——自然数减法</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">判断 $(\mathbb{N}, -)$（自然数集配合减法）是否构成合法的代数结构，给出严密论证。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>封闭性公理——运算结果必须留在原集合内部。</div>
+      <div class="q-keypoint"><span class="label blue">思路</span>反例法：只需找到一对元素使结果超出集合即可否定全称命题。</div>
+      <div class="q-steps"><ol>
+        <li><b>设定反例</b>：取 $a = 3, b = 5$，两者均属于 $\mathbb{N}$。</li>
+        <li><b>执行运算</b>：$a - b = 3 - 5 = -2$。</li>
+        <li><b>验证归属</b>：$-2$ 是负整数，$-2 \notin \mathbb{N}$。</li>
+        <li><b>得出结论</b>：存在 $a, b \in \mathbb{N}$ 使得 $a - b \notin \mathbb{N}$，封闭性公理被破坏，$(\mathbb{N}, -)$ 绝对不构成合法代数结构。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 校验与总结：</strong>反例选取典型准确。不可只验证正例（如 $5-3=2 \in \mathbb{N}$），因为封闭性是对"所有"元素的全称命题，一个反例即可推翻。</div>
+      <div class="q-extend"><strong>🔗 拓展延伸：</strong>整数集 $(\mathbb{Z}, -)$ 则满足封闭性（整数减法仍为整数），但整数集关于减法不构成群（减法不满足结合律：$(1-2)-3 \neq 1-(2-3)$）。</div>
+    </div>
+  </div>
+
+  <!-- 题1.2 -->
+  <div class="q-box" id="q1-2">
+    <div class="q-header">
+      <span class="q-num">1.2</span>
+      <span class="q-title">封闭性正例证明——偶数加法</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">证明偶数集 $2\mathbb{Z} = \{\ldots, -4, -2, 0, 2, 4, \ldots\}$ 关于加法封闭。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>封闭性的一般性证明——使用任意元素而非具体数值。</div>
+      <div class="q-steps"><ol>
+        <li><b>任取元素</b>：设 $a, b \in 2\mathbb{Z}$，则存在整数 $m, n$ 使得 $a = 2m$，$b = 2n$。</li>
+        <li><b>执行运算</b>：$a + b = 2m + 2n = 2(m+n)$。</li>
+        <li><b>验证归属</b>：由于 $m + n \in \mathbb{Z}$，故 $2(m+n)$ 是偶数，$a+b \in 2\mathbb{Z}$。</li>
+        <li><b>结论</b>：对任意 $a, b \in 2\mathbb{Z}$，均有 $a+b \in 2\mathbb{Z}$，封闭性成立。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>这是代数证明的标准模板：设任意元素 → 用集合的代数特征参数化 → 运算后验证结果满足参数化条件。</div>
+    </div>
+  </div>
+
+  <!-- 题1.3 -->
+  <div class="q-box" id="q1-3">
+    <div class="q-header">
+      <span class="q-num">1.3</span>
+      <span class="q-title">结合律验证</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">设实数集上定义运算 $a * b = a + b - ab$，验证其是否满足结合律。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>结合律验证：证明 $(a*b)*c = a*(b*c)$ 对任意实数恒成立。</div>
+      <div class="q-steps"><ol>
+        <li><b>计算左边</b> $(a*b)*c$：令 $x = a+b-ab$，则 $x*c = x+c-xc = (a+b-ab)+c-(a+b-ab)c$，展开得 $a+b+c-ab-ac-bc+abc$。</li>
+        <li><b>计算右边</b> $a*(b*c)$：令 $y = b+c-bc$，则 $a*y = a+y-ay = a+(b+c-bc)-a(b+c-bc)$，展开得 $a+b+c-bc-ab-ac+abc$。</li>
+        <li><b>比较</b>：两式均为 $a+b+c-ab-ac-bc+abc$，完全相等。</li>
+        <li><b>结论</b>：该运算满足结合律。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>结合律证明必须分别展开两侧至最简多项式后比较，不可跳步。易错点在于分配律展开时的符号错误，建议逐项仔细计算。</div>
+    </div>
+  </div>
+
+  <!-- 题1.4 -->
+  <div class="q-box" id="q1-4">
+    <div class="q-header">
+      <span class="q-num">1.4</span>
+      <span class="q-title">单位元求解</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">对运算 $a * b = a + b - ab$，求该系统的单位元 $e$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>单位元方程：$\exists e, \forall a: a*e = e*a = a$（必须对所有 $a$ 恒成立）。</div>
+      <div class="q-steps"><ol>
+        <li><b>建立方程</b>：由 $a * e = a$，代入运算定义得 $a + e - ae = a$。</li>
+        <li><b>化简</b>：消去两边的 $a$，得 $e - ae = 0$，即 $e(1-a) = 0$。</li>
+        <li><b>利用恒等性</b>：$e$ 必须是一个固定常数，该等式须对所有实数 $a$ 成立。取 $a \neq 1$ 时，$(1-a) \neq 0$，要使乘积为零，必须 $e = 0$。</li>
+        <li><b>验证</b>：$a * 0 = a + 0 - 0 = a$ ✓，$0 * a = 0 + a - 0 = a$ ✓。单位元为 $0$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>单位元是全局唯一的固定元素，不依赖于与其运算的对象。从 $e(1-a)=0$ 直接跳到 $e=0$ 需要明确指出"$a$ 的任意性"这个关键推导步骤。</div>
+    </div>
+  </div>
+
+  <!-- 题1.5 -->
+  <div class="q-box" id="q1-5">
+    <div class="q-header">
+      <span class="q-num">1.5</span>
+      <span class="q-title">逆元求解</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">在运算 $a*b=a+b-ab$（单位元 $e=0$）中，求元素 $2$ 的逆元。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>逆元方程：$\exists a^{-1}: a * a^{-1} = e$（代入具体值求解一元方程）。</div>
+      <div class="q-steps"><ol>
+        <li><b>设逆元为 $x$</b>：由逆元定义，需满足 $2 * x = 0$（单位元为0）。</li>
+        <li><b>代入展开</b>：$2 + x - 2x = 0$，即 $2 - x = 0$。</li>
+        <li><b>求解</b>：$x = 2$。元素 $2$ 的逆元是 $2$ 本身（自逆元素）。</li>
+        <li><b>验证</b>：$2*2 = 2+2-4 = 0 = e$ ✓</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>切忌将模运算或普通乘法的逆元概念（倒数 $1/2$，相反数 $-2$）直接套用。一切应从逆元定义 $a*a^{-1}=e$ 出发列方程计算。</div>
+      <div class="q-extend"><strong>🔗 拓展：</strong>每个元素都与自身互逆的群称为对合群（Involution Group），其中每个非单位元元素的阶为2。</div>
+    </div>
+  </div>
+
+  <!-- 题1.6 -->
+  <div class="q-box" id="q1-6">
+    <div class="q-header">
+      <span class="q-num">1.6</span>
+      <span class="q-title">矩阵群的单位元与逆元</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">在二阶可逆实矩阵乘法群 $GL(2,\mathbb{R})$ 中，指明单位元，并求矩阵 $A=\begin{pmatrix}1&2\\0&1\end{pmatrix}$ 的逆元。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>非交换群（矩阵乘法群）的单位元识别与逆矩阵计算。</div>
+      <div class="q-steps"><ol>
+        <li><b>单位元</b>：矩阵乘法群的单位元是二阶单位矩阵 $I = \begin{pmatrix}1&0\\0&1\end{pmatrix}$，满足 $AI = IA = A$。</li>
+        <li><b>计算行列式</b>：$|A| = 1\times1 - 2\times0 = 1 \neq 0$，逆矩阵存在。</li>
+        <li><b>伴随矩阵法</b>：$A^{-1} = \frac{1}{|A|}A^* = 1 \cdot \begin{pmatrix}1&-2\\0&1\end{pmatrix} = \begin{pmatrix}1&-2\\0&1\end{pmatrix}$</li>
+        <li><b>验证</b>：$\begin{pmatrix}1&2\\0&1\end{pmatrix}\begin{pmatrix}1&-2\\0&1\end{pmatrix} = \begin{pmatrix}1&0\\0&1\end{pmatrix}$ ✓</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>矩阵群是非阿贝尔群的典型代表（$AB \neq BA$ 一般）。矩阵求逆不是对每个元素取倒数，而是利用行列式和伴随矩阵公式。</div>
+    </div>
+  </div>
+
+  <!-- 题1.7 -->
+  <div class="q-box" id="q1-7">
+    <div class="q-header">
+      <span class="q-num">1.7</span>
+      <span class="q-title">二元运算总数计算</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">一个有 $4$ 个元素的集合 $S$ 上，能定义多少种不同的二元运算？</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>二元运算是从 $S \times S$ 到 $S$ 的映射，总数 $= |S|^{|S|^2}$。</div>
+      <div class="q-steps"><ol>
+        <li><b>定义域大小</b>：$|S \times S| = 4 \times 4 = 16$ 个有序对。</li>
+        <li><b>每对的选择数</b>：每个有序对的运算结果可以是 $S$ 中 4 个元素之一，有 4 种选择。</li>
+        <li><b>乘法原理</b>：16 次独立选择，总共 $4^{16} = 4294967296$ 种不同运算。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>常见错误是算成 $16^4$——注意底数是"输出集合的元素数"，指数是"输入对的数量"，即 $m^n$ 型映射计数。</div>
+    </div>
+  </div>
+
+  <!-- 题1.8 -->
+  <div class="q-box" id="q1-8">
+    <div class="q-header">
+      <span class="q-num">1.8</span>
+      <span class="q-title">满足交换律的运算总数</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">在4元素集合上，能定义多少种满足交换律的二元运算？</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>交换律使运算表具有对称性，独立位置数 = 对角线 + 上三角。</div>
+      <div class="q-steps"><ol>
+        <li><b>利用对称性约束</b>：交换律要求 $f(a,b) = f(b,a)$，即矩阵关于主对角线对称。</li>
+        <li><b>计算独立位置</b>：对角线上4个 + 上三角 $\binom{4}{2}=6$ 个，共 $4+6=10$ 个独立位置。</li>
+        <li><b>计算运算数</b>：每个位置有4种选择，共 $4^{10} = 1048576$ 种满足交换律的运算。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>易错点是忘记对角线位置（$(a,a)$ 型的自运算），只算了 $C_4^2=6$，缺少了对角线的4个，正确应为 $\frac{n(n+1)}{2} = 10$。</div>
+    </div>
+  </div>
+
+  <!-- 题1.9 -->
+  <div class="q-box" id="q1-9">
+    <div class="q-header">
+      <span class="q-num">1.9</span>
+      <span class="q-title">置换合成计算</span>
+      <span class="difficulty-badge diff-basic">基础</span>
+    </div>
+    <div class="q-question">$S = \{1,2,3,4\}$，置换 $P_1 = \begin{pmatrix}1&2&3&4\\3&1&4&2\end{pmatrix}$，$P_2 = \begin{pmatrix}1&2&3&4\\2&4&1&3\end{pmatrix}$，计算 $P_1 \circ P_2$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>置换合成从右向左：$(P_1 \circ P_2)(x) = P_1(P_2(x))$，先用 $P_2$ 再用 $P_1$。</div>
+      <div class="q-steps"><ol>
+        <li><b>元素1</b>：$P_2(1) = 2$，$P_1(2) = 1$，故 $1 \to 1$。</li>
+        <li><b>元素2</b>：$P_2(2) = 4$，$P_1(4) = 2$，故 $2 \to 2$。</li>
+        <li><b>元素3</b>：$P_2(3) = 1$，$P_1(1) = 3$，故 $3 \to 3$。</li>
+        <li><b>元素4</b>：$P_2(4) = 3$，$P_1(3) = 4$，故 $4 \to 4$。</li>
+        <li><b>结论</b>：$P_1 \circ P_2 = \begin{pmatrix}1&2&3&4\\1&2&3&4\end{pmatrix} = e$（恒等置换）。说明 $P_2$ 是 $P_1$ 的逆。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>计算结果为恒等置换，说明两个置换互为逆元，这在密码学中对应"加密后解密恢复原文"。</div>
+    </div>
+  </div>
+
+  <!-- 题1.10 -->
+  <div class="q-box" id="q1-10">
+    <div class="q-header">
+      <span class="q-num">1.10</span>
+      <span class="q-title">同构映射证明</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">证明映射 $f: (\mathbb{Z}, +) \to (2\mathbb{Z}, +)$，$f(x) = 2x$ 是群同构。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>同构 = 同态 + 双射（单射 + 满射），三部分缺一不可。</div>
+      <div class="q-steps"><ol>
+        <li><b>同态性</b>：$f(a+b) = 2(a+b) = 2a+2b = f(a)+f(b)$ ✓</li>
+        <li><b>单射性</b>：若 $f(a)=f(b)$，则 $2a=2b$，故 $a=b$ ✓</li>
+        <li><b>满射性</b>：任取 $y \in 2\mathbb{Z}$，即 $y=2k$（$k \in \mathbb{Z}$），取 $x=k$ 则 $f(k)=2k=y$ ✓</li>
+        <li><b>结论</b>：$f$ 是双射同态，即群同构。$(\mathbb{Z},+) \cong (2\mathbb{Z},+)$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>三步走模板固定：同态→单射→满射。遗漏"满射"是失分的最常见原因，要明确说明值域可以覆盖整个目标群。</div>
+    </div>
+  </div>
+
+  <!-- 题1.11 -->
+  <div class="q-box" id="q1-11">
+    <div class="q-header">
+      <span class="q-num">1.11</span>
+      <span class="q-title">左右单位元不对称分析</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">分析实数集 $\mathbb{R}$ 上的减法运算是否存在左单位元和右单位元。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>非交换运算下左右单位元的不对称性，单位元必须是固定常量。</div>
+      <div class="q-steps"><ol>
+        <li><b>右单位元</b>：$a - e_R = a \Rightarrow e_R = 0$（对所有 $a$ 成立）。<strong>存在右单位元 $0$</strong>。</li>
+        <li><b>左单位元</b>：$e_L - a = a \Rightarrow e_L = 2a$（依赖 $a$，不是固定常量）。<strong>不存在左单位元</strong>。</li>
+        <li><b>结论</b>：减法有右单位元（$e_R=0$）但无左单位元，故无双侧单位元，减法不构成群。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>单位元是"全局固定"的元素，不能随运算对象变化。$e_L = 2a$ 说明对于不同的 $a$，"需要"不同的左单位元，矛盾于单位元的唯一性和固定性。</div>
+    </div>
+  </div>
+
+  <!-- 题1.12 -->
+  <div class="q-box" id="q1-12">
+    <div class="q-header">
+      <span class="q-num">1.12</span>
+      <span class="q-title">集合对称差的单位元</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">在集合的对称差运算 $A \oplus B = (A-B) \cup (B-A)$ 下，求单位元。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>集合代数中特定运算的单位元求解（布尔环的加法）。</div>
+      <div class="q-steps"><ol>
+        <li><b>建立方程</b>：寻找集合 $E$ 使 $A \oplus E = A$，展开为 $(A-E) \cup (E-A) = A$。</li>
+        <li><b>直觉分析</b>：需要 $E$ 不从 $A$ 中挖走任何元素（$A-E=A$），也不引入新元素（$E-A=\emptyset$），均指向 $E = \emptyset$。</li>
+        <li><b>验证</b>：$A \oplus \emptyset = (A-\emptyset) \cup (\emptyset-A) = A \cup \emptyset = A$ ✓</li>
+        <li><b>结论</b>：对称差运算的单位元是空集 $\emptyset$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>对称差等同于位运算的异或（XOR），对应 $x \oplus 0 = x$。空集相当于加法系统的0，全集相当于乘法系统的1。</div>
+    </div>
+  </div>
+
+  <!-- 题1.13 -->
+  <div class="q-box" id="q1-13">
+    <div class="q-header">
+      <span class="q-num">1.13</span>
+      <span class="q-title">对称差的逆元</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">在对称差运算（单位元为 $\emptyset$）中，任意集合 $A$ 的逆元是什么？</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>基于已知单位元，解逆元方程 $A \oplus X = \emptyset$。</div>
+      <div class="q-steps"><ol>
+        <li><b>建立方程</b>：$A \oplus X = \emptyset$，展开为 $(A-X) \cup (X-A) = \emptyset$。</li>
+        <li><b>约束分析</b>：并集为空 $\iff$ 两个集合均为空，即 $A-X=\emptyset$ 且 $X-A=\emptyset$。</li>
+        <li><b>推导</b>：$A-X=\emptyset \Rightarrow A \subseteq X$；$X-A=\emptyset \Rightarrow X \subseteq A$；故 $X = A$。</li>
+        <li><b>结论</b>：集合 $A$ 的逆元是其本身，$A$ 是自逆元素。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>每个元素都是自逆元，对称差群中每个非单位元素的阶均为2，这使它成为群论中"幂等"概念的完美例证。</div>
+    </div>
+  </div>
+
+  <!-- 题1.14 -->
+  <div class="q-box" id="q1-14">
+    <div class="q-header">
+      <span class="q-num">1.14</span>
+      <span class="q-title">零元（吸收元）证明</span>
+      <span class="difficulty-badge diff-medium">中等</span>
+    </div>
+    <div class="q-question">在全集 $U$ 的幂集系统（交集运算 $\cap$）中，证明 $U$ 是单位元，$\emptyset$ 是零元（吸收元）。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>单位元（透明）与零元（黑洞）的概念区分与证明。</div>
+      <div class="q-steps"><ol>
+        <li><b>单位元 $U$</b>：需证 $A \cap U = A$。由于 $A \subseteq U$，$A$ 与 $U$ 的公共部分就是 $A$ 本身。故 $A \cap U = A$ ✓，$U$ 是单位元。</li>
+        <li><b>零元 $\emptyset$</b>：零元定义：$\forall A, A * z = z * A = z$。需证 $A \cap \emptyset = \emptyset$。由于 $\emptyset$ 不含任何元素，与任何集合无公共元素，故 $A \cap \emptyset = \emptyset$ ✓，$\emptyset$ 是零元。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>单位元是"透明的"（不改变对方），零元是"黑洞"（吞噬一切）。零元不一定有逆元，这是零元与单位元的根本区别。</div>
+    </div>
+  </div>
+
+  <!-- 题1.15 -->
+  <div class="q-box" id="q1-15">
+    <div class="q-header">
+      <span class="q-num">1.15</span>
+      <span class="q-title">同态核（Kernel）计算</span>
+      <span class="difficulty-badge diff-hard">综合</span>
+    </div>
+    <div class="q-question">映射 $f: \mathbb{Z} \to \mathbb{Z}_5$，$f(x) = x \pmod 5$，求同态核 $\ker(f)$。</div>
+    <div class="q-body">
+      <div class="q-keypoint"><span class="label">考点</span>同态核的定义：被映射到目标群单位元的所有元素的集合。</div>
+      <div class="q-keypoint"><span class="label blue">思路</span>先确定目标群的单位元，再解方程 $f(x) = e_H$。</div>
+      <div class="q-steps"><ol>
+        <li><b>目标群单位元</b>：$\mathbb{Z}_5$ 的加法群单位元为 $0$。</li>
+        <li><b>建立方程</b>：$\ker(f) = \{x \in \mathbb{Z} \mid f(x) = 0\} = \{x \mid x \equiv 0 \pmod 5\}$。</li>
+        <li><b>解析集合</b>：$x \equiv 0 \pmod 5$ 即 $x$ 是5的倍数，集合为 $\{\ldots, -10, -5, 0, 5, 10, \ldots\} = 5\mathbb{Z}$。</li>
+        <li><b>代数意义</b>：$\ker(f) = 5\mathbb{Z}$ 是 $\mathbb{Z}$ 的正规子群，由第一同构定理 $\mathbb{Z}/5\mathbb{Z} \cong \mathbb{Z}_5$。</li>
+      </ol></div>
+      <div class="q-analysis"><strong>✅ 总结：</strong>核是一个集合（而非单个元素），含所有"被同态映射拍平"到单位元的原像。"只答0或5"是最典型的失分错误。</div>
+      <div class="q-extend"><strong>🔗 拓展：</strong>同态核与商群的概念直接连接到<a class="kw-link" href="ch04-group-theory.html#normal-subgroup">正规子群与商群</a>，是群论中最深刻的结构定理之一。</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== 关联知识点 ===== -->
+<div class="cross-ref-section" id="cross-ref">
+  <div class="section-title cross-ref">
+    <div class="icon">🔗</div>
+    <span>关联知识点——跨章节导航</span>
+  </div>
+  <div class="cross-ref-grid">
+    <a href="ch04-group-theory.html#group-axioms" class="cross-ref-card">
+      <div class="ref-chapter">→ 第4章：群论</div>
+      <div class="ref-topic">群的四条铁律公理</div>
+      <div class="ref-desc">封闭性是本章核心，在群论中被正式纳入群的四大公理体系之一，与结合律、单位元、逆元并列。</div>
+    </a>
+    <a href="ch04-group-theory.html#permutation" class="cross-ref-card">
+      <div class="ref-chapter">→ 第4章：群论</div>
+      <div class="ref-topic">置换群的深度解剖</div>
+      <div class="ref-desc">本章置换计算的基础，在群论中进一步分析置换的循环式表示、阶的计算和奇偶性判断。</div>
+    </a>
+    <a href="ch05-ring-field.html#ring-def" class="cross-ref-card">
+      <div class="ref-chapter">→ 第5章：环与域</div>
+      <div class="ref-topic">环的双运算体系</div>
+      <div class="ref-desc">代数结构升级：从单一运算（群）到双运算协同系统（环），本章的代数结构是环理论的基础。</div>
+    </a>
+    <a href="ch06-finite-field.html#gf-ops" class="cross-ref-card">
+      <div class="ref-chapter">→ 第6章：有限域</div>
+      <div class="ref-topic">有限域中的封闭运算</div>
+      <div class="ref-desc">封闭性在有限域GF(p^m)中的具体体现：模不可约多项式的运算确保结果始终留在域内。</div>
+    </a>
+  </div>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>
